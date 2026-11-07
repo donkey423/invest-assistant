@@ -15,12 +15,9 @@
 
 左側 **SQL Editor** → New query → 把 [`schema.sql`](schema.sql) 整份貼上 → **Run**。看到 `Success. No rows returned` 就完成了。
 
-## 3. 設定登入連結要回到哪裡
+## 3.（已不需要）登入連結網址
 
-左側 **Authentication** → **URL Configuration**：
-
-- **Site URL** 填你的網站網址，例如 `https://donkey423.github.io/invest-assistant/`
-- **Redirect URLs** 也加上同一個網址
+網站改用 Email＋密碼登入，不必設定 Site URL。
 
 ## 4. 把金鑰放到對的地方
 
@@ -36,10 +33,10 @@ GitHub Secrets 在 repo 的 `Settings` → `Secrets and variables` → `Actions`
 
 ## 5. 第一次登入，然後關掉註冊
 
-1. 用手機打開網站 → 我的資產 → 輸入 Email → 寄登入連結 → **在同一支手機**打開信裡的連結。
+1. 用手機打開網站 → 我的資產 → 輸入 Email 和密碼 → 按「第一次使用：建立帳號」→ 到信箱點確認連結（點完出現打不開的頁面沒關係）→ 回網站按「登入」。
 2. 登入成功後，回 Supabase：**Authentication** → **Sign In / Providers** → 關掉 **Allow new users to sign up**。這樣別人就算找到網站也註冊不了。
 
-> Supabase 內建的寄信服務每小時只能寄少量登入信，測試時別連按太多次。登入會保留在手機上，一般不需要常常重新登入。
+> 登入會保留在手機上，一般不需要常常重新登入；手機瀏覽器也可以幫你記住密碼。
 
 ## 6. 新增持股並算第一次
 

@@ -202,41 +202,47 @@
     saveSession(toSession(await t.json()));
   }
 
+  const AUTH_MSG = {
+    "Invalid login credentials": "Email 或密碼不對",
+    "Email not confirmed": "還沒確認信箱：請到信箱點確認信裡的連結，再回來登入",
+    "User already registered": "這個 Email 已經註冊過了，直接按「登入」",
+    "Signups not allowed for this instance": "目前不開放註冊",
+  };
+  const authErr = (err) => AUTH_MSG[err.message] || err.message;
+
+  // 用 Email＋密碼登入：手機瀏覽器可以記住密碼，也不必設定登入連結要回到哪個網址
   function showLogin(msg = "") {
     root.innerHTML = `<section class="card a-login">
       <h2>登入看我的資產</h2>
-      <p class="muted">持股只有你登入後看得到。輸入 Email，我們會寄登入連結給你（不用密碼）。</p>
+      <p class="muted">持股只有你登入後看得到。</p>
       <form id="a-login-form" class="a-form">
         <label>Email<input type="email" name="email" required autocomplete="email" inputmode="email"></label>
-        <button class="a-btn primary" type="submit">寄登入連結</button>
-      </form>
-      <form id="a-code-form" class="a-form" hidden>
-        <p>已寄出。請在<b>這支手機</b>打開信裡的連結；如果信裡有 6 位數驗證碼，也可以直接輸入：</p>
-        <label>驗證碼<input name="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6,8}"></label>
-        <button class="a-btn primary" type="submit">登入</button>
+        <label>密碼<input type="password" name="password" required minlength="8" autocomplete="current-password"></label>
+        <button class="a-btn primary" type="submit" data-mode="login">登入</button>
+        <button class="a-btn" type="submit" data-mode="signup">第一次使用：用這組 Email 和密碼建立帳號</button>
       </form>
       <p class="a-msg" id="a-login-msg">${esc(msg)}</p>
     </section>`;
-    let email = "";
     const msgEl = document.getElementById("a-login-msg");
-    document.getElementById("a-login-form").addEventListener("submit", async (e) => {
+    const form = document.getElementById("a-login-form");
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      email = e.target.email.value.trim();
-      msgEl.textContent = "寄送中…";
+      const mode = e.submitter?.dataset.mode || "login";
+      const email = form.email.value.trim(), password = form.password.value;
+      if (password.length < 8) { msgEl.textContent = "密碼至少 8 個字"; return; }
+      msgEl.textContent = mode === "signup" ? "建立帳號中…" : "登入中…";
       try {
-        const back = encodeURIComponent(location.origin + location.pathname);
-        await api(`/auth/v1/otp?redirect_to=${back}`, { method: "POST", auth: false, body: { email, create_user: true } });
-        msgEl.textContent = "";
-        document.getElementById("a-code-form").hidden = false;
-      } catch (err) { msgEl.textContent = `寄送失敗：${err.message}`; }
-    });
-    document.getElementById("a-code-form").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      try {
-        const t = await api("/auth/v1/verify", { method: "POST", auth: false, body: { type: "email", email, token: e.target.code.value.trim() } });
+        if (mode === "signup") {
+          const t = await api("/auth/v1/signup", { method: "POST", auth: false, body: { email, password } });
+          if (t?.access_token) { saveSession(toSession(t)); return cloudHome(); }
+          msgEl.textContent = "帳號建好了。請到信箱點確認信裡的連結（點完如果出現打不開的頁面，關掉就好），然後回來按「登入」。";
+          form.querySelector('[data-mode="signup"]').hidden = true;
+          return;
+        }
+        const t = await api("/auth/v1/token?grant_type=password", { method: "POST", auth: false, body: { email, password } });
         saveSession(toSession(t));
         cloudHome();
-      } catch (err) { msgEl.textContent = `驗證失敗：${err.message}`; }
+      } catch (err) { msgEl.textContent = authErr(err); }
     });
   }
 
