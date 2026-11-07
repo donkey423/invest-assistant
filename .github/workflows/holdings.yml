@@ -1,5 +1,5 @@
 # 我的資產：從 Supabase 讀持股（手機新增的），抓行情算損益，結果寫回 Supabase。
-# 需要的 Secrets：SUPABASE_URL、SUPABASE_SECRET_KEY（沒設就跳過，不會失敗）
+# 不需要任何 Secrets：用 GitHub 發的身分證明（OIDC）呼叫 Supabase 的 holdings-sync 函式。
 # 選填：ANTHROPIC_API_KEY（有設才寫 AI 健檢，沒設只算數字）
 name: 我的資產
 on:
@@ -9,30 +9,19 @@ on:
   workflow_dispatch:          # 手機上可以從 GitHub App 的 Actions 手動執行
 permissions:
   contents: read
+  id-token: write             # 讓這個 workflow 能拿到 GitHub 的身分證明
 concurrency: { group: holdings, cancel-in-progress: false }
 jobs:
   compute:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
-      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-      SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+      SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}   # 選填，有設就直接連資料庫
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
       CLAUDE_MODEL: ${{ vars.CLAUDE_MODEL || 'claude-opus-5-5' }}
     steps:
-      - name: 檢查設定
-        id: cfg
-        run: |
-          if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_SECRET_KEY" ]; then
-            echo "::notice::還沒設定 SUPABASE_URL / SUPABASE_SECRET_KEY，跳過"
-            echo "skip=1" >> "$GITHUB_OUTPUT"
-          fi
       - uses: actions/checkout@v4
-        if: steps.cfg.outputs.skip != '1'
       - uses: actions/setup-python@v5
-        if: steps.cfg.outputs.skip != '1'
         with: { python-version: "3.12", cache: pip }
       - run: pip install -r requirements.txt
-        if: steps.cfg.outputs.skip != '1'
       - run: python -m holdings --supabase
-        if: steps.cfg.outputs.skip != '1'

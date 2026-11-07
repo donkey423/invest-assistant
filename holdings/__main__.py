@@ -132,8 +132,8 @@ def main() -> None:
     if not use_ai and not args.no_ai:
         log.info("沒有 ANTHROPIC_API_KEY，這次只算數字")
     if args.supabase:
-        from .store import SupabaseStore
-        results = build_store(SupabaseStore.from_env(), use_ai=use_ai)
+        from .store import store_from_env
+        results = build_store(store_from_env(config.SUPABASE_URL), use_ai=use_ai)
         if results and all(isinstance(r, str) for r in results.values()):
             raise SystemExit("所有使用者都計算失敗")
     else:

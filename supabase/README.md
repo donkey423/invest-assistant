@@ -19,17 +19,11 @@
 
 網站改用 Email＋密碼登入，不必設定 Site URL。
 
-## 4. 把金鑰放到對的地方
+## 4. 金鑰（大多已幫你設好）
 
-左側 **Project Settings** → **API Keys**（與 **Data API** 頁的 Project URL）：
-
-| 拿什麼 | 放哪裡 |
-|---|---|
-| Project URL（`https://xxxx.supabase.co`） | `site/supabase-config.js` 的 `url`，以及 GitHub Secret `SUPABASE_URL` |
-| Publishable key（`sb_publishable_` 開頭） | `site/supabase-config.js` 的 `key`（公開沒關係） |
-| Secret key（`sb_secret_` 開頭） | **只放** GitHub Secret `SUPABASE_SECRET_KEY`，絕對不要放進網站或 commit |
-
-GitHub Secrets 在 repo 的 `Settings` → `Secrets and variables` → `Actions` → `New repository secret`。改好 `site/supabase-config.js` 後 commit 推上去，網站就會切換成登入模式。
+- `site/supabase-config.js` 已填入專案網址與公開金鑰（公開沒關係）。
+- 每天自動計算**不需要** Secret key：`holdings.yml` 用 GitHub 發的身分證明呼叫 Supabase 上的 `holdings-sync` 函式（見 `supabase/functions/holdings-sync/`），只有這個 repo main 分支上的這個 workflow 能讀寫。
+- 如果你仍想用 Secret key，可在 GitHub Secrets 加 `SUPABASE_SECRET_KEY`，程式會優先使用它。
 
 ## 5. 第一次登入，然後關掉註冊
 

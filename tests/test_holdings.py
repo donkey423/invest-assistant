@@ -176,3 +176,31 @@ def test_supabase_keeps_previous_analysis_without_ai():
 
 def test_supabase_empty_db_is_fine():
     assert build_store(SupabaseStore("https://x", "k", opener=FakeOpener([])), history_fn=fake_history) == {}
+
+
+def test_edge_store_uses_actions_oidc(monkeypatch):
+    from holdings.store import EdgeStore, store_from_env
+    calls = []
+
+    def opener(req, timeout=None):
+        calls.append(req)
+        if "idtoken" in req.full_url:
+            assert "audience=invest-assistant-holdings" in req.full_url
+            return io.BytesIO(b'{"value": "OIDC"}')
+        if req.get_method() == "GET":
+            return io.BytesIO(json.dumps({"holdings": [_row("u1", symbol="2330", shares=1, avg_cost=1)],
+                                          "transactions": [], "reports": []}).encode())
+        return io.BytesIO(b'{"saved": 1}')
+
+    monkeypatch.delenv("SUPABASE_SECRET_KEY", raising=False)
+    monkeypatch.delenv("SUPABASE_URL", raising=False)
+    monkeypatch.setenv("ACTIONS_ID_TOKEN_REQUEST_URL", "https://gh/idtoken?x=1")
+    monkeypatch.setenv("ACTIONS_ID_TOKEN_REQUEST_TOKEN", "rt")
+    store = EdgeStore.from_actions("https://p.supabase.co/", opener=opener)
+    res = build_store(store, history_fn=fake_history, use_ai=False, now=NOW)
+    assert res["u1"]["totals"]["positions"] == 1
+    assert calls[1].full_url == "https://p.supabase.co/functions/v1/holdings-sync"
+    assert calls[1].headers["Authorization"] == "Bearer OIDC"
+    assert calls[-1].get_method() == "POST" and json.loads(calls[-1].data)["user_id"] == "u1"
+    monkeypatch.setenv("SUPABASE_SECRET_KEY", "sb_secret_x")
+    assert isinstance(store_from_env("https://p.supabase.co"), SupabaseStore)

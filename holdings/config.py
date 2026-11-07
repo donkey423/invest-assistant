@@ -33,3 +33,6 @@ SCENARIOS = [
 
 # 持有未滿這麼多天不算年化報酬（太短的年化數字會誤導）
 MIN_DAYS_FOR_ANNUALIZED = 90
+
+# 你的 Supabase 專案網址（公開資訊）。排程用它找到 holdings-sync 函式
+SUPABASE_URL = "https://xpwucjblikcyvxjilkna.supabase.co"
