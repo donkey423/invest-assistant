@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.venv/
+.env
+.pytest_cache/
+# 個人持股資料不上傳
+private/
+site/data/private/

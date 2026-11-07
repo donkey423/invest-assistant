@@ -1,0 +1,37 @@
+# 價格／事件警報：交易時段每 30 分鐘檢查一次，有觸發才推 LINE / Email。
+# 需要的 Secrets：LINE_CHANNEL_TOKEN、LINE_TO（可省略＝推給所有好友）、
+#               EMAIL_SENDER、EMAIL_PASSWORD、EMAIL_RECEIVERS（都可省略＝不寄信）
+name: alerts
+on:
+  schedule:
+    - cron: "*/30 1-5 * * 1-5"    # 台股 09:00–13:59（台灣時間）
+    - cron: "*/30 13-20 * * 1-5"  # 美股 21:00–04:59（台灣時間）
+  workflow_dispatch:
+concurrency: { group: alerts, cancel-in-progress: false }
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -r requirements.txt
+      # 去重狀態（今天通知過哪些）用快取保存，不必 commit 回 repo
+      - uses: actions/cache/restore@v4
+        with:
+          path: .alerts_state.json
+          key: alerts-state-${{ github.run_id }}
+          restore-keys: alerts-state-
+      - run: python -m alerts check --state .alerts_state.json
+        env:
+          LINE_CHANNEL_TOKEN: ${{ secrets.LINE_CHANNEL_TOKEN }}
+          LINE_TO: ${{ secrets.LINE_TO }}
+          EMAIL_SENDER: ${{ secrets.EMAIL_SENDER }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          EMAIL_RECEIVERS: ${{ secrets.EMAIL_RECEIVERS }}
+      - uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: .alerts_state.json
+          key: alerts-state-${{ github.run_id }}

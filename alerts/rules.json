@@ -1,0 +1,16 @@
+{
+  "_說明": "價格警報：above/below 是價位、move_pct 是單日漲跌幅絕對值門檻、new_52w 是創一年新高/新低。事件警報：新聞標題含任一關鍵字就通知。改完存檔即可，不需要改程式。",
+  "price": [
+    {"symbol": "^TWII", "name": "台股加權指數", "move_pct": 2, "new_52w": true},
+    {"symbol": "2330.TW", "name": "台積電", "move_pct": 3, "new_52w": true},
+    {"symbol": "NVDA", "name": "NVIDIA", "move_pct": 5, "new_52w": true},
+    {"symbol": "TSM", "name": "台積電 ADR", "move_pct": 4},
+    {"symbol": "^IXIC", "name": "那斯達克", "move_pct": 2.5}
+  ],
+  "events": [
+    {"name": "Fed 利率", "keywords": ["FOMC", "升息", "降息", "Fed 利率", "鮑爾"]},
+    {"name": "台灣央行", "keywords": ["央行理監事", "央行升息", "央行降息"]},
+    {"name": "台積電重大訊息", "keywords": ["台積電 法說", "台積電 營收", "台積電 股利"]},
+    {"name": "地緣政治", "keywords": ["台海", "制裁", "關稅", "出口管制"]}
+  ]
+}
