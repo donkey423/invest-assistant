@@ -1,6 +1,11 @@
 # 我的持股明細與分析
 
-持股是私人資料，**只在你自己的電腦上跑**：輸入放在 `private/`，輸出放在 `site/data/private/`，兩個都在 `.gitignore` 裡，不會被推上 GitHub，也不會出現在公開的 GitHub Pages 網站。
+有兩種用法：
+
+- **手機也能新增（建議）**：持股存在你的 Supabase，網站登入後可新增、修改，每天自動計算。設定步驟見 [supabase/README.md](../supabase/README.md)。
+- **只在自己電腦用**：下面的 CSV 方式。
+
+CSV 方式的持股**只在你自己的電腦上跑**：輸入放在 `private/`，輸出放在 `site/data/private/`，兩個都在 `.gitignore` 裡，不會被推上 GitHub，也不會出現在公開的 GitHub Pages 網站。
 
 ## 使用方式
 

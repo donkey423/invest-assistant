@@ -113,3 +113,66 @@ def test_prompt_includes_briefing_points(tmp_path):
                 tx_csv=tmp_path / "none.csv", now=NOW)
     p = build_prompt(rep, {"summary": {"points": [{"tag": "企業", "title": "台積電營收創高", "summary": "AI 需求"}]}})
     assert "台積電營收創高" in p and "未填" not in p
+
+
+# ---------- Supabase 模式 ----------
+import io  # noqa: E402
+
+from holdings.__main__ import build_store  # noqa: E402
+from holdings.store import SupabaseStore  # noqa: E402
+
+
+class FakeOpener:
+    """模擬 Supabase REST API。"""
+
+    def __init__(self, holdings, transactions=(), reports=()):
+        self.data = {"holdings": list(holdings), "transactions": list(transactions), "holdings_reports": list(reports)}
+        self.requests = []
+
+    def __call__(self, req, timeout=None):
+        self.requests.append(req)
+        table = req.full_url.split("/rest/v1/")[1].split("?")[0]
+        body = b""
+        if req.get_method() == "GET":
+            body = json.dumps(self.data[table]).encode()
+        else:
+            self.data[table] = json.loads(req.data)
+        return io.BytesIO(body)
+
+
+def _row(uid, **kw):
+    return {"id": 1, "user_id": uid, "name": "", "account": "", "sector": "", "thesis": "",
+            "buy_date": None, "fx_cost": None, **kw}
+
+
+def test_supabase_store_builds_report_per_user():
+    op = FakeOpener([
+        _row("u1", symbol="2330", shares=1000, avg_cost=850, buy_date="2025-03-12"),
+        _row("u1", symbol="NVDA", shares="50", avg_cost="120", fx_cost=30),
+        _row("u1", symbol="BAD", shares=None, avg_cost=1),
+        _row("u2", symbol="0050", shares=10, avg_cost=150),
+    ], transactions=[{"user_id": "u1", "date": "2026-07-17", "symbol": "2330", "type": "dividend", "amount": 4500}])
+    store = SupabaseStore("https://x.supabase.co/", "sb_secret_abc", opener=op)
+    res = build_store(store, history_fn=fake_history, use_ai=False, briefing_json=Path("none.json"), now=NOW)
+    assert set(res) == {"u1", "u2"}
+    assert res["u1"]["totals"]["positions"] == 2 and res["u1"]["totals"]["dividends_twd"] == 4500
+    assert any("BAD" in w for w in res["u1"]["warnings"])
+    saved = op.data["holdings_reports"]
+    assert saved[0]["user_id"] == "u2" and saved[0]["report"]["totals"]["positions"] == 1
+    post = op.requests[-1]
+    assert post.get_method() == "POST" and "on_conflict=user_id" in post.full_url
+    assert post.headers["Apikey"] == "sb_secret_abc" and "Authorization" not in post.headers
+    assert "merge-duplicates" in post.headers["Prefer"]
+
+
+def test_supabase_keeps_previous_analysis_without_ai():
+    prev = {"analysis": {"headline": "上次的分析", "generated_at": "2026-11-06T08:00"}}
+    op = FakeOpener([_row("u1", symbol="2330", shares=1, avg_cost=1)], reports=[{"user_id": "u1", "report": prev}])
+    store = SupabaseStore("https://x.supabase.co", "eyJlegacy", opener=op)
+    res = build_store(store, history_fn=fake_history, use_ai=False, now=NOW)
+    assert res["u1"]["analysis"]["headline"] == "上次的分析"
+    assert op.requests[0].headers["Authorization"] == "Bearer eyJlegacy"
+
+
+def test_supabase_empty_db_is_fine():
+    assert build_store(SupabaseStore("https://x", "k", opener=FakeOpener([])), history_fn=fake_history) == {}

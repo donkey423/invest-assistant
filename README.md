@@ -34,7 +34,8 @@ cd site && python -m http.server 8000   # 打開 http://localhost:8000
 
 ## 我的資產（持股明細與分析）
 
-持股資料只放在你自己電腦的 `private/`，不會上傳 GitHub。設定與使用方式見 [holdings/README.md](holdings/README.md)。
+想在手機上新增持股：持股存在你自己的 Supabase（有登入保護），設定步驟見 [supabase/README.md](supabase/README.md)。
+只想在自己電腦用：持股放在 `private/`，不會上傳 GitHub，見 [holdings/README.md](holdings/README.md)。
 
 ## 不用 API key：用你的 Claude 帳號寫 AI 摘要
 
