@@ -47,3 +47,8 @@ cd site && python -m http.server 8000   # 打開 http://localhost:8000
 ```bash
 python -m pytest
 ```
+
+## 免費模式
+
+沒有設定 ANTHROPIC_API_KEY 時，早報不呼叫 Claude：行情數字照常計算，重點改成各新聞來源輪流挑的最新標題（附原文連結），完全不花錢。設定 key 之後就自動改回 AI 摘要。
+

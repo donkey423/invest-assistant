@@ -99,3 +99,15 @@ def test_email_renders():
     subject, body = render_email({"generated_at": "2026-11-07T07:30+08:00", "market": market,
                                   "summary": {"headline": "<測試>", "market_comment": "", "points": []}})
     assert "&lt;測試&gt;" in body and subject.startswith("投資早報 2026-11-07")
+
+
+def test_free_mode_without_api_key(monkeypatch):
+    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    market = build_market(config, history_fn=fake_history)
+    news = fetch_news(config, parse=fake_parse)
+    s = summarize(market, news)
+    assert s["model"].startswith("免費模式")
+    assert "台股加權指數" in s["headline"]
+    assert 0 < len(s["points"]) <= 6
+    assert all(p["sources"][0]["url"] == next(n["url"] for n in news if n["title"] == p["title"]) for p in s["points"])
+    assert len({p["sources"][0]["source"] for p in s["points"]}) > 1

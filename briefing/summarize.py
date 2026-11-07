@@ -62,7 +62,46 @@ def build_prompt(market: dict, news: list[dict]) -> str:
     return "\n".join(lines)
 
 
+FREE_MODEL = "免費模式（未使用 AI，由程式整理）"
+
+
+def _brief_pct(q: dict) -> str:
+    if "error" in q or q.get("change_pct") is None:
+        return f"{q['name']} 無資料"
+    return f"{q['name']} {q['last']:,}（{q['change_pct']:+}%）"
+
+
+def simple_summary(market: dict, news: list[dict], max_points: int = 6) -> dict:
+    """不呼叫 AI 的早報：數字直接照列，重點改成各來源輪流挑的最新新聞標題。"""
+    taiex = market["taiex"]
+    headline = (f"台股加權指數 {taiex['last']:,}，今日 {taiex['change_pct']:+}%"
+                if "error" not in taiex else "今日台股資料暫缺")
+    by_sym = {q["symbol"]: q for q in market["global"]}
+    us = [by_sym[s] for s in ("^GSPC", "^IXIC") if s in by_sym]
+    comment = "；".join(_brief_pct(q) for q in [taiex, *us]) + "。"
+
+    # 各新聞來源輪流取一則，避免全部來自同一個來源
+    queues: dict[str, list[dict]] = {}
+    for n in news:
+        queues.setdefault(n["source"], []).append(n)
+    picked: list[dict] = []
+    while len(picked) < max_points and any(queues.values()):
+        for q in queues.values():
+            if q and len(picked) < max_points:
+                picked.append(q.pop(0))
+
+    points = [{
+        "tag": "市場",
+        "title": n["title"],
+        "summary": n["summary"] or n["source"],
+        "sources": [{"title": n["title"], "url": n["url"], "source": n["source"]}],
+    } for n in picked]
+    return {"headline": headline, "market_comment": comment, "points": points, "model": FREE_MODEL}
+
+
 def summarize(market: dict, news: list[dict], client=None) -> dict:
+    if client is None and not os.environ.get("ANTHROPIC_API_KEY"):
+        return simple_summary(market, news)
     if client is None:
         import anthropic
         client = anthropic.Anthropic()
