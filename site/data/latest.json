@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-07T11:54+08:00",
+ "generated_at": "2026-11-07T12:07+08:00",
  "market": {
   "taiex": {
    "symbol": "^TWII",
@@ -675,7 +675,78 @@
    {
     "symbol": "^N225",
     "name": "日經 225",
-    "error": "抓不到資料"
+    "as_of": "2026-11-06",
+    "last": 57434.77,
+    "change": -3643.13,
+    "change_pct": -5.96,
+    "chg_5d": -11.17,
+    "chg_1m": -18.74,
+    "chg_1y": 18.08,
+    "high_52w": 72366.34,
+    "low_52w": 48537.7,
+    "range_pos": 0.373,
+    "spark": [
+     65606.71,
+     66970.22,
+     67524.06,
+     68308.59,
+     68713.8,
+     69220.25,
+     67460.73,
+     65326.42,
+     66216.79,
+     66016.36,
+     65528.09,
+     65856.43,
+     66262.16,
+     66131.98,
+     66405.56,
+     66311.93,
+     66215.34,
+     64325.64,
+     64214.48,
+     65020.94,
+     66399.84,
+     65269.33,
+     65142.78,
+     65270.95,
+     64011.34,
+     63492.99,
+     63484.1,
+     63923.0,
+     64136.25,
+     65018.95,
+     65513.99,
+     66364.2,
+     65877.62,
+     65481.27,
+     66753.72,
+     68956.72,
+     68309.46,
+     69946.86,
+     70683.98,
+     70035.71,
+     69042.11,
+     69030.92,
+     67777.52,
+     67744.29,
+     64425.95,
+     65324.29,
+     64916.7,
+     64075.42,
+     64621.24,
+     62907.84,
+     62693.16,
+     62189.65,
+     63268.37,
+     63954.19,
+     64659.47,
+     63290.11,
+     63081.86,
+     62188.63,
+     61077.9,
+     57434.77
+    ]
    },
    {
     "symbol": "^KS11",
@@ -1594,78 +1665,7 @@
    {
     "symbol": "AVGO",
     "name": "博通",
-    "as_of": "2026-11-06",
-    "last": 293.69,
-    "change": 2.16,
-    "change_pct": 0.74,
-    "chg_5d": -9.93,
-    "chg_1m": -18.45,
-    "chg_1y": -17.41,
-    "high_52w": 481.57,
-    "low_52w": 291.53,
-    "range_pos": 0.011,
-    "spark": [
-     392.99,
-     392.43,
-     380.0,
-     362.48,
-     364.03,
-     368.45,
-     358.76,
-     356.74,
-     355.59,
-     371.54,
-     368.79,
-     370.34,
-     369.68,
-     367.24,
-     357.16,
-     357.9,
-     368.56,
-     364.38,
-     360.83,
-     361.99,
-     344.72,
-     339.27,
-     339.51,
-     347.3,
-     357.61,
-     362.66,
-     364.54,
-     354.99,
-     350.36,
-     352.81,
-     349.57,
-     355.1,
-     351.19,
-     343.64,
-     355.14,
-     362.51,
-     375.81,
-     376.51,
-     360.14,
-     361.54,
-     354.73,
-     357.31,
-     346.25,
-     344.33,
-     328.75,
-     334.59,
-     334.37,
-     337.8,
-     323.24,
-     321.68,
-     329.17,
-     342.33,
-     351.81,
-     345.0,
-     326.08,
-     322.23,
-     332.13,
-     325.48,
-     291.53,
-     293.69
-    ]
+    "error": "抓不到資料"
    },
    {
     "symbol": "TSM",
@@ -1827,13 +1827,25 @@
   "points": [
    {
     "tag": "市場",
-    "title": "台股1個月狂瀉1萬2千點！工程師「四貸同堂」崩潰送醫 - Yahoo股市",
+    "title": "台股重挫股民哀號睡公園…IKEA小編神回應「推1物」：銅板價還能重複用 - UDN",
     "summary": "Google 新聞 台股",
     "sources": [
      {
-      "title": "台股1個月狂瀉1萬2千點！工程師「四貸同堂」崩潰送醫 - Yahoo股市",
-      "url": "https://news.google.com/rss/articles/CBMi0wJBVV95cUxNb1FoQXZHc3B4c2JvRDFoUlYwOEZab1VTY1V1UFRoV2Z6ZzE3amYxVDVHS3A4S0R0LU1Ba094bl8yajhkUWdLNXFqY2NWWElqNTExWVFpSmZFaWdnT3Zva1VxT0RnRkNNWHF0VjVic3VwS2RhcG4xR2wyeVFGSDJ6bGlDbjVuSXd6UmNUX0h4RWNmZWhjdlhGQ1VmaHh4UVZCbjk2N2JXeDZkUnllUjUwN3UydGdycXNrTlJUcE4zQ0FxRnBRMHF1OVVfZGdITUhIc25wbU9BUWZDcXlSYlNKbVpzUnI4V3NsNTRhcmxuOEdQVWxPenBJcU1nWU1LZTRrOGNTTFRlS1QtVXRkeE00aW1xVDM5MHNTZGQyb1BRR2VnUjVyY1hkTk83VWNYYWU3a0g5UUdEMzAycGNiaXJVazZZTG1IZEFSYTduYWdQanRId0k?oc=5",
+      "title": "台股重挫股民哀號睡公園…IKEA小編神回應「推1物」：銅板價還能重複用 - UDN",
+      "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE9zbTJ0YmRTdWNNeUZtUDJSQUVyb0RrSk1pc3pEMGppd1NKOE1iOVFVNTVhbVBDSXI4NE1hZWFBMi1uNXpEX2NpWjlxUFdKUHIwcEHSAVdBVV95cUxOclhjR2FFUUljS0RFQ0ZVMVFmREgxcl9vYzRMYUxqOFJPbHBucUFrZ0c5N1R5eExWS0NBN05QSFJ5MXY0VnphTjRkenduR3padDI2WlpyR28?oc=5",
       "source": "Google 新聞 台股"
+     }
+    ]
+   },
+   {
+    "tag": "市場",
+    "title": "美國非農暴增16.5萬人！Fed升息機率衝8成 台股失守4萬再添利率變數 - Yahoo股市",
+    "summary": "Google 新聞 Fed",
+    "sources": [
+     {
+      "title": "美國非農暴增16.5萬人！Fed升息機率衝8成 台股失守4萬再添利率變數 - Yahoo股市",
+      "url": "https://news.google.com/rss/articles/CBMilgNBVV95cUxPRU1ERWdrU09zWDhkeHRLT2FuZTB3RE5XdFJ6ZlVzS1BHclVGeWtmelM2NWNYLTBTZUJEMEpRSGVpbENCUW5saGVrTUVQV2g2UmJ4NV9yZ2RmbUF6NW43RFNVcDNZYUZxLV9CTEhfbC1RNm4tUlhiemNvY2h3ZDNhMTNsVzZKclp6SWpYd2kxZVVJa0IzS2Y0YmNueFA0MFpBSjJqaG01UUFaRkdYNHZRSDZNM2tiY3FTcUZxbzZvMEtJbE1jNC11cGJUWTFSV05tZEp2bmRac3EyQkM1Sk9oY3gzeS1ValpSdVl2XzZkYU45SFhOdzY1YURCRGk3RmpOLXktTU9KVUsxRUwwT1JrVzBYcnpxUnhORHNXamFNU093N1o2cmR4NXlEdjRCTkpuMy1XRm50cmRxVmhrUlNpYWRmcjMtdHdkZllqdFNLYVdVaTBrd3VTTC1JOER1dXRvM1F3ZWE5MXR6N0lLbDJuanFlMmxBMS1jMktzWVNnVDJtSzVJeXhKZnJBOHMzUm5wZlRKY2RR?oc=5",
+      "source": "Google 新聞 Fed"
      }
     ]
    },
@@ -1875,24 +1887,12 @@
    },
    {
     "tag": "市場",
-    "title": "美國10月非農超預期！Fed下月升息機率約八成 美債殖利率為何衝高又回落？ - 鉅亨網",
-    "summary": "Google 新聞 Fed",
-    "sources": [
-     {
-      "title": "美國10月非農超預期！Fed下月升息機率約八成 美債殖利率為何衝高又回落？ - 鉅亨網",
-      "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTFBMZHQ2VmJMVG44Q1p1X3RtU0w2d3VLVVJ0UFU1cjJZSGpBZVdCdmZoQ0ZOQlpnTUltbWplWDZ6ZWRPdWlYeW1yaDNXWUtJUk0?oc=5",
-      "source": "Google 新聞 Fed"
-     }
-    ]
-   },
-   {
-    "tag": "市場",
-    "title": "台股跌回39K市場哀鴻遍野 賴清德盯盤、金管會射救市5箭 | CTWANT - LINE TODAY",
+    "title": "台股1個月狂瀉1萬2千點！工程師「四貸同堂」崩潰送醫 - Yahoo股市",
     "summary": "Google 新聞 台股",
     "sources": [
      {
-      "title": "台股跌回39K市場哀鴻遍野 賴清德盯盤、金管會射救市5箭 | CTWANT - LINE TODAY",
-      "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE5IR2FoNmtuOXZBQno5ck1TaFR2bjBMVm5SQWxDTTlkM0JGaDQyLVpkODBrcjRRUl9ncGhaTXNQZV9IRjUwUHFSbDRIUm8zbF9TNktmYnlB?oc=5",
+      "title": "台股1個月狂瀉1萬2千點！工程師「四貸同堂」崩潰送醫 - Yahoo股市",
+      "url": "https://news.google.com/rss/articles/CBMi0wJBVV95cUxNb1FoQXZHc3B4c2JvRDFoUlYwOEZab1VTY1V1UFRoV2Z6ZzE3amYxVDVHS3A4S0R0LU1Ba094bl8yajhkUWdLNXFqY2NWWElqNTExWVFpSmZFaWdnT3Zva1VxT0RnRkNNWHF0VjVic3VwS2RhcG4xR2wyeVFGSDJ6bGlDbjVuSXd6UmNUX0h4RWNmZWhjdlhGQ1VmaHh4UVZCbjk2N2JXeDZkUnllUjUwN3UydGdycXNrTlJUcE4zQ0FxRnBRMHF1OVVfZGdITUhIc25wbU9BUWZDcXlSYlNKbVpzUnI4V3NsNTRhcmxuOEdQVWxPenBJcU1nWU1LZTRrOGNTTFRlS1QtVXRkeE00aW1xVDM5MHNTZGQyb1BRR2VnUjVyY1hkTk83VWNYYWU3a0g5UUdEMzAycGNiaXJVazZZTG1IZEFSYTduYWdQanRId0k?oc=5",
       "source": "Google 新聞 台股"
      }
     ]
