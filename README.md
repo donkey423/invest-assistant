@@ -36,6 +36,10 @@ cd site && python -m http.server 8000   # 打開 http://localhost:8000
 
 持股資料只放在你自己電腦的 `private/`，不會上傳 GitHub。設定與使用方式見 [holdings/README.md](holdings/README.md)。
 
+## 不用 API key：用你的 Claude 帳號寫 AI 摘要
+
+每個交易日 07:47（台灣時間）有一個雲端排程用你的 Claude 帳號讀當天資料，寫出 `site/data/ai_summary.json` 推回這個 repo，接著 GitHub Actions 自動重新產生早報並寄 Email。工作步驟寫在 [docs/ai-routine.md](docs/ai-routine.md)。這份摘要會用到當天傍晚，22:00 那次回到免費模式。有設 `ANTHROPIC_API_KEY` 的話，以 API 為準。
+
 ## 原則
 
 - 數字一律由程式計算，Claude 只負責挑重點與寫說明，每則重點都附原文連結。

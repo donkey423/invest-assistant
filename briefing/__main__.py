@@ -15,7 +15,8 @@ from . import config
 from .market import build_market
 from .news import fetch_news
 from .notify import send_email
-from .summarize import summarize
+from .summarize import FREE_MODEL, summarize
+from .ai_file import NEWS_FILE, load_fresh
 
 TW = timezone(timedelta(hours=8))
 log = logging.getLogger("briefing")
@@ -41,7 +42,15 @@ def build(out_dir: Path, market_fn=build_market, news_fn=fetch_news, summary_fn=
         summary = previous.get("summary")
         warnings.append(f"AI 摘要這次失敗，顯示的是上一份（{previous.get('generated_at', '無')}）")
 
+    # 沒有 API key 時，改用雲端排程以你的 Claude 帳號寫好的摘要（夠新才用）
+    if summary is None or summary.get("model") == FREE_MODEL:
+        account_summary = load_fresh(out_dir)
+        if account_summary:
+            summary = account_summary
+
     now = datetime.now(TW)
+    # 給雲端排程寫 AI 摘要用的新聞清單
+    (out_dir / NEWS_FILE).write_text(json.dumps(news, ensure_ascii=False, indent=1), "utf-8")
     brief = {
         "generated_at": now.isoformat(timespec="minutes"),
         "market": market,

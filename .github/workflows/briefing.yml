@@ -3,10 +3,14 @@ name: 產生早報
 on:
   schedule:
     # GitHub 用 UTC。台灣時間 = UTC+8，週一到週五
-    - cron: '30 23 * * 0-4'   # 07:30 早報（會寄 Email）
+    - cron: '30 23 * * 0-4'   # 07:30 早報
     - cron: '0 4 * * 1-5'     # 12:00
     - cron: '0 6 * * 1-5'     # 14:00 台股收盤後
     - cron: '0 14 * * 1-5'    # 22:00 美股開盤前後
+  # 雲端排程用你的 Claude 帳號寫好 AI 摘要並推上來時，重新產生早報並寄 Email
+  push:
+    branches: [main]
+    paths: ['site/data/ai_summary.json']
   workflow_dispatch:
     inputs:
       notify:
@@ -48,7 +52,7 @@ jobs:
           LINE_CHANNEL_TOKEN: ${{ secrets.LINE_CHANNEL_TOKEN }}
           LINE_TO: ${{ secrets.LINE_TO }}
         run: |
-          if [ "${{ github.event.schedule }}" = "30 23 * * 0-4" ] || [ "${{ inputs.notify }}" = "true" ]; then
+          if [ "${{ github.event_name }}" = "push" ] || [ "${{ inputs.notify }}" = "true" ]; then
             python -m briefing --notify
           else
             python -m briefing
@@ -60,6 +64,7 @@ jobs:
           git config user.email "briefing-bot@users.noreply.github.com"
           git add site/data
           git diff --cached --quiet || git commit -m "早報 $(TZ=Asia/Taipei date '+%Y-%m-%d %H:%M')"
+          git pull --rebase origin main
           git push
 
       - uses: actions/upload-pages-artifact@v3
