@@ -17,6 +17,7 @@ from .news import fetch_news
 from .notify import send_email
 from .summarize import FREE_MODEL, summarize
 from .ai_file import NEWS_FILE, load_fresh
+from .world import build_world
 
 TW = timezone(timedelta(hours=8))
 log = logging.getLogger("briefing")
@@ -55,6 +56,7 @@ def build(out_dir: Path, market_fn=build_market, news_fn=fetch_news, summary_fn=
         "generated_at": now.isoformat(timespec="minutes"),
         "market": market,
         "summary": summary,
+        "world": build_world(config, news, summary),
         "news_count": len(news),
         "warnings": warnings,
     }

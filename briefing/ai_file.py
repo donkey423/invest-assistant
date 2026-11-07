@@ -31,6 +31,9 @@ def validate(data: dict, news_urls: set[str] | None = None) -> list[str]:
         datetime.fromisoformat(data.get("written_at", ""))
     except ValueError:
         problems.append("written_at 不是 ISO 時間，例如 2026-11-09T07:50+08:00")
+    for key in ("world_headline", "ai_headline"):  # 選填
+        if key in data and not (isinstance(data[key], str) and data[key].strip()):
+            problems.append(f"{key} 若有填，要是一句話")
     points = data.get("points") or []
     if not 3 <= len(points) <= 6:
         problems.append(f"points 要 3 到 6 則，現在是 {len(points)} 則")
@@ -69,6 +72,7 @@ def load_fresh(out_dir: Path, now: datetime | None = None) -> dict | None:
     if not timedelta(0) <= now - written <= MAX_AGE:
         return None
     return {
+        **{k: data[k] for k in ("world_headline", "ai_headline") if data.get(k)},
         "headline": data["headline"],
         "market_comment": data["market_comment"],
         "points": data["points"],

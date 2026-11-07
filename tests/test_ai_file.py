@@ -67,3 +67,12 @@ def test_check_cli(tmp_path, capsys):
     assert main(["x", "check", str(tmp_path)]) == 0
     (tmp_path / FILE_NAME).write_text(json.dumps(_ai(n=1), ensure_ascii=False), "utf-8")
     assert main(["x", "check", str(tmp_path)]) == 1
+
+
+def test_optional_world_and_ai_headlines(tmp_path):
+    data = {**_ai(), "world_headline": "中東衝突升溫", "ai_headline": "AI 晶片管制"}
+    assert validate(data) == []
+    assert validate({**_ai(), "world_headline": ""})
+    (tmp_path / FILE_NAME).write_text(json.dumps(data, ensure_ascii=False), "utf-8")
+    s = load_fresh(tmp_path, now=NOW)
+    assert s["world_headline"] == "中東衝突升溫" and s["ai_headline"] == "AI 晶片管制"

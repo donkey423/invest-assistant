@@ -29,7 +29,7 @@ cd site && python -m http.server 8000   # 打開 http://localhost:8000
 
 ## 改追蹤的項目
 
-指數、AI 股清單、新聞來源都在 `briefing/config.py`。
+指數、AI 股清單、新聞來源，以及「今天的世界」地圖的地區與關鍵字（`REGIONS`、`RISK_WORDS`、`AI_WORDS`）都在 `briefing/config.py`。
 價格／事件警報的條件在 `alerts/rules.json`，說明見 [alerts/README.md](alerts/README.md)。
 
 ## 我的資產（持股明細與分析）

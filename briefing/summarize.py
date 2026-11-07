@@ -82,7 +82,7 @@ def simple_summary(market: dict, news: list[dict], max_points: int = 6) -> dict:
 
     # 各新聞來源輪流取一則，避免全部來自同一個來源
     queues: dict[str, list[dict]] = {}
-    for n in news:
+    for n in [n for n in news if n.get("topic", "finance") == "finance"] or news:
         queues.setdefault(n["source"], []).append(n)
     picked: list[dict] = []
     while len(picked) < max_points and any(queues.values()):

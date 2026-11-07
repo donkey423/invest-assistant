@@ -53,13 +53,28 @@
 </main>
 
 <main id="tab-world" class="tabpane" hidden>
-  <section class="card placeholder">全球局勢地圖、AI 世界動態在第二階段加入。</section>
+  <div class="grid">
+    <section class="card world">
+      <div class="card-head"><h2>全球局勢</h2><span id="world-count" class="muted"></span></div>
+      <p class="oneline"><b>局勢一句話</b><span id="world-headline">載入中…</span></p>
+      <div id="world-map" class="worldmap"></div>
+      <div id="region-chips" class="chips" role="tablist" aria-label="選擇地區"></div>
+      <ul id="region-news" class="newslist"></ul>
+    </section>
+
+    <section class="card">
+      <div class="card-head"><h2>AI 世界動態</h2><span class="muted">點標題看原文</span></div>
+      <p class="oneline"><b>動態一句話</b><span id="ai-headline"></span></p>
+      <ul id="ai-news" class="newslist"></ul>
+    </section>
+  </div>
 </main>
 <main id="tab-assets" class="tabpane" hidden>
   <section class="card placeholder">持股明細與分析在第三階段加入。</section>
 </main>
 
 <footer class="muted">資料來源：Yahoo Finance、各新聞 RSS。AI 整理僅供參考，不構成投資建議。<span id="model"></span></footer>
+<script src="worldmap.js"></script>
 <script src="app.js"></script>
 <script src="assets.js" defer></script>
 </body>

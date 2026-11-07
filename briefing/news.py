@@ -36,6 +36,7 @@ def parse_feed(feed: dict, parsed, per_feed: int) -> list[dict]:
             "summary": "" if summary.startswith(title[:20]) else summary,
             "url": e.get("link", ""),
             "source": feed["name"],
+            "topic": feed.get("topic", "finance"),
             "published": _published(e),
         })
     return items
@@ -55,10 +56,25 @@ def fetch_news(cfg, parse=None) -> list[dict]:
             log.warning("抓不到 %s：%s", feed["name"], e)
             continue
         for it in items:
-            key = re.sub(r"\W", "", it["title"])[:40]
+            # Google 新聞標題結尾是「 - 媒體名」，同一則新聞不同媒體只留一則
+            key = re.sub(r"\W", "", re.sub(r"\s+-\s+[^-]+$", "", it["title"]))[:40]
             if key in seen:
                 continue
             seen.add(key)
             out.append(it)
-    out.sort(key=lambda i: i["published"] or "", reverse=True)
-    return out[: cfg.NEWS_MAX_TOTAL]
+    return _cap(out, cfg.NEWS_MAX_TOTAL)
+
+
+def _cap(items: list[dict], total: int) -> list[dict]:
+    """新的排前面，總數不超過 total；財經、國際、AI 各保留一份，不會被其中一類擠光。"""
+    newest = lambda i: i["published"] or ""  # noqa: E731
+    items = sorted(items, key=newest, reverse=True)
+    topics = sorted({i["topic"] for i in items})
+    share = total // max(1, len(topics))
+    keep, rest = [], []
+    for t in topics:
+        group = [i for i in items if i["topic"] == t]
+        keep += group[:share]
+        rest += group[share:]
+    keep += sorted(rest, key=newest, reverse=True)[: total - len(keep)]
+    return sorted(keep, key=newest, reverse=True)

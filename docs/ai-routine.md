@@ -11,6 +11,8 @@
   "written_at": "2026-11-09T07:50+08:00",
   "headline": "今天市場的一句話總結，60 字內",
   "market_comment": "台股與美股的 2 到 3 句說明",
+  "world_headline": "全球局勢一句話，60 字內（看 topic 為 world 的新聞）",
+  "ai_headline": "AI 世界動態一句話，60 字內（看 topic 為 ai 的新聞）",
   "points": [
     {
       "tag": "央行｜經濟數據｜企業｜產業｜地緣政治｜市場 其中一個",
@@ -26,7 +28,7 @@
    - 繁體中文、台灣用語，簡潔中立，不給買賣建議。
    - 只根據這兩個檔案的內容寫，不要上網找資料，也不要自己補數字或事件。
    - 引用漲跌幅時照抄 `latest.json` 的數字。
-   - `points` 3 到 6 則，最重要的放前面；`sources` 必須照抄 `news.json` 裡的 title、url、source。
+   - `points` 3 到 6 則，以 topic 為 finance 的新聞為主，最重要的放前面；`sources` 必須照抄 `news.json` 裡的 title、url、source。
    - `written_at` 用現在的台灣時間。
 4. 執行 `python -m briefing.ai_file check site/data`，有 ✗ 就修到全部通過。
 5. 只提交 `site/data/ai_summary.json`，訊息用 `AI 摘要 YYYY-MM-DD`，推到 `main`。

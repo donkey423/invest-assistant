@@ -2,12 +2,14 @@
   --bg: #f4f2ee; --card: #ffffff; --ink: #1d1d1f; --muted: #76767c; --line: #e4e1db;
   --up: #d23f3f; --down: #1f9d55; --flat: #76767c; --accent: #4b47d6; --accent-tint: #eceafe;
   --warn-bg: #fff4d6; --warn-ink: #7a5600;
+  --land: #e6e2da; --risk: #e07b00;
 }
 @media (prefers-color-scheme: dark) {
   :root {
     --bg: #141416; --card: #1e1e22; --ink: #ececf0; --muted: #9a9aa3; --line: #2e2e34;
     --up: #ff6b6b; --down: #3ecf7c; --accent: #8f8cff; --accent-tint: #2a2950;
     --warn-bg: #3a3014; --warn-ink: #f2d27a;
+    --land: #34343c; --risk: #ffa53a;
   }
 }
 * { box-sizing: border-box; }
@@ -60,6 +62,29 @@ h2 { font-size: 15px; margin: 0; }
 .points a:hover { text-decoration: underline; }
 .points .sum { color: var(--muted); }
 footer { padding: 0 16px 24px; }
+/* 今天的世界 */
+.oneline { margin: 0 0 10px; padding: 8px 10px; background: var(--bg); border-radius: 8px; }
+.oneline b { color: var(--accent); margin-right: 6px; }
+.worldmap svg { width: 100%; height: auto; display: block; }
+.worldmap .land { fill: var(--land); }
+.bubble { cursor: pointer; outline: none; }
+.bubble circle { fill: var(--accent); fill-opacity: .55; stroke: var(--card); stroke-width: .8; }
+.bubble.risk circle { stroke: var(--risk); stroke-width: 1.6; }
+.bubble.selected circle { fill-opacity: .95; }
+.bubble:focus-visible circle { stroke: var(--ink); }
+.bubble .pin { fill: var(--ink); stroke: none; fill-opacity: 1; }
+.bubble .leader { stroke: var(--muted); stroke-width: .5; }
+.bubble text { font-size: 8.5px; text-anchor: middle; fill: var(--ink); paint-order: stroke; stroke: var(--card); stroke-width: 2px; stroke-linejoin: round; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 8px; }
+.chip { border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 999px; padding: 6px 12px; font: inherit; cursor: pointer; min-height: 34px; }
+.chip.risk { border-color: var(--risk); }
+.chip.selected { background: var(--accent); border-color: var(--accent); color: #fff; }
+.newslist { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.newslist li { display: flex; gap: 8px; align-items: baseline; }
+.newslist .tag { grid-row: auto; }
+.newslist a { color: var(--ink); text-decoration: none; font-weight: 600; }
+.newslist a:hover { text-decoration: underline; }
+.riskline { color: var(--risk); font-size: 13px; }
 @media (max-width: 520px) {
   .grid { grid-template-columns: 1fr; }
   .minis { grid-template-columns: repeat(2, 1fr); }

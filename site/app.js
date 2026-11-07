@@ -67,6 +67,56 @@
     if (s.model) $("model").textContent = `｜摘要模型 ${s.model}`;
   }
 
+
+  // 今天的世界：地圖泡泡大小 = 新聞則數，橘色外框 = 標題有衝突、關稅等字眼
+  const MAP_VIEW = { x: 50, y: 0, w: 300, h: 122 };  // 經度 -130~170、去掉最南端，手機上字比較大
+  const ago = (iso) => {
+    if (!iso) return "";
+    const m = Math.round((Date.now() - new Date(iso)) / 60000);
+    return m < 60 ? `${Math.max(1, m)} 分鐘前` : m < 1440 ? `${Math.round(m / 60)} 小時前` : `${Math.round(m / 1440)} 天前`;
+  };
+  const newsItem = (n, tag) => `<li>${tag ? `<span class="tag">${esc(tag)}</span>` : ""}<div><a href="${esc(n.url)}" target="_blank" rel="noopener">${esc(n.title)}</a>
+      <div class="muted">${esc(n.source)}${n.published ? ` · ${ago(n.published)}` : ""}</div></div></li>`;
+
+  function renderWorld(w) {
+    if (!w) { $("world-headline").textContent = "這一份早報還沒有國際資料，下次更新後就會出現。"; return; }
+    $("world-headline").textContent = w.headline;
+    $("world-count").textContent = `依 ${w.news_count} 則新聞標題統計${w.by_ai ? "｜一句話由 Claude 撰寫" : ""}`;
+    $("ai-headline").textContent = w.ai_headline;
+    $("ai-news").innerHTML = (w.ai_news || []).map((n) => newsItem(n, n.category)).join("") || `<li class="muted">今天沒有 AI 相關新聞</li>`;
+
+    const map = window.WORLD_MAP, regs = (w.regions || []).filter((r) => r.count > 0);
+    const max = Math.max(1, ...regs.map((r) => r.count));
+    const xy = (lon, lat) => [lon + 180, map.top - lat];
+    const bubbles = regs.map((r) => {
+      const [px, py] = xy(r.lon, r.lat), [bx, by] = xy(r.label_lon, r.label_lat);
+      const rad = 4 + 6 * Math.sqrt(r.count / max);
+      const leader = px !== bx || py !== by ? `<line x1="${px}" y1="${py}" x2="${bx}" y2="${by}" class="leader"/><circle cx="${px}" cy="${py}" r="1.3" class="pin"/>` : "";
+      return `<g class="bubble${r.risk.length ? " risk" : ""}" data-region="${r.id}" tabindex="0" role="button" aria-label="${esc(r.name)} ${r.count} 則">
+        ${leader}<circle cx="${bx}" cy="${by}" r="${rad.toFixed(1)}"/>
+        <text x="${bx}" y="${(by + rad + 8).toFixed(1)}">${esc(r.name)} ${r.count}</text></g>`;
+    }).join("");
+    $("world-map").innerHTML = `<svg viewBox="${MAP_VIEW.x} ${MAP_VIEW.y} ${MAP_VIEW.w} ${MAP_VIEW.h}" role="img" aria-label="各地區新聞熱度地圖">
+      <path d="${map.land}" class="land"/>${bubbles}</svg>`;
+
+    const sorted = [...regs].sort((a, b) => b.count - a.count);
+    $("region-chips").innerHTML = sorted.map((r) => `<button class="chip${r.risk.length ? " risk" : ""}" data-region="${r.id}" role="tab">${esc(r.name)} <b>${r.count}</b></button>`).join("");
+    const select = (id) => {
+      const r = regs.find((x) => x.id === id);
+      if (!r) return;
+      document.querySelectorAll("[data-region]").forEach((el) => el.classList.toggle("selected", el.dataset.region === id));
+      const warn = r.risk.length ? `<li class="riskline">留意：標題提到「${r.risk.map(esc).join("、")}」</li>` : "";
+      $("region-news").innerHTML = warn + r.news.map((n) => newsItem(n)).join("");
+    };
+    document.querySelectorAll("#tab-world [data-region]").forEach((el) => {
+      el.addEventListener("click", () => select(el.dataset.region));
+      el.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(el.dataset.region); } });
+    });
+    const first = sorted.find((r) => r.risk.length) || sorted[0];
+    if (first) select(first.id);
+    else $("region-news").innerHTML = `<li class="muted">今天沒有抓到國際新聞</li>`;
+  }
+
   function render(b) {
     const t = new Date(b.generated_at);
     $("updated").textContent = `更新於 ${t.toLocaleString("zh-TW", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit", hour12: false })}`;
@@ -75,6 +125,7 @@
     renderGlobal(b.market.global);
     renderAI(b.market.ai_stocks, b.market.ai_benchmark);
     renderSummary(b.summary);
+    renderWorld(b.world);
   }
 
   // 分頁切換，記住上次看的頁籤
