@@ -5,6 +5,8 @@
 - **警報**：`.github/workflows/alerts.yml` 在台股與美股交易時段每 30 分鐘跑 `python -m alerts check`，條件成立才推播。
   同一檔同一種條件一天只通知一次；同一則新聞只通知一次；第一次執行不會把舊新聞全推出來。
 
+> 盤中想要準時檢查，可以改在 Oracle Cloud 主機上跑，步驟見 [deploy/oracle/README.md](../deploy/oracle/README.md)。
+
 ## 改警報條件
 只改 `alerts/rules.json`：
 - `above` / `below`：漲破／跌破某價位

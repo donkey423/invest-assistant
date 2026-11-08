@@ -10,6 +10,8 @@ on:
 concurrency: { group: alerts, cancel-in-progress: false }
 jobs:
   check:
+    # 盤中警報改在 Oracle 主機跑之後，到 repo 的 Variables 設 ALERTS_RUNNER=oracle，這裡就停掉，避免重複寄信
+    if: github.event_name == 'workflow_dispatch' || vars.ALERTS_RUNNER != 'oracle'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
