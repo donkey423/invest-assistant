@@ -17,8 +17,8 @@
     if (!values || values.length < 2) return "";
     const lo = Math.min(...values), hi = Math.max(...values), span = hi - lo || 1;
     const d = values.map((v, i) => `${i ? "L" : "M"}${((i / (values.length - 1)) * w).toFixed(1)} ${(h - 2 - ((v - lo) / span) * (h - 4)).toFixed(1)}`).join("");
-    const color = `var(--${values.at(-1) >= values[0] ? "up" : "down"})`;
-    return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true"><path d="${d}L${w} ${h}L0 ${h}Z" fill="${color}" opacity="0.12"/><path d="${d}" fill="none" stroke="${color}" stroke-width="1.5" vector-effect="non-scaling-stroke"/></svg>`;
+    const color = `var(--${values.at(-1) >= values[0] ? "up" : "down"}-mark)`;
+    return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true"><path d="${d}L${w} ${h}L0 ${h}Z" fill="${color}" opacity="0.12"/><path d="${d}" fill="none" stroke="${color}" stroke-width="2" vector-effect="non-scaling-stroke"/></svg>`;
   }
 
   function bars(groups, label = (g) => esc(g.key)) {
