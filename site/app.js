@@ -8,15 +8,45 @@
   const pct = (v) => (v == null ? "—" : `${v > 0 ? "+" : ""}${v.toFixed(2)}%`);
   const num = (v) => (v == null ? "—" : v.toLocaleString("zh-TW", { maximumFractionDigits: 2 }));
 
-  // 走勢圖：依整段漲跌決定紅綠，底下填一層淡色
+  // 走勢圖：依整段漲跌決定紅綠（圖表用 --up-mark/--down-mark），底下填一層由上往下變淡的顏色
+  let gid = 0;
   function sparkline(values, { w = 300, h = 60, fill = true } = {}) {
     if (!values || values.length < 2) return "";
     const lo = Math.min(...values), hi = Math.max(...values), span = hi - lo || 1;
     const pts = values.map((v, i) => [(i / (values.length - 1)) * w, h - 2 - ((v - lo) / span) * (h - 4)]);
     const d = pts.map((p, i) => `${i ? "L" : "M"}${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join("");
-    const color = `var(--${values.at(-1) >= values[0] ? "up" : "down"})`;
-    const area = fill ? `<path d="${d}L${w} ${h}L0 ${h}Z" fill="${color}" opacity="0.12"/>` : "";
-    return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true">${area}<path d="${d}" fill="none" stroke="${color}" stroke-width="1.5" vector-effect="non-scaling-stroke"/></svg>`;
+    const color = `var(--${values.at(-1) >= values[0] ? "up" : "down"}-mark)`;
+    const id = `sg${++gid}`;
+    const area = fill ? `<defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${color}" stop-opacity=".22"/><stop offset="1" stop-color="${color}" stop-opacity="0"/></linearGradient></defs><path d="${d}L${w} ${h}L0 ${h}Z" fill="url(#${id})"/>` : "";
+    const sw = h <= 24 ? 1.5 : 2;
+    return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true">${area}<path d="${d}" fill="none" stroke="${color}" stroke-width="${sw}" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>`;
+  }
+
+  // 大走勢圖的互動層：滑過（或手指拖過）顯示日期與點位，終點畫一個點
+  function hoverChart(el, values, dates, fmt) {
+    if (!values || values.length < 2) return;
+    const lo = Math.min(...values), hi = Math.max(...values), span = hi - lo || 1;
+    const up = values.at(-1) >= values[0];
+    el.insertAdjacentHTML("beforeend", `<span class="end-dot" style="left:100%;top:${((2 + (hi - values.at(-1)) / span * (el.clientHeight - 4)) / el.clientHeight * 100).toFixed(1)}%;background:var(--${up ? "up" : "down"}-mark)"></span><span class="hover-line" hidden></span><span class="hover-dot" hidden></span><div class="hover-tip" hidden></div>`);
+    const line = el.querySelector(".hover-line"), dot = el.querySelector(".hover-dot"), tip = el.querySelector(".hover-tip");
+    const show = (ev) => {
+      const r = el.getBoundingClientRect();
+      const x = Math.max(0, Math.min(r.width, ev.clientX - r.left));
+      const i = Math.round((x / r.width) * (values.length - 1));
+      const px = (i / (values.length - 1)) * r.width;
+      const py = 2 + ((hi - values[i]) / span) * (r.height - 4);
+      line.style.left = `${px}px`; dot.style.left = `${px}px`; dot.style.top = `${py}px`;
+      const chg = ((values[i] / values[0]) - 1) * 100;
+      tip.innerHTML = `<div class="muted">${esc(dates?.[i] || "")}</div><b>${fmt(values[i])}</b> <span class="${cls(chg)}">${pct(chg)}</span>`;
+      tip.style.left = x > r.width / 2 ? "" : `${px + 10}px`;
+      tip.style.right = x > r.width / 2 ? `${r.width - px + 10}px` : "";
+      line.hidden = dot.hidden = tip.hidden = false;
+    };
+    const hide = () => { line.hidden = dot.hidden = tip.hidden = true; };
+    el.addEventListener("pointermove", show);
+    el.addEventListener("pointerdown", show);
+    el.addEventListener("pointerleave", hide);
+    el.title = "";
   }
 
   function renderTaiex(t) {
@@ -27,6 +57,7 @@
     $("taiex-periods").innerHTML = [["今天", t.change_pct], ["近五天", t.chg_5d], ["近一個月", t.chg_1m], ["近一年", t.chg_1y]]
       .map(([k, v]) => `<div><span class="muted">${k}</span><b class="${cls(v)}">${pct(v)}</b></div>`).join("");
     $("taiex-chart").innerHTML = sparkline(t.spark, { w: 600, h: 150 });
+    hoverChart($("taiex-chart"), t.spark, t.spark_dates, num);
     const pos = Math.max(0, Math.min(1, t.range_pos));
     $("range-dot").style.left = `${pos * 100}%`;
     $("range-lo").textContent = `一年最低 ${num(t.low_52w)}`;
