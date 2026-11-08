@@ -32,6 +32,15 @@ cd site && python -m http.server 8000   # 打開 http://localhost:8000
 指數、AI 股清單、新聞來源，以及「今天的世界」地圖的地區與關鍵字（`REGIONS`、`RISK_WORDS`、`AI_WORDS`）都在 `briefing/config.py`。
 價格／事件警報的條件在 `alerts/rules.json`，說明見 [alerts/README.md](alerts/README.md)。
 
+## 產業鏈訊號
+
+網頁的「產業鏈訊號」分頁把每條產業鏈（目前是記憶體、AI 伺服器）分三層看：① 上游訊號（報價、韓國出口、雲端資本支出）② 台股月營收（證交所／櫃買中心 openapi，免費）③ 代表股股價已經反映多少。燈號只說明基本面往哪個方向變，不是買賣建議。
+
+- 鏈與代表股：`briefing/config.py` 的 `CHAINS`；月營收提醒額外追蹤的台股：`REVENUE_WATCH`
+- 上游訊號（每月手動更新一次，附來源與日期）：`site/data/chain_inputs.json`
+- 月營收提醒（由負轉正、明顯加速／放緩、創新高）：`alerts/rules.json` 的 `revenue`，跟著警報排程推 LINE／Email
+- AI 早報的「主題推理」由雲端排程寫在 `ai_summary.json` 的 `themes`，規則見 [docs/ai-routine.md](docs/ai-routine.md)
+
 ## 我的資產（持股明細與分析）
 
 想在手機上新增持股：持股存在你自己的 Supabase（有登入保護），設定步驟見 [supabase/README.md](supabase/README.md)。

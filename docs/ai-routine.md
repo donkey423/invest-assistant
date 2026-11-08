@@ -20,6 +20,17 @@
       "summary": "一句話說明對市場的意義，50 字內",
       "sources": [{"title": "新聞標題", "url": "新聞連結", "source": "來源名稱"}]
     }
+  ],
+  "themes": [
+    {
+      "title": "今天的訊號，20 字內",
+      "chain": "受影響的產業鏈，例如 記憶體、AI 伺服器、半導體設備",
+      "reasoning": "訊號 → 傳導 → 可能受惠或受害的環節，80 字內",
+      "watch": ["觀察標的，例如 南亞科 2408", "美光 MU"],
+      "counter": "反方理由：什麼情況下這個推理會錯，50 字內",
+      "priced_in": "是否已反映：照抄 latest.json 裡相關代表股或鏈的近一個月漲幅來判斷，50 字內",
+      "sources": [{"title": "新聞標題", "url": "新聞連結", "source": "來源名稱"}]
+    }
   ]
 }
 ```
@@ -30,6 +41,11 @@
    - 引用漲跌幅時照抄 `latest.json` 的數字。
    - `points` 3 到 6 則，以 topic 為 finance 的新聞為主，最重要的放前面；`sources` 必須照抄 `news.json` 裡的 title、url、source。
    - `written_at` 用現在的台灣時間。
+   - `themes`（主題推理）0 到 3 則：只在今天的新聞真的出現產業鏈線索時才寫（例如雲端大廠上修資本支出、記憶體報價、韓國出口、重要公司月營收或法說），沒有就省略整個欄位，不要硬湊。
+     - 先看 `latest.json` 的 `signals.chains`（每條鏈的燈號、上游訊號、月營收、代表股近一個月漲幅與 `price.note`）與 `signals.revenue_events`，再對照新聞。
+     - `watch` 寫 2 到 5 檔，台股附代號；優先用 `signals.chains[].stocks` 裡的公司。
+     - `counter` 與 `priced_in` 一定要寫。代表股近一個月已大漲時要明講「可能已反映」。
+     - 這是推理，不是買賣建議：不要寫「買進」「賣出」「目標價」。`sources` 必須照抄 `news.json`。
 4. 執行 `python -m briefing.ai_file check site/data`，有 ✗ 就修到全部通過。
 5. 只提交 `site/data/ai_summary.json`，訊息用 `AI 摘要 YYYY-MM-DD`，推到 `main`。
    推上去後 GitHub Actions 會自動重新產生早報、寄 Email、更新網站。

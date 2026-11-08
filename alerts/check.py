@@ -3,6 +3,7 @@
 去重規則：
 - 價格條件：同一檔、同一種條件，一個台灣日期只通知一次。
 - 事件：同一則新聞（依連結或標題）只通知一次。
+- 月營收：同一檔、同一個月、同一種變化只通知一次。
 """
 from __future__ import annotations
 
@@ -35,8 +36,13 @@ def _news_key(n: dict) -> str:
     return n.get("url") or re.sub(r"\W", "", n.get("title", ""))[:40]
 
 
-def evaluate(rules: dict, quotes: dict[str, dict], news: list[dict], state: dict, today: str):
+REVENUE_KINDS = ("turn_up", "turn_down", "accel", "decel", "new_high")
+
+
+def evaluate(rules: dict, quotes: dict[str, dict], news: list[dict], state: dict, today: str,
+             revenue_events: list[dict] | None = None):
     """quotes: {symbol: compute_quote 的結果}；today: 台灣日期 YYYY-MM-DD。
+    revenue_events: 早報 signals.revenue_events（月營收變化，每檔每月每種只通知一次）。
 
     回傳 (alerts, new_state)。alerts 每筆 {kind, key, text, url?}。
     """
@@ -75,7 +81,20 @@ def evaluate(rules: dict, quotes: dict[str, dict], news: list[dict], state: dict
             alerts.append({"kind": "event", "key": nk, "url": n.get("url"),
                            "text": f"🗞 [{ev['name']}] {title}（{n.get('source', '')}）"})
 
-    return alerts, {"fired": fired, "seen_news": seen[-STATE_KEEP_EVENTS:]}
+    seen_rev = list(state.get("seen_revenue", []))
+    rev_rule = rules.get("revenue") or {}
+    if rev_rule.get("enabled"):
+        kinds = set(rev_rule.get("kinds") or REVENUE_KINDS)
+        seen_rev_set = set(seen_rev)
+        for ev in revenue_events or []:
+            if ev["kind"] not in kinds or ev["key"] in seen_rev_set:
+                continue
+            seen_rev_set.add(ev["key"])
+            seen_rev.append(ev["key"])
+            alerts.append({"kind": "revenue", "key": ev["key"], "text": ev["text"]})
+
+    return alerts, {"fired": fired, "seen_news": seen[-STATE_KEEP_EVENTS:],
+                    "seen_revenue": seen_rev[-STATE_KEEP_EVENTS:]}
 
 
 def prime_news(news: list[dict], state: dict) -> dict:

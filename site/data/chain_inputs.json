@@ -1,0 +1,28 @@
+{
+ "_說明": "產業鏈的上游訊號，手動更新（約每月一次）。trend 填 up（轉強）、flat（持平）、down（轉弱）或 null（還沒更新）。每項都要附來源連結與資料時間。",
+ "memory": [
+  {
+   "name": "DRAM 合約價",
+   "trend": null,
+   "value": "待更新：看 TrendForce 每月底的合約價",
+   "as_of": "",
+   "url": "https://www.trendforce.com/research/category/DRAM"
+  },
+  {
+   "name": "韓國半導體出口",
+   "trend": "up",
+   "value": "10 月前 20 天總出口約翻倍，晶片帶動",
+   "as_of": "2026-10-21",
+   "url": "https://www.koreatimes.co.kr/economy/20261021/exports-double-in-1st-20-days-of-october-on-robust-chip-shipments"
+  }
+ ],
+ "ai_server": [
+  {
+   "name": "雲端大廠資本支出",
+   "trend": "up",
+   "value": "2026 年四大雲端合計 AI 支出計畫約 7,000 億美元",
+   "as_of": "2026",
+   "url": "https://finance.yahoo.com/sectors/technology/articles/hyperscalers-hit-700-billion-2026-111243744.html"
+  }
+ ]
+}

@@ -62,8 +62,18 @@ def cmd_brief(args) -> int:
     return 0
 
 
+def load_revenue_events(data_dir: Path) -> list[dict]:
+    """早報算好的月營收變化（site/data/latest.json 的 signals.revenue_events）。"""
+    try:
+        brief = json.loads((data_dir / "latest.json").read_text("utf-8"))
+    except (OSError, ValueError):
+        return []
+    return ((brief.get("signals") or {}).get("revenue_events")) or []
+
+
 def run_check(rules: dict, state_path: Path, now: datetime, quotes_fn=fetch_quotes,
-              news_fn=fetch_news, deliver_fn=deliver, dry_run=False) -> list[dict]:
+              news_fn=fetch_news, deliver_fn=deliver, dry_run=False,
+              data_dir: Path = Path("site/data")) -> list[dict]:
     state = json.loads(state_path.read_text("utf-8")) if state_path.exists() else {}
     symbols = [r["symbol"] for r in rules.get("price", [])]
     quotes = quotes_fn(symbols) if symbols else {}
@@ -76,7 +86,8 @@ def run_check(rules: dict, state_path: Path, now: datetime, quotes_fn=fetch_quot
     if news and not state.get("primed"):
         state = prime_news(news, state)
         log.info("第一次執行：現有 %d 則新聞標為已讀", len(news))
-    alerts, new_state = evaluate(rules, quotes, news, state, now.strftime("%Y-%m-%d"))
+    rev_events = load_revenue_events(data_dir) if (rules.get("revenue") or {}).get("enabled") else []
+    alerts, new_state = evaluate(rules, quotes, news, state, now.strftime("%Y-%m-%d"), rev_events)
     new_state["primed"] = state.get("primed", False) or bool(news)
     new_state["checked_at"] = now.isoformat(timespec="minutes")
 
@@ -98,7 +109,7 @@ def run_check(rules: dict, state_path: Path, now: datetime, quotes_fn=fetch_quot
 
 def cmd_check(args) -> int:
     rules = json.loads(args.rules.read_text("utf-8"))
-    run_check(rules, args.state, datetime.now(TW), dry_run=args.dry_run)
+    run_check(rules, args.state, datetime.now(TW), dry_run=args.dry_run, data_dir=args.data)
     return 0
 
 
@@ -113,6 +124,7 @@ def main(argv=None) -> int:
     c.add_argument("--rules", default=HERE / "rules.json", type=Path)
     c.add_argument("--state", default=Path("site/data/alerts_state.json"), type=Path)
     c.add_argument("--dry-run", action="store_true", help="只印出，不推送也不存狀態")
+    c.add_argument("--data", default=Path("site/data"), type=Path, help="早報資料夾（讀月營收變化）")
     args = ap.parse_args(argv)
     return cmd_brief(args) if args.cmd == "brief" else cmd_check(args)
 

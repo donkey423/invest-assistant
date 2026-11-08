@@ -16,6 +16,7 @@
   <nav class="tabs" role="tablist">
     <button class="tab active" data-tab="brief" role="tab">今日早報</button>
     <button class="tab" data-tab="world" role="tab">今天的世界</button>
+    <button class="tab" data-tab="chains" role="tab">產業鏈訊號</button>
     <button class="tab" data-tab="assets" role="tab">我的資產</button>
   </nav>
 </header>
@@ -63,6 +64,11 @@
       <p id="comment" class="comment"></p>
       <ul id="points" class="points"></ul>
     </section>
+
+    <section class="card theme-card" id="theme-card" hidden>
+      <div class="card-head"><h2>主題推理</h2><span class="muted">AI 推理，不是買賣建議</span></div>
+      <ul id="themes" class="themes"></ul>
+    </section>
   </div>
 </main>
 
@@ -82,6 +88,14 @@
       <ul id="ai-news" class="newslist"></ul>
     </section>
   </div>
+</main>
+<main id="tab-chains" class="tabpane" hidden>
+  <p class="chain-intro muted">上游訊號（報價、出口、資本支出）先動，台股月營收接著確認，最後才是財報。燈號只說明「基本面往哪個方向變」，股價常常提早反映，請一起看「股價已反映多少」。</p>
+  <div id="chains" class="grid chains-grid"></div>
+  <section class="card" id="rev-events-card">
+    <div class="card-head"><h2>本月營收變化</h2><span id="rev-month" class="muted"></span></div>
+    <ul id="rev-events" class="newslist"></ul>
+  </section>
 </main>
 <main id="tab-assets" class="tabpane" hidden>
   <section class="card placeholder">持股明細與分析在第三階段加入。</section>

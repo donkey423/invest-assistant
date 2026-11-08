@@ -110,3 +110,33 @@ GAUGES = [
 # 台股籌碼（證交所）：往回找幾天有資料、保留幾天歷史來算「連幾天買超」
 CHIPS_LOOKBACK_DAYS = 7
 CHIPS_HISTORY_DAYS = 20
+
+# 產業鏈訊號：每條鏈的代表股。tw 的代號同時用來對證交所／櫃買中心的月營收。
+# 股價用 Yahoo（上市 .TW、上櫃 .TWO）；上游訊號（報價、出口、資本支出）放在 site/data/chain_inputs.json，手動更新。
+CHAINS = [
+    {"id": "memory", "name": "記憶體", "bench": "^SOX",
+     "desc": "AI 伺服器要大量 DRAM、HBM 與企業級 SSD；報價、韓國出口先動，台廠月營收接著反映。",
+     "stocks": [
+         {"symbol": "2408.TW", "name": "南亞科"}, {"symbol": "2344.TW", "name": "華邦電"},
+         {"symbol": "2337.TW", "name": "旺宏"}, {"symbol": "3260.TWO", "name": "威剛"},
+         {"symbol": "8299.TWO", "name": "群聯"}, {"symbol": "MU", "name": "美光"},
+         {"symbol": "SNDK", "name": "SanDisk"}, {"symbol": "000660.KS", "name": "SK 海力士"},
+     ]},
+    {"id": "ai_server", "name": "AI 伺服器", "bench": "^SOX",
+     "desc": "雲端大廠資本支出 → GPU／ASIC → 伺服器組裝、散熱、電源；台廠月營收比美國財報早 1～2 個月。",
+     "stocks": [
+         {"symbol": "2382.TW", "name": "廣達"}, {"symbol": "6669.TW", "name": "緯穎"},
+         {"symbol": "3017.TW", "name": "奇鋐"}, {"symbol": "2308.TW", "name": "台達電"},
+         {"symbol": "3661.TW", "name": "世芯-KY"}, {"symbol": "NVDA", "name": "NVIDIA"},
+         {"symbol": "AVGO", "name": "博通"}, {"symbol": "VRT", "name": "Vertiv"},
+     ]},
+]
+
+# 月營收提醒額外追蹤的台股（產業鏈裡的台股會自動加入）。只填代號。
+REVENUE_WATCH = ["2330"]
+# 年增率比今年累計年增率高（低）這麼多個百分點，就算「加速」（「放緩」）
+REVENUE_ACCEL_PP = 10
+# 鏈的燈號：台股成員平均「單月年增率 − 累計年增率」超過這個百分點算轉強／轉弱
+CHAIN_ACCEL_PP = 3
+# 鏈的代表股近一個月平均漲幅比對照指數多這麼多，就提醒「可能已反映」
+PRICED_IN_PP = 10

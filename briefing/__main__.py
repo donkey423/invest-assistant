@@ -18,6 +18,7 @@ from .news import fetch_news
 from .notify import send_email
 from .summarize import FREE_MODEL, summarize
 from .ai_file import NEWS_FILE, load_fresh
+from .signals import build_signals
 from .world import build_world
 
 TW = timezone(timedelta(hours=8))
@@ -42,6 +43,13 @@ def build(out_dir: Path, market_fn=build_market, news_fn=fetch_news, summary_fn=
         log.error("台股籌碼抓取失敗：%s", e)
         chips = None
     market["chips"] = chips or prev_chips
+
+    # 產業鏈訊號：抓不到就沿用上一份
+    try:
+        signals = build_signals(config, market, previous.get("signals"), out_dir)
+    except Exception as e:  # noqa: BLE001
+        log.error("產業鏈訊號失敗：%s", e)
+        signals = previous.get("signals")
 
     news = news_fn(config)
     warnings = []
@@ -68,6 +76,7 @@ def build(out_dir: Path, market_fn=build_market, news_fn=fetch_news, summary_fn=
         "market": market,
         "summary": summary,
         "world": build_world(config, news, summary),
+        "signals": signals,
         "news_count": len(news),
         "warnings": warnings,
     }

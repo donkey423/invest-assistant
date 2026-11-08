@@ -31,6 +31,14 @@ def brief_text(brief: dict) -> str:
             lines.append(f"{i}. [{p.get('tag', '')}] {p.get('title', '')}")
             if p.get("summary"):
                 lines.append(f"   {p['summary']}")
+    themes = s.get("themes") or []
+    if themes:
+        lines += ["", "【主題推理】"]
+        for t in themes:
+            lines.append(f"・{t.get('title', '')}（{t.get('chain', '')}）")
+            lines.append(f"   觀察：{'、'.join(t.get('watch') or [])}")
+            if t.get("counter"):
+                lines.append(f"   反方：{t['counter']}")
     for w in brief.get("warnings") or []:
         lines += ["", f"⚠ {w}"]
     site = os.environ.get("SITE_URL")

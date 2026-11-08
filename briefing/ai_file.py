@@ -51,6 +51,32 @@ def validate(data: dict, news_urls: set[str] | None = None) -> list[str]:
                 problems.append(f"第 {i + 1} 則的來源缺 title 或 url")
             elif news_urls is not None and s["url"] not in news_urls:
                 problems.append(f"第 {i + 1} 則的來源不在 news.json 裡：{s['url']}")
+    problems += _validate_themes(data.get("themes"), news_urls)
+    return problems
+
+
+THEME_KEYS = ("title", "chain", "reasoning", "counter", "priced_in")
+
+
+def _validate_themes(themes, news_urls: set[str] | None) -> list[str]:
+    """主題推理（選填）：今天的訊號 → 哪條產業鏈 → 觀察標的，一定要附反方理由與「是否已反映」。"""
+    if themes is None:
+        return []
+    if not isinstance(themes, list) or len(themes) > 3:
+        return ["themes 若有填，要是 1 到 3 則的清單"]
+    problems = []
+    for i, t in enumerate(themes):
+        for k in THEME_KEYS:
+            if not (isinstance(t.get(k), str) and t[k].strip()):
+                problems.append(f"主題第 {i + 1} 則缺少 {k}")
+        watch = t.get("watch")
+        if not (isinstance(watch, list) and watch and all(isinstance(w, str) for w in watch)):
+            problems.append(f"主題第 {i + 1} 則的 watch 要列出觀察標的")
+        for src in t.get("sources") or []:
+            if not src.get("url") or not src.get("title"):
+                problems.append(f"主題第 {i + 1} 則的來源缺 title 或 url")
+            elif news_urls is not None and src["url"] not in news_urls:
+                problems.append(f"主題第 {i + 1} 則的來源不在 news.json 裡：{src['url']}")
     return problems
 
 
@@ -72,7 +98,7 @@ def load_fresh(out_dir: Path, now: datetime | None = None) -> dict | None:
     if not timedelta(0) <= now - written <= MAX_AGE:
         return None
     return {
-        **{k: data[k] for k in ("world_headline", "ai_headline") if data.get(k)},
+        **{k: data[k] for k in ("world_headline", "ai_headline", "themes") if data.get(k)},
         "headline": data["headline"],
         "market_comment": data["market_comment"],
         "points": data["points"],
