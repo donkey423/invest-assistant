@@ -92,7 +92,7 @@ def health(rows: list[dict], alloc: dict, risk: dict | None, briefing: dict | No
         items.append({"level": "warn", "text": f"{names.get(sym, sym)} 一檔占 {round(weight.get(sym, 0) * 100, 1)}%，超過單一持股上限 {round(cfg.POSITION_LIMIT * 100)}%。"})
     for g in alloc.get("by_sector", []):
         if g.get("over_limit"):
-            items.append({"level": "warn", "text": f"產業「{g['key']}」占 {round(g["weight_pct"], 1)}%，超過產業上限 {round(cfg.SECTOR_LIMIT * 100)}%。"})
+            items.append({"level": "warn", "text": f"產業「{g['key']}」占 {round(g['weight_pct'], 1)}%，超過產業上限 {round(cfg.SECTOR_LIMIT * 100)}%。"})
     n = conc.get("effective_n")
     if n is not None and len(ok) > 1 and n < 5:
         items.append({"level": "warn", "text": f"相當於只平均分散在 {n} 檔，漲跌會集中在少數幾檔。"})
