@@ -131,11 +131,33 @@
     </section>`;
   }
 
+  // 持股健檢：程式規則算的（不用 AI），對照早報「產業鏈訊號」燈號
+  const HLIGHT = { "轉強": "up", "轉弱": "down", "持平": "flat", "資料不足": "flat" };
+  function healthCard(r) {
+    const h = r.health;
+    if (!h) return "";
+    const items = h.items.map((i) => `<li class="a-h-${esc(i.level)}">${esc(i.text)}</li>`).join("");
+    const rows = h.chain_exposure.map((e) => `<tr>
+        <td><b>${esc(e.name)}</b><div class="muted small">${e.holdings.map((x) => esc(x.name)).join("、")}</div></td>
+        <td><span class="light ${HLIGHT[e.light] || "flat"}">${esc(e.light || "—")}</span></td>
+        <td class="n">${num(e.weight_pct, 1)}%</td></tr>`).join("");
+    const tiles = `<div class="a-tiles small">
+        <div><span class="muted">在轉弱產業鏈</span><b class="${h.weak_pct > 0 ? "down" : ""}">${num(h.weak_pct, 1)}%</b></div>
+        <div><span class="muted">在轉強產業鏈</span><b class="${h.strong_pct > 0 ? "up" : ""}">${num(h.strong_pct, 1)}%</b></div>
+        <div><span class="muted">對不到產業鏈</span><b>${num(h.unmapped_pct, 1)}%</b></div></div>`;
+    return `<section class="card a-wide">
+      <div class="card-head"><h2>持股健檢</h2><span class="muted">${h.signals_at ? `產業鏈燈號 ${esc(h.signals_at.slice(0, 16).replace("T", " "))}` : "還沒有產業鏈燈號"}</span></div>
+      ${tiles}<ul class="a-health">${items}</ul>
+      ${rows ? `<h3>產業鏈曝險</h3><table class="a-table compact"><thead><tr><th>產業鏈（我的持股）</th><th>燈號</th><th class="n">占資產</th></tr></thead><tbody>${rows}</tbody></table>
+      <p class="muted small">一檔可能同時屬於多條鏈，所以占比加總可能超過 100%。燈號來自「產業鏈訊號」分頁，看月營收、上游報價和股價。</p>` : ""}
+    </section>`;
+  }
+
   function reportHtml(r, account) {
     if (!r) return "";
     const warn = (r.warnings || []).map((w) => `<div class="a-warn">${esc(w)}</div>`).join("");
     const where = MODE === "cloud" ? "持股存在你的 Supabase 資料庫，只有用私密連結打開過的裝置看得到。" : "持股資料只存在你自己的電腦。";
-    return `${warn}<div class="grid">${summaryCard(r)}${alertsCard(r.analysis)}${tableCard(r, account)}${allocCard(r)}${riskCard(r)}${scenarioCard(r)}</div>
+    return `${warn}<div class="grid">${summaryCard(r)}${healthCard(r)}${alertsCard(r.analysis)}${tableCard(r, account)}${allocCard(r)}${riskCard(r)}${scenarioCard(r)}</div>
       <p class="muted a-foot">${where}AI 健檢只拿到占比、報酬率、產業與投資理由，不含帳戶與金額。僅供參考，不構成投資建議。${r.analysis?.model ? `｜模型 ${esc(r.analysis.model)}` : ""}</p>`;
   }
 
