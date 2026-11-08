@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-08T11:13+08:00",
+ "generated_at": "2026-11-08T14:20+08:00",
  "market": {
   "taiex": {
    "symbol": "^TWII",
@@ -523,78 +523,7 @@
    {
     "symbol": "^GSPC",
     "name": "S&P 500",
-    "as_of": "2026-11-06",
-    "last": 7376.86,
-    "change": 23.13,
-    "change_pct": 0.31,
-    "chg_5d": -2.68,
-    "chg_1m": -5.0,
-    "chg_1y": 9.77,
-    "high_52w": 7818.93,
-    "low_52w": 6343.72,
-    "range_pos": 0.7,
-    "spark": [
-     7785.76,
-     7745.06,
-     7691.76,
-     7707.98,
-     7641.16,
-     7674.37,
-     7652.86,
-     7677.28,
-     7675.7,
-     7730.99,
-     7711.76,
-     7686.14,
-     7631.47,
-     7666.6,
-     7747.71,
-     7718.6,
-     7673.52,
-     7636.36,
-     7591.7,
-     7656.98,
-     7619.98,
-     7585.73,
-     7551.81,
-     7637.76,
-     7650.5,
-     7764.7,
-     7764.64,
-     7706.03,
-     7704.13,
-     7743.41,
-     7683.69,
-     7670.84,
-     7651.54,
-     7666.45,
-     7722.72,
-     7773.95,
-     7818.93,
-     7801.77,
-     7765.36,
-     7811.54,
-     7807.24,
-     7805.45,
-     7718.94,
-     7744.06,
-     7659.44,
-     7690.73,
-     7712.57,
-     7757.17,
-     7663.43,
-     7623.68,
-     7676.77,
-     7722.6,
-     7743.98,
-     7720.39,
-     7580.07,
-     7541.4,
-     7568.92,
-     7688.62,
-     7353.73,
-     7376.86
-    ]
+    "error": "抓不到資料"
    },
    {
     "symbol": "^IXIC",
@@ -1894,52 +1823,52 @@
  },
  "summary": {
   "headline": "台股加權指數 39,701.64，今日 -4.51%",
-  "market_comment": "台股加權指數 39,701.64（-4.51%）；S&P 500 7,376.86（+0.31%）；那斯達克 24,579.43（+1.09%）。",
+  "market_comment": "台股加權指數 39,701.64（-4.51%）；S&P 500 無資料；那斯達克 24,579.43（+1.09%）。",
   "points": [
    {
     "tag": "市場",
-    "title": "本周台股／國安基金、限空令到選舉三大利多能否止跌| 財經掃描 - 聯合報數位版",
-    "summary": "Google 新聞 台股",
-    "sources": [
-     {
-      "title": "本周台股／國安基金、限空令到選舉三大利多能否止跌| 財經掃描 - 聯合報數位版",
-      "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTFAtUHczVHBFRHkzeHR3Rl8xTDJDaUNqOTVyMjA4UVlVYnUxaXdvOHh3XzdrbnFRcUhnYVQ3STN6dDNNeEh3dDB2X01hN0Q3a2did1FNM3JsZTlOQjg0V3BBdnhoUUZNTUY2ZTVXaW5XTEV0SDl4dEV0Xw?oc=5",
-      "source": "Google 新聞 台股"
-     }
-    ]
-   },
-   {
-    "tag": "市場",
-    "title": "國銀金檢揪7大類缺失 金管會盯人頭戶審查不實",
-    "summary": "（中央社記者蘇思云台北8日電）金管會2026年上半年金檢報告揭露本國銀行7大類型缺失，像是有客戶由籌備處變更為正式公司（多為1人公司），未落實辦理開戶審查作業。金管會表示，應透過臨櫃地址、電話等特徵判斷是否疑似人頭戶，對疑似使用人頭與虛設行號者，應拒絕開戶申請。",
-    "sources": [
-     {
-      "title": "國銀金檢揪7大類缺失 金管會盯人頭戶審查不實",
-      "url": "https://www.cna.com.tw/news/afe/202611080028.aspx",
-      "source": "中央社 財經"
-     }
-    ]
-   },
-   {
-    "tag": "市場",
-    "title": "美股暴跌後反轉？華爾街投行喊抄底標普年底目標價曝光- 國際 - 工商時報",
+    "title": "美股交易時間大變革！納斯達克12/6啟動23小時交易、亞洲投資人無需再等到深夜 - 鉅亨網",
     "summary": "Google 新聞 美股",
     "sources": [
      {
-      "title": "美股暴跌後反轉？華爾街投行喊抄底標普年底目標價曝光- 國際 - 工商時報",
-      "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE9TLWctcHN2RHBHVTAtSHhvRVluVUdBcjdZSFBCc3BZQzMyWVRxN1FTTDJSTlkzVG82TU5kNWJVNlVVVnh4VVVqZE44RWRkb0tqalp0WTBDZDVMTTM3LTV3?oc=5",
+      "title": "美股交易時間大變革！納斯達克12/6啟動23小時交易、亞洲投資人無需再等到深夜 - 鉅亨網",
+      "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTFBPN0xjMnhlczhNZUFoR2dRVF9PM2k5OWE1aFZqWnlFRmNRWDBHYWhOcVVhbGlQbk5sbEVUMFJoVUg5N2c5elJ0T1A5NXlPRkE?oc=5",
       "source": "Google 新聞 美股"
      }
     ]
    },
    {
     "tag": "市場",
-    "title": "重押2億買0050！郭哲榮遭傳破產「已提錢跑路」 本人3字反擊 - Yahoo股市",
+    "title": "郭哲榮道歉仍看多台股！股民直言「相信分析師不如買0050」 - UDN",
+    "summary": "Google 新聞 台股",
+    "sources": [
+     {
+      "title": "郭哲榮道歉仍看多台股！股民直言「相信分析師不如買0050」 - UDN",
+      "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE5Sc3duLVFELVVTYTFqZ3RQSjRYMkh0eENXTTk3XzU0N0xlckp5dVk3aGZDbk1WRjN4enpvdEk5NVdTLUNpQ0FKTXR6aXRfZHNaOU8w0gFYQVVfeXFMTTdMQmtLbVRqYmdjd2RvNThXX3JTSkt6MUpBQl9pQmpfTFZjdjRsUXVuMjZ1YnlzU2JoamN3S25EcVRWVXB5Y0RrR2Rpc18tU2t1U2VaU1pGXw?oc=5",
+      "source": "Google 新聞 台股"
+     }
+    ]
+   },
+   {
+    "tag": "市場",
+    "title": "台塑石化：9日起汽柴油不漲價",
+    "summary": "（中央社記者曾仁凱台北8日電）台塑石化今天網站資料顯示汽油及柴油維持不漲價；此為自9月13日宣布9月14日調漲汽油價格後，連續8週未調整油價。",
+    "sources": [
+     {
+      "title": "台塑石化：9日起汽柴油不漲價",
+      "url": "https://www.cna.com.tw/news/ahel/202611080082.aspx",
+      "source": "中央社 財經"
+     }
+    ]
+   },
+   {
+    "tag": "市場",
+    "title": "12萬投資人注意了！「這檔千億級ETF」1拆5進入倒數 最後交易日只剩2天 - Yahoo股市",
     "summary": "Google 新聞 財經",
     "sources": [
      {
-      "title": "重押2億買0050！郭哲榮遭傳破產「已提錢跑路」 本人3字反擊 - Yahoo股市",
-      "url": "https://news.google.com/rss/articles/CBMi4wJBVV95cUxPdkhKV0ZlN0hSRGM1c2p3aHhTMFNmeXRTNm1XckxzS1N5bkhnS2pkNmgzbEFvYUpZMnV3cS1RcEp3WmZ0MUdjWkg2V2h6UGNPY0p5TTJBMFJ4TkxEWVVaTmMzX1NEMnRYb1cyek9HWXEyMi0wbVRsUjlZUEg3WTFmc2ViOGZGSE1DSUtkZ1RzU01RWmVhZlJrNjhmQm15MTctY09pRHljN01TdkIwb2ZfSWlBdHVWdmZ0MWZMbzdxdWRzb2pRN0ZLMUZPSld4Q3lwX0Q0Vzl4c0JDSFlOVjZLSWk4QTVjR1l2a3dYdXlCTDI1LTBseDdUalZGbnRPcS1henZVSUhjejdMWmtBcm5vc3A4MkFQYkhWZVBudWZxRThYR3FoRngyMzBkSkx5U2NoM3dQN1VmcmJjQmd1QjZFQm0wc19qV0NJSVFWekRVaFdULU1uN1ZBaUlJbHcwZG1NQ0V3?oc=5",
+      "title": "12萬投資人注意了！「這檔千億級ETF」1拆5進入倒數 最後交易日只剩2天 - Yahoo股市",
+      "url": "https://news.google.com/rss/articles/CBMilgNBVV95cUxPUWVieG9tRVE2QjdXNUhLN1lRSnhHUzVSekVxeWlNTGJEcklFWjRtVUludDJ4cENsS1NmYXgxdUFmNlRUNGxja1NJcTZxZVdOQlJFWnlETzdPdUIwZWh6cWNpTVdLNG4tekVCd29pUFBaeHp6eU5RSVl0VjFJR25kRURtT3hsWWlXWlVYRXNCMGJwTmM2bm8tTXp4R2xUdEE3UThwQVllTkdfRHc3amdsVzZwUWp0WUJDSWE0MEFqSUNibldiVjgwV3p0cjFNaF9OTnJwcjZncEZ4bWlUcHRCOHh3NV9EdDBlYWFiMy01RDNOdC16cTRRbWFSUUp0Q0x6X0Z6c3NYcUo1UnZpdUZFNmhNTWdJTTZhNzVEenpNc01zeWJ0VkJKOG1sX1NUN3IwUGtvam9FcGROU1dCM2h4UWFFSEltZFphNkJoRXpjWWdsMmQ0WWpPTHJReVJ0OS1RcUU4dnZSMk1UNjc4OTZmaW14ekRqVmhvOHYzdjJSazdBbjhiRl82T19VNGJhWnozZ3JEWVpR?oc=5",
       "source": "Google 新聞 財經"
      }
     ]
@@ -1958,13 +1887,13 @@
    },
    {
     "tag": "市場",
-    "title": "台股1個月以來急跌萬點 法人：不宜貿然搶反彈 - 經濟日報",
-    "summary": "Google 新聞 台股",
+    "title": "台、美股投資血虧注意！ 會計師示警抵稅藏地雷 - ETtoday財經雲",
+    "summary": "Google 新聞 美股",
     "sources": [
      {
-      "title": "台股1個月以來急跌萬點 法人：不宜貿然搶反彈 - 經濟日報",
-      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFA5aGJIckJOQ2pBM3lqTi05Rnp6bXlrVGV6ZUdrZ0NqZ3ZiM1NNdGJVVUZhMS1HYkFLTkp5YnBkckRYS2lFYWdSYkpvR0prRmpjNnJkSlllVlZSQdIBX0FVX3lxTFBuTGMxeXNCbk96R1VIT2JxaHhNWk5nR3lLMHVYNi1rbmlYSzFBa29YSURTZU51YnJRc181WTlEQTJQUzRkSGVpWGlxZ2xOOUI3TG8wTm1DSkwxN2FGdXBr?oc=5",
-      "source": "Google 新聞 台股"
+      "title": "台、美股投資血虧注意！ 會計師示警抵稅藏地雷 - ETtoday財經雲",
+      "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTFBxMWJSc1paWEdhZlBQOHBZV0tfSk42ZHVESlowMDhUSUNzOFQ0cDVmM1pkTFRmU2ZNQVk2LW5OallsWjNlRXc1ZU1Gb0pMSnhCbEHSAVBBVV95cUxOUGJLZlFMWVBXSkdSUERwVXJVcFRqYzZSZzRYdEJaN1VBZG5kTXQwSDZtUEwwdHViNUVTdHB0cHhFaVktci1TM1FSVzJ5T3NwQw?oc=5",
+      "source": "Google 新聞 美股"
      }
     ]
    }
@@ -1972,8 +1901,8 @@
   "model": "免費模式（未使用 AI，由程式整理）"
  },
  "world": {
-  "headline": "今天新聞最多的地區：美國 55 則、台灣 49 則、中國 20 則；美國、歐洲、俄烏出現衝突或關稅等字眼，值得留意。",
-  "ai_headline": "AI 新聞 10 則（晶片 7 則、模型 2 則、應用 1 則），最新：AI 時代最好的機會不是追流行，奧特曼喊話年輕人：別做下一個 OpenAI，要做更大的新事業 - TechNews 科技新報",
+  "headline": "今天新聞最多的地區：美國 59 則、台灣 41 則、中國 21 則；美國、中東、中國出現衝突或關稅等字眼，值得留意。",
+  "ai_headline": "AI 新聞 10 則（晶片 10 則），最新：應輝達要求揮軍3D DRAM？台積電回應了 - 自由時報",
   "by_ai": false,
   "news_count": 200,
   "regions": [
@@ -1984,42 +1913,41 @@
     "lat": 39,
     "label_lon": -98,
     "label_lat": 39,
-    "count": 55,
+    "count": 59,
     "risk": [
      "關稅",
-     "制裁",
-     "封鎖"
+     "制裁"
     ],
     "news": [
      {
-      "title": "美股暴跌後反轉？華爾街投行喊抄底標普年底目標價曝光- 國際 - 工商時報",
-      "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE9TLWctcHN2RHBHVTAtSHhvRVluVUdBcjdZSFBCc3BZQzMyWVRxN1FTTDJSTlkzVG82TU5kNWJVNlVVVnh4VVVqZE44RWRkb0tqalp0WTBDZDVMTTM3LTV3?oc=5",
+      "title": "美股交易時間大變革！納斯達克12/6啟動23小時交易、亞洲投資人無需再等到深夜 - 鉅亨網",
+      "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTFBPN0xjMnhlczhNZUFoR2dRVF9PM2k5OWE1aFZqWnlFRmNRWDBHYWhOcVVhbGlQbk5sbEVUMFJoVUg5N2c5elJ0T1A5NXlPRkE?oc=5",
       "source": "Google 新聞 美股",
-      "published": "2026-11-08T02:41:00+00:00"
+      "published": "2026-11-08T06:10:03+00:00"
      },
      {
-      "title": "分析：敗選後換白宮幕僚長 川普恐走強硬對抗路線",
-      "url": "https://www.cna.com.tw/news/aopl/202611080027.aspx",
-      "source": "中央社 國際",
-      "published": "2026-11-08T02:40:54+00:00"
-     },
-     {
-      "title": "輝達遭中國間諜疑雲波及，美國會施壓成半導體出口管制變數 - BigGo 財經",
-      "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTFBYZm84OXh3M1JxN3hXVHB0b3FMWTdJTjBuR2RqZWZULUJVY29hVXpQd2ZxYnAwQXNWdm1TbXNYcmhrZzk3eUU5ajlJRFdhTnRpbFp6Ml9jSFRVQTFfVGFhLWlSS0t5c3d3TzBDVEJwbXJNYmdMTmlHa1RR?oc=5",
+      "title": "OpenAI融資縮水，CFO被迫回答：美國人討厭資料中心，你們怎麼辦 - 鉅亨號",
+      "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTFBsNHhOSER6TWhLS2tXN1ozdWxRTEFZOVd3Mk1EZ3NEUGxTdDRqdGpQWjBUVEhESDhud21qdklVempiTWFRUTNJRA?oc=5",
       "source": "Google 新聞 AI 產業",
-      "published": "2026-11-08T02:35:00+00:00"
+      "published": "2026-11-08T05:15:42+00:00"
      },
      {
-      "title": "美股暴跌、亞股跟殺 「鉅亨買基金」揭急跌後投資機會 - 經濟日報",
-      "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE9pUUlPd3NVNEZZb2F4cEFVbFZRdXRtYWR2WkRfT1pZM2JUS2g0N0NJQ01nSTF5enVDZHVJX2VmYlNZNmE5TVczcFQxZUkwLW5xYldjajB0ZG9MZ1ZJTmdsdHpWX0hyenQ1NmpKYjNwbWNzSUF0TGpWM0pZb9IBX0FVX3lxTFBMODljLTd1N2NLZVlVb2U2bnJtejc5Wmc3SnlKRlJpY2d0S0VVRlZoM0dXSEhEcGZSQ1VCeDkzQVlISDJDd3BaLVJWOW10ZFdPRjB1dXctSFNhVFVMV0R3?oc=5",
-      "source": "Google 新聞 美股",
-      "published": "2026-11-08T02:33:56+00:00"
+      "title": "華郵：民主黨重掌國會 盟國不敢盼美國回歸",
+      "url": "https://www.cna.com.tw/news/aopl/202611080069.aspx",
+      "source": "中央社 國際",
+      "published": "2026-11-08T04:58:25+00:00"
      },
      {
-      "title": "中國反對美國制裁兩家中企！批損害經貿關係、保留採取必要措施權利 - 鉅亨網",
-      "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE5OUFVOZlp1SDllUktaZVc0Z1dGajAzcGE5TG5Idk9zZ1plcFhqX3F0eF9CR1VFdkt0dzJDVERZWjd5OWxUbndvdERYT19zcFk?oc=5",
-      "source": "Google 新聞 地緣政治",
-      "published": "2026-11-08T02:31:55+00:00"
+      "title": "爭議＋1！紐時查訪組裝輝達H200中企美國廠發現竟是「空殼」 - Newtalk新聞",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE1VUzRiS0tnQlp0NEMxWmpscHBULTREc1hXeXE1a0doRV9rZ05fTlRXc2VxRld0RkVoRGxGdDNtQncxSVFCVzU5M3FRbkY1ck1YLUtMVWJpWEZOOXc?oc=5",
+      "source": "Google 新聞 AI 產業",
+      "published": "2026-11-08T04:38:59+00:00"
+     },
+     {
+      "title": "美期中選舉年輕選民轉向民主黨 希望與不滿交織",
+      "url": "https://www.cna.com.tw/news/aopl/202611080058.aspx",
+      "source": "中央社 國際",
+      "published": "2026-11-08T04:15:01+00:00"
      }
     ]
    },
@@ -2030,7 +1958,7 @@
     "lat": -15,
     "label_lon": -58,
     "label_lat": -15,
-    "count": 5,
+    "count": 3,
     "risk": [],
     "news": [
      {
@@ -2040,28 +1968,16 @@
       "published": "2026-11-08T02:15:43+00:00"
      },
      {
-      "title": "巴拉圭檢方對前總統提出刑事指控 聲請預防性羈押",
-      "url": "https://www.cna.com.tw/news/aopl/202611080005.aspx",
-      "source": "中央社 國際",
-      "published": "2026-11-07T20:09:58+00:00"
-     },
-     {
       "title": "巴西晨運女遭持槍男挾持 為保命答應到「樹下愛愛」 - 自由時報",
       "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE4waFFlTkpyQTBvcjNmalRSQXRoQklvV1N1SkhMM01fTmNDSzhpUFBWRjBIMTN4d1Bxd2xONnNobkpoOWZoNGtCdmVuUTFtd0czY2tOX2Y5U3AtTEt1NW1IaGpIZGx4QdIBa0FVX3lxTE9yRWZZUEJJdTJ3X3VIakFiMDE3TGNfOFl6ZzdpNThOYkhIRmVPZ2U0aUpRQm9LUnFQVjV0cWlDdXhyRnd6S1NTUGhzSFo4bVZoYjlwQUtzdGNxR0ExTUtLMkVWSGloTlBIVnN3?oc=5",
       "source": "Google 新聞 國際",
       "published": "2026-11-07T15:52:14+00:00"
      },
      {
-      "title": "俄軍導彈再襲基輔 烏總統和市長打嘴仗 - Yahoo新聞",
-      "url": "https://news.google.com/rss/articles/CBMioAJBVV95cUxOd1VXQ055c050V2lOdDdSQlBYWkN5MXo2bXFOSUhvbG5Jd2lSQWdJaXUzR3R1bU93T1F6dGJEMGFmRUpJVHBsVWhRaS1QRjhrNXhxclVCWjNkT2ZDZzFScXZ5QVN0V2U0el9WSXlTVnJORUhZZkpUdUFHUC1OYjJIeTFkckdrNThNRkhEbFp2b3E2b0RkV1FfWW0tYW4xa0xFQUVyMS1ZZVpDNm5VVFJ5RW5SZkNuOW5qTnExSE1MeHJudmRIbTVPTFdSNmJLOThjS3pNVW1ncDRPR01UdHRlVUhoeDVWbnV2UV9WY3c2YlRfajBuTVUwLXM1ZXVKTGlyVGIteUY2bnpXZDFUa1QxYU1ta3RxU0JsZ1RLRDN4UTM?oc=5",
+      "title": "友邦巴拉圭爆金融政治危機 總統遭彈劾被捕、副總統接任 - UDN",
+      "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE41NjFfMG5PSGlVUjROSWNuRWR3MDhhTWxuQlpMM0ZfTHFBZENndXkxX253UjZ5YkdUUWRhbTVfUlo1RlhDTDBJYVdzUlpHZlZx0gFWQVVfeXFMTW5wTXRreWliQ2x5WHFaaVUwVlZ3eFpOQ3B0V0hyQm5sX2s0dWhUa1Zfc0hrT3NwZDg2VjhhVHkxcW9wMklGVUpCT01hbnhTOGtBczQzZEE?oc=5",
       "source": "Google 新聞 國際",
-      "published": "2026-11-07T14:56:00+00:00"
-     },
-     {
-      "title": "銀行倒閉風暴！巴拉圭總統潘尼亞遭彈劾罷免 涉背信遭軟禁 - 自由時報",
-      "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE5NbnFTWE5hMDE2SnpEeDI3bzIxNDRieU16dXRDdDhFbkhHaXh6RXppeW5LUFVGTnA0c3JwRmtiN0k0VVpPRGxsTU9aNEdZY2NfWHFrVFJRc1JXRVBkTk9KY3NlNHM4UdIBa0FVX3lxTFB2Y0xjUGxvYzhzTzd4cHRGSW5sNmdPZ20taGQ0QVNLOW5nbnZ0QTRoQzFmUF83MHg2UEg5eVFTcDFrTVFQVWZ3NnhObjJCZU9GaHoydVUtRjhBQ0RrVndCRFFaS3VSd19ZX2Fz?oc=5",
-      "source": "Google 新聞 國際",
-      "published": "2026-11-07T00:53:25+00:00"
+      "published": "2026-11-07T00:02:35+00:00"
      }
     ]
    },
@@ -2072,22 +1988,20 @@
     "lat": 48,
     "label_lon": 6,
     "label_lat": 48,
-    "count": 9,
-    "risk": [
-     "制裁"
-    ],
+    "count": 8,
+    "risk": [],
     "news": [
+     {
+      "title": "義大利外長稱因挺烏遭親俄駭客鎖定 個資遭公布於暗網",
+      "url": "https://www.cna.com.tw/news/aopl/202611080055.aspx",
+      "source": "中央社 國際",
+      "published": "2026-11-08T04:07:55+00:00"
+     },
      {
       "title": "法國調查歐洲航空公司炸彈威脅 不排除外國勢力介入",
       "url": "https://www.cna.com.tw/news/aopl/202611080025.aspx",
       "source": "中央社 國際",
       "published": "2026-11-08T02:24:50+00:00"
-     },
-     {
-      "title": "歐盟設制裁辦公室與加密貨幣工作小組 鎖定俄羅斯借幣規避制裁 - 蕃新聞",
-      "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE9uZVBZY0xKY2dmS3p6SDFvd2lNb0NxOW5LMVZzQkxHV2txX2FpQzU0Q1AyeUJBT0dHd3ZmRnVWd2lKXzduNzlwVkQtdlhrYTNnamc?oc=5",
-      "source": "Google 新聞 地緣政治",
-      "published": "2026-11-08T00:54:52+00:00"
      },
      {
       "title": "德國青年示威反映未來焦慮 學者：悲觀助長政治極化",
@@ -2117,15 +2031,13 @@
     "label_lon": 38,
     "label_lat": 54,
     "count": 3,
-    "risk": [
-     "制裁"
-    ],
+    "risk": [],
     "news": [
      {
-      "title": "歐盟設制裁辦公室與加密貨幣工作小組 鎖定俄羅斯借幣規避制裁 - 蕃新聞",
-      "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE9uZVBZY0xKY2dmS3p6SDFvd2lNb0NxOW5LMVZzQkxHV2txX2FpQzU0Q1AyeUJBT0dHd3ZmRnVWd2lKXzduNzlwVkQtdlhrYTNnamc?oc=5",
-      "source": "Google 新聞 地緣政治",
-      "published": "2026-11-08T00:54:52+00:00"
+      "title": "義大利外長稱因挺烏遭親俄駭客鎖定 個資遭公布於暗網",
+      "url": "https://www.cna.com.tw/news/aopl/202611080055.aspx",
+      "source": "中央社 國際",
+      "published": "2026-11-08T04:07:55+00:00"
      },
      {
       "title": "俄軍導彈再襲基輔 烏總統和市長打嘴仗 - Yahoo新聞",
@@ -2148,18 +2060,30 @@
     "lat": 28,
     "label_lon": 46,
     "label_lat": 28,
-    "count": 9,
+    "count": 10,
     "risk": [
      "關稅",
-     "封鎖",
-     "制裁"
+     "制裁",
+     "攻擊"
     ],
     "news": [
+     {
+      "title": "台塑石化：9日起汽柴油不漲價",
+      "url": "https://www.cna.com.tw/news/ahel/202611080082.aspx",
+      "source": "中央社 財經",
+      "published": "2026-11-08T05:53:56+00:00"
+     },
+     {
+      "title": "加薩走廊豪雨成災 數萬頂帳篷泡在水中、災民無處棲身",
+      "url": "https://www.cna.com.tw/news/aopl/202611080051.aspx",
+      "source": "中央社 國際",
+      "published": "2026-11-08T03:48:46+00:00"
+     },
      {
       "title": "納坦雅胡掰了？ 以色列總統正式宣布由反對派領袖負責組閣 - Yahoo新聞",
       "url": "https://news.google.com/rss/articles/CBMigANBVV95cUxPUE5qaFd3LU05a3VkLUt0MmZkaHlqZ0ZTbGhvM2x0cEZGaFNnRVRBQXEzR3RDci1vMENtYklJUDl5anoxdkxDbExXY01aOTZYU1BDOHpjS2xHekJqSWRndnEzUEZHaUhyc2IxUjhMYnFXNXEtRTJ5WnRKcUZ0b1ZBV3ZZaV9NZmx1RmJOdnVxZWFOSE5WV2QwVHlYZWxaUzlzUmtZM1NuMDV3a2VzbnVwaWhldWw1b1l1REl3ZFlWS1F4Q1ZjWVdad3lNbGtvbjR6a3Fuam8ybGVkZERVeEQ4RDNvUFF1c1o4TndJRjlGSVgtWjFvN2R1S0hlMEo5ckJQUUZ0WlI4Q2xtSlN4MFZ1QzFadUcwUWhFek5OU0E2dWxOX3JJdWtkbnVtVmJ6VW5nY1ltR1EybWVQVmp1UExZSVhQbmlhVUFFRWt0YVJTSE81Yl91cU1YZk12TTM3ZHktSmxULWxkckR4cXFQdkd2UmlZN3ZndFhoT3dxZlBiLUE?oc=5",
       "source": "Google 新聞 國際",
-      "published": "2026-11-07T23:54:25+00:00"
+      "published": "2026-11-08T00:14:23+00:00"
      },
      {
       "title": "以色列總統授權反對派領袖籌組政府 總理尼坦雅胡面臨下台壓力",
@@ -2168,22 +2092,10 @@
       "published": "2026-11-07T21:52:07+00:00"
      },
      {
-      "title": "美期中選舉後三風險情境 牛津點名油價、關稅、資金 - 工商時報",
-      "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE1yRndtRUZrNVJlOXlNdnFYSFliYk9aWkFxbnVOWW5FYmNKd2Zxd0c0TlN3VTNHRWNiRlZsbHY5QWtkUzNtYnZTbFkwMWtETVBpdVNkRFlqbUhtM0J1WFhZ?oc=5",
-      "source": "Google 新聞 地緣政治",
-      "published": "2026-11-07T19:00:00+00:00"
-     },
-     {
-      "title": "美國擬將伊朗海上封鎖擴大至陸上！成立「鐵門特遣隊」鎖定武器運輸與非法收入 - 鉅亨網",
-      "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE15b1lZWF9xcVpEV0VObVR6Q2FpM1g1Q1NRdlJOTXJnOVFYNWFxRk1rcnp2b0ZIWDI0Qkp6SVVfQm4tRUQ0eHpscTF3blY2YUk?oc=5",
+      "title": "美軍成立「鐵門」特遣隊 封堵伊朗陸路與裏海 - 世界新聞網",
+      "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE1TOHY2S2w5bmgtM2RLOXpuSVVJdGh1T0VleEdXWDhEVzdLVTJLZjBZY2FtTG9KS1pJaG5ObkdNVm1KQ215OUhUU2c5bEc4VnBLbW1hcjlNWjdDUkduUmJ3bEF30gFnQVVfeXFMTlZEN3RBQnlPWldvTnFXVGVVNF9RRUwxSnN4MDdUWVdGV2xhWnRPYTlULXd5bmg4VnNwQ19jbjd4VkU4NExLNnJKN2lVczM0WTVPSlltWEZ3ZDFtQ2V3NFRnMlAtdmFDTQ?oc=5",
       "source": "Google 新聞 國際",
-      "published": "2026-11-07T16:07:27+00:00"
-     },
-     {
-      "title": "路透：美軍籌組特遣部隊 限制伊朗陸路與裏海運輸",
-      "url": "https://www.cna.com.tw/news/aopl/202611070210.aspx",
-      "source": "中央社 國際",
-      "published": "2026-11-07T14:26:29+00:00"
+      "published": "2026-11-07T20:11:46+00:00"
      }
     ]
    },
@@ -2194,16 +2106,9 @@
     "lat": 22,
     "label_lon": 78,
     "label_lat": 22,
-    "count": 1,
+    "count": 0,
     "risk": [],
-    "news": [
-     {
-      "title": "台股市值跌至全球第七 滑落三名 被印度超車了 - 自由財經",
-      "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFBybDRhcjVuR2hTTlMxRnMtSDVSRnJhdnhvWmhiMGVEc0xaaFVMaUgwUzB3T0s0RUlBUll5NnlydzJYOUVuRkIyMVh6SVl0QXZGUG8zSFliemdXTUNSVHhJ?oc=5",
-      "source": "Google 新聞 財經",
-      "published": "2026-11-07T07:44:00+00:00"
-     }
-    ]
+    "news": []
    },
    {
     "id": "cn",
@@ -2212,12 +2117,24 @@
     "lat": 34,
     "label_lon": 103,
     "label_lat": 34,
-    "count": 20,
+    "count": 21,
     "risk": [
      "制裁",
      "關稅"
     ],
     "news": [
+     {
+      "title": "美放行輝達H200晶片出口大陸遭踢爆空殼公司、軍方背景都能買- 政治圈 - 中時新聞網",
+      "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE5kM3liSmN5dVFUY2U0VjBCemFBZE1iekdmdHBzNzl0QjlITVVHUGJLVkVUYUhmMksya1VhbFBUdWJGLVZZSFlSZnVrcEhXU0hPdU1lelc0N2gyNm5XOUgxLURBT2hLSDZxMldpVWRB?oc=5",
+      "source": "Google 新聞 AI 產業",
+      "published": "2026-11-08T04:52:12+00:00"
+     },
+     {
+      "title": "60萬顆！輝達H200晶片在中國香港堆積如山 - 鉅亨號",
+      "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE1vRXF1Nzdhcm5XMi04WHJWdHFHa25OZlpFSVAyS3p1OG56VWVhdWpnMDRBTmIyeGdMWG9ZUFJLZ3Zoem51Yk05Zg?oc=5",
+      "source": "Google 新聞 AI 產業",
+      "published": "2026-11-08T04:19:16+00:00"
+     },
      {
       "title": "輝達遭中國間諜疑雲波及，美國會施壓成半導體出口管制變數 - BigGo 財經",
       "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTFBYZm84OXh3M1JxN3hXVHB0b3FMWTdJTjBuR2RqZWZULUJVY29hVXpQd2ZxYnAwQXNWdm1TbXNYcmhrZzk3eUU5ajlJRFdhTnRpbFp6Ml9jSFRVQTFfVGFhLWlSS0t5c3d3TzBDVEJwbXJNYmdMTmlHa1RR?oc=5",
@@ -2231,22 +2148,10 @@
       "published": "2026-11-08T02:31:55+00:00"
      },
      {
-      "title": "輝達60萬顆晶片卡香港！港媒驚爆：北京寧忍算力短缺也要擺脫美 - 中天新聞網",
-      "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE1nY1RGZFJ0djZHc1Qzb2QtVW9kOWxPVmdtYjVDUXFWclR0bjF0YUpCZ2lmal9XMEljZVAxMFRpdW9BN1dmNm9FNDMtYVB0UjBVdE1B?oc=5",
-      "source": "Google 新聞 AI 產業",
-      "published": "2026-11-08T01:57:57+00:00"
-     },
-     {
       "title": "一語千金｜沈建光：京東將人工智能結合物流供應鏈引入香港及海外零售市場 - Yahoo",
       "url": "https://news.google.com/rss/articles/CBMiygNBVV95cUxPR3RVV2tFc3MtNVpJejUxSFNPelJEM3RLVC00SW15c3JxczJUWUYtOWNqUnJlOW5nOF90d3RiVFhTcWZrWWxVMWw2dERsbVNwUldGaVVDWVI1bWI2djVhZ2RiVnc5ZEw5YlV1dlhzX0Jkc3FlTnU4Mmt6YjlpaDZSQVI1Mkp3bmdJb0tfR1FKT0ZLbFB0cm0yRW9NOEtPQWIyZUFqTGhMTmkzNnRWWG9pcHdHYUpzVWM2bGNReGdCdGMxbF9lTUVCbDlzSTU4MEVnQ2laVHM5b194Wm1SN0JJWEJhb1VJTUY4ZWN5aHhVdFg1Qk90R3JNbFd2NEVORVBUNU01d3NCSmY1Vk1ILUJGY3daVXRBZzgySUJaWW45UEpqWDEtQndDdUl6QVFQWTJxNHppU0ItaHpNbjViTExsQXN5c0RGb0VZUVJhMzFJX3hqZlFRZlRrYk5jMHVscjlFNi1aT2FHUFk5Q3hLbmFsVWxYRUdFTWt2N0hNZUZZZENuY2dIR0U4dGd0eHk1UWNNdWpPaElqbnMyNnZlUmlBdGtNVVZQUVN6TVhwVUwyMmVYenN4Z2gyeURXZjJ2aGY1YUhXR3VMUWtVQQ?oc=5",
       "source": "Google 新聞 AI",
       "published": "2026-11-08T01:40:01+00:00"
-     },
-     {
-      "title": "英王查爾斯三世可能訪中？王室幕僚：會審慎考慮",
-      "url": "https://www.cna.com.tw/news/aopl/202611080012.aspx",
-      "source": "中央社 國際",
-      "published": "2026-11-08T00:22:20+00:00"
      }
     ]
    },
@@ -2261,10 +2166,10 @@
     "risk": [],
     "news": [
      {
-      "title": "泰國自動通關開放33國！台灣竟被排除 - 東森新聞",
-      "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTFBiZDNmZ3JlZjNuQnRhSC11RXJzVFdydU5CdFZJSU9BVE5qYzZ1ZDlkbVJFWUJNbnBiYXR3UVJ6LTRIQ2R2Q1k1ZzRrVTdVVGtubkZZ?oc=5",
+      "title": "泰國自動通關開放33國！台灣竟被排除 近9.5萬人搶先用 - Yahoo新聞",
+      "url": "https://news.google.com/rss/articles/CBMi2AJBVV95cUxOVmd3RkhfcFZpSm9DeHQwY2dMeHRDZEpfN0hRajUxRHRucEwydDlrdDJLNzJfX2VDWm40d19aS3daVDFmeGJEMnhNZHY1VU4zeXpSRlhMZUU5ZFlBa3pqMDJkLVp5czdSbjA0ekpIUmdOQW1UYkhaUDhPdjczU0JLXzVtcm9SUjRxdEpzOUkwS1NrSGxtNWU1SzRCMkpwS3RWakJvTWV4ZWYxRGxXTEFJVm1SZ25vS0xvME9KUnE1RWhTWENobE9SdWFtanFNdFhzYm9ISnZ1T1NHLU56QlNtdGRRX25CQ19jSTEtMlVUUUU1bDJWNHhFTUdQazBXckFIT19jSndTRUJWYU93QVBwWU9rY3dFd3EtU3FiczZVTWRlMGZ3eGdqOGhDNzQwWVJ4NEhwMlFTNE0tMjg4cmhmT0tQSWx5RF96aTBycmhHaTVRSFhHSUh2Wg?oc=5",
       "source": "Google 新聞 國際",
-      "published": "2026-11-07T07:33:00+00:00"
+      "published": "2026-11-07T07:06:15+00:00"
      },
      {
       "title": "NASA雨燕天文台墜入大氣層 22年太空任務烈焰中謝幕",
@@ -2293,9 +2198,21 @@
     "lat": 37,
     "label_lon": 121,
     "label_lat": 52,
-    "count": 1,
+    "count": 3,
     "risk": [],
     "news": [
+     {
+      "title": "黃仁勳長女因家庭因素取消訪韓 多項合作行程喊卡",
+      "url": "https://www.cna.com.tw/news/aopl/202611080064.aspx",
+      "source": "中央社 財經",
+      "published": "2026-11-08T04:37:14+00:00"
+     },
+     {
+      "title": "俄軍導彈再襲基輔 烏總統和市長打嘴仗 - Yahoo新聞",
+      "url": "https://news.google.com/rss/articles/CBMioAJBVV95cUxOd1VXQ055c050V2lOdDdSQlBYWkN5MXo2bXFOSUhvbG5Jd2lSQWdJaXUzR3R1bU93T1F6dGJEMGFmRUpJVHBsVWhRaS1QRjhrNXhxclVCWjNkT2ZDZzFScXZ5QVN0V2U0el9WSXlTVnJORUhZZkpUdUFHUC1OYjJIeTFkckdrNThNRkhEbFp2b3E2b0RkV1FfWW0tYW4xa0xFQUVyMS1ZZVpDNm5VVFJ5RW5SZkNuOW5qTnExSE1MeHJudmRIbTVPTFdSNmJLOThjS3pNVW1ncDRPR01UdHRlVUhoeDVWbnV2UV9WY3c2YlRfajBuTVUwLXM1ZXVKTGlyVGIteUY2bnpXZDFUa1QxYU1ta3RxU0JsZ1RLRDN4UTM?oc=5",
+      "source": "Google 新聞 國際",
+      "published": "2026-11-07T14:56:00+00:00"
+     },
      {
       "title": "前輝達韓國代表俞應浚揭密企業文化 7年任職收穫多【專訪】",
       "url": "https://www.cna.com.tw/news/ait/202611040130.aspx",
@@ -2315,22 +2232,22 @@
     "risk": [],
     "news": [
      {
-      "title": "日本愛知縣地震釀至少22傷 氣象廳：與南海海槽地震關聯性低 - Yahoo新聞",
-      "url": "https://news.google.com/rss/articles/CBMihANBVV95cUxQd2dRQ0FsOFc0R3NnNmk1MG01djF2TVVBZ3J0b243UncxVE1PZmZBYkZtYUJfdGtJTHlTSnpNRzRpV0tLMjItY1VqUUdzOGxPVkdXaUI5b2c1cUpuVllJZWpyQndIbjlVTVlicVNxVklhNS0tOG9pRlZfNmplbHU2SW1NSkdIaFdJbl9vYTVXQlk0Wjl3X3pWWEZqNlhFN1kwS2tYNDNJNzlCeTQ5ZHNKZk91bGMyYlpLX1phdWVqc0tYU1J4TEJmaXVIZnc1ZHhCS20xZTVNdWZpMEJaYjBRMVJ6Z3dpTzZKSjBYamc1T05NbTZTYk9NTlViSWR5X3JSNEhJMmV1SzNmOHQ1cXBUb3AxYmdKUkVmNENxSjItekJYZWRGMm5qM2xIWlEtTzcyZGxBSTFSYzM3TTIxSFdYbEFKYkYyZUdFMktWYng1NGd4dm5zcS1wVmpSX0M5ZTJJM3FGaHFacGVTT2dMWENZTEZnaTNrWDBXMWt4SzlnM0lwaVpn?oc=5",
+      "title": "日本愛知規模5.7地震 氣象廳：與南海海槽地震關聯低",
+      "url": "https://www.cna.com.tw/news/aopl/202611080074.aspx",
+      "source": "中央社 國際",
+      "published": "2026-11-08T05:12:36+00:00"
+     },
+     {
+      "title": "日本中部規模5.7地震至少24傷 新幹線一度停駛",
+      "url": "https://www.cna.com.tw/news/aopl/202611080071.aspx",
+      "source": "中央社 國際",
+      "published": "2026-11-08T05:05:30+00:00"
+     },
+     {
+      "title": "日本中部5.7地震釀27傷！震央位南海海槽震源區 氣象廳回應 - UDN",
+      "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE0zcWl4cWdvaEdoSDdvZkFmT0FzWmRCZ282elV4T0JWTU5nSExTdUZNeGhYVkJNd013amFIbXNlQnNWZFZ1d3phWWp6RWNzZHVn0gFWQVVfeXFMUGxzc1k3a3ZBU2J5MkhyMXlVNnRKT0p4SURCbDlXVFVTQUttSUhyLURIbXRsSUhhVURINEdFRE0wUXR1REJ5c1hsM0pLdDJBLWpjVmhVWEE?oc=5",
       "source": "Google 新聞 國際",
-      "published": "2026-11-08T02:04:08+00:00"
-     },
-     {
-      "title": "日本中部規模5.7地震無海嘯威脅 愛知縣疑兩人受傷",
-      "url": "https://www.cna.com.tw/news/aopl/202611080003.aspx",
-      "source": "中央社 國際",
-      "published": "2026-11-07T17:46:52+00:00"
-     },
-     {
-      "title": "日藥廠員工被控間諜罪遭判3年半 12月中旬出獄後料被遣返",
-      "url": "https://www.cna.com.tw/news/aopl/202611070195.aspx",
-      "source": "中央社 國際",
-      "published": "2026-11-07T13:03:54+00:00"
+      "published": "2026-11-08T03:03:52+00:00"
      },
      {
       "title": "冬天的救贖！日本超商飲料櫃驚現「白湯」 她試喝驚呼：好瘋好讚 - UDN",
@@ -2353,111 +2270,111 @@
     "lat": 23.7,
     "label_lon": 146,
     "label_lat": 17,
-    "count": 49,
+    "count": 41,
     "risk": [],
     "news": [
      {
-      "title": "本周台股／國安基金、限空令到選舉三大利多能否止跌| 財經掃描 - 聯合報數位版",
-      "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTFAtUHczVHBFRHkzeHR3Rl8xTDJDaUNqOTVyMjA4UVlVYnUxaXdvOHh3XzdrbnFRcUhnYVQ3STN6dDNNeEh3dDB2X01hN0Q3a2did1FNM3JsZTlOQjg0V3BBdnhoUUZNTUY2ZTVXaW5XTEV0SDl4dEV0Xw?oc=5",
-      "source": "Google 新聞 台股",
-      "published": "2026-11-08T03:00:00+00:00"
+      "title": "應輝達要求揮軍3D DRAM？台積電回應了 - 自由時報",
+      "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE9nUFlOcHFFbi1wWHBqTUtLQnM3WUE0UUIxQnBNSWN3dU5mZzRlV28ycWdyc1ZOVWllVTBXUzBZX3FITGxjZU1KRFZnM245V1pzNWstTUJHX0Q?oc=5",
+      "source": "Google 新聞 AI 產業",
+      "published": "2026-11-08T06:09:54+00:00"
      },
      {
-      "title": "國銀金檢揪7大類缺失 金管會盯人頭戶審查不實",
-      "url": "https://www.cna.com.tw/news/afe/202611080028.aspx",
-      "source": "中央社 財經",
-      "published": "2026-11-08T02:51:57+00:00"
+      "title": "郭哲榮道歉仍看多台股！股民直言「相信分析師不如買0050」 - UDN",
+      "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE5Sc3duLVFELVVTYTFqZ3RQSjRYMkh0eENXTTk3XzU0N0xlckp5dVk3aGZDbk1WRjN4enpvdEk5NVdTLUNpQ0FKTXR6aXRfZHNaOU8w0gFYQVVfeXFMTTdMQmtLbVRqYmdjd2RvNThXX3JTSkt6MUpBQl9pQmpfTFZjdjRsUXVuMjZ1YnlzU2JoamN3S25EcVRWVXB5Y0RrR2Rpc18tU2t1U2VaU1pGXw?oc=5",
+      "source": "Google 新聞 台股",
+      "published": "2026-11-08T05:57:27+00:00"
+     },
+     {
+      "title": "台股跌破年線就護盤⋯達人質疑「只能漲不能跌？」 網曝可能原因 - UDN",
+      "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTFBfSlVzcm5FaVJzZkpMeVMtZHNVUWl2RlBVUnF3N25YRTdnd2Z0TlFzRDI4aW9WZ2JuNVZGM0E5d1VnUGx2NUwtQjdKWTVKcjZpZkHSAVdBVV95cUxNcnFERXRaS1UxRHZNanZJVDZUWXVIWk9wU2laTHk3NEJvUmVqVVNxUm40eUw2QVJ4Tk1LNTJEbkxBX3NKWTdMTjFySEtyaUFrQU9kYklGT28?oc=5",
+      "source": "Google 新聞 台股",
+      "published": "2026-11-08T05:57:18+00:00"
      },
      {
       "title": "AI泡沫危機延燒台股！郭正亮批「黃仁勳都說謊」 示警投資人別急接刀 | 財經 | CTWANT - CTWANT",
       "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE9SdVdrcXNrU0VjRWQ4SDBvbVN5bFZQMy1hLTFVdEhzTHIzRmQ5a2FWeVhMVVliRk52RTVqWHZqMHZNMUNSTXJLRTFXMFYxTHfSAVRBVV95cUxNYzhNSGZzSGhXd3RIM2xOeFlGa3Axc0c3RVVfQ0lMakF5cWQ5R3FHSGVkWXQ5SmZLSW45cWYxRHZxVHFTbE9sZV9HdnFBOWlYMlFhOEs?oc=5",
       "source": "Google 新聞 AI",
-      "published": "2026-11-08T02:45:45+00:00"
+      "published": "2026-11-08T05:02:55+00:00"
      },
      {
-      "title": "台股1個月以來急跌萬點 法人：不宜貿然搶反彈 - 經濟日報",
-      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFA5aGJIckJOQ2pBM3lqTi05Rnp6bXlrVGV6ZUdrZ0NqZ3ZiM1NNdGJVVUZhMS1HYkFLTkp5YnBkckRYS2lFYWdSYkpvR0prRmpjNnJkSlllVlZSQdIBX0FVX3lxTFBuTGMxeXNCbk96R1VIT2JxaHhNWk5nR3lLMHVYNi1rbmlYSzFBa29YSURTZU51YnJRc181WTlEQTJQUzRkSGVpWGlxZ2xOOUI3TG8wTm1DSkwxN2FGdXBr?oc=5",
+      "title": "才買0050就遇台股暴跌！投資小白自嘲「參與歷史」：以後泡麵不加蛋 - Yahoo股市",
+      "url": "https://news.google.com/rss/articles/CBMikANBVV95cUxNX01NeWw1Sl9FdnFoSGxtZzdLd24tZnRtYlRIckVKMlFyX2lIcW5Ha2F1Q1lmSjlxSmE0dnVSVDFZRy1IdE9UWWlJWl9zcG9LMVdWZGVmQXFkSnk5WllNdmhvN1h2c2Q3eVZkaWxzVy1nWDhHQ2NLMWtYMGpwcXZFRjVaUEdUdG0zd2F5dWVkTmM2THgxS1h1QVdLUDE5TXlLUTBXQW9VYnBKQnlhOTZEcTRJSnhjSER2SmpxRDVxSmx0RUlmMmNKU0h1QXhIR2FvZ1JFQnR6ZzBSV0s1TEJJNkVSWlh3ZURYdVRnM1lqVjd0UVhLbTVHaUx2TmVGOTdQeFNLUXAtNlFjdTRQM1NwSHVjZG1qNlVBeUMyR1RVY0NxaGtvMGtNY0YtcTZQRmlOZVhxbExnSFI2SVB4aW1QWnpEdWE1TTFxTkZCZGpHSFdqb3pVZkVjOHZZU3dHQUo0SnNmbDNiYkxiaGJydml1Nm1XdmY5Tmh6MWloQ1ZlcjdJaF9kZk44WmxwTXZMOGlf?oc=5",
       "source": "Google 新聞 台股",
-      "published": "2026-11-08T02:45:32+00:00"
-     },
-     {
-      "title": "輝達找台積電做DRAM？業界揭3大疑點 魏哲家曾親揭公司經營策略 - 壹蘋新聞網",
-      "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQVDNzTEh5bW9nNjNLcERjLTdNRVl1LTh4T3ZvMzZIVDhCU0FpcEg0dklSMTNHcjFEaGQ4b3BtVU51MnNqSnpDZG94dnMta2drS0JwbjE5TVpSeG9vUUwxeHJGVDhFc1N0d2hoUnU3SjQyeDRvNkRSNEdCaFBjd2lLSTZn?oc=5",
-      "source": "Google 新聞 AI 產業",
-      "published": "2026-11-08T02:35:00+00:00"
+      "published": "2026-11-08T04:32:03+00:00"
      }
     ]
    }
   ],
   "ai_news": [
    {
-    "title": "AI 時代最好的機會不是追流行，奧特曼喊話年輕人：別做下一個 OpenAI，要做更大的新事業 - TechNews 科技新報",
-    "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQQ0hYLVYyS1Q1bkgxTFpqQTJjUmNpQThjNUprVC1wc0h2T0ZFOGZoWEVyU1A2OW9jWS1qQlNfd0ZfRFI1dkd4V0ppMDA5endFcUVLQ0RyQ3gzZDlfajZNQ3Jla3pqRVVpV2l3anpMSzM4dTY1dGtmUlRKMXhPSUpZZm5peUpHN1EzcVFla3dFY2hBMWNQTXdEVWpiVmxjTEFDSmctRlV3?oc=5",
+    "title": "應輝達要求揮軍3D DRAM？台積電回應了 - 自由時報",
+    "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE9nUFlOcHFFbi1wWHBqTUtLQnM3WUE0UUIxQnBNSWN3dU5mZzRlV28ycWdyc1ZOVWllVTBXUzBZX3FITGxjZU1KRFZnM245V1pzNWstTUJHX0Q?oc=5",
     "source": "Google 新聞 AI 產業",
-    "published": "2026-11-08T03:00:40+00:00",
-    "category": "模型"
+    "published": "2026-11-08T06:09:54+00:00",
+    "category": "晶片"
    },
    {
-    "title": "OpenAI少融100億美元，Anthropic被要求降價：兆估值遭受質疑 - 鉅亨號",
-    "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE4yeTQ5Y1lWWmZhQXV3TWZzZ3JqNXRHX1otam1IajQ2d0hvTTdxUUNuTlFQNzgzRy1WTUVDUHk1V0FoTV9HaERBXw?oc=5",
+    "title": "下一代封裝黑科技！康寧揭AI晶片尺寸暴增 玻璃基板量產卡3大難關 - 壹蘋新聞網",
+    "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxObmNnNDZhdk9MSlRFNjMtdXJoMmtKOUc3bDViQmpVeUF6VXpzZDV4dGZUN3BYNlVHdHVxc3NWeEhCbHVsQWhndmNRa05jblZRbUQtRHNVWmFXeElOY2ZoYW9jT2xMcnBhN1RCSGhDOXNDQl9PLVl0QmtXWXJqQzhhNmd3?oc=5",
     "source": "Google 新聞 AI 產業",
-    "published": "2026-11-08T02:49:58+00:00",
-    "category": "模型"
+    "published": "2026-11-08T05:39:00+00:00",
+    "category": "晶片"
+   },
+   {
+    "title": "特斯拉發佈人工智慧晶片路線圖 - 鉅亨號",
+    "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE13cUR1b3hWWE1WbUo2NnExU3g1LVk5Q2pjTi1QV3l3SmQ0dU13YXZqeDFNY0QyVGdnZkpPWElfdk9ER1Myek1tZg?oc=5",
+    "source": "Google 新聞 AI",
+    "published": "2026-11-08T05:23:43+00:00",
+    "category": "晶片"
+   },
+   {
+    "title": "OpenAI融資縮水，CFO被迫回答：美國人討厭資料中心，你們怎麼辦 - 鉅亨號",
+    "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTFBsNHhOSER6TWhLS2tXN1ozdWxRTEFZOVd3Mk1EZ3NEUGxTdDRqdGpQWjBUVEhESDhud21qdklVempiTWFRUTNJRA?oc=5",
+    "source": "Google 新聞 AI 產業",
+    "published": "2026-11-08T05:15:42+00:00",
+    "category": "晶片"
    },
    {
     "title": "AI泡沫危機延燒台股！郭正亮批「黃仁勳都說謊」 示警投資人別急接刀 | 財經 | CTWANT - CTWANT",
     "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE9SdVdrcXNrU0VjRWQ4SDBvbVN5bFZQMy1hLTFVdEhzTHIzRmQ5a2FWeVhMVVliRk52RTVqWHZqMHZNMUNSTXJLRTFXMFYxTHfSAVRBVV95cUxNYzhNSGZzSGhXd3RIM2xOeFlGa3Axc0c3RVVfQ0lMakF5cWQ5R3FHSGVkWXQ5SmZLSW45cWYxRHZxVHFTbE9sZV9HdnFBOWlYMlFhOEs?oc=5",
     "source": "Google 新聞 AI",
-    "published": "2026-11-08T02:45:45+00:00",
+    "published": "2026-11-08T05:02:55+00:00",
     "category": "晶片"
    },
    {
-    "title": "輝達遭中國間諜疑雲波及，美國會施壓成半導體出口管制變數 - BigGo 財經",
-    "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTFBYZm84OXh3M1JxN3hXVHB0b3FMWTdJTjBuR2RqZWZULUJVY29hVXpQd2ZxYnAwQXNWdm1TbXNYcmhrZzk3eUU5ajlJRFdhTnRpbFp6Ml9jSFRVQTFfVGFhLWlSS0t5c3d3TzBDVEJwbXJNYmdMTmlHa1RR?oc=5",
+    "title": "美放行輝達H200晶片出口大陸遭踢爆空殼公司、軍方背景都能買- 政治圈 - 中時新聞網",
+    "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE5kM3liSmN5dVFUY2U0VjBCemFBZE1iekdmdHBzNzl0QjlITVVHUGJLVkVUYUhmMksya1VhbFBUdWJGLVZZSFlSZnVrcEhXU0hPdU1lelc0N2gyNm5XOUgxLURBT2hLSDZxMldpVWRB?oc=5",
     "source": "Google 新聞 AI 產業",
-    "published": "2026-11-08T02:35:00+00:00",
+    "published": "2026-11-08T04:52:12+00:00",
     "category": "晶片"
    },
    {
-    "title": "輝達找台積電做DRAM？業界揭3大疑點 魏哲家曾親揭公司經營策略 - 壹蘋新聞網",
-    "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQVDNzTEh5bW9nNjNLcERjLTdNRVl1LTh4T3ZvMzZIVDhCU0FpcEg0dklSMTNHcjFEaGQ4b3BtVU51MnNqSnpDZG94dnMta2drS0JwbjE5TVpSeG9vUUwxeHJGVDhFc1N0d2hoUnU3SjQyeDRvNkRSNEdCaFBjd2lLSTZn?oc=5",
+    "title": "爭議＋1！紐時查訪組裝輝達H200中企美國廠發現竟是「空殼」 - Newtalk新聞",
+    "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE1VUzRiS0tnQlp0NEMxWmpscHBULTREc1hXeXE1a0doRV9rZ05fTlRXc2VxRld0RkVoRGxGdDNtQncxSVFCVzU5M3FRbkY1ck1YLUtMVWJpWEZOOXc?oc=5",
     "source": "Google 新聞 AI 產業",
-    "published": "2026-11-08T02:35:00+00:00",
+    "published": "2026-11-08T04:38:59+00:00",
     "category": "晶片"
    },
    {
-    "title": "黃仁勳風波連環爆！輝達晶片銷中疑點重重 紐時查訪驚見空殼公司 - 經濟日報",
-    "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBBVkx2YnprcjR1c2pPZlBFZHNSVU1abzFVeXhuMk56QnRKbExBV2tib2lqRldNRE5WZ2Z3Y0ZlZnRRajFvQ0lObXBycDdqR2k4eXZFbnpDZXY4Z9IBX0FVX3lxTE1ueXNMcFp5aXdpQ1VvUGlRalQ5T3BWdjYxbXR3TVc2SGNyQm1SU0RzZXFNMHEyZ3hKSGpHVG9ud250dzZKdGViRkFSenFpRnZPSmJiNGpLaFlRR3RCQlRR?oc=5",
-    "source": "Google 新聞 AI 產業",
-    "published": "2026-11-08T02:28:46+00:00",
+    "title": "黃仁勳長女因家庭因素取消訪韓 多項合作行程喊卡",
+    "url": "https://www.cna.com.tw/news/aopl/202611080064.aspx",
+    "source": "中央社 財經",
+    "published": "2026-11-08T04:37:14+00:00",
     "category": "晶片"
    },
    {
-    "title": "面對AI支出疑慮，投資者應如何佈局人工智能？ - Yahoo 財經",
-    "url": "https://news.google.com/rss/articles/CBMiugJBVV95cUxPSXd6bUdLRGlqdU5NRkFmS0RIQnpqMGViaDRqN0ppejhEOWV6WHBmS2VYMHNTU0IwemQ3TXRnQjRQdnRGSGFqU3B2akdvTFd1TTZvd0FEU1J1WWdOT3F4WURtdDh0V3pCV1RzNFY5X1FyZ0NYT29OTGlad3lMZHhMdTg5eGJHclItM01BRFVmU0k0VlY1QjVJNDR0U21aMGJ4RjdnR1l4R3RaZC1JUjJiQ0N4M3FvaGc4UEVOLUZYU2hoU0lud2pOWklMVUhocGtWa1ZoSmRLQk1vTjcxUDVOSHNqTXZJRE5XN2ZxR3dlbm0teTVOMnFxMjFaY2w1U19oYm1ZMWZEXy1hUmNZVnZFMXIyMkx5SExuNVozaDE3Y3NWTmFDcDJtMVZLZUFYTnVpQXM3QUl6bDBZUQ?oc=5",
-    "source": "Google 新聞 AI",
-    "published": "2026-11-08T02:06:06+00:00",
-    "category": "應用"
-   },
-   {
-    "title": "端側AI晶片為何搶不走高端？ - 鉅亨號",
-    "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE43Ty1YT0ZuclNXaTYyZnBGVzhua25HTldGVEl0VS03UU9fRUpLRkVrWFg5c0lFYVpnSDl6aWFnRnBUaWRuaGd2eA?oc=5",
+    "title": "輝達物理AI先攻車用市場 免費開放模型換算力商機 - BigGo 財經",
+    "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE9RLXRjeXJfRlRNVE1PUTFyTkgzUE12SHNDQWQ3UEw5a2VRZ1FqZkZ5OGxRWWNmTGo1b3cweWY4YjVXTS1PWERfd0hkS0FVbFdITXNNZkF3N1JhNkVYOVhOWEs1RWJpTUtqRUZ5NEpZNjV5STdMLV9JN1ln?oc=5",
     "source": "Google 新聞 AI 產業",
-    "published": "2026-11-08T02:01:58+00:00",
+    "published": "2026-11-08T04:35:00+00:00",
     "category": "晶片"
    },
    {
-    "title": "輝達60萬顆晶片卡香港！港媒驚爆：北京寧忍算力短缺也要擺脫美 - 中天新聞網",
-    "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE1nY1RGZFJ0djZHc1Qzb2QtVW9kOWxPVmdtYjVDUXFWclR0bjF0YUpCZ2lmal9XMEljZVAxMFRpdW9BN1dmNm9FNDMtYVB0UjBVdE1B?oc=5",
+    "title": "輝達六棧板 AI 設備在公路上消失！物流公司成破口，警方束手無策 - 動區動趨",
+    "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNdkxwTDVLVS1oejJyZEZrQW00ai1reTVLMHhkUWltV1NsSXRQOWc4VFdmS0plbEhmZW1vaklXUjZnaGhGeU9yMmNOR2hCTlYtbV9OQUE1Zmh2LW53NXBPeWR0VU9wV3hmbVF4MVdJZnRMY291MkhGSWVRUFRhdkRNUGhBbndpYUF6NlFvT3YzclEtX1gyVlFOazJRNnE4TERo?oc=5",
     "source": "Google 新聞 AI 產業",
-    "published": "2026-11-08T01:57:57+00:00",
-    "category": "晶片"
-   },
-   {
-    "title": "選後美股反彈脆弱！CoreWeave及輝達財報要來了 周二CPI牽動Fed升息 - 知新聞",
-    "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE5SaWNoRHNfRWEtQ0Vkb205bm1aU1RrNkdlTl9sVFJhZloydDIyMFk0ZDFGOG52ZXU4YUhPTUVvNWtyX292QktBd3l3ODIyV1NxVWp5a2owTUxhZG9OeGNDQXByeEVFUEs3TmRuOFpESQ?oc=5",
-    "source": "Google 新聞 AI 產業",
-    "published": "2026-11-08T01:43:00+00:00",
+    "published": "2026-11-08T04:34:03+00:00",
     "category": "晶片"
    }
   ]
