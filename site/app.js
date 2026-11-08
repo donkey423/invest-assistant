@@ -120,6 +120,62 @@
       return `<li><span class="tag">${esc(p.tag)}</span><div>${title}${more}</div><div class="sum">${esc(p.summary)}</div></li>`;
     }).join("");
     if (s.model) $("model").textContent = `｜摘要模型 ${s.model}`;
+    const themes = s.themes || [];
+    $("theme-card").hidden = !themes.length;
+    $("themes").innerHTML = themes.map((t) => {
+      const src = (t.sources || []).map((x) => `<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.source || x.title)}</a>`).join("、");
+      return `<li><div class="theme-title"><span class="tag">${esc(t.chain)}</span><b>${esc(t.title)}</b></div>
+        <p>${esc(t.reasoning)}</p>
+        <div class="theme-row"><span class="muted">觀察</span><span>${(t.watch || []).map(esc).join("、")}</span></div>
+        <div class="theme-row"><span class="muted">反方</span><span>${esc(t.counter)}</span></div>
+        <div class="theme-row"><span class="muted">已反映？</span><span>${esc(t.priced_in)}</span></div>
+        ${src ? `<div class="theme-row"><span class="muted">來源</span><span>${src}</span></div>` : ""}</li>`;
+    }).join("");
+  }
+
+  // 產業鏈訊號：每條鏈一張卡，上游訊號 → 月營收 → 股價
+  const LIGHT = { "轉強": "up", "轉弱": "down", "持平": "flat", "資料不足": "flat" };
+  const TREND = { up: ["▲ 轉強", "up"], flat: ["＝ 持平", "flat"], down: ["▼ 轉弱", "down"] };
+  const pp = (v) => (v == null ? "—" : `${v > 0 ? "+" : ""}${v.toFixed(1)}%`);
+
+  function renderChains(sig) {
+    if (!sig || !sig.chains) { $("chains").innerHTML = `<section class="card placeholder">下次更新後就會出現。</section>`; return; }
+    $("chains").innerHTML = sig.chains.map((c) => {
+      const up = (c.upstream || []).map((u) => {
+        const [word, k] = TREND[u.trend] || ["待更新", "flat"];
+        const name = u.url ? `<a href="${esc(u.url)}" target="_blank" rel="noopener">${esc(u.name)}</a>` : esc(u.name);
+        return `<li><span class="trend ${k}">${word}</span><div>${name}<div class="muted">${esc(u.value)}${u.as_of ? `（${esc(u.as_of)}）` : ""}</div></div></li>`;
+      }).join("") || `<li class="muted">還沒有上游訊號</li>`;
+      const r = c.revenue || {}, p = c.price || {};
+      const rev = r.count
+        ? `<div class="kv"><span class="muted">${esc(r.month)} 台股平均年增</span><b class="${cls(r.avg_yoy)}">${pp(r.avg_yoy)}</b></div>
+           <div class="kv"><span class="muted">比今年累計</span><b class="${cls(r.avg_accel)}">${r.avg_accel == null ? "—" : `${r.avg_accel > 0 ? "加速" : "放緩"} ${Math.abs(r.avg_accel).toFixed(1)} 個百分點`}</b></div>
+           <div class="kv"><span class="muted">年增為正</span><b>${r.positive} / ${r.count} 家</b></div>`
+        : `<div class="muted">月營收下次更新後就會出現（每月 10 日前公布）。</div>`;
+      const rows = (c.stocks || []).map((s) => s.error
+        ? `<tr><td>${esc(s.name)}</td><td colspan="3" class="muted">無資料</td></tr>`
+        : `<tr><td>${esc(s.name)}<div class="muted">${esc(s.symbol)}</div></td>
+            <td class="${cls(s.chg_1m)}">${pct(s.chg_1m)}</td>
+            <td>${s.range_pos == null ? "—" : `${Math.round(s.range_pos * 100)}%`}</td>
+            <td class="${cls(s.rev_yoy)}">${s.rev_yoy == null ? "—" : pp(s.rev_yoy)}</td></tr>`).join("");
+      return `<section class="card chain">
+        <div class="card-head"><h2>${esc(c.name)}</h2><span class="light ${LIGHT[c.light] || "flat"}">${esc(c.light)}</span></div>
+        <p class="muted">${esc(c.desc)}</p>
+        <div class="why">${(c.why || []).map(esc).join("；")}</div>
+        <h3>① 上游訊號</h3><ul class="upstream">${up}</ul>
+        <h3>② 台股月營收</h3>${rev}
+        <h3>③ 股價已反映多少</h3>
+        <div class="kv"><span class="muted">代表股近一個月平均</span><b class="${cls(p.avg_1m)}">${pct(p.avg_1m)}</b></div>
+        <div class="kv"><span class="muted">${esc(p.bench_name || p.bench)} 近一個月</span><b class="${cls(p.bench_1m)}">${pct(p.bench_1m)}</b></div>
+        <p class="price-note">${esc(p.note)}</p>
+        <table class="chain-table"><thead><tr><th>代表股</th><th>近一月</th><th>一年位置</th><th>營收年增</th></tr></thead><tbody>${rows}</tbody></table>
+      </section>`;
+    }).join("");
+    const ev = sig.revenue_events || [];
+    const months = [...new Set(ev.map((e) => e.ym))].sort();
+    $("rev-month").textContent = months.length ? `${months.at(-1)}｜開啟 LINE 推播後會自動通知` : "";
+    $("rev-events").innerHTML = ev.map((e) => `<li><div>${esc(e.text)}</div></li>`).join("")
+      || `<li class="muted">這個月追蹤的公司營收沒有明顯變化（由負轉正、明顯加速／放緩、創新高）。</li>`;
   }
 
 
@@ -183,6 +239,7 @@
     renderChips(b.market.chips);
     renderSummary(b.summary);
     renderWorld(b.world);
+    renderChains(b.signals);
   }
 
   // 分頁切換，記住上次看的頁籤

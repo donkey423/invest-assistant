@@ -145,3 +145,39 @@ footer { padding: 0 16px 24px; }
   .stocks { grid-template-columns: 1fr; }
   .periods { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* 主題推理 */
+.themes { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.themes li { border-top: 1px solid var(--line); padding-top: 10px; }
+.themes li:first-child { border-top: 0; padding-top: 0; }
+.theme-title { display: flex; gap: 8px; align-items: baseline; }
+.themes p { margin: 6px 0; }
+.theme-row { display: grid; grid-template-columns: 64px 1fr; gap: 8px; margin-top: 2px; }
+@media (min-width: 760px) {
+  .brief-grid .theme-card { order: 6; grid-column: 1 / -1; }
+  .themes { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px 24px; }
+  .themes li { border-top: 0; padding-top: 0; }
+}
+
+/* 產業鏈訊號 */
+.chain-intro { margin: 0 0 12px; font-size: 13px; }
+.chains-grid { margin-bottom: 12px; }
+.chain h3 { font-size: 13px; margin: 14px 0 6px; color: var(--muted); font-weight: 600; }
+.chain > p { margin: 0 0 6px; }
+.light { font-weight: 700; padding: 2px 10px; border-radius: 999px; background: var(--bg); }
+.why { font-size: 13px; }
+.upstream { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.upstream li { display: grid; grid-template-columns: 64px 1fr; gap: 8px; }
+.upstream a { color: inherit; }
+.trend { font-weight: 600; font-size: 12px; }
+.kv { display: flex; justify-content: space-between; gap: 8px; padding: 2px 0; }
+.price-note { margin: 6px 0 8px; padding: 6px 10px; background: var(--bg); border-radius: 8px; font-size: 13px; }
+.chain-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.chain-table th { text-align: right; font-weight: 500; color: var(--muted); font-size: 12px; padding: 4px; }
+.chain-table td { text-align: right; padding: 4px; border-top: 1px solid var(--line); }
+.chain-table th:first-child, .chain-table td:first-child { text-align: left; }
+.tab { white-space: nowrap; }
+@media (max-width: 520px) {
+  .tabs { width: 100%; }
+  .tab { flex: 1; padding: 6px 4px; font-size: 13px; }
+}

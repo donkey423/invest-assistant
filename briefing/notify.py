@@ -28,12 +28,19 @@ def render_email(brief: dict) -> tuple[str, str]:
         f"<li><b>[{html.escape(p['tag'])}] {html.escape(p['title'])}</b><br>{html.escape(p['summary'])}</li>"
         for p in s.get("points", [])
     )
+    themes = "".join(
+        f"<li><b>{html.escape(t['title'])}</b>（{html.escape(t['chain'])}）<br>{html.escape(t['reasoning'])}"
+        f"<br>觀察：{html.escape('、'.join(t.get('watch') or []))}<br>反方：{html.escape(t['counter'])}"
+        f"<br>是否已反映：{html.escape(t['priced_in'])}</li>"
+        for t in s.get("themes") or []
+    )
+    themes = f"<h3>主題推理</h3><ul>{themes}</ul>" if themes else ""
     site = os.environ.get("SITE_URL", "")
     link = f'<p><a href="{html.escape(site)}">打開完整早報</a></p>' if site else ""
     body = f"""<div style="font-family:sans-serif;max-width:560px">
 <h2 style="margin:0 0 8px">{html.escape(s.get('headline', '今日早報'))}</h2>
 <p>{html.escape(s.get('market_comment', ''))}</p>
-<h3>財經重點</h3><ul>{points}</ul>
+<h3>財經重點</h3><ul>{points}</ul>{themes}
 <h3>主要市場</h3><table cellpadding=4>{rows}</table>{link}
 <p style="color:#888;font-size:12px">AI 整理，僅供參考，不構成投資建議。</p></div>"""
     subject = f"投資早報 {brief['generated_at'][:10]}｜{s.get('headline', '')}"[:120]
