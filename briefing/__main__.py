@@ -18,6 +18,7 @@ from .news import fetch_news
 from .notify import send_email
 from .summarize import FREE_MODEL, summarize
 from .ai_file import NEWS_FILE, load_fresh
+from . import backtest
 from .signals import build_signals
 from .world import build_world
 
@@ -47,9 +48,10 @@ def build(out_dir: Path, market_fn=build_market, news_fn=fetch_news, summary_fn=
     # 產業鏈訊號：抓不到就沿用上一份
     try:
         signals = build_signals(config, market, previous.get("signals"), out_dir)
+        fresh_signals = True
     except Exception as e:  # noqa: BLE001
         log.error("產業鏈訊號失敗：%s", e)
-        signals = previous.get("signals")
+        signals, fresh_signals = previous.get("signals"), False
 
     news = news_fn(config)
     warnings = []
@@ -69,6 +71,13 @@ def build(out_dir: Path, market_fn=build_market, news_fn=fetch_news, summary_fn=
             summary = account_summary
 
     now = datetime.now(TW)
+    if signals and fresh_signals:
+        # 以行情資料日當紀錄日期，週末或同一天多次執行不會多記
+        trade_date = (market.get("taiex") or {}).get("as_of") or now.strftime("%Y-%m-%d")
+        try:
+            signals["backtest"] = backtest.run(out_dir, trade_date, signals)
+        except Exception as e:  # noqa: BLE001
+            log.error("訊號回測紀錄失敗：%s", e)
     # 給雲端排程寫 AI 摘要用的新聞清單
     (out_dir / NEWS_FILE).write_text(json.dumps(news, ensure_ascii=False, indent=1), "utf-8")
     brief = {
