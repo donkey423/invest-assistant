@@ -1,5 +1,5 @@
 {
-  "_說明": "價格警報：above/below 是價位、move_pct 是單日漲跌幅絕對值門檻、new_52w 是創一年新高/新低。事件警報：新聞標題含任一關鍵字就通知。月營收提醒：產業鏈代表股與 briefing/config.py 的 REVENUE_WATCH 公布月營收時，年增率由負轉正（turn_up）／由正轉負（turn_down）、比今年累計明顯加速（accel）／放緩（decel）、或創新高（new_high）就通知，不想收的種類從 kinds 刪掉，enabled 改 false 全關。改完存檔即可，不需要改程式。",
+  "_說明": "價格警報：above/below 是價位、move_pct 是單日漲跌幅絕對值門檻、new_52w 是創一年新高/新低。事件警報：新聞標題含任一關鍵字就通知。月營收提醒：產業鏈代表股與 briefing/config.py 的 REVENUE_WATCH 公布月營收時，年增率由負轉正（turn_up）／由正轉負（turn_down）、比今年累計明顯加速（accel）／放緩（decel）、或創新高（new_high）就通知，追蹤的公司很多，預設只推比較少見的轉折與新高，想收加速／放緩就把 accel、decel 加進 kinds，enabled 改 false 全關。改完存檔即可，不需要改程式。",
   "price": [
     {"symbol": "^TWII", "name": "台股加權指數", "move_pct": 2, "new_52w": true},
     {"symbol": "2330.TW", "name": "台積電", "move_pct": 3, "new_52w": true},
@@ -7,7 +7,7 @@
     {"symbol": "TSM", "name": "台積電 ADR", "move_pct": 4},
     {"symbol": "^IXIC", "name": "那斯達克", "move_pct": 2.5}
   ],
-  "revenue": {"enabled": true, "kinds": ["turn_up", "turn_down", "accel", "decel", "new_high"]},
+  "revenue": {"enabled": true, "kinds": ["turn_up", "turn_down", "new_high"]},
   "events": [
     {"name": "Fed 利率", "keywords": ["FOMC", "升息", "降息", "Fed 利率", "鮑爾"]},
     {"name": "台灣央行", "keywords": ["央行理監事", "央行升息", "央行降息"]},

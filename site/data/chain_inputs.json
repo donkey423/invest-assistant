@@ -1,5 +1,5 @@
 {
- "_說明": "產業鏈的上游訊號，手動更新（約每月一次）。trend 填 up（轉強）、flat（持平）、down（轉弱）或 null（還沒更新）。每項都要附來源連結與資料時間。",
+ "_說明": "產業鏈的上游訊號，手動更新（約每月一次）。trend 填 up（轉強）、flat（持平）、down（轉弱）或 null（待更新）。每項都要附來源連結與資料時間。原油、銅、鋼價、穀物、美債殖利率由程式自動抓，不用填在這裡（設定在 briefing/config.py 的 CHAINS 的 market）。",
  "memory": [
   {
    "name": "DRAM 合約價",
@@ -23,6 +23,213 @@
    "value": "2026 年四大雲端合計 AI 支出計畫約 7,000 億美元",
    "as_of": "2026",
    "url": "https://finance.yahoo.com/sectors/technology/articles/hyperscalers-hit-700-billion-2026-111243744.html"
+  }
+ ],
+ "foundry": [
+  {
+   "name": "台積電法說營收指引",
+   "trend": null,
+   "value": "待更新：每季法說會的下一季營收與毛利率指引",
+   "as_of": "",
+   "url": "https://investor.tsmc.com/"
+  }
+ ],
+ "semi_equip": [
+  {
+   "name": "日本半導體設備 B/B 比",
+   "trend": null,
+   "value": "待更新：SEAJ 每月公布",
+   "as_of": "",
+   "url": "https://www.seaj.or.jp/english/statistics/"
+  }
+ ],
+ "wafer": [
+  {
+   "name": "矽晶圓報價",
+   "trend": null,
+   "value": "待更新",
+   "as_of": "",
+   "url": "https://www.trendforce.com/price"
+  }
+ ],
+ "network": [
+  {
+   "name": "雲端大廠資本支出",
+   "trend": "up",
+   "value": "2026 年四大雲端合計 AI 支出計畫約 7,000 億美元",
+   "as_of": "2026",
+   "url": "https://finance.yahoo.com/sectors/technology/articles/hyperscalers-hit-700-billion-2026-111243744.html"
+  }
+ ],
+ "cooling": [
+  {
+   "name": "雲端大廠資本支出",
+   "trend": "up",
+   "value": "2026 年四大雲端合計 AI 支出計畫約 7,000 億美元",
+   "as_of": "2026",
+   "url": "https://finance.yahoo.com/sectors/technology/articles/hyperscalers-hit-700-billion-2026-111243744.html"
+  }
+ ],
+ "power": [
+  {
+   "name": "雲端大廠資本支出",
+   "trend": "up",
+   "value": "2026 年四大雲端合計 AI 支出計畫約 7,000 億美元",
+   "as_of": "2026",
+   "url": "https://finance.yahoo.com/sectors/technology/articles/hyperscalers-hit-700-billion-2026-111243744.html"
+  }
+ ],
+ "pcb": [
+  {
+   "name": "銅箔基板（CCL）報價",
+   "trend": null,
+   "value": "待更新",
+   "as_of": "",
+   "url": "https://www.trendforce.com/price"
+  }
+ ],
+ "passive": [
+  {
+   "name": "MLCC 報價與通路庫存",
+   "trend": null,
+   "value": "待更新",
+   "as_of": "",
+   "url": "https://www.trendforce.com/price"
+  }
+ ],
+ "panel": [
+  {
+   "name": "面板報價",
+   "trend": null,
+   "value": "待更新：TrendForce 每月上、下旬公布",
+   "as_of": "",
+   "url": "https://www.trendforce.com/price"
+  }
+ ],
+ "apple": [
+  {
+   "name": "新 iPhone 備貨量",
+   "trend": null,
+   "value": "待更新",
+   "as_of": "",
+   "url": "https://www.apple.com/newsroom/"
+  }
+ ],
+ "pc": [
+  {
+   "name": "全球 PC 出貨量",
+   "trend": null,
+   "value": "待更新：IDC／Gartner 每季公布",
+   "as_of": "",
+   "url": "https://www.idc.com/promo/pcdforecast"
+  }
+ ],
+ "ev": [
+  {
+   "name": "特斯拉季交車數",
+   "trend": null,
+   "value": "待更新",
+   "as_of": "",
+   "url": "https://ir.tesla.com/"
+  }
+ ],
+ "grid": [
+  {
+   "name": "台電強韌電網計畫標案",
+   "trend": null,
+   "value": "待更新",
+   "as_of": "",
+   "url": "https://www.taipower.com.tw/"
+  }
+ ],
+ "solar": [
+  {
+   "name": "太陽能模組報價",
+   "trend": null,
+   "value": "待更新",
+   "as_of": "",
+   "url": "https://www.infolink-group.com/spot-price"
+  }
+ ],
+ "container": [
+  {
+   "name": "SCFI 上海出口貨櫃運價指數",
+   "trend": null,
+   "value": "待更新：每週五公布",
+   "as_of": "",
+   "url": "https://en.sse.net.cn/indices/scfinew.jsp"
+  }
+ ],
+ "bulk": [
+  {
+   "name": "BDI 波羅的海乾散貨指數",
+   "trend": null,
+   "value": "待更新：每個交易日公布",
+   "as_of": "",
+   "url": "https://www.balticexchange.com/"
+  }
+ ],
+ "steel": [
+  {
+   "name": "中鋼月盤價",
+   "trend": null,
+   "value": "待更新：每月中旬公布",
+   "as_of": "",
+   "url": "https://www.csc.com.tw/"
+  }
+ ],
+ "cement": [
+  {
+   "name": "國內水泥內銷量",
+   "trend": null,
+   "value": "待更新",
+   "as_of": "",
+   "url": "https://www.moea.gov.tw/"
+  }
+ ],
+ "textile": [
+  {
+   "name": "美國零售銷售（服飾）",
+   "trend": null,
+   "value": "待更新",
+   "as_of": "",
+   "url": "https://www.census.gov/retail/index.html"
+  }
+ ],
+ "automation": [
+  {
+   "name": "日本工具機訂單",
+   "trend": null,
+   "value": "待更新：JMTBA 每月公布",
+   "as_of": "",
+   "url": "https://www.jmtba.or.jp/english/"
+  }
+ ],
+ "defense": [
+  {
+   "name": "國防預算",
+   "trend": null,
+   "value": "待更新",
+   "as_of": "",
+   "url": "https://www.mnd.gov.tw/"
+  }
+ ],
+ "biotech": [
+  {
+   "name": "新藥審查與授權案",
+   "trend": null,
+   "value": "待更新",
+   "as_of": "",
+   "url": "https://www.fda.gov/drugs"
+  }
+ ],
+ "airline": [
+  {
+   "name": "桃園機場旅客量",
+   "trend": null,
+   "value": "待更新",
+   "as_of": "",
+   "url": "https://www.taoyuan-airport.com/"
   }
  ]
 }

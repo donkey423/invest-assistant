@@ -138,46 +138,65 @@
   const TREND = { up: ["▲ 轉強", "up"], flat: ["＝ 持平", "flat"], down: ["▼ 轉弱", "down"] };
   const pp = (v) => (v == null ? "—" : `${v > 0 ? "+" : ""}${v.toFixed(1)}%`);
 
+  function chainDetail(c) {
+    const up = (c.upstream || []).map((u) => {
+      const [word, k] = TREND[u.trend] || ["待更新", "flat"];
+      const name = u.url ? `<a href="${esc(u.url)}" target="_blank" rel="noopener">${esc(u.name)}</a>` : esc(u.name);
+      return `<li><span class="trend ${k}">${word}</span><div>${name}${u.auto ? ` <span class="auto">自動</span>` : ""}<div class="muted">${esc(u.value)}${u.as_of ? `（${esc(u.as_of)}）` : ""}</div></div></li>`;
+    }).join("") || `<li class="muted">還沒有上游訊號</li>`;
+    const r = c.revenue || {}, p = c.price || {};
+    const rev = r.count
+      ? `<div class="kv"><span class="muted">${esc(r.month)} 台股年增（中位數）</span><b class="${cls(r.avg_yoy)}">${pp(r.avg_yoy)}</b></div>
+         <div class="kv"><span class="muted">比今年累計</span><b class="${cls(r.avg_accel)}">${r.avg_accel == null ? "—" : `${r.avg_accel > 0 ? "加速" : "放緩"} ${Math.abs(r.avg_accel).toFixed(1)} 個百分點`}</b></div>
+         <div class="kv"><span class="muted">年增為正</span><b>${r.positive} / ${r.count} 家</b></div>`
+      : `<div class="muted">這條鏈沒有台股月營收資料。</div>`;
+    const rows = (c.stocks || []).map((s) => s.error
+      ? `<tr><td>${esc(s.name)}<div class="muted">${esc(s.symbol)}</div></td><td colspan="3" class="muted">無資料</td></tr>`
+      : `<tr><td>${esc(s.name)}<div class="muted">${esc(s.symbol)}</div></td>
+          <td class="${cls(s.chg_1m)}">${pct(s.chg_1m)}</td>
+          <td>${s.range_pos == null ? "—" : `${Math.round(s.range_pos * 100)}%`}</td>
+          <td class="${cls(s.rev_yoy)}">${s.rev_yoy == null ? "—" : pp(s.rev_yoy)}</td></tr>`).join("");
+    return `<p class="muted">${esc(c.desc)}</p>
+      <div class="why">${(c.why || []).map(esc).join("；")}</div>
+      <h3>① 上游訊號</h3><ul class="upstream">${up}</ul>
+      <h3>② 台股月營收</h3>${rev}
+      <h3>③ 股價已反映多少</h3>
+      <div class="kv"><span class="muted">代表股近一個月平均</span><b class="${cls(p.avg_1m)}">${pct(p.avg_1m)}</b></div>
+      <div class="kv"><span class="muted">${esc(p.bench_name || p.bench)} 近一個月</span><b class="${cls(p.bench_1m)}">${pct(p.bench_1m)}</b></div>
+      <p class="price-note">${esc(p.note)}</p>
+      <table class="chain-table"><thead><tr><th>代表股</th><th>近一月</th><th>一年位置</th><th>營收年增</th></tr></thead><tbody>${rows}</tbody></table>`;
+  }
+
+  let chainFilter = "全部";
   function renderChains(sig) {
     if (!sig || !sig.chains) { $("chains").innerHTML = `<section class="card placeholder">下次更新後就會出現。</section>`; return; }
-    $("chains").innerHTML = sig.chains.map((c) => {
-      const up = (c.upstream || []).map((u) => {
-        const [word, k] = TREND[u.trend] || ["待更新", "flat"];
-        const name = u.url ? `<a href="${esc(u.url)}" target="_blank" rel="noopener">${esc(u.name)}</a>` : esc(u.name);
-        return `<li><span class="trend ${k}">${word}</span><div>${name}<div class="muted">${esc(u.value)}${u.as_of ? `（${esc(u.as_of)}）` : ""}</div></div></li>`;
-      }).join("") || `<li class="muted">還沒有上游訊號</li>`;
+    const counts = {};
+    sig.chains.forEach((c) => { counts[c.light] = (counts[c.light] || 0) + 1; });
+    const filters = ["全部", "轉強", "持平", "轉弱", "資料不足"].filter((f) => f === "全部" || counts[f]);
+    $("chain-filter").innerHTML = filters.map((f) => `<button class="chip${f === chainFilter ? " selected" : ""}" data-f="${f}">${f} <b>${f === "全部" ? sig.chains.length : counts[f]}</b></button>`).join("");
+    $("chain-filter").querySelectorAll("button").forEach((b) => b.addEventListener("click", () => { chainFilter = b.dataset.f; renderChains(sig); }));
+    const list = sig.chains.filter((c) => chainFilter === "全部" || c.light === chainFilter);
+    const groups = [...new Set(list.map((c) => c.group || "其他"))];
+    $("chains").innerHTML = groups.map((g) => `<h2 class="group-head">${esc(g)}</h2><div class="chain-list">${list.filter((c) => (c.group || "其他") === g).map((c) => {
       const r = c.revenue || {}, p = c.price || {};
-      const rev = r.count
-        ? `<div class="kv"><span class="muted">${esc(r.month)} 台股平均年增</span><b class="${cls(r.avg_yoy)}">${pp(r.avg_yoy)}</b></div>
-           <div class="kv"><span class="muted">比今年累計</span><b class="${cls(r.avg_accel)}">${r.avg_accel == null ? "—" : `${r.avg_accel > 0 ? "加速" : "放緩"} ${Math.abs(r.avg_accel).toFixed(1)} 個百分點`}</b></div>
-           <div class="kv"><span class="muted">年增為正</span><b>${r.positive} / ${r.count} 家</b></div>`
-        : `<div class="muted">月營收下次更新後就會出現（每月 10 日前公布）。</div>`;
-      const rows = (c.stocks || []).map((s) => s.error
-        ? `<tr><td>${esc(s.name)}</td><td colspan="3" class="muted">無資料</td></tr>`
-        : `<tr><td>${esc(s.name)}<div class="muted">${esc(s.symbol)}</div></td>
-            <td class="${cls(s.chg_1m)}">${pct(s.chg_1m)}</td>
-            <td>${s.range_pos == null ? "—" : `${Math.round(s.range_pos * 100)}%`}</td>
-            <td class="${cls(s.rev_yoy)}">${s.rev_yoy == null ? "—" : pp(s.rev_yoy)}</td></tr>`).join("");
-      return `<section class="card chain">
-        <div class="card-head"><h2>${esc(c.name)}</h2><span class="light ${LIGHT[c.light] || "flat"}">${esc(c.light)}</span></div>
-        <p class="muted">${esc(c.desc)}</p>
-        <div class="why">${(c.why || []).map(esc).join("；")}</div>
-        <h3>① 上游訊號</h3><ul class="upstream">${up}</ul>
-        <h3>② 台股月營收</h3>${rev}
-        <h3>③ 股價已反映多少</h3>
-        <div class="kv"><span class="muted">代表股近一個月平均</span><b class="${cls(p.avg_1m)}">${pct(p.avg_1m)}</b></div>
-        <div class="kv"><span class="muted">${esc(p.bench_name || p.bench)} 近一個月</span><b class="${cls(p.bench_1m)}">${pct(p.bench_1m)}</b></div>
-        <p class="price-note">${esc(p.note)}</p>
-        <table class="chain-table"><thead><tr><th>代表股</th><th>近一月</th><th>一年位置</th><th>營收年增</th></tr></thead><tbody>${rows}</tbody></table>
-      </section>`;
-    }).join("");
+      return `<details class="card chain" data-id="${esc(c.id)}">
+        <summary><div class="chain-sum"><b>${esc(c.name)}</b><span class="light ${LIGHT[c.light] || "flat"}">${esc(c.light)}</span></div>
+          <div class="chain-nums muted"><span>營收年增 <b class="${cls(r.avg_yoy)}">${r.count ? pp(r.avg_yoy) : "—"}</b></span>
+          <span>近一月 <b class="${cls(p.avg_1m)}">${pct(p.avg_1m)}</b></span>
+          <span>比${esc(p.bench_name || "大盤")} <b class="${cls(p.gap)}">${p.gap == null ? "—" : pp(p.gap)}</b></span></div></summary>
+        ${chainDetail(c)}</details>`;
+    }).join("")}</div>`).join("") || `<section class="card placeholder">沒有符合的產業鏈。</section>`;
     const ev = sig.revenue_events || [];
     const months = [...new Set(ev.map((e) => e.ym))].sort();
     $("rev-month").textContent = months.length ? `${months.at(-1)}｜開啟 LINE 推播後會自動通知` : "";
-    $("rev-events").innerHTML = ev.map((e) => `<li><div>${esc(e.text)}</div></li>`).join("")
+    // 轉折與新高比較少見，排前面；超過 8 則收起來
+    const order = { turn_up: 0, new_high: 1, turn_down: 2, accel: 3, decel: 4 };
+    const sorted = [...ev].sort((a, b) => (order[a.kind] ?? 9) - (order[b.kind] ?? 9));
+    const li = (e) => `<li><div>${esc(e.text)}</div></li>`;
+    $("rev-events").innerHTML = sorted.slice(0, 8).map(li).join("")
+      + (sorted.length > 8 ? `<li><details><summary class="muted">再顯示 ${sorted.length - 8} 則</summary><ul class="newslist">${sorted.slice(8).map(li).join("")}</ul></details></li>` : "")
       || `<li class="muted">這個月追蹤的公司營收沒有明顯變化（由負轉正、明顯加速／放緩、創新高）。</li>`;
   }
-
 
   // 今天的世界：地圖泡泡大小 = 新聞則數，橘色外框 = 標題有衝突、關稅等字眼
   const MAP_VIEW = { x: 50, y: 0, w: 300, h: 122 };  // 經度 -130~170、去掉最南端，手機上字比較大
