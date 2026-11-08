@@ -18,6 +18,7 @@ from pathlib import Path
 
 from . import config
 from .analyze import analyze
+from .health import health
 from .calc import allocation, realized_pnl, risk, totals, value_positions
 from .model import Position, Transaction, load_positions, load_transactions
 
@@ -59,6 +60,10 @@ def compute_report(positions: list[Position], txs: list[Transaction], hist: dict
         "warnings": warnings,
         "analysis": (previous or {}).get("analysis"),
     }
+    try:
+        report["health"] = health(rows, report["allocation"], report["risk"], briefing, cfg)
+    except Exception as e:  # noqa: BLE001 健檢失敗不影響其他數字
+        log.error("持股健檢失敗：%s", e)
     if use_ai:
         try:
             report["analysis"] = analyze_fn(report, briefing)
@@ -86,7 +91,7 @@ def build(holdings_csv: Path, out_dir: Path, cfg=config, history_fn=_default_his
     latest = out_dir / "holdings.json"
     report = compute_report(positions, txs, history_fn(_symbols(positions, cfg)), cfg,
                             previous=_read_json(latest),
-                            briefing=_read_json(briefing_json or cfg.BRIEFING_JSON) if use_ai else None,
+                            briefing=_read_json(briefing_json or cfg.BRIEFING_JSON),
                             analyze_fn=analyze_fn, use_ai=use_ai, now=now)
     latest.write_text(json.dumps(report, ensure_ascii=False, indent=1), "utf-8")
     log.info("已寫入 %s（%d 檔，總市值 %s 元）", latest, report["totals"]["positions"], f"{report['totals']['value_twd']:,}")
@@ -102,7 +107,7 @@ def build_store(store, cfg=config, history_fn=_default_history, analyze_fn=analy
         return {}
     all_pos = [p for u in users.values() for p in u["positions"]]
     hist = history_fn(_symbols(all_pos, cfg))  # 所有人的代號一次抓完
-    briefing = _read_json(briefing_json or cfg.BRIEFING_JSON) if use_ai else None
+    briefing = _read_json(briefing_json or cfg.BRIEFING_JSON)  # 健檢要用產業鏈訊號
     results = {}
     for uid, u in users.items():
         try:

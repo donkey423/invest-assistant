@@ -71,3 +71,11 @@
 .a-editing { background: var(--bg); border-radius: 8px; padding: 4px 12px 12px; }
 .a-editing .a-form input, .a-editing .a-form textarea { background: var(--card); }
 section.a-warn { padding: 14px; }
+/* 持股健檢 */
+.a-health { list-style: none; margin: 12px 0; padding: 0; display: grid; gap: 6px; }
+.a-health li { padding: 8px 12px; border-radius: 8px; background: var(--bg); border-left: 4px solid var(--flat); }
+.a-health li.a-h-bad { border-left-color: var(--down); }
+.a-health li.a-h-warn { background: var(--warn-bg); color: var(--warn-ink); border-left-color: var(--warn-ink); }
+.a-health li.a-h-ok { border-left-color: var(--up); }
+.a-health li.a-h-info { color: var(--muted, inherit); }
+#tab-assets .small { font-size: 12px; }

@@ -205,3 +205,54 @@ def test_edge_store_uses_actions_oidc(monkeypatch):
     assert calls[-1].get_method() == "POST" and json.loads(calls[-1].data)["user_id"] == "u1"
     monkeypatch.setenv("SUPABASE_SECRET_KEY", "sb_secret_x")
     assert isinstance(store_from_env("https://p.supabase.co"), SupabaseStore)
+
+
+# ---------- 持股健檢（對照產業鏈訊號） ----------
+def _briefing(tmp_path):
+    chains = [
+        {"id": "foundry", "name": "晶圓代工", "group": "半導體", "light": "轉弱", "why": ["月營收放緩"],
+         "stocks": [{"symbol": "2330.TW", "name": "台積電"}]},
+        {"id": "icdesign", "name": "IC 設計", "group": "半導體", "light": "轉強", "why": ["營收加速"],
+         "stocks": [{"symbol": "2454.TW"}, {"symbol": "NVDA"}]},
+        {"id": "server", "name": "AI 伺服器", "group": "AI", "light": "持平", "why": [],
+         "stocks": [{"symbol": "NVDA"}]},
+    ]
+    p = tmp_path / "latest.json"
+    p.write_text(json.dumps({"generated_at": "2026-11-08T15:05+08:00", "signals": {"chains": chains}}), "utf-8")
+    return p
+
+
+def test_health_maps_holdings_to_chains_without_ai(tmp_path):
+    rep = build(EX / "holdings.example.csv", tmp_path, history_fn=fake_history, use_ai=False,
+                tx_csv=tmp_path / "none.csv", briefing_json=_briefing(tmp_path), now=NOW)
+    h = rep["health"]
+    ex = {e["id"]: e for e in h["chain_exposure"]}
+    w = {g["key"]: g["weight_pct"] for g in rep["allocation"]["by_symbol"]}
+    assert ex["foundry"]["light"] == "轉弱" and ex["foundry"]["weight_pct"] == pytest.approx(w["2330"], abs=0.1)
+    assert {x["symbol"] for x in ex["icdesign"]["holdings"]} == {"2454", "NVDA"}
+    assert "server" in ex  # NVDA 同時屬於兩條鏈
+    assert h["weak_pct"] == pytest.approx(w["2330"], abs=0.1)
+    assert set(h["unmapped"]) == {"0050", "MSFT"}
+    bad = [i["text"] for i in h["items"] if i["level"] == "bad"]
+    assert bad and "台積電" in bad[0] and "晶圓代工" in bad[0] and "月營收放緩" in bad[0]
+    assert any("上限" in i["text"] for i in h["items"] if i["level"] == "warn")
+    assert h["signals_at"].startswith("2026-11-08")
+
+
+def test_health_sector_fallback_and_tw_suffix():
+    from holdings.health import map_chains
+    chains = [{"id": "cool", "name": "散熱", "stocks": [{"symbol": "3017.TW"}]},
+              {"id": "pcb", "name": "PCB 與載板", "stocks": [{"symbol": "3260.TWO"}]}]
+    rows = [{"symbol": "3260", "quote_symbol": "3260.TW", "sector": ""},
+            {"symbol": "6230", "quote_symbol": "6230.TW", "sector": "散熱"},
+            {"symbol": "X", "quote_symbol": "X", "sector": "半"}]
+    m = map_chains(rows, chains)
+    assert [c["id"] for c, _ in m["3260"]] == ["pcb"]
+    assert [(c["id"], how) for c, how in m["6230"]] == [("cool", "sector")]
+    assert m["X"] == []
+
+
+def test_health_without_signals_still_reports(tmp_path):
+    rep = build(EX / "holdings.example.csv", tmp_path, history_fn=fake_history, use_ai=False,
+                tx_csv=tmp_path / "none.csv", briefing_json=tmp_path / "none.json", now=NOW)
+    assert rep["health"]["chain_exposure"] == [] and any(i["level"] == "info" for i in rep["health"]["items"])
