@@ -85,6 +85,27 @@ footer { padding: 0 16px 24px; }
 .newslist a { color: var(--ink); text-decoration: none; font-weight: 600; }
 .newslist a:hover { text-decoration: underline; }
 .riskline { color: var(--risk); font-size: 13px; }
+/* 早報版面：桌機上卡片依內容排，不留大片空白
+   寬螢幕：上排 台股｜全球｜AI 股 三欄等高（走勢圖與清單撐滿），下排 財經重點跨三欄、重點分欄排
+   中等寬度：兩欄，財經重點跨兩欄 */
+.points .sum { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+@media (min-width: 760px) {
+  .brief-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .brief-grid .news-card { grid-column: 1 / -1; }
+  .brief-grid .news-card .points { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 24px; }
+  .brief-grid .card { display: flex; flex-direction: column; }
+  .brief-grid .taiex .chart { flex: 1; min-height: 150px; display: flex; }
+  .brief-grid .taiex .chart svg { height: auto; min-height: 150px; flex: 1; }
+  .brief-grid .minis, .brief-grid .stocks { flex: 1; align-content: stretch; }
+}
+@media (min-width: 760px) and (max-width: 1199px) {
+  .brief-grid .ai-card { grid-column: 1 / -1; }
+  .brief-grid .ai-card .stocks { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+@media (min-width: 1200px) {
+  .brief-grid { grid-template-columns: 1.15fr 1.1fr 1fr; }
+  .brief-grid .news-card .points { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
 @media (max-width: 520px) {
   .grid { grid-template-columns: 1fr; }
   .minis { grid-template-columns: repeat(2, 1fr); }
