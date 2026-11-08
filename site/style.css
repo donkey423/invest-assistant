@@ -106,6 +106,39 @@ footer { padding: 0 16px 24px; }
   .brief-grid { grid-template-columns: 1.15fr 1.1fr 1fr; }
   .brief-grid .news-card .points { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
+/* 市場溫度計 */
+.gauge-wrap { display: grid; gap: 12px; }
+.sub-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
+.chips-panel { background: var(--bg); border-radius: 10px; padding: 10px; min-width: 0; }
+.inst { display: grid; gap: 6px; }
+.inst-row { display: grid; grid-template-columns: 3.5em 1fr 6.5em; gap: 8px; align-items: center; font-variant-numeric: tabular-nums; }
+.inst-row b { text-align: right; }
+.inst-row.total { border-top: 1px solid var(--line); padding-top: 6px; }
+.track { position: relative; height: 10px; border-radius: 5px; background: var(--card); }
+.track::after { content: ""; position: absolute; left: 50%; top: -2px; bottom: -2px; width: 1px; background: var(--muted); }
+.track .bar { position: absolute; top: 0; bottom: 0; border-radius: 5px; }
+.bar.up, .hb.up { background: var(--up); } .bar.down, .hb.down { background: var(--down); } .bar.flat, .hb.flat { background: var(--flat); }
+.inst-hist { margin-top: 10px; }
+.hist-bars { display: flex; align-items: flex-end; gap: 3px; height: 34px; margin-top: 2px; }
+.hb { flex: 1; border-radius: 2px 2px 0 0; min-width: 4px; }
+.margin { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin-top: 10px; }
+.margin div { background: var(--card); border-radius: 8px; padding: 6px 8px; }
+.margin b { display: block; font-variant-numeric: tabular-nums; }
+.chips-notes { margin: 10px 0 0; padding-left: 18px; display: grid; gap: 2px; }
+.gauges { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; align-content: start; }
+.gauge { border: 1px solid var(--line); border-radius: 8px; padding: 8px; min-width: 0; }
+.gauge .name { font-weight: 600; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.gauge .row { display: flex; justify-content: space-between; align-items: baseline; gap: 4px; font-variant-numeric: tabular-nums; }
+.gauge .row b { font-size: 16px; }
+.gauge .row span { font-size: 12px; white-space: nowrap; }
+.gauge svg { width: 100%; height: 28px; display: block; margin: 2px 0; }
+.gauge .note { font-size: 12px; color: var(--muted); line-height: 1.4; }
+@media (min-width: 760px) {
+  .brief-grid .taiex { order: 1; } .brief-grid .global-card { order: 2; } .brief-grid .ai-card { order: 3; }
+  .brief-grid .gauge-card { order: 4; grid-column: 1 / -1; } .brief-grid .news-card { order: 5; }
+  .gauge-wrap { grid-template-columns: minmax(300px, 1fr) 2fr; }
+  .gauges { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
 @media (max-width: 520px) {
   .grid { grid-template-columns: 1fr; }
   .minis { grid-template-columns: repeat(2, 1fr); }

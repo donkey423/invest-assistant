@@ -12,6 +12,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from . import config
+from .chips import build_chips
 from .market import build_market
 from .news import fetch_news
 from .notify import send_email
@@ -23,7 +24,8 @@ TW = timezone(timedelta(hours=8))
 log = logging.getLogger("briefing")
 
 
-def build(out_dir: Path, market_fn=build_market, news_fn=fetch_news, summary_fn=summarize) -> dict:
+def build(out_dir: Path, market_fn=build_market, news_fn=fetch_news, summary_fn=summarize,
+          chips_fn=build_chips) -> dict:
     out_dir.mkdir(parents=True, exist_ok=True)
     latest = out_dir / "latest.json"
     previous = json.loads(latest.read_text("utf-8")) if latest.exists() else {}
@@ -31,6 +33,15 @@ def build(out_dir: Path, market_fn=build_market, news_fn=fetch_news, summary_fn=
     market = market_fn(config)
     if "error" in market["taiex"] and all("error" in q for q in market["global"]):
         raise RuntimeError("所有行情都抓不到，保留上一份早報")
+
+    prev_chips = (previous.get("market") or {}).get("chips")
+    # 台股籌碼（證交所）：抓不到就沿用上一份，不影響其他區塊
+    try:
+        chips = chips_fn(config, prev_chips)
+    except Exception as e:  # noqa: BLE001
+        log.error("台股籌碼抓取失敗：%s", e)
+        chips = None
+    market["chips"] = chips or prev_chips
 
     news = news_fn(config)
     warnings = []

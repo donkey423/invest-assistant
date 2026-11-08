@@ -56,6 +56,13 @@ def build_prompt(market: dict, news: list[dict]) -> str:
     lines = ["## 行情", _fmt_quote(market["taiex"])]
     lines += [_fmt_quote(q) for q in market["global"]]
     lines += ["", "## 美國 AI 股"] + [_fmt_quote(q) for q in market["ai_stocks"]]
+    gauges = [q for q in market.get("gauges", []) if "error" not in q]
+    if gauges:
+        lines += ["", "## 市場溫度計"] + [_fmt_quote(q) for q in gauges]
+    chips = market.get("chips") or {}
+    if chips.get("notes"):
+        inst = chips.get("institutional") or {}
+        lines += ["", f"## 台股籌碼（資料日 {inst.get('date', '')}）"] + chips["notes"]
     lines += ["", "## 新聞（編號. 來源｜標題｜摘要）"]
     for i, n in enumerate(news):
         lines.append(f"{i}. {n['source']}｜{n['title']}｜{n['summary']}")
