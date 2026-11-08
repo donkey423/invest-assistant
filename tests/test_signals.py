@@ -42,6 +42,8 @@ def test_build_signals_light_and_price_note(tmp_path):
     mem = next(c for c in sig["chains"] if c["id"] == "memory")
     assert mem["light"] == "轉強"            # 上游轉強＋營收加速
     assert mem["revenue"]["count"] == 1 and mem["revenue"]["avg_accel"] == 50.0
+    airline = next(c for c in sig["chains"] if c["id"] == "airline")
+    assert airline["upstream"][0]["auto"] and airline["upstream"][0]["trend"] in ("up", "flat", "down")
     assert mem["price"]["avg_1m"] is not None and mem["price"]["note"]
     ai = next(c for c in sig["chains"] if c["id"] == "ai_server")
     assert ai["light"] == "資料不足"
@@ -61,7 +63,17 @@ def test_briefing_includes_signals(tmp_path):
     from briefing.summarize import simple_summary
     b = build(tmp_path, market_fn=partial(build_market, history_fn=fake_history),
               news_fn=partial(fetch_news, parse=fake_parse), summary_fn=simple_summary)
-    assert [c["id"] for c in b["signals"]["chains"]] == ["memory", "ai_server"]
+    assert [c["id"] for c in b["signals"]["chains"]] == [c["id"] for c in config.CHAINS]
+    assert len(config.CHAINS) >= 20
+
+
+def test_market_input_trend_and_inverse():
+    from briefing.signals import market_input
+    q = {"chg_1m": 8.0, "last": 70.5, "as_of": "2026-11-07"}
+    assert market_input({"symbol": "CL=F", "name": "原油"}, q, 5)["trend"] == "up"
+    assert market_input({"symbol": "CL=F", "name": "原油", "inverse": True}, q, 5)["trend"] == "down"
+    assert market_input({"symbol": "CL=F", "name": "原油"}, {**q, "chg_1m": 2.0}, 5)["trend"] == "flat"
+    assert market_input({"symbol": "X", "name": "x"}, None, 5)["trend"] is None
 
 
 def test_themes_validation():

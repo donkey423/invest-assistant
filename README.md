@@ -34,11 +34,11 @@ cd site && python -m http.server 8000   # 打開 http://localhost:8000
 
 ## 產業鏈訊號
 
-網頁的「產業鏈訊號」分頁把每條產業鏈（目前是記憶體、AI 伺服器）分三層看：① 上游訊號（報價、韓國出口、雲端資本支出）② 台股月營收（證交所／櫃買中心 openapi，免費）③ 代表股股價已經反映多少。燈號只說明基本面往哪個方向變，不是買賣建議。
+網頁的「產業鏈訊號」分頁涵蓋 30 條產業鏈（半導體、AI 與資料中心、電子零組件、消費電子、車用與能源、傳產與原物料、金融、生技等），每條分三層看：① 上游訊號（報價、韓國出口、雲端資本支出）② 台股月營收（證交所／櫃買中心 openapi，免費）③ 代表股股價已經反映多少。燈號只說明基本面往哪個方向變，不是買賣建議。
 
 - 鏈與代表股：`briefing/config.py` 的 `CHAINS`；月營收提醒額外追蹤的台股：`REVENUE_WATCH`
-- 上游訊號（每月手動更新一次，附來源與日期）：`site/data/chain_inputs.json`
-- 月營收提醒（由負轉正、明顯加速／放緩、創新高）：`alerts/rules.json` 的 `revenue`，跟著警報排程推 LINE／Email
+- 上游訊號：原油、銅、鋼價、穀物、美債殖利率由 Yahoo 自動抓（`CHAINS` 的 `market`）；報價、運價、出口、資本支出等手動填在 `site/data/chain_inputs.json`（附來源與日期，沒資料的標「待更新」）
+- 月營收提醒（預設推由負轉正、由正轉負、創新高；加速／放緩只在網頁顯示）：`alerts/rules.json` 的 `revenue`，跟著警報排程推 LINE／Email
 - AI 早報的「主題推理」由雲端排程寫在 `ai_summary.json` 的 `themes`，規則見 [docs/ai-routine.md](docs/ai-routine.md)
 
 ## 我的資產（持股明細與分析）

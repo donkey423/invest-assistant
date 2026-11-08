@@ -14,3 +14,4 @@ def _no_yahoo_for_signals(monkeypatch):
     """產業鏈訊號的股價改用假資料，不連 Yahoo。"""
     from tests.fakes import fake_history
     monkeypatch.setattr("briefing.signals._history", fake_history)
+    monkeypatch.setattr("briefing.signals._get_json", lambda url: (_ for _ in ()).throw(OSError("測試中不連網")))

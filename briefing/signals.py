@@ -36,7 +36,7 @@ def _field(row: dict, *words: str):
 
 def _f(v) -> float | None:
     try:
-        return float(str(v).replace(",", "").strip())
+        return round(float(str(v).replace(",", "").strip()), 2)
     except (TypeError, ValueError):
         return None
 
@@ -72,7 +72,8 @@ def parse_revenue(rows: list[dict]) -> dict[str, dict]:
     return out
 
 
-def fetch_revenue(get_json=_get_json) -> dict[str, dict]:
+def fetch_revenue(get_json=None) -> dict[str, dict]:
+    get_json = get_json or _get_json
     out: dict[str, dict] = {}
     for url in REVENUE_URLS:
         try:
@@ -131,6 +132,28 @@ def _avg(vals):
     return round(sum(vals) / len(vals), 2) if vals else None
 
 
+def _median(vals):
+    """用中位數，避免一檔營收暴增（例如年增 500%）把整條鏈拉偏。"""
+    vals = sorted(v for v in vals if v is not None)
+    if not vals:
+        return None
+    n = len(vals)
+    return round(vals[n // 2] if n % 2 else (vals[n // 2 - 1] + vals[n // 2]) / 2, 2)
+
+
+def market_input(item: dict, q: dict | None, pct: float) -> dict:
+    """Yahoo 抓得到的上游價格（原油、銅、鋼、穀物、利率）→ 自動判斷轉強／轉弱。"""
+    base = {"name": item["name"], "auto": True, "url": f"https://finance.yahoo.com/quote/{item['symbol']}"}
+    if not q or q.get("chg_1m") is None:
+        return {**base, "trend": None, "value": "抓不到價格", "as_of": ""}
+    chg = q["chg_1m"]
+    move = "up" if chg >= pct else "down" if chg <= -pct else "flat"
+    if item.get("inverse") and move != "flat":
+        move = "down" if move == "up" else "up"
+    note = "（價格上漲對這條鏈不利）" if item.get("inverse") else ""
+    return {**base, "trend": move, "value": f"近一個月 {chg:+.1f}%，現在 {q['last']:,}{note}", "as_of": q["as_of"]}
+
+
 def chain_light(upstream: list[dict], accel: float | None, cfg) -> tuple[str, list[str]]:
     score, why = 0, []
     for u in upstream:
@@ -141,10 +164,10 @@ def chain_light(upstream: list[dict], accel: float | None, cfg) -> tuple[str, li
     if accel is not None:
         if accel >= cfg.CHAIN_ACCEL_PP:
             score += 1
-            why.append(f"月營收加速（單月年增比累計高 {accel:.1f} 個百分點）")
+            why.append(f"月營收加速（單月年增比今年累計高 {accel:.1f} 個百分點，中位數）")
         elif accel <= -cfg.CHAIN_ACCEL_PP:
             score -= 1
-            why.append(f"月營收放緩（單月年增比累計低 {-accel:.1f} 個百分點）")
+            why.append(f"月營收放緩（單月年增比今年累計低 {-accel:.1f} 個百分點，中位數）")
         else:
             why.append("月營收成長速度持平")
     if not why:
@@ -164,7 +187,8 @@ def build_signals(cfg, market: dict, prev: dict | None, data_dir: Path,
         inputs = {}
 
     symbols = [s["symbol"] for c in chains_cfg for s in c["stocks"]]
-    benches = {c["bench"] for c in chains_cfg}
+    benches = {c.get("bench", "^TWII") for c in chains_cfg}
+    benches |= {m["symbol"] for c in chains_cfg for m in c.get("market", [])}
     try:
         hist = history_fn(list(dict.fromkeys(symbols + sorted(benches)))) if symbols else {}
     except Exception as e:  # noqa: BLE001
@@ -207,10 +231,13 @@ def build_signals(cfg, market: dict, prev: dict | None, data_dir: Path,
             })
         tw_rev = [s for s in stocks if s.get("rev_yoy") is not None]
         accels = [s["rev_yoy"] - s["rev_ytd_yoy"] for s in tw_rev if s.get("rev_ytd_yoy") is not None]
-        accel = _avg(accels)
-        upstream = inputs.get(c["id"]) or []
+        accel = _median(accels)
+        pct = getattr(cfg, "MARKET_TREND_PCT", 5)
+        upstream = [market_input(m, quote(m["symbol"]), pct) for m in c.get("market", [])]
+        upstream += inputs.get(c["id"]) or []
         light, why = chain_light(upstream, accel, cfg)
-        bq = quote(c["bench"])
+        bench = c.get("bench", "^TWII")
+        bq = quote(bench)
         avg_1m = _avg([s.get("chg_1m") for s in stocks])
         bench_1m = bq["chg_1m"] if bq else None
         gap = round(avg_1m - bench_1m, 2) if avg_1m is not None and bench_1m is not None else None
@@ -223,13 +250,13 @@ def build_signals(cfg, market: dict, prev: dict | None, data_dir: Path,
         else:
             price_note = f"代表股近一個月平均{'多' if gap >= 0 else '少'}漲對照指數 {abs(gap):.1f}%"
         chains.append({
-            "id": c["id"], "name": c["name"], "desc": c.get("desc", ""),
+            "id": c["id"], "name": c["name"], "group": c.get("group", ""), "desc": c.get("desc", ""),
             "light": light, "why": why, "upstream": upstream,
             "revenue": {"month": max((s["rev_ym"] for s in tw_rev), default=None),
-                        "avg_yoy": _avg([s["rev_yoy"] for s in tw_rev]), "avg_accel": accel,
+                        "avg_yoy": _median([s["rev_yoy"] for s in tw_rev]), "avg_accel": accel,
                         "positive": sum(1 for s in tw_rev if s["rev_yoy"] > 0), "count": len(tw_rev)},
-            "price": {"avg_1m": avg_1m, "bench": c["bench"],
-                      "bench_name": BENCH_NAMES.get(c["bench"], c["bench"]), "bench_1m": bench_1m, "gap": gap, "note": price_note},
+            "price": {"avg_1m": avg_1m, "bench": bench,
+                      "bench_name": BENCH_NAMES.get(bench, bench), "bench_1m": bench_1m, "gap": gap, "note": price_note},
             "stocks": stocks,
         })
 

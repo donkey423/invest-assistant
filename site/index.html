@@ -90,8 +90,9 @@
   </div>
 </main>
 <main id="tab-chains" class="tabpane" hidden>
-  <p class="chain-intro muted">上游訊號（報價、出口、資本支出）先動，台股月營收接著確認，最後才是財報。燈號只說明「基本面往哪個方向變」，股價常常提早反映，請一起看「股價已反映多少」。</p>
-  <div id="chains" class="grid chains-grid"></div>
+  <p class="chain-intro muted">上游訊號（報價、出口、資本支出）先動，台股月營收接著確認，最後才是財報。燈號只說明「基本面往哪個方向變」，股價常常提早反映，請一起看「股價已反映多少」。點產業看細節；「待更新」的上游訊號還沒有資料。</p>
+  <div id="chain-filter" class="chips chain-filter" role="tablist" aria-label="依燈號篩選"></div>
+  <div id="chains" class="chains"></div>
   <section class="card" id="rev-events-card">
     <div class="card-head"><h2>本月營收變化</h2><span id="rev-month" class="muted"></span></div>
     <ul id="rev-events" class="newslist"></ul>
