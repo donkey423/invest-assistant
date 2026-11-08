@@ -134,7 +134,7 @@
   function reportHtml(r, account) {
     if (!r) return "";
     const warn = (r.warnings || []).map((w) => `<div class="a-warn">${esc(w)}</div>`).join("");
-    const where = MODE === "cloud" ? "持股存在你的 Supabase 資料庫，只有登入的你看得到。" : "持股資料只存在你自己的電腦。";
+    const where = MODE === "cloud" ? "持股存在你的 Supabase 資料庫，只有用私密連結打開過的裝置看得到。" : "持股資料只存在你自己的電腦。";
     return `${warn}<div class="grid">${summaryCard(r)}${alertsCard(r.analysis)}${tableCard(r, account)}${allocCard(r)}${riskCard(r)}${scenarioCard(r)}</div>
       <p class="muted a-foot">${where}AI 健檢只拿到占比、報酬率、產業與投資理由，不含帳戶與金額。僅供參考，不構成投資建議。${r.analysis?.model ? `｜模型 ${esc(r.analysis.model)}` : ""}</p>`;
   }
@@ -167,83 +167,35 @@
       .catch(empty);
   }
 
-  // ---------------- 雲端模式：Supabase 登入，手機可新增持股 ----------------
-  // 直接呼叫 Supabase 的 REST API，不必載入額外套件。前端只用公開金鑰（publishable／anon），
-  // 資料的保護靠資料庫的 Row Level Security：沒登入或別人登入都讀不到你的持股。
-  const SKEY = "invest-assistant-session";
-  let cfg, session;
+  // ---------------- 雲端模式：私密連結（不用帳號密碼） ----------------
+  // 你的私密連結長這樣：https://…/invest-assistant/#k=一長串密碼
+  // 「#」後面的部分瀏覽器不會送到任何伺服器；打開一次後存在這台裝置，之後直接開網站就好。
+  // 資料庫只透過 vault_* 函式回應，金鑰不對就什麼都拿不到；資料表本身對外完全不開放。
+  const KKEY = "invest-assistant-key";
+  let cfg, vkey;
+  const loadKey = () => { try { return localStorage.getItem(KKEY); } catch (e) { return null; } };
+  const saveKey = (k) => { vkey = k; try { k ? localStorage.setItem(KKEY, k) : localStorage.removeItem(KKEY); } catch (e) { /* 無痕模式 */ } };
 
-  const loadSession = () => { try { return JSON.parse(localStorage.getItem(SKEY)); } catch (e) { return null; } };
-  const saveSession = (s) => { session = s; try { s ? localStorage.setItem(SKEY, JSON.stringify(s)) : localStorage.removeItem(SKEY); } catch (e) { /* 無痕模式 */ } };
-  const toSession = (t) => ({ access_token: t.access_token, refresh_token: t.refresh_token,
-    expires_at: t.expires_at ? Number(t.expires_at) : Math.floor(Date.now() / 1000) + Number(t.expires_in || 3600),
-    email: t.user?.email || session?.email || "" });
-
-  async function api(path, { method = "GET", body, auth = true, prefer } = {}) {
-    if (auth && session && session.expires_at - 60 < Date.now() / 1000) await refresh();
-    const headers = { apikey: cfg.key, "Content-Type": "application/json" };
-    if (auth && session) headers.Authorization = `Bearer ${session.access_token}`;
-    if (prefer) headers.Prefer = prefer;
-    const res = await fetch(cfg.url.replace(/\/$/, "") + path, { method, headers, body: body ? JSON.stringify(body) : undefined });
+  async function rpc(fn, args) {
+    const res = await fetch(`${cfg.url.replace(/\/$/, "")}/rest/v1/rpc/${fn}`, {
+      method: "POST", headers: { apikey: cfg.key, "Content-Type": "application/json" },
+      body: JSON.stringify({ k: vkey, ...args }) });
     const text = await res.text();
     const data = text ? JSON.parse(text) : null;
     if (!res.ok) {
-      if (res.status === 401 && auth) { saveSession(null); showLogin("登入已過期，請重新登入"); }
-      throw new Error(data?.msg || data?.message || data?.error_description || `HTTP ${res.status}`);
+      const msg = data?.message || `HTTP ${res.status}`;
+      if (msg === "invalid key") { saveKey(null); showNoKey("這條私密連結已經失效，請用新的連結打開。"); }
+      throw new Error(msg);
     }
     return data;
   }
 
-  async function refresh() {
-    const t = await fetch(cfg.url.replace(/\/$/, "") + "/auth/v1/token?grant_type=refresh_token", {
-      method: "POST", headers: { apikey: cfg.key, "Content-Type": "application/json" },
-      body: JSON.stringify({ refresh_token: session.refresh_token }) });
-    if (!t.ok) { saveSession(null); showLogin("登入已過期，請重新登入"); throw new Error("refresh failed"); }
-    saveSession(toSession(await t.json()));
-  }
-
-  const AUTH_MSG = {
-    "Invalid login credentials": "Email 或密碼不對",
-    "Email not confirmed": "還沒確認信箱：請到信箱點確認信裡的連結，再回來登入",
-    "User already registered": "這個 Email 已經註冊過了，直接按「登入」",
-    "Signups not allowed for this instance": "目前不開放註冊",
-  };
-  const authErr = (err) => AUTH_MSG[err.message] || err.message;
-
-  // 用 Email＋密碼登入：手機瀏覽器可以記住密碼，也不必設定登入連結要回到哪個網址
-  function showLogin(msg = "") {
+  function showNoKey(msg = "") {
     root.innerHTML = `<section class="card a-login">
-      <h2>登入看我的資產</h2>
-      <p class="muted">持股只有你登入後看得到。</p>
-      <form id="a-login-form" class="a-form">
-        <label>Email<input type="email" name="email" required autocomplete="email" inputmode="email"></label>
-        <label>密碼<input type="password" name="password" required minlength="8" autocomplete="current-password"></label>
-        <button class="a-btn primary" type="submit" data-mode="login">登入</button>
-        <button class="a-btn" type="submit" data-mode="signup">第一次使用：用這組 Email 和密碼建立帳號</button>
-      </form>
-      <p class="a-msg" id="a-login-msg">${esc(msg)}</p>
+      <h2>我的資產</h2>
+      <p>這一頁只給你自己看。請用你的<b>私密連結</b>打開一次，這台裝置就會記住，之後直接開網站即可。</p>
+      ${msg ? `<p class="a-msg">${esc(msg)}</p>` : ""}
     </section>`;
-    const msgEl = document.getElementById("a-login-msg");
-    const form = document.getElementById("a-login-form");
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const mode = e.submitter?.dataset.mode || "login";
-      const email = form.email.value.trim(), password = form.password.value;
-      if (password.length < 8) { msgEl.textContent = "密碼至少 8 個字"; return; }
-      msgEl.textContent = mode === "signup" ? "建立帳號中…" : "登入中…";
-      try {
-        if (mode === "signup") {
-          const t = await api("/auth/v1/signup", { method: "POST", auth: false, body: { email, password } });
-          if (t?.access_token) { saveSession(toSession(t)); return cloudHome(); }
-          msgEl.textContent = "帳號建好了。請到信箱點確認信裡的連結（點完如果出現打不開的頁面，關掉就好），然後回來按「登入」。";
-          form.querySelector('[data-mode="signup"]').hidden = true;
-          return;
-        }
-        const t = await api("/auth/v1/token?grant_type=password", { method: "POST", auth: false, body: { email, password } });
-        saveSession(toSession(t));
-        cloudHome();
-      } catch (err) { msgEl.textContent = authErr(err); }
-    });
   }
 
   const FIELDS = [
@@ -286,7 +238,7 @@
             <span class="n">${num(h.shares, 4)} 股 @ ${num(h.avg_cost)}${valued.has(key) ? "" : '<em class="a-badge">待計算</em>'}</span></button></li>`;
     }).join("");
     return `<section class="card a-wide a-manage">
-      <div class="card-head"><h2>管理持股</h2><span class="muted">${esc(session.email)}　<button class="a-link" data-logout>登出</button></span></div>
+      <div class="card-head"><h2>管理持股</h2><span class="muted">這台裝置已記住你的私密連結　<button class="a-link" data-logout>忘記這台裝置</button></span></div>
       ${open === "new" ? holdingForm({}, listsOf(holdings)) : `<button class="a-btn primary a-add" data-new>＋ 新增持股</button>`}
       ${holdings.length ? `<ul class="a-list">${items}</ul>` : '<p class="muted">還沒有持股，按上面的按鈕新增第一筆。</p>'}
       <p class="muted">點一筆可以修改或刪除。損益與分析在每天自動計算時更新（台股收盤後與美股收盤後）。</p>
@@ -299,27 +251,18 @@
   }
 
   async function cloudHome(open = null, account = "全部") {
-    if (!session) return showLogin();
-    if (!session.email) {
-      try { const u = await api("/auth/v1/user"); saveSession({ ...session, email: u.email }); } catch (e) { return; }
-    }
-    let holdings, report;
-    try {
-      [holdings, report] = await Promise.all([
-        api("/rest/v1/holdings?select=*&order=symbol.asc,id.asc"),
-        api("/rest/v1/holdings_reports?select=report").then((r) => r?.[0]?.report || null),
-      ]);
-    } catch (err) {
-      if (session) root.innerHTML = `<section class="card a-warn">讀取失敗：${esc(err.message)}</section>`;
-      return;
-    }
+    if (!vkey) return showNoKey();
+    let data;
+    try { data = await rpc("vault_data", {}); }
+    catch (err) { if (vkey) root.innerHTML = `<section class="card a-warn">讀取失敗：${esc(err.message)}</section>`; return; }
+    const holdings = data.holdings || [], report = data.report || null;
     root.innerHTML = `<div class="grid">${manageCard(holdings, report, open)}</div>${report ? reportHtml(report, account)
-      : '<section class="card placeholder">新增持股後，第一次自動計算完成就會在這裡看到損益與分析。</section>'}`;
+      : '<section class="card placeholder">新增持股後，下一次自動計算完成就會在這裡看到損益與分析。</section>'}`;
     bindAccount(report, (a) => cloudHome(open, a));
     const card = root.querySelector(".a-manage");
-    card.querySelector("[data-logout]").addEventListener("click", async () => {
-      try { await api("/auth/v1/logout", { method: "POST" }); } catch (e) { /* 已失效也沒關係 */ }
-      saveSession(null); showLogin();
+    card.querySelector("[data-logout]").addEventListener("click", () => {
+      if (!confirm("這台裝置將不再記住私密連結，之後要再用連結打開才能看。確定？")) return;
+      saveKey(null); showNoKey("已忘記這台裝置。");
     });
     card.querySelector("[data-new]")?.addEventListener("click", () => cloudHome("new", account));
     card.querySelectorAll("[data-edit]").forEach((b) => b.addEventListener("click", () => cloudHome(Number(b.dataset.edit), account)));
@@ -332,7 +275,7 @@
     const msg = form.querySelector(".a-msg");
     form.querySelector("[data-delete]")?.addEventListener("click", async () => {
       if (!confirm(`確定刪除 ${sym.value}？`)) return;
-      try { await api(`/rest/v1/holdings?id=eq.${form.dataset.id}`, { method: "DELETE" }); cloudHome(null, account); }
+      try { await rpc("vault_remove_holding", { hid: Number(form.dataset.id) }); cloudHome(null, account); }
       catch (err) { msg.textContent = `刪除失敗：${err.message}`; }
     });
     form.addEventListener("submit", async (e) => {
@@ -342,32 +285,30 @@
         let v = form.elements[k].value.trim();
         if (k === "symbol") v = v.toUpperCase();
         if (k === "fx_cost" && isTW(row.symbol)) v = "";
-        row[k] = type === "number" || type === "date" ? (v === "" ? null : type === "number" ? Number(v) : v) : v;
+        row[k] = type === "number" ? (v === "" ? null : Number(v)) : v;
       });
+      if (form.dataset.id) row.id = Number(form.dataset.id);
       msg.textContent = "儲存中…";
-      try {
-        if (form.dataset.id) await api(`/rest/v1/holdings?id=eq.${form.dataset.id}`, { method: "PATCH", body: row, prefer: "return=minimal" });
-        else await api("/rest/v1/holdings", { method: "POST", body: row, prefer: "return=minimal" });
-        cloudHome(null, account);
-      } catch (err) { msg.textContent = `儲存失敗：${err.message}`; }
+      try { await rpc("vault_save_holding", { h: row }); cloudHome(null, account); }
+      catch (err) { msg.textContent = `儲存失敗：${err.message}`; }
     });
     form.elements[open === "new" ? "symbol" : "shares"].focus();
   }
 
   function cloudMode() {
     MODE = "cloud";
-    // 從信裡的登入連結回來時，網址後面會帶著登入資訊
     const h = new URLSearchParams(location.hash.slice(1));
-    if (h.get("access_token")) {
-      saveSession(toSession(Object.fromEntries(h)));
-      history.replaceState(null, "", location.pathname + location.search);
+    if (h.get("k")) {
+      saveKey(h.get("k"));
+      history.replaceState(null, "", location.pathname + location.search);  // 網址列不留金鑰
       document.querySelector('.tab[data-tab="assets"]')?.click();
     } else {
-      session = loadSession();
-      if (h.get("error_description")) return showLogin(`登入失敗：${h.get("error_description")}`);
+      vkey = loadKey();
     }
-    session ? cloudHome() : showLogin();
+    vkey ? cloudHome() : showNoKey();
   }
+  // 網站已經開著時再點私密連結，只會改變「#」後面，不會重新載入
+  window.addEventListener("hashchange", () => { if (MODE === "cloud" && location.hash.includes("k=")) cloudMode(); });
 
   // supabase-config.js 有填網址與公開金鑰就用雲端模式，否則讀自己電腦上的檔案
   const s = document.createElement("script");

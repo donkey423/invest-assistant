@@ -107,6 +107,8 @@ class EdgeStore:
 
 def _fill(users, holdings, transactions) -> None:
     for r in holdings:
+        if r.get("removed_at"):  # 網站上刪除的持股（軟刪除）
+            continue
         try:
             users[r["user_id"]]["positions"].append(position_from_row(r))
         except ValueError as e:

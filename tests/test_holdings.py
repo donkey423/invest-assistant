@@ -151,6 +151,7 @@ def test_supabase_store_builds_report_per_user():
         _row("u1", symbol="NVDA", shares="50", avg_cost="120", fx_cost=30),
         _row("u1", symbol="BAD", shares=None, avg_cost=1),
         _row("u2", symbol="0050", shares=10, avg_cost=150),
+        _row("u2", symbol="2317", shares=10, avg_cost=150, removed_at="2026-11-08T00:00:00Z"),
     ], transactions=[{"user_id": "u1", "date": "2026-07-17", "symbol": "2330", "type": "dividend", "amount": 4500}])
     store = SupabaseStore("https://x.supabase.co/", "sb_secret_abc", opener=op)
     res = build_store(store, history_fn=fake_history, use_ai=False, briefing_json=Path("none.json"), now=NOW)
