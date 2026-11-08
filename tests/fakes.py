@@ -105,7 +105,34 @@ FAKE_MI_MARGN = {"stat": "OK", "date": "20261106", "tables": [{"title": "信用�
     ]}, {"title": "個股", "data": []}]}
 
 
+FAKE_TAIFEX = [
+    {"Date": "20261106", "ContractCode": "臺股期貨", "Item": "自營商", "OpenInterest(Net)": "1680"},
+    {"Date": "20261106", "ContractCode": "臺股期貨", "Item": "外資及陸資", "OpenInterest(Net)": "-32150"},
+    {"Date": "20261106", "ContractCode": "小型臺指期貨", "Item": "外資及陸資", "OpenInterest(Net)": "-999"},
+]
+FAKE_FF = [
+    {"title": "CPI m/m", "country": "USD", "date": "2026-11-10T08:30:00-05:00", "impact": "High", "forecast": "0.3%", "previous": "0.4%"},
+    {"title": "Core CPI m/m", "country": "USD", "date": "2026-11-10T08:30:00-05:00", "impact": "High", "forecast": "0.3%", "previous": "0.3%"},
+    {"title": "Retail Sales m/m", "country": "USD", "date": "2026-11-12T08:30:00-05:00", "impact": "Medium", "forecast": "", "previous": ""},
+    {"title": "German Prelim CPI m/m", "country": "EUR", "date": "2026-11-11T03:00:00-05:00", "impact": "High", "forecast": "", "previous": ""},
+    {"title": "RBA Rate Statement", "country": "AUD", "date": "2026-11-11T22:30:00-05:00", "impact": "High", "forecast": "", "previous": ""},
+]
+FAKE_TWT48U = {"stat": "OK", "fields": ["除權除息日期", "股票代號", "名稱", "除權息", "無償配股率", "現金增資配股率",
+                                         "現金增資認購價", "現金股利"], "data": [
+    ["115年11月13日", "0056", "元大高股息", "息", "0", "0", "0", "0.86600000"],
+    ["115年11月17日", "006208", "富邦台50", "息", "0", "0", "0", "<p>待公告實際收益分配金額</p>"],
+    ["115年11月12日", "9999", "某公司", "息", "0", "0", "0", "1.5"],
+    ["115年12月20日", "0050", "元大台灣50", "息", "0", "0", "0", "1.0"],
+]}
+
+
 def fake_twse(url):
+    if "taifex" in url:
+        return FAKE_TAIFEX
+    if "faireconomy" in url:
+        return FAKE_FF
+    if "TWT48U" in url:
+        return FAKE_TWT48U
     if "BFI82U" in url:
         return FAKE_BFI82U
     if "MI_MARGN" in url:

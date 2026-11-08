@@ -81,3 +81,13 @@ def test_build_keeps_previous_chips_when_twse_down(tmp_path, monkeypatch):
     monkeypatch.setattr(chips, "_get_json", lambda u: (_ for _ in ()).throw(OSError("down")))
     second = build(tmp_path, **kw)
     assert second["market"]["chips"] == first["market"]["chips"]
+
+
+def test_futures_parse_and_change(monkeypatch):
+    from tests.fakes import FAKE_TAIFEX
+    assert chips.parse_futures(FAKE_TAIFEX) == {"date": "2026-11-06", "foreign_oi": -32150}
+    monkeypatch.setattr(chips, "_get_json", fake_twse)
+    prev = {"futures_history": [{"date": "2026-11-05", "foreign_oi": -30000}]}
+    c = chips.build_chips(config, prev, today=date(2026, 11, 8))
+    assert c["futures"]["change"] == -2150
+    assert "外資台指期淨空單 3.21 萬口，比前一天偏空 2,150 口" in c["notes"]

@@ -14,6 +14,7 @@ log = logging.getLogger(__name__)
 TW = timezone(timedelta(hours=8))
 
 INST_URL = "https://www.twse.com.tw/rwd/zh/fund/BFI82U?type=day&dayDate={d}&response=json"
+FUT_URL = "https://openapi.taifex.com.tw/v1/MarketDataOfMajorInstitutionalTradersDetailsOfFuturesContractsBytheDate"
 MARGIN_URL = "https://www.twse.com.tw/rwd/zh/marginTrading/MI_MARGN?date={d}&selectType=MS&response=json"
 
 
@@ -87,6 +88,14 @@ def parse_margin(data: dict) -> dict | None:
     return out
 
 
+def parse_futures(rows: list[dict]) -> dict | None:
+    """期交所 OpenAPI：三大法人期貨未平倉（最近一個交易日）。取臺股期貨的外資及陸資淨未平倉口數。"""
+    for r in rows or []:
+        if str(r.get("ContractCode", "")).strip() == "臺股期貨" and str(r.get("Item", "")).startswith("外資"):
+            return {"date": _iso(str(r.get("Date", ""))), "foreign_oi": int(_num(r.get("OpenInterest(Net)")))}
+    return None
+
+
 def _latest(url: str, parse, today: date, lookback: int) -> dict | None:
     for i in range(lookback):
         d = today - timedelta(days=i)
@@ -120,7 +129,24 @@ def _who(v: float) -> str:
     return f"買超 {abs(v):,.1f} 億" if v > 0 else f"賣超 {abs(v):,.1f} 億" if v < 0 else "持平"
 
 
-def chips_notes(inst: dict | None, margin: dict | None, history: list[dict]) -> list[str]:
+def _lots(v: int) -> str:
+    return f"{abs(v) / 10000:.2f} 萬口" if abs(v) >= 10000 else f"{abs(v):,} 口"
+
+
+def futures_note(fut: dict | None) -> str:
+    if not fut:
+        return ""
+    v = fut["foreign_oi"]
+    side = "淨多單" if v > 0 else "淨空單" if v < 0 else "多空持平"
+    text = f"外資台指期{side} {_lots(v)}" if v else "外資台指期多空持平"
+    ch = fut.get("change")
+    if ch:
+        # 數字變大＝偏多（空單減少或多單增加）
+        text += f"，比前一天{'偏多' if ch > 0 else '偏空'} {_lots(ch)}"
+    return text
+
+
+def chips_notes(inst: dict | None, margin: dict | None, history: list[dict], fut: dict | None = None) -> list[str]:
     notes = []
     if inst:
         s = streak(history, "foreign")
@@ -131,6 +157,8 @@ def chips_notes(inst: dict | None, margin: dict | None, history: list[dict]) -> 
         move = f"增加 {ch:,.1f} 億" if ch > 0 else f"減少 {abs(ch):,.1f} 億" if ch < 0 else "持平"
         hint = "，散戶加碼" if ch >= 30 else "，散戶退場" if ch <= -30 else ""
         notes.append(f"融資餘額 {margin['margin_balance']:,.0f} 億，比前一天{move}{hint}")
+    if fut:
+        notes.append(futures_note(fut))
     return notes
 
 
@@ -139,10 +167,24 @@ def build_chips(cfg, previous: dict | None = None, today: date | None = None) ->
     previous = previous or {}
     inst = _latest(INST_URL, parse_institutional, today, cfg.CHIPS_LOOKBACK_DAYS)
     margin = _latest(MARGIN_URL, parse_margin, today, cfg.CHIPS_LOOKBACK_DAYS)
-    if inst is None and margin is None:
+    try:
+        fut = parse_futures(_get_json(FUT_URL))
+    except Exception as e:  # noqa: BLE001
+        log.warning("期交所未平倉抓取失敗：%s", e)
+        fut = None
+    if inst is None and margin is None and fut is None:
         return None
     inst = inst or previous.get("institutional")
     margin = margin or previous.get("margin")
+
+    # 外資台指期未平倉：期交所只給最近一天，前一天的數字自己記
+    fut_hist = [h for h in previous.get("futures_history", []) if not fut or h["date"] != fut["date"]]
+    if fut:
+        fut_hist.append({"date": fut["date"], "foreign_oi": fut["foreign_oi"]})
+    fut_hist = sorted(fut_hist, key=lambda h: h["date"])[-cfg.CHIPS_HISTORY_DAYS:]
+    fut = fut or previous.get("futures")
+    if fut and len(fut_hist) >= 2 and fut_hist[-1]["date"] == fut["date"]:
+        fut = {**fut, "change": fut_hist[-1]["foreign_oi"] - fut_hist[-2]["foreign_oi"]}
 
     history = [h for h in previous.get("history", []) if not inst or h.get("date") != inst["date"]]
     if inst:
@@ -152,6 +194,8 @@ def build_chips(cfg, previous: dict | None = None, today: date | None = None) ->
         "institutional": inst,
         "margin": margin,
         "history": history,
+        "futures": fut,
+        "futures_history": fut_hist,
         "foreign_streak": streak(history, "foreign"),
-        "notes": chips_notes(inst, margin, history),
+        "notes": chips_notes(inst, margin, history, fut),
     }

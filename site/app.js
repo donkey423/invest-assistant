@@ -106,7 +106,32 @@
       $("margin").innerHTML = `<div><span class="muted">融資餘額</span><b>${num(Math.round(m.margin_balance))} 億</b></div>
         <div><span class="muted">比前一天</span><b class="${cls(m.margin_change)}">${yi(m.margin_change)}</b></div>${ratio}`;
     }
+    const f = c.futures;
+    if (f) {
+      const v = f.foreign_oi, side = v > 0 ? "淨多單" : v < 0 ? "淨空單" : "持平";
+      const ch = f.change != null ? `<span class="muted">比前一天</span><b class="${cls(f.change)}">${f.change > 0 ? "+" : ""}${f.change.toLocaleString("zh-TW")} 口</b>` : "";
+      $("futures").innerHTML = `<div><span class="muted">外資台指期未平倉（${esc(f.date)}）</span><b class="${cls(v)}">${side} ${Math.abs(v).toLocaleString("zh-TW")} 口</b></div>${ch ? `<div>${ch}</div>` : ""}`;
+    }
     $("chips-notes").innerHTML = (c.notes || []).map((n) => `<li>${esc(n)}</li>`).join("");
+  }
+
+  // 未來一週行事曆：依日期分組
+  const CAL_KIND = { fed: "Fed／央行", macro: "經濟數據", earnings: "財報", dividend: "除權息" };
+  const WEEK = "日一二三四五六";
+  function renderCalendar(c) {
+    if (!c) { $("cal").innerHTML = `<div class="muted">下次更新後就會出現。</div>`; return; }
+    const md = (iso) => { const [y, m, d] = iso.split("-").map(Number); return `${m}/${d}（${WEEK[new Date(Date.UTC(y, m - 1, d)).getUTCDay()]}）`; };
+    $("cal-range").textContent = `${md(c.start)} – ${md(c.end)}｜台灣時間`;
+    const byDay = {};
+    (c.events || []).forEach((e) => (byDay[e.date] = byDay[e.date] || []).push(e));
+    const today = c.start;
+    const days = Object.keys(byDay).sort();
+    const others = c.dividend_others ? `<p class="muted cal-more">另有 ${c.dividend_others} 檔股票或 ETF 這週除權息（只列常見的）</p>` : "";
+    $("cal").innerHTML = (days.length ? days.map((d) => `<div class="cal-day${d === today ? " today" : ""}">
+        <div class="cal-date">${md(d)}${d === today ? " 今天" : ""}</div>
+        <ul>${byDay[d].map((e) => `<li class="k-${esc(e.kind)}"><span class="cal-time">${esc(e.time) || "—"}</span>
+          <div><b>${esc(e.title)}</b> <span class="cal-tag">${CAL_KIND[e.kind] || ""}</span>${e.note ? `<div class="muted">${esc(e.note)}</div>` : ""}</div></li>`).join("")}</ul>
+      </div>`).join("") : `<div class="muted">這一週沒有重要事件。</div>`) + others;
   }
 
   function renderSummary(s) {
@@ -276,6 +301,7 @@
     renderAI(b.market.ai_stocks, b.market.ai_benchmark);
     renderGauges(b.market.gauges);
     renderChips(b.market.chips);
+    renderCalendar(b.calendar);
     renderSummary(b.summary);
     renderWorld(b.world);
     renderChains(b.signals);

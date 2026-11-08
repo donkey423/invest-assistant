@@ -7,6 +7,8 @@ def _no_twse_network(monkeypatch):
     def offline(url):
         raise OSError("測試中不連網")
     monkeypatch.setattr("briefing.chips._get_json", offline)
+    monkeypatch.setattr("briefing.calendar._get_json", offline)
+    monkeypatch.setattr("briefing.calendar._earnings_dates", lambda symbols: {})
 
 
 @pytest.fixture(autouse=True)
