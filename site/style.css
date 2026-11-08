@@ -124,6 +124,23 @@ footer { padding: 0 16px 24px; }
 .margin { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin-top: 10px; }
 .margin div { background: var(--card); border-radius: 8px; padding: 6px 8px; }
 .margin b { display: block; font-variant-numeric: tabular-nums; }
+.futures { display: grid; grid-template-columns: 2fr 1fr; gap: 6px; margin-top: 6px; }
+.futures div { background: var(--card); border-radius: 8px; padding: 6px 8px; }
+.futures b { display: block; font-variant-numeric: tabular-nums; }
+/* 未來一週行事曆 */
+.cal { display: grid; gap: 10px; }
+.cal-day { min-width: 0; }
+.cal-date { font-weight: 600; font-size: 13px; padding: 2px 0 4px; border-bottom: 1px solid var(--line); }
+.cal-day.today .cal-date { color: var(--accent); }
+.cal ul { list-style: none; margin: 0; padding: 0; }
+.cal li { display: grid; grid-template-columns: 3.2em 1fr; gap: 8px; padding: 6px 0 6px 8px; border-left: 3px solid var(--line); margin-top: 4px; }
+.cal li.k-fed { border-left-color: var(--risk); }
+.cal li.k-macro { border-left-color: var(--accent); }
+.cal li.k-earnings { border-left-color: var(--up); }
+.cal li.k-dividend { border-left-color: var(--down); }
+.cal-time { font-variant-numeric: tabular-nums; color: var(--muted); font-size: 12px; padding-top: 1px; }
+.cal-tag { font-size: 11px; color: var(--muted); white-space: nowrap; }
+.cal-more { margin: 0; }
 .chips-notes { margin: 10px 0 0; padding-left: 18px; display: grid; gap: 2px; }
 .gauges { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; align-content: start; }
 .gauge { border: 1px solid var(--line); border-radius: 8px; padding: 8px; min-width: 0; }
@@ -135,7 +152,10 @@ footer { padding: 0 16px 24px; }
 .gauge .note { font-size: 12px; color: var(--muted); line-height: 1.4; }
 @media (min-width: 760px) {
   .brief-grid .taiex { order: 1; } .brief-grid .global-card { order: 2; } .brief-grid .ai-card { order: 3; }
-  .brief-grid .gauge-card { order: 4; grid-column: 1 / -1; } .brief-grid .news-card { order: 5; }
+  .brief-grid .gauge-card { order: 4; grid-column: 1 / -1; }
+  .brief-grid .cal-card { order: 4; grid-column: 1 / -1; }
+  .cal { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); align-items: start; }
+  .cal-more { grid-column: 1 / -1; } .brief-grid .news-card { order: 5; }
   .gauge-wrap { grid-template-columns: minmax(300px, 1fr) 2fr; }
   .gauges { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }

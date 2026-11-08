@@ -12,6 +12,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from . import config
+from .calendar import build_calendar
 from .chips import build_chips
 from .market import build_market
 from .news import fetch_news
@@ -27,7 +28,7 @@ log = logging.getLogger("briefing")
 
 
 def build(out_dir: Path, market_fn=build_market, news_fn=fetch_news, summary_fn=summarize,
-          chips_fn=build_chips) -> dict:
+          chips_fn=build_chips, calendar_fn=build_calendar) -> dict:
     out_dir.mkdir(parents=True, exist_ok=True)
     latest = out_dir / "latest.json"
     previous = json.loads(latest.read_text("utf-8")) if latest.exists() else {}
@@ -44,6 +45,15 @@ def build(out_dir: Path, market_fn=build_market, news_fn=fetch_news, summary_fn=
         log.error("台股籌碼抓取失敗：%s", e)
         chips = None
     market["chips"] = chips or prev_chips
+
+    # 未來一週行事曆：全部來源都失敗才沿用上一份
+    try:
+        calendar = calendar_fn(config)
+    except Exception as e:  # noqa: BLE001
+        log.error("行事曆失敗：%s", e)
+        calendar = None
+    if not calendar or not calendar.get("sources"):
+        calendar = previous.get("calendar") or calendar
 
     # 產業鏈訊號：抓不到就沿用上一份
     try:
@@ -86,6 +96,7 @@ def build(out_dir: Path, market_fn=build_market, news_fn=fetch_news, summary_fn=
         "summary": summary,
         "world": build_world(config, news, summary),
         "signals": signals,
+        "calendar": calendar,
         "news_count": len(news),
         "warnings": warnings,
     }
