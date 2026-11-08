@@ -167,6 +167,8 @@
   }
 
   function render(r, account = "全部") {
+    // 讓「產業鏈訊號」分頁標出持股所在的產業鏈（只在這台瀏覽器裡，不會送出去）
+    if (window.HOLDINGS_REPORT !== r) { window.HOLDINGS_REPORT = r; window.dispatchEvent(new Event("holdings:report")); }
     root.innerHTML = reportHtml(r, account);
     bindAccount(r, (a) => render(r, a));
   }

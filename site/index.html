@@ -96,20 +96,34 @@
   </div>
 </main>
 <main id="tab-chains" class="tabpane" hidden>
-  <p class="chain-intro muted">上游訊號（報價、出口、資本支出）先動，台股月營收接著確認，最後才是財報。燈號只說明「基本面往哪個方向變」，股價常常提早反映，請一起看「股價已反映多少」。點產業看細節；「待更新」的上游訊號還沒有資料。</p>
+  <section class="card chain-hero">
+    <div class="card-head"><h2>產業鏈總覽</h2><span class="muted">30 條產業鏈的基本面方向，顏色＝燈號，數字＝代表股近一個月漲跌</span></div>
+    <div class="hero-wrap">
+      <div id="chain-stats" class="chain-stats"></div>
+      <div id="chain-heat" class="chain-heat"></div>
+    </div>
+    <details class="howto"><summary>燈號怎麼來的？</summary>
+      <p>上游訊號（報價、出口、資本支出、原物料價格）先動，台股月營收接著確認，最後才是財報。燈號＝上游訊號加上月營收是否加速的綜合方向，只說明「基本面往哪個方向變」，不是買賣建議。股價常常提早反映，所以要一起看「比對照指數多漲或少漲多少」。</p></details>
+  </section>
+  <section class="card">
+    <div class="card-head"><h2>值得注意</h2><span class="muted">燈號和股價對不上的地方，最值得研究</span></div>
+    <div id="chain-watch" class="chain-watch"></div>
+  </section>
   <div id="chain-filter" class="chips chain-filter" role="tablist" aria-label="依燈號篩選"></div>
   <div id="chains" class="chains"></div>
-  <section class="card" id="backtest-card">
-    <div class="card-head"><h2>訊號回測</h2><span id="bt-since" class="muted"></span></div>
-    <p class="muted">每個交易日記下燈號，之後看代表股跑贏或跑輸對照指數多少（超額報酬）。命中＝轉強後跑贏、轉弱後跑輸。過去表現不保證未來。</p>
-    <div id="bt-table"></div>
-    <h3 class="bt-sub">最近的燈號變化</h3>
-    <ul id="bt-changes" class="newslist"></ul>
-  </section>
-  <section class="card" id="rev-events-card">
-    <div class="card-head"><h2>本月營收變化</h2><span id="rev-month" class="muted"></span></div>
-    <ul id="rev-events" class="newslist"></ul>
-  </section>
+  <div class="grid chain-bottom">
+    <section class="card" id="backtest-card">
+      <div class="card-head"><h2>訊號回測</h2><span id="bt-since" class="muted"></span></div>
+      <p class="muted">每個交易日記下燈號，之後看代表股跑贏或跑輸對照指數多少（超額報酬）。命中＝轉強後跑贏、轉弱後跑輸。過去表現不保證未來。</p>
+      <div id="bt-table"></div>
+      <h3 class="bt-sub">最近的燈號變化</h3>
+      <ul id="bt-changes" class="newslist"></ul>
+    </section>
+    <section class="card" id="rev-events-card">
+      <div class="card-head"><h2>本月營收變化</h2><span id="rev-month" class="muted"></span></div>
+      <ul id="rev-events" class="newslist"></ul>
+    </section>
+  </div>
 </main>
 <main id="tab-assets" class="tabpane" hidden>
   <section class="card placeholder">持股明細與分析在第三階段加入。</section>
