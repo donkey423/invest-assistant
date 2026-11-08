@@ -39,6 +39,7 @@ cd site && python -m http.server 8000   # 打開 http://localhost:8000
 - 鏈與代表股：`briefing/config.py` 的 `CHAINS`；月營收提醒額外追蹤的台股：`REVENUE_WATCH`
 - 上游訊號：原油、銅、鋼價、穀物、美債殖利率由 Yahoo 自動抓（`CHAINS` 的 `market`）；報價、運價、出口、資本支出等手動填在 `site/data/chain_inputs.json`（附來源與日期，沒資料的標「待更新」）
 - 月營收提醒（預設推由負轉正、由正轉負、創新高；加速／放緩只在網頁顯示）：`alerts/rules.json` 的 `revenue`，跟著警報排程推 LINE／Email
+- 訊號回測：每個交易日把燈號與代表股價格記在 `site/data/signal_log.json`，網頁顯示燈號亮起後 1 週、1 個月、3 個月的平均超額報酬與命中率（`briefing/backtest.py`）
 - AI 早報的「主題推理」由雲端排程寫在 `ai_summary.json` 的 `themes`，規則見 [docs/ai-routine.md](docs/ai-routine.md)
 
 ## 我的資產（持股明細與分析）

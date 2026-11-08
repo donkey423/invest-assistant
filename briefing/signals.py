@@ -256,7 +256,8 @@ def build_signals(cfg, market: dict, prev: dict | None, data_dir: Path,
                         "avg_yoy": _median([s["rev_yoy"] for s in tw_rev]), "avg_accel": accel,
                         "positive": sum(1 for s in tw_rev if s["rev_yoy"] > 0), "count": len(tw_rev)},
             "price": {"avg_1m": avg_1m, "bench": bench,
-                      "bench_name": BENCH_NAMES.get(bench, bench), "bench_1m": bench_1m, "gap": gap, "note": price_note},
+                      "bench_name": BENCH_NAMES.get(bench, bench), "bench_1m": bench_1m, "gap": gap, "note": price_note,
+                      "bench_last": bq["last"] if bq else None},
             "stocks": stocks,
         })
 

@@ -167,6 +167,26 @@
       <table class="chain-table"><thead><tr><th>代表股</th><th>近一月</th><th>一年位置</th><th>營收年增</th></tr></thead><tbody>${rows}</tbody></table>`;
   }
 
+  function renderBacktest(bt) {
+    if (!bt) { $("bt-table").innerHTML = `<div class="muted">下次更新後開始記錄。</div>`; return; }
+    $("bt-since").textContent = `從 ${bt.since} 起，已記錄 ${bt.days_logged} 個交易日`;
+    const hs = Object.entries(bt.horizons || {});
+    const any = hs.some(([, h]) => ["轉強", "持平", "轉弱"].some((l) => (h[l] || {}).n));
+    if (!any) {
+      const need = Math.max(0, 6 - bt.days_logged);
+      $("bt-table").innerHTML = `<div class="muted">資料累積中：再 ${need} 個交易日可以看到「1 週後」的結果，約 1 個月後看到「1 個月後」，3 個月後看到「3 個月後」。</div>`;
+    } else {
+      const cell = (x, light) => !x || !x.n ? `<td class="muted">—</td>`
+        : `<td><b class="${cls(x.avg_excess)}">${pp(x.avg_excess)}</b><div class="muted">${x.hit == null ? "" : `命中 ${x.hit}%｜`}${x.n} 次</div></td>`;
+      $("bt-table").innerHTML = `<table class="chain-table bt"><thead><tr><th>燈號亮起後</th>${hs.map(([k]) => `<th>${esc(k)}</th>`).join("")}</tr></thead><tbody>
+        ${["轉強", "持平", "轉弱"].map((l) => `<tr><td><span class="light ${LIGHT[l]}">${l}</span></td>${hs.map(([, h]) => cell(h[l], l)).join("")}</tr>`).join("")}</tbody></table>`;
+    }
+    const ch = bt.changes || [];
+    $("bt-changes").innerHTML = ch.map((c) => `<li><div>${esc(c.date)} <b>${esc(c.name)}</b> ${esc(c.from)} → <span class="${LIGHT[c.to] || "flat"}">${esc(c.to)}</span>
+      <span class="muted">${c.excess_since == null ? "" : `之後至今超額報酬 `}</span>${c.excess_since == null ? "" : `<b class="${cls(c.excess_since)}">${pp(c.excess_since)}</b>`}</div></li>`).join("")
+      || `<li class="muted">還沒有燈號變化。</li>`;
+  }
+
   let chainFilter = "全部";
   function renderChains(sig) {
     if (!sig || !sig.chains) { $("chains").innerHTML = `<section class="card placeholder">下次更新後就會出現。</section>`; return; }
@@ -259,6 +279,7 @@
     renderSummary(b.summary);
     renderWorld(b.world);
     renderChains(b.signals);
+    renderBacktest((b.signals || {}).backtest);
   }
 
   // 分頁切換，記住上次看的頁籤
