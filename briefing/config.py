@@ -94,3 +94,19 @@ AI_CATEGORIES = [
 # 走勢圖：主卡片畫一年，小圖畫最近 60 個交易日
 TAIEX_CHART_DAYS = 250
 SPARKLINE_DAYS = 60
+
+# 市場溫度計：用 Yahoo 抓，跟股價同一套。kind 決定網頁上的白話解讀怎麼寫（見 gauges.py）
+GAUGES = [
+    {"symbol": "^VIX", "name": "VIX 恐慌指數", "kind": "vix"},
+    {"symbol": "^TNX", "name": "美國 10 年債殖利率", "kind": "yield"},
+    {"symbol": "DX-Y.NYB", "name": "美元指數", "kind": "dxy"},
+    {"symbol": "TWD=X", "name": "美元兌台幣", "kind": "twd"},
+    {"symbol": "^SOX", "name": "費城半導體", "kind": "sox"},
+    {"symbol": "GC=F", "name": "黃金", "kind": "gold"},
+    {"symbol": "CL=F", "name": "原油 WTI", "kind": "oil"},
+    {"symbol": "BTC-USD", "name": "比特幣", "kind": "btc"},
+]
+
+# 台股籌碼（證交所）：往回找幾天有資料、保留幾天歷史來算「連幾天買超」
+CHIPS_LOOKBACK_DAYS = 7
+CHIPS_HISTORY_DAYS = 20

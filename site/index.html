@@ -34,6 +34,20 @@
         <div class="range-labels"><span id="range-lo"></span><span id="range-text"></span><span id="range-hi"></span></div></div>
     </section>
 
+    <section class="card gauge-card">
+      <div class="card-head"><h2>市場溫度計</h2><span class="muted">台股籌碼與全球風險指標</span></div>
+      <div class="gauge-wrap">
+        <div class="chips-panel">
+          <div class="sub-head"><b>三大法人買賣超</b><span id="inst-date" class="muted"></span></div>
+          <div id="inst" class="inst"></div>
+          <div id="inst-hist" class="inst-hist"></div>
+          <div id="margin" class="margin"></div>
+          <ul id="chips-notes" class="chips-notes"></ul>
+        </div>
+        <div id="gauges" class="gauges"></div>
+      </div>
+    </section>
+
     <section class="card global-card">
       <div class="card-head"><h2>全球主要股市</h2><span class="muted">近 60 個交易日</span></div>
       <div id="global" class="minis"></div>
@@ -73,7 +87,7 @@
   <section class="card placeholder">持股明細與分析在第三階段加入。</section>
 </main>
 
-<footer class="muted">資料來源：Yahoo Finance、各新聞 RSS。AI 整理僅供參考，不構成投資建議。<span id="model"></span></footer>
+<footer class="muted">資料來源：Yahoo Finance、臺灣證券交易所、各新聞 RSS。AI 整理僅供參考，不構成投資建議。<span id="model"></span></footer>
 <script src="worldmap.js"></script>
 <script src="app.js"></script>
 <script src="assets.js" defer></script>

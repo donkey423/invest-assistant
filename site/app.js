@@ -54,6 +54,61 @@
           <div class="pct ${cls(q.change_pct)}">${arrow(q.change_pct)}${pct(q.change_pct)}</div></div>`).join("");
   }
 
+  // 市場溫度計：台股籌碼（證交所）＋ VIX、美債、美元、台幣、費半、黃金、原油、比特幣
+  const GAUGE_FMT = {
+    yield: (q) => `${q.last.toFixed(2)}%`,
+    twd: (q) => q.last.toFixed(2),
+    btc: (q) => Math.round(q.last).toLocaleString("zh-TW"),
+  };
+  const yi = (v) => `${v > 0 ? "+" : ""}${v.toLocaleString("zh-TW", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} 億`;
+
+  function renderGauges(list) {
+    if (!list || !list.length) { $("gauges").innerHTML = `<div class="muted">下次更新後就會出現。</div>`; return; }
+    $("gauges").innerHTML = list.map((q) => {
+      if (q.error) return `<div class="gauge"><div class="name">${esc(q.name)}</div><div class="muted">無資料</div></div>`;
+      const val = (GAUGE_FMT[q.kind] || ((x) => num(x.last)))(q);
+      const chg = q.kind === "yield"
+        ? `<span class="${cls(q.change)}">${arrow(q.change)}${Math.abs(Math.round(q.change * 100))} 基點</span>`
+        : `<span class="${cls(q.change_pct)}">${arrow(q.change_pct)}${pct(q.change_pct)}</span>`;
+      return `<div class="gauge" title="資料日 ${esc(q.as_of)}">
+        <div class="name">${esc(q.name)}</div>
+        <div class="row"><b>${val}</b>${chg}</div>
+        ${sparkline(q.spark.slice(-22), { w: 120, h: 28, fill: false })}
+        <div class="note">${esc(q.note)}</div></div>`;
+    }).join("");
+  }
+
+  function renderChips(c) {
+    if (!c || (!c.institutional && !c.margin)) {
+      $("inst").innerHTML = `<div class="muted">證交所資料下次更新後就會出現。</div>`;
+      return;
+    }
+    const i = c.institutional;
+    if (i) {
+      $("inst-date").textContent = `資料日 ${i.date}｜單位：億元`;
+      const rows = [["外資", i.foreign], ["投信", i.trust], ["自營商", i.dealer]];
+      const max = Math.max(1, ...rows.map((r) => Math.abs(r[1])));
+      $("inst").innerHTML = rows.map(([k, v]) => {
+        const w = (Math.abs(v) / max) * 50;
+        const bar = `<span class="bar ${cls(v)}" style="${v >= 0 ? "left:50%" : `left:${50 - w}%`};width:${w}%"></span>`;
+        return `<div class="inst-row"><span>${k}</span><div class="track">${bar}</div><b class="${cls(v)}">${yi(v)}</b></div>`;
+      }).join("") + `<div class="inst-row total"><span>合計</span><div></div><b class="${cls(i.total)}">${yi(i.total)}</b></div>`;
+    }
+    const h = (c.history || []).slice(-10);
+    if (h.length >= 2) {
+      const max = Math.max(1, ...h.map((d) => Math.abs(d.foreign)));
+      $("inst-hist").innerHTML = `<div class="muted">外資近 ${h.length} 個交易日</div><div class="hist-bars">${h.map((d) =>
+        `<span class="hb ${cls(d.foreign)}" style="height:${Math.max(4, (Math.abs(d.foreign) / max) * 100)}%" title="${esc(d.date)} ${yi(d.foreign)}"></span>`).join("")}</div>`;
+    }
+    const m = c.margin;
+    if (m) {
+      const ratio = m.short_ratio != null ? `<div><span class="muted">券資比</span><b>${m.short_ratio.toFixed(2)}%</b></div>` : "";
+      $("margin").innerHTML = `<div><span class="muted">融資餘額</span><b>${num(Math.round(m.margin_balance))} 億</b></div>
+        <div><span class="muted">比前一天</span><b class="${cls(m.margin_change)}">${yi(m.margin_change)}</b></div>${ratio}`;
+    }
+    $("chips-notes").innerHTML = (c.notes || []).map((n) => `<li>${esc(n)}</li>`).join("");
+  }
+
   function renderSummary(s) {
     if (!s) { $("headline").textContent = "AI 摘要尚未產生"; return; }
     $("headline").textContent = s.headline;
@@ -124,6 +179,8 @@
     renderTaiex(b.market.taiex);
     renderGlobal(b.market.global);
     renderAI(b.market.ai_stocks, b.market.ai_benchmark);
+    renderGauges(b.market.gauges);
+    renderChips(b.market.chips);
     renderSummary(b.summary);
     renderWorld(b.world);
   }

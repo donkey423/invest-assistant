@@ -7,6 +7,8 @@ from __future__ import annotations
 import logging
 from typing import Iterable
 
+from .gauges import gauge_note
+
 log = logging.getLogger(__name__)
 
 
@@ -66,7 +68,8 @@ def _history(symbols: Iterable[str]) -> dict[str, tuple[list[str], list[float]]]
 
 def build_market(cfg, history_fn=_history) -> dict:
     """回傳早報的行情區塊。history_fn 可替換成測試用的假資料。"""
-    items = [cfg.TAIEX, *cfg.GLOBAL_INDICES, *cfg.AI_STOCKS, cfg.AI_BENCHMARK]
+    gauges_cfg = getattr(cfg, "GAUGES", [])
+    items = [cfg.TAIEX, *cfg.GLOBAL_INDICES, *cfg.AI_STOCKS, cfg.AI_BENCHMARK, *gauges_cfg]
     hist = history_fn(i["symbol"] for i in items)
 
     def quote(item: dict, spark_days: int = cfg.SPARKLINE_DAYS) -> dict:
@@ -86,4 +89,5 @@ def build_market(cfg, history_fn=_history) -> dict:
         "global": [quote(i) for i in cfg.GLOBAL_INDICES],
         "ai_stocks": [quote(i) for i in cfg.AI_STOCKS],
         "ai_benchmark": quote(cfg.AI_BENCHMARK),
+        "gauges": [{**q, "note": gauge_note(q)} for q in map(quote, gauges_cfg)],
     }
