@@ -104,6 +104,47 @@
     }).join("") || `<li class="muted">還沒有紀錄。</li>`;
   }
 
+  function tradeRows(list, showMethod) {
+    if (!list.length) return `<div class="pt-empty">還沒有成交紀錄，第一筆會在下一個交易日開盤成交。</div>`;
+    return `<table class="chain-table pt-log"><thead><tr><th>日期</th>${showMethod ? "<th>帳戶</th>" : ""}<th>買賣</th><th>股票</th><th>股數 × 成交價</th><th>損益</th><th>原因</th></tr></thead><tbody>
+      ${list.map((t) => `<tr><td>${md(t.date)}</td>${showMethod ? `<td>${esc(t.method_name)}</td>` : ""}<td class="${t.side === "買" ? "up" : "down"}"><b>${t.side}</b></td><td>${esc(t.name)} <span class="muted">${esc(t.code)}</span></td><td>${money(t.shares)} × ${t.price}</td><td class="${cls(t.pnl)}">${t.pnl == null ? "" : `${money(t.pnl)}（${pct(t.pnl_pct)}）`}</td><td class="pt-reason">${esc(t.reason)}</td></tr>`).join("")}</tbody></table>`;
+  }
+
+  function mine(d) {
+    const m = d.methods.find((x) => x.id === "claude");
+    if (!m) { $("pt-mine").hidden = true; return; }
+    const L = m.latest || { picks: [], sells: [], buys: [] };
+    const P = m.pending || { buys: [], sells: [] };
+    const pick = Object.fromEntries((L.picks || []).map((p) => [p.code, p]));
+    const nm = (c) => (pick[c] || m.holdings.find((h) => h.code === c) || {}).name || "";
+    const orders = [
+      ...P.sells.map((s) => `<li><span class="pt-tag sell">賣出</span> <b>${esc(nm(s.code) || (L.sells.find((x) => x.code === s.code) || {}).name)}</b> <span class="muted">${esc(s.code)}</span><div class="pt-why">${esc(s.reason)}</div></li>`),
+      ...P.buys.map((b) => `<li><span class="pt-tag buy">買進</span> <b>${esc(nm(b.code))}</b> <span class="muted">${esc(b.code)}</span> 約 ${money(b.amount)} 元<div class="pt-why">${esc(b.reason)}</div></li>`),
+    ];
+    const done = d.status === "done";
+    $("pt-mine").innerHTML = `
+      <div class="card-head"><h2>Claude 判斷：我的買賣與原因</h2><span class="muted">第 ${m.rank} 名 · 報酬 <b class="${cls(m.return_pct)}">${pct(m.return_pct)}</b> · 比大盤 <b class="${cls(m.excess_pct)}">${pct(m.excess_pct)}</b> · 淨值 ${money(m.equity_now)}</span></div>
+      <p class="muted">${esc(m.how)}${L.note ? `<br><b>今天的判斷依據：</b>${esc(L.note)}` : ""}</p>
+      <div class="pt-cols">
+        <div><h3 class="bt-sub">${done ? "模擬已結束" : `${md(d.last_decision)} 收盤後決定，下一個交易日開盤執行`}</h3>
+          ${orders.length ? `<ul class="pt-orders">${orders.join("")}</ul>` : `<div class="pt-empty">${done ? "" : "今天不換股，持股全部續抱。"}</div>`}</div>
+        <div><h3 class="bt-sub">我已經做過的交易</h3><div class="pt-scroll">${tradeRows(m.recent_trades.slice(0, 10), false)}</div></div>
+      </div>`;
+  }
+
+  let FILTER = "all", LIMIT = 30;
+  function allTrades(d) {
+    const ids = ["all", ...d.methods.map((m) => m.id)];
+    const name = Object.fromEntries(d.methods.map((m) => [m.id, m.name]));
+    $("pt-filter").innerHTML = ids.map((id) => `<button class="chip${id === FILTER ? " selected" : ""}" data-f="${id}">${id === "all" ? "全部" : esc(name[id])}</button>`).join("");
+    const list = (d.all_trades || []).filter((t) => FILTER === "all" || t.method === FILTER);
+    $("pt-trades").innerHTML = tradeRows(list.slice(0, LIMIT), true) +
+      (list.length > LIMIT ? `<button class="chip pt-more" id="pt-more">再顯示 30 筆（共 ${list.length} 筆）</button>` : "");
+    document.querySelectorAll("#pt-filter [data-f]").forEach((b) => b.addEventListener("click", () => { FILTER = b.dataset.f; LIMIT = 30; allTrades(d); }));
+    const more = $("pt-more");
+    if (more) more.addEventListener("click", () => { LIMIT += 30; allTrades(d); });
+  }
+
   function select(id) {
     SEL = id;
     try { localStorage.setItem("pt-sel", id); } catch (e) { /* 無痕模式 */ }
@@ -116,8 +157,10 @@
     DATA = d;
     let saved = null;
     try { saved = localStorage.getItem("pt-sel"); } catch (e) { /* 無痕模式 */ }
-    SEL = d.methods.some((m) => m.id === saved) ? saved : (d.methods.find((m) => m.rank === 1) || d.methods[0]).id;
+    SEL = d.methods.some((m) => m.id === saved) ? saved : (d.methods.find((m) => m.id === "claude") || d.methods[0]).id;
     hero(d);
+    mine(d);
+    allTrades(d);
     board(d);
     history(d);
     select(SEL);

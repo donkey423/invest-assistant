@@ -67,6 +67,20 @@ def _next_day(d: str) -> str:
     return (datetime.fromisoformat(d) + timedelta(days=3)).date().isoformat()
 
 
+def method_perf(state: dict, px: dict, sym: dict, dates: list[str]) -> dict:
+    """給 Claude 判斷用：各方法的選股命中率，加上帳戶近 5 天比大盤多賺多少（%）。"""
+    perf = summary.pick_hits(state, px, sym, dates)
+    tw = (summary.bench_series(state, px).get("^TWII") or {}).get("equity") or []
+    for mid, acc in state["accounts"].items():
+        eq = acc.get("equity") or []
+        if len(eq) >= 2 and len(tw) >= 2:
+            k = min(5, len(eq) - 1, len(tw) - 1)
+            a = eq[-1]["equity"] / eq[-1 - k]["equity"] - 1
+            b = tw[-1]["equity"] / tw[-1 - k]["equity"] - 1
+            perf.setdefault(mid, {})["recent_excess"] = round((a - b) * 100, 2)
+    return perf
+
+
 def cut(px: dict, day: str) -> dict:
     out = {}
     for k, s in px.items():
@@ -122,6 +136,7 @@ def main(argv=None, history_fn=data.history, get_json=data.get_json, now=None) -
                    "above_ma200": (tw_close[-1] >= ma200) if ma200 else None, "ma60": round(ma60, 2) if ma60 else None,
                    "taiex": tw_close[-1], "vix": vix[-1]},
         "warnings": warnings,
+        "perf_fn": lambda st: method_perf(st, px, sym, dates),
     }
     if not ctx["chip_dates"] or ctx["chip_dates"][-1] != day:
         ctx["chips"] = {}  # 決策日當天沒有法人資料就不要用舊資料選股

@@ -37,3 +37,12 @@
 #pt-warn div { background: var(--warn-bg); color: var(--warn-ink); padding: 6px 10px; border-radius: var(--r-sm); font-size: var(--fs-sm); }
 .pt-trades td:nth-child(-n+3), .pt-trades th:nth-child(-n+3) { text-align: left; }
 @media (max-width: 520px) { .pt-hold th:nth-child(6), .pt-hold td:nth-child(6), .pt-hold th:nth-child(3), .pt-hold td:nth-child(3) { display: none; } .pt-hold td:first-child { min-width: 120px; } }
+.pt-mine { border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.pt-orders { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.pt-log td, .pt-log th { text-align: left; vertical-align: top; }
+.pt-log td, .pt-log th { white-space: nowrap; }
+.pt-log td.pt-reason { white-space: normal; min-width: 260px; color: var(--ink-2); font-size: var(--fs-sm); line-height: 1.45; }
+#pt-filter { margin-bottom: 8px; flex-wrap: wrap; display: flex; gap: 6px; }
+#pt-filter .chip { min-height: 30px; padding: 4px 10px; font-size: var(--fs-sm); }
+.pt-more { margin-top: 8px; }
+.pt-mine .pt-log td.pt-reason { min-width: 220px; }
