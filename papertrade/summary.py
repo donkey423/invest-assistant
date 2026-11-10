@@ -102,6 +102,7 @@ def build(state: dict, px: dict, sym: dict, names: dict, trade_dates: list[str],
             "recent_trades": acc["trades"][-30:][::-1],
             "latest": latest, "pending": acc.get("pending"),
         })
+    mname = {m["id"]: m["name"] for m in C.METHODS}
     ranked = sorted(methods, key=lambda x: x["return_pct"], reverse=True)
     for i, m in enumerate(ranked):
         m["rank"] = i + 1
@@ -115,6 +116,9 @@ def build(state: dict, px: dict, sym: dict, names: dict, trade_dates: list[str],
         "benchmarks": bench, "methods": methods,
         "journal": [j for j in state["journal"] if j["date"] >= (state["journal"][-1]["date"] if state["journal"] else "")],
         "history": _journal_days(state, names),
+        "all_trades": sorted(({**t, "method": mid, "method_name": mname[mid]} for mid, a in state["accounts"].items()
+                              if mid in mname for t in a["trades"]),
+                             key=lambda t: (t["date"], t["side"] == "買"), reverse=True)[:400],
         "warnings": ctx.get("warnings", []),
     }
 

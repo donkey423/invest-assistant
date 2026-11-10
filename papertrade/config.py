@@ -11,6 +11,11 @@ BENCHMARKS = [{"symbol": "^TWII", "name": "台股加權指數"}, {"symbol": "005
 
 # 每種方法的說明與依據。id 對應 methods.py 的函式。
 METHODS = [
+    {"id": "claude", "name": "Claude 判斷",
+     "how": "我自己的判斷，目標是賺最多錢：把其他 13 種方法今天的前 5 名合起來投票，越多方法看好、而且那些方法最近越準，分數越高；取前 5 名買進。景氣與大盤趨勢決定持股比例，跌 8% 停損，共識轉弱就換股。",
+     "basis": "單一方法常常某段時間有效、某段時間失靈。依「最近誰比較準」動態調整權重（類似多策略基金的資金分配），比押單一方法穩。",
+     "sources": [{"title": "本頁其他 13 種方法（各自的來源見各方法說明）", "url": "https://donkey423.github.io/invest-assistant/"}],
+     "stop_loss": -8, "rank_exit": True},
     {"id": "momentum", "name": "價格動能 12-1",
      "how": "過去 12 個月漲最多（扣掉最近 1 個月）的股票，續抱強勢股。",
      "basis": "國際最常見的動能因子（Jegadeesh & Titman）；但台灣學術研究發現台股動能效應偏弱，正好拿來驗證。",

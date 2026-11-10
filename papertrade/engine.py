@@ -125,6 +125,7 @@ def plan_orders(state: dict, mid: str, acc: dict, ranking: list[dict], day: str,
     held = acc["positions"]
     ranked = [r["code"] for r in ranking]
     reason = {r["code"]: r["reason"] for r in ranking}
+    votes = {r["code"]: r.get("votes") for r in ranking}
     sells = []
     exit_rules = any(k in method for k in ("stop_loss", "take_profit", "max_hold"))
     if exit_rules:
@@ -137,6 +138,8 @@ def plan_orders(state: dict, mid: str, acc: dict, ranking: list[dict], day: str,
                 sells.append({"code": code, "reason": f"漲 {chg:+.1f}%，觸發 +{method['take_profit']}% 停利"})
             elif method.get("max_hold") and _held_days(state, pos["date"]) >= method["max_hold"]:
                 sells.append({"code": code, "reason": f"已持有 {method['max_hold']} 個交易日，依方法出場"})
+    if exit_rules and not method.get("rank_exit"):
+        pass
     elif mid == "trust":
         hold = method.get("hold_days", 11)
         for code, pos in held.items():
@@ -144,9 +147,17 @@ def plan_orders(state: dict, mid: str, acc: dict, ranking: list[dict], day: str,
                 sells.append({"code": code, "reason": f"已持有 {hold} 個交易日，依方法出場"})
     elif ranking or mid == "ai_theme":
         keep = set(ranked if mid == "ai_theme" else ranked[:C.KEEP_RANK])
+        already = {s["code"] for s in sells}
         for code in held:
-            if code not in keep:
-                sells.append({"code": code, "reason": "已不在前 %d 名" % C.KEEP_RANK if mid != "ai_theme" else "近 5 天 AI 推理沒再提到"})
+            if code not in keep and code not in already:
+                if mid == "ai_theme":
+                    why = "近 5 天 AI 推理沒再提到"
+                elif mid == "claude":
+                    why = (f"共識轉弱：現在只剩 {votes[code]} 種方法看好，排第 {ranked.index(code) + 1} 名，掉出前 {C.KEEP_RANK} 名，換成更多方法看好的股票"
+                           if code in reason else "共識轉弱：今天已經沒有任何方法把它排進前 5 名，換股")
+                else:
+                    why = "已不在前 %d 名" % C.KEEP_RANK
+                sells.append({"code": code, "reason": why})
     sold = {s["code"] for s in sells}
     remain = [c for c in held if c not in sold]
     equity = acc["cash"] + market_value(acc, day, px, sym)
@@ -185,17 +196,20 @@ def decide(state: dict, ctx: dict, day: str, px: dict, sym: dict, names: dict) -
     """依各方法選股、產生委託，並寫進選股日誌。回傳 {方法: 排名}。"""
     rankings = {}
     expo, expo_note = exposure(ctx.get("regime") or {})
-    for m in C.METHODS:
+    for m in sorted(C.METHODS, key=lambda m: m["id"] == "claude"):  # Claude 判斷最後做，要用到其他方法的結果
         mid = m["id"]
         try:
+            if mid == "claude":
+                ctx["rankings"] = rankings
+                ctx["perf"] = ctx["perf_fn"](state) if ctx.get("perf_fn") else {}
             ranking = METHOD_FNS[mid](ctx)
         except Exception as e:  # noqa: BLE001 單一方法壞掉不影響其他
             ranking = []
             ctx.setdefault("warnings", []).append(f"{m['name']} 選股失敗：{e}")
         rankings[mid] = ranking
         acc = state["accounts"][mid]
-        e = expo if mid == "combo" else 1.0
-        note = ""
+        e = expo if mid in ("combo", "claude") else 1.0
+        note = expo_note if mid == "claude" else ""
         mf = m.get("market_filter")
         if mf and (ctx.get("regime") or {}).get(f"above_ma{mf}") is False:
             e, note = 0.0, "大盤在年線之下，依方法不買新股（持股照規則續抱）"
@@ -205,7 +219,7 @@ def decide(state: dict, ctx: dict, day: str, px: dict, sym: dict, names: dict) -
             "picks": [{"code": r["code"], "name": names.get(r["code"], ""), "reason": r["reason"]} for r in ranking[:C.TOP_N]],
             "buys": [b["code"] for b in acc["pending"]["buys"]],
             "sells": [{"code": s["code"], "name": names.get(s["code"], ""), "reason": s["reason"]} for s in acc["pending"]["sells"]],
-            "note": expo_note if mid == "combo" else note or ("" if ranking else "今天沒有符合條件的股票或資料抓不到，維持原持股"),
+            "note": expo_note if mid == "combo" else (ctx.get("claude_note") or note) if mid == "claude" else note or ("" if ranking else "今天沒有符合條件的股票或資料抓不到，維持原持股"),
         })
     return rankings
 

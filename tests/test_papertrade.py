@@ -179,3 +179,20 @@ def test_tech_score_basic():
     up = [100 + i * 0.5 for i in range(120)]
     sc, why = methods.tech_score(up)
     assert sc >= 25 and "均線多頭" in why
+
+
+def test_claude_account_votes_and_explains(tmp_path):
+    setup_dir(tmp_path)
+    r = run(tmp_path, "2026-11-09")
+    cl = next(m for m in r["methods"] if m["id"] == "claude")
+    assert len(cl["pending"]["buys"]) == C.TOP_N
+    assert all("種方法看好" in b["reason"] for b in cl["pending"]["buys"])
+    r = run(tmp_path, "2026-11-10")
+    cl = next(m for m in r["methods"] if m["id"] == "claude")
+    assert len(cl["holdings"]) == C.TOP_N
+    assert any(t["method"] == "claude" and t["reason"] for t in r["all_trades"])
+
+
+def test_method_weights_follow_accuracy():
+    w = methods.method_weights({"perf": {"momentum": {"n": 20, "avg_excess": 2.0}, "value": {"n": 20, "avg_excess": -1.8}}})
+    assert w["momentum"] > 1 > w["value"] and w["revenue"] == 1.0

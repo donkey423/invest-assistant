@@ -304,6 +304,53 @@ def tech4(ctx):
     return _rank(out, None)
 
 
+def method_weights(ctx) -> dict:
+    """每種方法的權重：一開始都是 1，之後依「推薦後 5 天贏大盤多少」和「帳戶近 5 天贏大盤多少」調整。"""
+    from .config import METHODS
+    perf = ctx.get("perf") or {}
+    w = {}
+    for m in METHODS:
+        if m["id"] == "claude":
+            continue
+        p = perf.get(m["id"]) or {}
+        x = 1.0
+        if (p.get("n") or 0) >= 10 and p.get("avg_excess") is not None:
+            x *= min(3.0, max(0.2, 1 + p["avg_excess"] / 2))
+        if p.get("recent_excess") is not None:
+            x *= min(2.0, max(0.3, 1 + p["recent_excess"] / 5))
+        w[m["id"]] = round(x, 2)
+    return w
+
+
+def claude(ctx):
+    from .config import METHODS, TOP_N
+    names = {m["id"]: m["name"] for m in METHODS}
+    w = method_weights(ctx)
+    score, fans = {}, {}
+    for mid, ranking in (ctx.get("rankings") or {}).items():
+        if mid == "claude" or mid not in w:
+            continue
+        for i, r in enumerate(ranking[:TOP_N]):
+            score[r["code"]] = score.get(r["code"], 0) + w[mid] * (TOP_N - i) / TOP_N
+            fans.setdefault(r["code"], []).append((w[mid], mid, r["reason"]))
+    perf = ctx.get("perf") or {}
+    best = sorted(w.items(), key=lambda kv: kv[1], reverse=True)[:3]
+    if any(v != 1.0 for v in w.values()):
+        ctx["claude_note"] = "目前最準、權重最高的方法：" + "、".join(f"{names[k]}×{v}" for k, v in best)
+    else:
+        ctx["claude_note"] = "還沒有足夠的成績，各方法先用相同權重"
+    out = []
+    for code, sc in score.items():
+        f = sorted(fans[code], reverse=True)
+        lead = f[0]
+        hit = (perf.get(lead[1]) or {}).get("hit_rate")
+        hit_txt = f"（5 日命中率 {hit:.0f}%）" if hit is not None else ""
+        out.append({"code": code, "score": round(sc, 3), "votes": len(f),
+                    "reason": f"{len(f)} 種方法看好：{'、'.join(names[x[1]] for x in f)}；共識分數 {sc:.2f}。"
+                              f"最有力的理由來自「{names[lead[1]]}」{hit_txt}：{lead[2]}"})
+    return _rank(out, None)
+
+
 METHOD_FNS = {"momentum": momentum, "reversal": reversal, "revenue": revenue, "trust": trust,
               "foreign": foreign, "value": value, "chain": chain, "ai_theme": ai_theme, "combo": combo,
-              "graham": graham, "lynch": lynch, "oneil": oneil, "tech4": tech4}
+              "graham": graham, "lynch": lynch, "oneil": oneil, "tech4": tech4, "claude": claude}
