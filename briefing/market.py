@@ -67,6 +67,8 @@ def _hourly_as_daily(sym: str) -> tuple[list[str], list[float]] | None:
         return None
     by_day: dict[str, float] = {}
     for ts, v in zip(s.index, s.values):
+        if ts.weekday() >= 5:      # 期貨週日晚上開盤的那幾小時不算一個交易日
+            continue
         by_day[ts.strftime("%Y-%m-%d")] = float(v)   # 交易所當地日期，後面的蓋掉前面的
     days = sorted(by_day)
     return days, [by_day[d] for d in days]
