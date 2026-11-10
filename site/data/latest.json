@@ -1,22 +1,20 @@
 {
- "generated_at": "2026-11-10T07:51+08:00",
+ "generated_at": "2026-11-10T09:48+08:00",
  "market": {
   "taiex": {
    "symbol": "^TWII",
    "name": "台股加權指數",
-   "as_of": "2026-11-06",
-   "last": 39701.64,
-   "change": -1873.08,
-   "change_pct": -4.51,
-   "chg_5d": -12.19,
-   "chg_1m": -20.14,
-   "chg_1y": 43.59,
+   "as_of": "2026-11-10",
+   "last": 42973.96,
+   "change": 1312.26,
+   "change_pct": 3.15,
+   "chg_5d": -0.77,
+   "chg_1m": -13.72,
+   "chg_1y": 53.51,
    "high_52w": 49822.55,
    "low_52w": 26434.94,
-   "range_pos": 0.567,
+   "range_pos": 0.707,
    "spark": [
-    27993.63,
-    27949.11,
     28294.74,
     28287.53,
     28233.35,
@@ -264,11 +262,11 @@
     43307.54,
     42948.91,
     41574.72,
-    39701.64
+    39701.64,
+    41661.7,
+    42973.96
    ],
    "spark_dates": [
-    "2025-10-27",
-    "2025-10-28",
     "2025-10-29",
     "2025-10-30",
     "2025-10-31",
@@ -516,7 +514,9 @@
     "2026-11-03",
     "2026-11-04",
     "2026-11-05",
-    "2026-11-06"
+    "2026-11-06",
+    "2026-11-09",
+    "2026-11-10"
    ]
   },
   "global": [
@@ -675,19 +675,17 @@
    {
     "symbol": "^N225",
     "name": "日經 225",
-    "as_of": "2026-11-06",
-    "last": 57434.77,
-    "change": -3643.13,
-    "change_pct": -5.96,
-    "chg_5d": -11.17,
-    "chg_1m": -18.74,
-    "chg_1y": 18.08,
+    "as_of": "2026-11-10",
+    "last": 60341.64,
+    "change": 1591.19,
+    "change_pct": 2.71,
+    "chg_5d": -4.34,
+    "chg_1m": -12.6,
+    "chg_1y": 19.46,
     "high_52w": 72366.34,
     "low_52w": 48537.7,
-    "range_pos": 0.373,
+    "range_pos": 0.495,
     "spark": [
-     65606.71,
-     66970.22,
      67524.06,
      68308.59,
      68713.8,
@@ -745,25 +743,25 @@
      63081.86,
      62188.63,
      61077.9,
-     57434.77
+     57434.77,
+     58750.45,
+     60341.64
     ]
    },
    {
     "symbol": "^KS11",
     "name": "韓國 KOSPI",
-    "as_of": "2026-11-06",
-    "last": 5059.69,
-    "change": -324.11,
-    "change_pct": -6.02,
-    "chg_5d": -11.71,
-    "chg_1m": -25.64,
-    "chg_1y": 26.16,
+    "as_of": "2026-11-10",
+    "last": 5220.48,
+    "change": 192.0,
+    "change_pct": 3.82,
+    "chg_5d": -7.58,
+    "chg_1m": -18.23,
+    "chg_1y": 27.74,
     "high_52w": 9114.55,
     "low_52w": 3846.06,
-    "range_pos": 0.23,
+    "range_pos": 0.261,
     "spark": [
-     6299.66,
-     6345.53,
      6579.04,
      6813.34,
      6977.94,
@@ -821,25 +819,25 @@
      5648.79,
      5683.8,
      5383.8,
-     5059.69
+     5059.69,
+     5028.48,
+     5220.48
     ]
    },
    {
     "symbol": "^HSI",
     "name": "香港恒生",
-    "as_of": "2026-11-06",
-    "last": 24481.86,
-    "change": -315.12,
-    "change_pct": -1.27,
-    "chg_5d": 5.1,
-    "chg_1m": 1.46,
-    "chg_1y": -6.85,
+    "as_of": "2026-11-10",
+    "last": 24574.72,
+    "change": 125.77,
+    "change_pct": 0.51,
+    "chg_5d": 4.46,
+    "chg_1m": 1.5,
+    "chg_1y": -6.05,
     "high_52w": 27968.09,
     "low_52w": 22671.86,
-    "range_pos": 0.342,
+    "range_pos": 0.359,
     "spark": [
-     25396.51,
-     25116.85,
      25453.23,
      25471.15,
      25495.07,
@@ -897,25 +895,25 @@
      23525.97,
      23919.5,
      24796.98,
-     24481.86
+     24481.86,
+     24448.95,
+     24574.72
     ]
    },
    {
     "symbol": "000001.SS",
     "name": "上證",
-    "as_of": "2026-11-06",
-    "last": 3649.18,
-    "change": -40.73,
-    "change_pct": -1.1,
-    "chg_5d": 1.39,
-    "chg_1m": -4.27,
-    "chg_1y": -7.62,
+    "as_of": "2026-11-10",
+    "last": 3680.85,
+    "change": 19.63,
+    "change_pct": 0.54,
+    "chg_5d": 2.02,
+    "chg_1m": -3.07,
+    "chg_1y": -7.71,
     "high_52w": 4242.57,
     "low_52w": 3599.02,
-    "range_pos": 0.078,
+    "range_pos": 0.127,
     "spark": [
-     3940.04,
-     3966.59,
      3934.09,
      3946.68,
      3926.97,
@@ -973,24 +971,25 @@
      3608.1,
      3686.17,
      3689.91,
-     3649.18
+     3649.18,
+     3661.22,
+     3680.85
     ]
    },
    {
     "symbol": "^GDAXI",
     "name": "德國 DAX",
-    "as_of": "2026-11-06",
-    "last": 25820.36,
-    "change": -504.65,
-    "change_pct": -1.92,
-    "chg_5d": 0.01,
-    "chg_1m": 4.09,
-    "chg_1y": 7.76,
+    "as_of": "2026-11-09",
+    "last": 26261.18,
+    "change": 440.82,
+    "change_pct": 1.71,
+    "chg_5d": 1.08,
+    "chg_1m": 4.68,
+    "chg_1y": 9.02,
     "high_52w": 26569.99,
     "low_52w": 22300.75,
-    "range_pos": 0.824,
+    "range_pos": 0.928,
     "spark": [
-     26338.61,
      26128.36,
      26091.33,
      25983.04,
@@ -1049,22 +1048,23 @@
      25864.62,
      26437.67,
      26325.01,
-     25820.36
+     25820.36,
+     26261.18
     ]
    },
    {
     "symbol": "^FTSE",
     "name": "英國富時",
     "as_of": "2026-11-09",
-    "last": 10782.87,
-    "change": 108.97,
-    "change_pct": 1.02,
-    "chg_5d": 0.2,
-    "chg_1m": 2.19,
-    "chg_1y": 8.92,
+    "last": 10779.32,
+    "change": 105.42,
+    "change_pct": 0.99,
+    "chg_5d": 0.17,
+    "chg_1m": 2.15,
+    "chg_1y": 8.89,
     "high_52w": 10910.6,
     "low_52w": 9507.4,
-    "range_pos": 0.909,
+    "range_pos": 0.906,
     "spark": [
      10720.3,
      10728.0,
@@ -1125,13 +1125,84 @@
      10829.2,
      10782.7,
      10673.9,
-     10782.87
+     10779.32
     ]
    },
    {
     "symbol": "^NSEI",
     "name": "印度 Nifty",
-    "error": "抓不到資料"
+    "as_of": "2026-11-09",
+    "last": 25044.65,
+    "change": 14.3,
+    "change_pct": 0.06,
+    "chg_5d": 6.84,
+    "chg_1m": 12.65,
+    "chg_1y": -2.63,
+    "high_52w": 26328.55,
+    "low_52w": 22231.8,
+    "range_pos": 0.687,
+    "spark": [
+     24395.85,
+     24366.0,
+     24287.65,
+     24154.9,
+     24078.3,
+     24231.85,
+     24252.0,
+     24219.05,
+     24334.55,
+     24207.75,
+     24090.85,
+     24175.65,
+     24080.4,
+     24055.8,
+     23914.45,
+     23873.45,
+     23897.7,
+     23779.15,
+     23635.1,
+     23431.5,
+     23477.8,
+     23398.1,
+     23118.6,
+     23217.6,
+     23270.6,
+     23346.4,
+     23414.3,
+     23329.0,
+     23446.8,
+     23063.1,
+     23140.5,
+     22780.25,
+     22716.2,
+     22620.45,
+     22421.95,
+     22555.75,
+     22776.1,
+     22603.05,
+     22231.8,
+     22520.45,
+     22363.35,
+     22721.95,
+     22622.7,
+     22997.35,
+     23146.15,
+     22888.95,
+     22811.35,
+     22687.65,
+     22600.0,
+     22753.2,
+     22749.75,
+     22698.85,
+     22936.75,
+     23053.1,
+     23440.8,
+     23810.85,
+     23960.6,
+     24536.6,
+     25030.35,
+     25044.65
+    ]
    }
   ],
   "ai_stocks": [
@@ -1139,15 +1210,15 @@
     "symbol": "NVDA",
     "name": "NVIDIA",
     "as_of": "2026-11-09",
-    "last": 178.67,
-    "change": -7.97,
-    "change_pct": -4.27,
-    "chg_5d": -11.58,
-    "chg_1m": -22.07,
-    "chg_1y": -5.04,
+    "last": 178.6,
+    "change": -8.04,
+    "change_pct": -4.31,
+    "chg_5d": -11.61,
+    "chg_1m": -22.1,
+    "chg_1y": -5.08,
     "high_52w": 239.24,
     "low_52w": 165.17,
-    "range_pos": 0.182,
+    "range_pos": 0.181,
     "spark": [
      225.01,
      219.74,
@@ -1208,7 +1279,7 @@
      200.13,
      181.6,
      186.64,
-     178.67
+     178.6
     ]
    },
    {
@@ -1367,12 +1438,12 @@
     "symbol": "META",
     "name": "Meta",
     "as_of": "2026-11-09",
-    "last": 641.37,
-    "change": 31.22,
+    "last": 641.41,
+    "change": 31.26,
     "change_pct": 5.12,
-    "chg_5d": 5.71,
-    "chg_1m": -10.76,
-    "chg_1y": 3.16,
+    "chg_5d": 5.72,
+    "chg_1m": -10.75,
+    "chg_1y": 3.17,
     "high_52w": 777.59,
     "low_52w": 525.72,
     "range_pos": 0.459,
@@ -1436,22 +1507,22 @@
      630.0,
      605.08,
      610.15,
-     641.37
+     641.41
     ]
    },
    {
     "symbol": "AMZN",
     "name": "Amazon",
     "as_of": "2026-11-09",
-    "last": 266.93,
-    "change": 7.63,
-    "change_pct": 2.94,
-    "chg_5d": 8.67,
-    "chg_1m": 1.71,
-    "chg_1y": 9.21,
+    "last": 267.01,
+    "change": 7.71,
+    "change_pct": 2.97,
+    "chg_5d": 8.7,
+    "chg_1m": 1.75,
+    "chg_1y": 9.25,
     "high_52w": 284.02,
     "low_52w": 198.79,
-    "range_pos": 0.799,
+    "range_pos": 0.8,
     "spark": [
      261.31,
      259.45,
@@ -1512,22 +1583,22 @@
      266.03,
      260.21,
      259.3,
-     266.93
+     267.01
     ]
    },
    {
     "symbol": "AMD",
     "name": "AMD",
     "as_of": "2026-11-09",
-    "last": 508.58,
-    "change": 59.54,
-    "change_pct": 13.26,
-    "chg_5d": 8.94,
-    "chg_1m": -16.37,
-    "chg_1y": 117.77,
+    "last": 509.01,
+    "change": 59.97,
+    "change_pct": 13.36,
+    "chg_5d": 9.03,
+    "chg_1m": -16.3,
+    "chg_1y": 117.95,
     "high_52w": 649.42,
     "low_52w": 190.95,
-    "range_pos": 0.693,
+    "range_pos": 0.694,
     "spark": [
      506.0,
      484.39,
@@ -1588,19 +1659,19 @@
      488.78,
      404.4,
      449.04,
-     508.58
+     509.01
     ]
    },
    {
     "symbol": "AVGO",
     "name": "博通",
     "as_of": "2026-11-09",
-    "last": 319.48,
-    "change": 25.79,
-    "change_pct": 8.78,
-    "chg_5d": -0.85,
-    "chg_1m": -11.63,
-    "chg_1y": -8.57,
+    "last": 319.53,
+    "change": 25.84,
+    "change_pct": 8.8,
+    "chg_5d": -0.84,
+    "chg_1m": -11.62,
+    "chg_1y": -8.56,
     "high_52w": 481.57,
     "low_52w": 291.53,
     "range_pos": 0.147,
@@ -1664,19 +1735,19 @@
      325.48,
      291.53,
      293.69,
-     319.48
+     319.53
     ]
    },
    {
     "symbol": "TSM",
     "name": "台積電 ADR",
     "as_of": "2026-11-09",
-    "last": 388.62,
-    "change": 13.18,
-    "change_pct": 3.51,
-    "chg_5d": -2.51,
-    "chg_1m": -14.27,
-    "chg_1y": 35.64,
+    "last": 388.65,
+    "change": 13.21,
+    "change_pct": 3.52,
+    "chg_5d": -2.5,
+    "chg_1m": -14.26,
+    "chg_1y": 35.65,
     "high_52w": 485.8,
     "low_52w": 275.06,
     "range_pos": 0.539,
@@ -1740,7 +1811,7 @@
      395.75,
      353.1,
      375.44,
-     388.62
+     388.65
     ]
    }
   ],
@@ -1987,7 +2058,7 @@
     "change_pct": -0.61,
     "chg_5d": -0.07,
     "chg_1m": -0.52,
-    "chg_1y": 2.09,
+    "chg_1y": 2.08,
     "high_52w": 102.58,
     "low_52w": 96.22,
     "range_pos": 0.858,
@@ -2059,18 +2130,17 @@
     "symbol": "TWD=X",
     "name": "美元兌台幣",
     "kind": "twd",
-    "as_of": "2026-11-09",
-    "last": 32.79,
-    "change": -0.32,
-    "change_pct": -0.97,
-    "chg_5d": 0.56,
-    "chg_1m": 2.7,
-    "chg_1y": 5.42,
+    "as_of": "2026-11-10",
+    "last": 32.81,
+    "change": 0.05,
+    "change_pct": 0.16,
+    "chg_5d": 0.7,
+    "chg_1m": 2.81,
+    "chg_1y": 5.23,
     "high_52w": 33.11,
     "low_52w": 31.08,
-    "range_pos": 0.842,
+    "range_pos": 0.854,
     "spark": [
-     31.85,
      31.88,
      31.82,
      31.84,
@@ -2129,9 +2199,10 @@
      32.73,
      32.82,
      33.11,
-     32.79
+     32.76,
+     32.81
     ],
-    "note": "台幣今天升值；近一個月貶 2.7%，留意外資匯出"
+    "note": "台幣今天貶值；近一個月貶 2.8%，留意外資匯出"
    },
    {
     "symbol": "^SOX",
@@ -2216,15 +2287,15 @@
     "name": "黃金",
     "kind": "gold",
     "as_of": "2026-11-09",
-    "last": 4146.6,
-    "change": 71.7,
-    "change_pct": 1.76,
-    "chg_5d": 4.46,
-    "chg_1m": -1.65,
-    "chg_1y": 3.41,
+    "last": 4141.1,
+    "change": 66.2,
+    "change_pct": 1.62,
+    "chg_5d": 4.32,
+    "chg_1m": -1.78,
+    "chg_1y": 3.27,
     "high_52w": 5318.4,
     "low_52w": 3898.9,
-    "range_pos": 0.174,
+    "range_pos": 0.171,
     "spark": [
      4473.7,
      4420.6,
@@ -2285,24 +2356,24 @@
      4073.0,
      4113.5,
      4074.9,
-     4146.6
+     4141.1
     ],
-    "note": "近一個月 -1.65%，避險需求的溫度計"
+    "note": "近一個月 -1.78%，避險需求的溫度計"
    },
    {
     "symbol": "CL=F",
     "name": "原油 WTI",
     "kind": "oil",
     "as_of": "2026-11-09",
-    "last": 86.44,
-    "change": -4.39,
-    "change_pct": -4.83,
-    "chg_5d": -10.39,
-    "chg_1m": -5.89,
-    "chg_1y": 44.67,
+    "last": 86.08,
+    "change": -4.75,
+    "change_pct": -5.23,
+    "chg_5d": -10.76,
+    "chg_1m": -6.28,
+    "chg_1y": 44.07,
     "high_52w": 112.95,
     "low_52w": 55.27,
-    "range_pos": 0.54,
+    "range_pos": 0.534,
     "spark": [
      84.5,
      84.94,
@@ -2363,26 +2434,25 @@
      88.12,
      90.52,
      90.83,
-     86.44
+     86.08
     ],
-    "note": "近一個月 -5.89%，影響通膨與塑化、航運股"
+    "note": "近一個月 -6.28%，影響通膨與塑化、航運股"
    },
    {
     "symbol": "BTC-USD",
     "name": "比特幣",
     "kind": "btc",
-    "as_of": "2026-11-09",
-    "last": 75197.16,
-    "change": 612.51,
-    "change_pct": 0.82,
-    "chg_5d": -6.48,
-    "chg_1m": -8.13,
-    "chg_1y": 10.11,
+    "as_of": "2026-11-10",
+    "last": 74933.85,
+    "change": -104.42,
+    "change_pct": -0.14,
+    "chg_5d": -1.33,
+    "chg_1m": -9.65,
+    "chg_1y": 3.06,
     "high_52w": 86602.91,
     "low_52w": 58558.86,
-    "range_pos": 0.593,
+    "range_pos": 0.584,
     "spark": [
-     77173.8,
      77270.47,
      76838.16,
      78163.38,
@@ -2441,9 +2511,10 @@
      75746.93,
      75747.58,
      74584.65,
-     75197.16
+     75038.27,
+     74933.85
     ],
-    "note": "近一個月 -8.13%，市場風險胃納的指標"
+    "note": "近一個月 -9.65%，市場風險胃納的指標"
    }
   ],
   "chips": {
@@ -2477,8 +2548,9 @@
     }
    ],
    "futures": {
-    "date": "2026-11-06",
-    "foreign_oi": -99930
+    "date": "2026-11-09",
+    "foreign_oi": -101771,
+    "change": -1841
    },
    "futures_history": [
     {
@@ -2494,7 +2566,7 @@
    "notes": [
     "外資賣超 900.6 億，連 2 天賣超；投信買超 313.1 億",
     "融資餘額 5,399 億，比前一天增加 58.6 億，散戶加碼",
-    "外資台指期淨空單 9.99 萬口"
+    "外資台指期淨空單 10.18 萬口，比前一天偏空 1,841 口"
    ]
   }
  },
@@ -2705,42 +2777,42 @@
     "lat": 39,
     "label_lon": -98,
     "label_lat": 39,
-    "count": 62,
+    "count": 71,
     "risk": [
      "關稅",
      "制裁",
-     "封鎖"
+     "戰爭"
     ],
     "news": [
      {
-      "title": "花旗調降美股及科技股評等看好歐股成AI修正避風港- 國際 - 工商時報",
-      "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE5QRGpPeUF6aGF2TTIxTXNyb1FXcXozNDZqRlE2Q0VyXzZyemdYcFAybzNhYmZFYml0WDdxYWtSZGFwMm03N2xESmdTWTBuTXUwYWJwSmwzcENjQ0RYWUlR?oc=5",
+      "title": "美股科技股強彈帶動亞股反攻！韓股飆逾5%、台股大漲逾1,100點 - Yahoo新聞",
+      "url": "https://news.google.com/rss/articles/CBMi8gJBVV95cUxOLXU5SlQ3OFE1NUYwU1VrUThKX3JHRWMza0lpZ25Ud2RmbWxNbmY3YW90cjdCcDgtcXVjTU5obFBLMWY0VE9leGxwWDMwT1dCWFRLUllwXzhldGtJWl9wRUlGXzRwOFBkSGJyUDl4dk8tVWVrel9DNG1lc0NQNk0wWTN2V3NOY3hxSGk1Q2tpZ3k2OW9kZ2RmNmJLNTR2c25ZaVN5NWJhR2hMT0NFRWE5LTRBcEFhZzJLSzhmRFlyTjdyaExmdEpUSGxCOUFrY3NWZXZQRC1OWDZuVnN0SFJiWVFXdVdqV1hMdDkwY2UtUG1DM0pXc19QLWdoTUVvSDZyeHRZdWxCYl90U0JBelVjSFktV1hNaEhEM2RuNUJhbzhxbVRtYXpyYzk5UDNHWFd6aEtyZWU0Rk1NTjlvYnhaTlZfNld1RVVURTJvZm1jcG1BdnNWeWVSUE8wOVNnbVZjWUZfTHdNaUZVTG1uVWF1TExR?oc=5",
       "source": "Google 新聞 美股",
-      "published": "2026-11-09T23:46:00+00:00"
+      "published": "2026-11-10T01:29:16+00:00"
      },
      {
-      "title": "美股強彈！費半飆近7% 台指期夜盤漲逾千點- 財經新聞 - PChome Online 新聞",
-      "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPQnNxTEdHS0UxdXBVZWhvUG90SnhrY05SSi1WRmxHX3JsMG1JZUFsRU5DdF9EVUJMcVl2TTVFMHdqNXJGZjVWRC1UdTRXOFRtNUp2eWU4TUhOSWxSSGZPWlFMeko1TU9OZ2MyODJManJ4MHVmdHlyZjRnakdzdjdZYk9QVEdvVF8wdHc?oc=5",
+      "title": "伊朗被爆收購中國石油設施 逃避美國制裁 - 大紀元",
+      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBIbHlYRUI2ZEdCOUlEb0ZpNTE4WmU2SERmZFVWaDZ2bXJDX0hUOHdyU21PU1ZHdUIxQmFPcEU2N2V1YXpRVWNva1JJdmNLd1dlX1Z6QUJtT2doZEtrYnQ5MQ?oc=5",
+      "source": "Google 新聞 地緣政治",
+      "published": "2026-11-10T01:26:00+00:00"
+     },
+     {
+      "title": "美股走高輝達逆勢收跌4.27% 市場關注黃仁勳相關調查| 證券 - 中央社 CNA",
+      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE5adUpaR2h5dXhJUXNudzd2YktKRDRwclhJM1pSVHR1c1VDLVJfWHJnbllCbkg3Rk14OGh3YUNUYTNvRFlRNl9pZWwzTk40ZklieU9IVkE3ZXBscXVQYUE?oc=5",
+      "source": "Google 新聞 AI 產業",
+      "published": "2026-11-10T01:14:00+00:00"
+     },
+     {
+      "title": "卡達沙烏地等國籲克制 川普稱暫緩軍事打擊伊朗",
+      "url": "https://www.cna.com.tw/news/aopl/202611100025.aspx",
+      "source": "中央社 國際",
+      "published": "2026-11-10T00:41:27+00:00"
+     },
+     {
+      "title": "美股重點新聞摘要2026年11月10日 - 鉅亨網",
+      "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTFBwa1h4Z3Ytb0gtWFNMemlBcGRGbHZKTldGZi1NOTVVWS1aVkI2UUdoX1Bwckp3V2hNSHh0REtfeXpvcGtJQXNDWW5PblJJdG8?oc=5",
       "source": "Google 新聞 美股",
-      "published": "2026-11-09T23:29:24+00:00"
-     },
-     {
-      "title": "輝達逆勢跌逾6%！黃仁勳調查案衝擊多大？華爾街點出三大風險 - 鉅亨網",
-      "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTFBINDVVcU5ZMDdDa05LWDVRZU1vTW8tLTRiYm5ORWoyZWNBR2V3Tlh5NThsbnBBNjM1S0toT1BwVVpiMlNDM0xyS0hPSnU0a1E?oc=5",
-      "source": "Google 新聞 AI 產業",
-      "published": "2026-11-09T23:21:57+00:00"
-     },
-     {
-      "title": "《美股》AI股反攻+油價挫費半強彈輝達獨垂淚- 新聞 - MoneyDJ",
-      "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQYXBobzZycVctUkRVUXc3eEVFWXp4eDV3ZmlOQ3cwM2diNjBVU21NSzlnTWNhZHAtNkFRYmZHZHZFSjh2SkUtNWNQeDVzVEZVSzFnaXlBaGVpVTZPaVc4ZmlSclIyYWxTYVFNZFZESzVhM1BzNmtiY24yWTJHeHBaaEpmbm43VnhKbzNuZEZJN2kyZw?oc=5",
-      "source": "Google 新聞 AI 產業",
-      "published": "2026-11-09T23:09:00+00:00"
-     },
-     {
-      "title": "《美債》10月CPI牽動Fed升息決策殖利率續揚- 新聞 - MoneyDJ",
-      "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQUGRxVDRZVnRIOG5Pdk1aUlZySUJGb1hfaFREU1poQUFEd09HelhjLVlTSlpFT0ljYjloaUNLanVTakJDU2lwQkxoaWM1Y3dJa1Ftemd5NkRXUHVZTE1hLTZCdGtpLUk0NWFhYmpCRnc1aGNIS0JoVkdvaFg3SVVBTUJvQloyZG9nQnBsT0xFQmZ1dw?oc=5",
-      "source": "Google 新聞 Fed",
-      "published": "2026-11-09T23:09:00+00:00"
+      "published": "2026-11-10T00:40:03+00:00"
      }
     ]
    },
@@ -2751,14 +2823,20 @@
     "lat": -15,
     "label_lon": -58,
     "label_lat": -15,
-    "count": 1,
+    "count": 2,
     "risk": [],
     "news": [
      {
-      "title": "本土數位銀行倒閉引發政治與金融危機 我友邦巴拉圭總統辭職 - UDN",
-      "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFByLTI5M0VhSEtLM2x4bHJ2U2dUNy1qSGlmZ1M3Zm5LbVp4c1VscFM2Y18zUnI3bm5MMUZhQUtiSkJ1aFNvY2ZIdF9TLUNTa0ZM0gFWQVVfeXFMUHpDbkx0NFpzSkRySjd4NjA1YWZLZGhIWk0yS2djdE55dG5TQmFJWGt2am1UZTFWS0plemFoUllzdDNxbUhWVEQ2REE2cmwyMnpjLVFOSFE?oc=5",
-      "source": "Google 新聞 國際",
-      "published": "2026-11-05T18:20:31+00:00"
+      "title": "教宗良十四世阿根廷主持露天彌撒 籲重視家庭價值",
+      "url": "https://www.cna.com.tw/news/aopl/202611100019.aspx",
+      "source": "中央社 國際",
+      "published": "2026-11-10T00:15:14+00:00"
+     },
+     {
+      "title": "超級聖嬰衝擊 巴西南部防洪北部旱情恐加劇",
+      "url": "https://www.cna.com.tw/news/aopl/202611100015.aspx",
+      "source": "中央社 國際",
+      "published": "2026-11-09T23:53:05+00:00"
      }
     ]
    },
@@ -2771,10 +2849,16 @@
     "label_lat": 48,
     "count": 12,
     "risk": [
-     "暴動",
-     "制裁"
+     "制裁",
+     "暴動"
     ],
     "news": [
+     {
+      "title": "柏林圍牆倒塌37週年 當年東德居民導覽延續歷史記憶",
+      "url": "https://www.cna.com.tw/news/aopl/202611100021.aspx",
+      "source": "中央社 國際",
+      "published": "2026-11-10T00:17:18+00:00"
+     },
      {
       "title": "花旗調降美股及科技股評等看好歐股成AI修正避風港- 國際 - 工商時報",
       "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE5QRGpPeUF6aGF2TTIxTXNyb1FXcXozNDZqRlE2Q0VyXzZyemdYcFAybzNhYmZFYml0WDdxYWtSZGFwMm03N2xESmdTWTBuTXUwYWJwSmwzcENjQ0RYWUlR?oc=5",
@@ -2782,28 +2866,22 @@
       "published": "2026-11-09T23:46:00+00:00"
      },
      {
+      "title": "義大利因應混合戰 拚年底編制千人反駭客戰隊",
+      "url": "https://www.cna.com.tw/news/aopl/202611100013.aspx",
+      "source": "中央社 國際",
+      "published": "2026-11-09T23:34:00+00:00"
+     },
+     {
+      "title": "網路襲擊法國境內超市冷藏設備是伊朗伊斯蘭革命衛隊乾的， 法國外長發誓要制裁 - RFI",
+      "url": "https://news.google.com/rss/articles/CBMikARBVV95cUxNQngzbHZlc19fTmlwaVllQjJXVTVTTkQzS3pzYnVOUVpsbkpVQkxNd0lvRmdGcENJd2ZmRHZzc1VwX1FCSzM1bXQ0ZE5kWkg2MG1BTzVNd25nOWdxQ1BPcmJUdmt1b1ozTXBfaHpYSXdDSVNWanNsWmo5a2t4MGxrX1RjZWVfdWxnT3NIMmppb1loTXV5cE1JckRILTBFaWxtSHlWdlNsRHpPVkUtY1QzUkFnbHF6aGM2MDhfVHNnMC1ubnhJOGhHZ0w2cWNFRFZtZWJUZXh0Zm8tNDZiNTRjVVNSMElwdnliQVVxN2gtVnJKT3NyREpmVEYxQ1doUUJtQ1ZXRDZ6a1Jyb19PbEw4QWQ5b3htSEZfWXRpR3NsZUxlNHlBdTJPcEJQa29nTGgtNHZQN05JYjZpczh1YWZpdnhQQ21ZNEM5eXhoUHZaYmY3amRsQW50VVRiaGtoSDR2eVRvRTlhT21mU1gyeC1YLTQ0UTRGVE52bGdhRzRnbnpSMEgyRkg5SkZCdzNlSUNBY3JsZzBHeV80OGF0Ul8ybWNJTldtcmRkVUdHYXJhMTdfQ2NxREZEcEpmdW1nOEFpVDRKSGpHR3RuRHd1NlRnamdGdURXRE5KSENGd2hJYW1nYlQtNWJsb0djTWoyTTJBOWRNU3R2VFM4bTB3ZlRsQTVWYTBwTktfQ0h0c0F5d1M?oc=5",
+      "source": "Google 新聞 地緣政治",
+      "published": "2026-11-09T22:33:43+00:00"
+     },
+     {
       "title": "觀點投書：歐盟已建立AI法制，台灣不能只靠基本法治理人工智慧 | 蘇勳璧 | 評論 - 風傳媒",
       "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE9mQUl4OTVPYy1VZzJjYVRXbG9sMnQyMmI4ZVZtVllGOVJVS0tUNnRSZHA2UG9OaUVHS0JqYkZuNjBINC0tVzRiN21qUVlGZw?oc=5",
       "source": "Google 新聞 AI",
       "published": "2026-11-09T21:25:00+00:00"
-     },
-     {
-      "title": "從駭客操縱超市冰箱到煽動法國暴動！歐洲面臨「國家恐怖主義」與認知戰夾擊 - 自由時報",
-      "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE9PMjc4Ul8tUXlLazNNYnR5a0s4N08td1dHRXhWYUFjZGlGVl9vd2VwQTEtemJZWk5jQmo4LXBheG5xTHFFVExsbXNVN0F0YW5DbXEwbWNQc3oyLXlmTy1kVjZ2ZDNrZ9IBa0FVX3lxTE5Xa3hXVlpNVmNkQmdBU1gtQkppd2g5NWJOY3hFYTRjb2NEdHkxX2dkcHNDaVpINkJCZ3V2TXdTWEtxcmZ0MzVHM2pkQ09xYnE2UGc2MUkwaWhGNDF5bldxbHNDeDN3WEoyY1pn?oc=5",
-      "source": "Google 新聞 國際",
-      "published": "2026-11-09T19:01:10+00:00"
-     },
-     {
-      "title": "法國指控伊朗革命衛隊為全歐超市冰箱駭客案幕後黑手 擬推動歐盟制裁 - 自由時報",
-      "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE5pc1ZRVVpzd0hzM1lvUG1rQXRNa1oxRW5McU5mMVdlcEhpa2VTQWZSSGVtaUY5MVdvRDRUWkVtUnZvay11UFgyZXhCcEtyT0wzZFJ6cE9rS1cyblNLVEI2dE13c2ZNZ9IBa0FVX3lxTE4zY3JldnpxUVNkY1FJQVVGMktyOGZ2elNfWkR6dUhKWVFyeGJLbDhFQ0psN0VGRFQ0ajZ3Ym1LdU5OUmhGV09KNlVGU0pxaW5vY3RlUWZJVVNSOXBWVGdPaGNDOVlEMk1jbnpB?oc=5",
-      "source": "Google 新聞 地緣政治",
-      "published": "2026-11-09T18:54:54+00:00"
-     },
-     {
-      "title": "科技股跌深反彈 歐股收高",
-      "url": "https://www.cna.com.tw/news/afe/202611100003.aspx",
-      "source": "中央社 財經",
-      "published": "2026-11-09T17:49:31+00:00"
      }
     ]
    },
@@ -2814,18 +2892,11 @@
     "lat": 54,
     "label_lon": 38,
     "label_lat": 54,
-    "count": 2,
+    "count": 1,
     "risk": [
-     "制裁",
      "飛彈"
     ],
     "news": [
-     {
-      "title": "加拿大宣布制裁俄羅斯 G7商討加大援烏力度 - 新唐人電視台",
-      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE9aNVlMeERPcWVFbGRDaEJ4OEcxX0h6UkVtRGhxZzh6SktWVkVRc2FSRnlKdWRsOEtfX2hEekFUM1ptNndPXzAtYVpKSkE5ZUpjZVpfRXN0OERuRmtlMDlvUNIBZkFVX3lxTE5fcW55TmRPZkJZRlhTcVVBV2hBWWZ1b0dyNzNqczFyeWdiajBRTWZjcTB6bkhhenpwYmZGeThUNkNaTGYxYVZCcjJNenRtdkJZZmxOU3h0VnBfeUJQQXlLaTRpS21RUQ?oc=5",
-      "source": "Google 新聞 地緣政治",
-      "published": "2026-11-09T18:50:00+00:00"
-     },
      {
       "title": "俄軍36枚彈道飛彈猛攻基輔烏克蘭僅攔截4枚愛國者攔截彈嚴重短缺- 國際 - 中時新聞網",
       "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTFBmQjlqWlY4Zm1RS0NNTXVPcWV6NVhoNU5WeEQxVWhfdkVoSGt4ZU5FQ20wUkFPWFAteXgwUzNfVU5VQWIxcDlEakFDc3pxZU5yeWF0VmtBdDRzYzdVMktvTnJBWG5hbFpNMmh1VnRn?oc=5",
@@ -2841,42 +2912,42 @@
     "lat": 28,
     "label_lon": 46,
     "label_lat": 28,
-    "count": 13,
+    "count": 20,
     "risk": [
      "制裁",
-     "關稅",
-     "封鎖"
+     "戰爭",
+     "關稅"
     ],
     "news": [
      {
-      "title": "《美股》AI股反攻+油價挫費半強彈輝達獨垂淚- 新聞 - MoneyDJ",
-      "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQYXBobzZycVctUkRVUXc3eEVFWXp4eDV3ZmlOQ3cwM2diNjBVU21NSzlnTWNhZHAtNkFRYmZHZHZFSjh2SkUtNWNQeDVzVEZVSzFnaXlBaGVpVTZPaVc4ZmlSclIyYWxTYVFNZFZESzVhM1BzNmtiY24yWTJHeHBaaEpmbm43VnhKbzNuZEZJN2kyZw?oc=5",
-      "source": "Google 新聞 AI 產業",
-      "published": "2026-11-09T23:09:00+00:00"
+      "title": "伊朗被爆收購中國石油設施 逃避美國制裁 - 大紀元",
+      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBIbHlYRUI2ZEdCOUlEb0ZpNTE4WmU2SERmZFVWaDZ2bXJDX0hUOHdyU21PU1ZHdUIxQmFPcEU2N2V1YXpRVWNva1JJdmNLd1dlX1Z6QUJtT2doZEtrYnQ5MQ?oc=5",
+      "source": "Google 新聞 地緣政治",
+      "published": "2026-11-10T01:26:00+00:00"
      },
      {
-      "title": "美股｜油價跌緩解通膨擔憂 道瓊飆1,104點 費半漲近7％ 台積電ADR揚3.5％ - 工商時報",
-      "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE9yVUVOQjhVRG1NWHItbVJSYm5kT2JSbFMyc0lNQTZEczh4Wm5rd3pEZ2wtQVNHbTQyTnM5czVranZzRVdvdE44ei1JZlNBa05QMkttbzB6Z1R5MVp1bWRB?oc=5",
-      "source": "Google 新聞 美股",
-      "published": "2026-11-09T22:39:00+00:00"
+      "title": "法控冰箱網攻主謀是伊朗網軍隊 G7外長擬實施經濟制裁 - 公視新聞",
+      "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE40Q0dvOHlSa0VhcWpoSk5YMXdGVzRpMlpyVHIyLUdiXzFtN0p4cnJHM1pPSE9XaXJPdjlXdm1Jb0ViQlI1Q0YydUJYMTdYcFU?oc=5",
+      "source": "Google 新聞 地緣政治",
+      "published": "2026-11-10T00:45:11+00:00"
      },
      {
-      "title": "【盤前】油價大跌費半狂飆6.8%！台指夜盤漲1064點 台股今拚續攻 - Yahoo新聞",
-      "url": "https://news.google.com/rss/articles/CBMi6AJBVV95cUxPYjJDNF80VDRMSDF1dEtFS2tBek1jc3lOLUZ0UGtZdmlzWUM4cFBPUkdVYWNBajhLTVZWMk1MUVc5bHR5bER1TEVrTlF1NHZqXzltc3VrdEdud1FDMnliZnZibHVWQ1BUaEhIREtzMmQ2d2dEQk1zNUxHNkpSM0lGbEhNMFNRVFZLOWFGUWg1b1o1RWIyTVBjNExSYmNneEtOWnhvMEoyR3JDQ19kbnlBb1c5N2RvblE0T3lfdk1RUzdUQ3luaHMyUF95YzdxVjNoOWlDSWxyV1NuRmR1aFpCM1Z3cTliVTFXeWJ4ZktnQVFSb01kcUJ5QW1rUFgtUzVUZklzNkI2ckJFM3pSUXJvXzhDNy1GdmJ1bl93SEl3NUk3bWRsbjhnc3JjVkxxMk5sV3NOZkltcDk5Sk56YlpsbktVb1hsdW1fRDFoLW9tVzRCdGhzbmFwdTFZMmhNWGZsd3M4ZDNiSHI?oc=5",
-      "source": "Google 新聞 財經",
-      "published": "2026-11-09T22:18:00+00:00"
+      "title": "卡達沙烏地等國籲克制 川普稱暫緩軍事打擊伊朗",
+      "url": "https://www.cna.com.tw/news/aopl/202611100025.aspx",
+      "source": "中央社 國際",
+      "published": "2026-11-10T00:41:27+00:00"
      },
      {
-      "title": "油價暴跌舒緩通膨疑慮，美股大反攻道瓊飆千點；NVIDIA內部調查風暴股價重挫 - CMoney投資網誌",
-      "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPU2tVenJISnFNZk9rZWVOellSeE5RemwzX2ZiSXE4ZUxEYWpnVDBjVTl6TWdSb2Fyd3VsWDNRZW1ZcDNfM2xmTm5xdzJRay1SbURFSm5kYkFwb3NtM0JSQWJoNHdUZHY1OFY3LVVncjItaldSV2gybURnOEJvWkd2cVdqZ0RTVFNsNlRMclRB?oc=5",
-      "source": "Google 新聞 美股",
-      "published": "2026-11-09T21:38:12+00:00"
-     },
-     {
-      "title": "中東戰局現外交曙光 國際油價跌至8月來新低",
-      "url": "https://www.cna.com.tw/news/afe/202611100008.aspx",
+      "title": "美科技股回神 法人：政策護航台股現技術面反彈跡象",
+      "url": "https://www.cna.com.tw/news/afe/202611100024.aspx",
       "source": "中央社 財經",
-      "published": "2026-11-09T21:37:46+00:00"
+      "published": "2026-11-10T00:36:25+00:00"
+     },
+     {
+      "title": "期中選舉失利共和黨議員先開槍 美戰爭部長赫格塞斯遭提案彈劾",
+      "url": "https://www.cna.com.tw/news/aopl/202611100023.aspx",
+      "source": "中央社 國際",
+      "published": "2026-11-10T00:31:23+00:00"
      }
     ]
    },
@@ -2887,16 +2958,9 @@
     "lat": 22,
     "label_lon": 78,
     "label_lat": 22,
-    "count": 1,
+    "count": 0,
     "risk": [],
-    "news": [
-     {
-      "title": "印度排燈節空污加劇德里霧茫茫 AQI指數遭控造假",
-      "url": "https://www.cna.com.tw/news/aopl/202611090264.aspx",
-      "source": "中央社 國際",
-      "published": "2026-11-09T12:40:06+00:00"
-     }
-    ]
+    "news": []
    },
    {
     "id": "cn",
@@ -2913,34 +2977,34 @@
     ],
     "news": [
      {
-      "title": "黃仁勳拋外遇震撼彈！認偷吃中國女間諜 踩美國安紅線最重恐關40年 - Yahoo新聞",
-      "url": "https://news.google.com/rss/articles/CBMiqANBVV95cUxQaDY3Q1RfQm05cFAtMUJtQnAyOUtlQlhFbTN4UU1scTdtRWVhWFVxblJZdWVualVqNkhwd1hJbFpCVHFQY3dlUklxa2g1azlLaGg4ZFhZX2M0d0hNRk9pTkRmVmM5WWZDcVBMbVE4X3F5QW1HR2ZKTzNlZWZKSVZZS3d6Z2dQOERwSmlXcE9Ec044RGxnYzNSYjBKZElMQy03czkyZUdnd01td3AzOXhMdzZTX3NtVUF2R0N0LVVMbjkzOFVlR3BQalN5T1BnVzdqNXRzMmVLUnUxTk1pazRiWWtBc3RQbFA3a3JDM2dBVldOdms2SXp6NmlPRUd2QlV6a1ZPb3RrYzk2MW4yX3Q1ODUxRjNwX015NnM0MV9mTHNWNFpCTnE4SUZKTHNuNUpkNUZhMERRYUVSVERNckZOUWQxVy1FU2VJdWp4d0tpYlNtY0pZWHhQZV8yWllaR2dVUlpkbUpoUTFoOTEwWGdTNk01czdva3NvenNjMTNlSUlueHpheW5TN3MwTUt3NmhDNHF6WDFOU2YzMklUMWRjZWhXU0dyX1Zh?oc=5",
-      "source": "Google 新聞 國際",
-      "published": "2026-11-09T22:14:00+00:00"
-     },
-     {
-      "title": "貿易休兵再延長 中美暫停制裁 - 中國時報- 翻爆",
-      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOOC1nd1lXNDV3ZDRkeWExOG9NTEFwNk5weVU5SkFtN0Z3a2pBT2RiQ0tOUlBqVzVLQ1F4eG9Ma2xGYV9jbTRmNjI0dFNRYktESk45aDlxSjQ3Tlk3Vi1Zb2hNTW5pWVVOcWlHbnlRekRudTZqRFZEbVNLUzlaemlxQ1dhNzdrdFAw?oc=5",
+      "title": "伊朗被爆收購中國石油設施 逃避美國制裁 - 大紀元",
+      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBIbHlYRUI2ZEdCOUlEb0ZpNTE4WmU2SERmZFVWaDZ2bXJDX0hUOHdyU21PU1ZHdUIxQmFPcEU2N2V1YXpRVWNva1JJdmNLd1dlX1Z6QUJtT2doZEtrYnQ5MQ?oc=5",
       "source": "Google 新聞 地緣政治",
-      "published": "2026-11-09T21:50:44+00:00"
+      "published": "2026-11-10T01:26:00+00:00"
      },
      {
-      "title": "科技股歷經暴跌後強彈 美股收盤齊揚",
-      "url": "https://www.cna.com.tw/news/afe/202611100009.aspx",
+      "title": "婚外情風波延燒 輝達、黃仁勳遭股東提集體訴訟",
+      "url": "https://www.cna.com.tw/news/aopl/202611100017.aspx",
       "source": "中央社 財經",
-      "published": "2026-11-09T21:49:48+00:00"
+      "published": "2026-11-10T00:09:10+00:00"
      },
      {
-      "title": "續暫停實施對美加徵24%關稅及相關實體制裁等多項措施 中方落實中美元首共識 經貿休戰延至明年1月 - 香港文匯報",
-      "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE15SGZUMUxFNFU5cTgybUZIRGp4TjhrNFhxdjB2dVZhVzQ2aFNQaHRNNlNlMjR4ZzlNb3JIb2t3TDRHNEtRbXVOck9lNjhHSVJYRGppd0EzeTJoano3dTFjRXFDZDljbGUwU0NjVldXM2ZMMTF4RFRV?oc=5",
-      "source": "Google 新聞 地緣政治",
-      "published": "2026-11-09T20:48:05+00:00"
+      "title": "輝達股東集體訴訟 控公司與黃仁勳隱瞞婚外情涉嫌誤導投資人",
+      "url": "https://www.cna.com.tw/news/aopl/202611100017.aspx",
+      "source": "中央社 國際",
+      "published": "2026-11-10T00:09:10+00:00"
      },
      {
-      "title": "創科路上/香港國際電腦會議開幕 孫東：人工智能重塑各行業 未來五年從三方面釋放AI+競爭優勢 - 大公文匯網",
-      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1fdmJxVGlrWGlFbmsxNUtWRkxhQ2Iydm5pWHRaa2JsSENUWUVUNlM5NHBwX3ZOSUZoT1FKcjB0WDlBOG5oSm9qQ0xBNXJaQXRzeHpiN2VsR21mQ25vOUxobXNSWFV2QUV3dGF0c0FyaUlob3Js?oc=5",
+      "title": "瑞銀︰人工智能AI基建續撐2027全球增長｜大行觀點 - 香港01",
+      "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTFBCa3JmaGN6RjJwZUVBRHhQaW5UT0pCYmY3MXpMbnBCdGw3ODdsWU5oQm1MM3E5WW02MlBVVkRVbDY5a1k0X2VaU2dpR3B4QQ?oc=5",
       "source": "Google 新聞 AI",
-      "published": "2026-11-09T20:31:26+00:00"
+      "published": "2026-11-09T23:55:29+00:00"
+     },
+     {
+      "title": "紐時：輝達疑介入商務部調查Megaspeed晶片輸中案",
+      "url": "https://www.cna.com.tw/news/aopl/202611100012.aspx",
+      "source": "中央社 國際",
+      "published": "2026-11-09T23:14:58+00:00"
      }
     ]
    },
@@ -2954,6 +3018,12 @@
     "count": 6,
     "risk": [],
     "news": [
+     {
+      "title": "越南恐陷「9.95%悖論」經濟迷思 數字亮眼民間無感",
+      "url": "https://www.cna.com.tw/news/aopl/202611100026.aspx",
+      "source": "中央社 國際",
+      "published": "2026-11-10T00:48:30+00:00"
+     },
      {
       "title": "金融時報：新加坡超越愛爾蘭 成為蘋果最大避稅地",
       "url": "https://www.cna.com.tw/news/aopl/202611090293.aspx",
@@ -2973,12 +3043,6 @@
       "published": "2026-11-09T13:01:32+00:00"
      },
      {
-      "title": "50名印尼青農赴台實習 盼助家鄉農業發展",
-      "url": "https://www.cna.com.tw/news/ahel/202611090269.aspx",
-      "source": "中央社 國際",
-      "published": "2026-11-09T12:52:17+00:00"
-     },
-     {
       "title": "NASA雨燕天文台墜入大氣層 22年太空任務烈焰中謝幕",
       "url": "https://www.cna.com.tw/news/ait/202611050122.aspx",
       "source": "中央社 科技",
@@ -2993,11 +3057,29 @@
     "lat": 37,
     "label_lon": 121,
     "label_lat": 52,
-    "count": 3,
+    "count": 6,
     "risk": [],
     "news": [
      {
-      "title": "牽動全球AI命脈 黃仁勳爆婚外情調查凸顯接班危機",
+      "title": "美股科技股強彈帶動亞股反攻！韓股飆逾5%、台股大漲逾1,100點 - Yahoo新聞",
+      "url": "https://news.google.com/rss/articles/CBMi8gJBVV95cUxOLXU5SlQ3OFE1NUYwU1VrUThKX3JHRWMza0lpZ25Ud2RmbWxNbmY3YW90cjdCcDgtcXVjTU5obFBLMWY0VE9leGxwWDMwT1dCWFRLUllwXzhldGtJWl9wRUlGXzRwOFBkSGJyUDl4dk8tVWVrel9DNG1lc0NQNk0wWTN2V3NOY3hxSGk1Q2tpZ3k2OW9kZ2RmNmJLNTR2c25ZaVN5NWJhR2hMT0NFRWE5LTRBcEFhZzJLSzhmRFlyTjdyaExmdEpUSGxCOUFrY3NWZXZQRC1OWDZuVnN0SFJiWVFXdVdqV1hMdDkwY2UtUG1DM0pXc19QLWdoTUVvSDZyeHRZdWxCYl90U0JBelVjSFktV1hNaEhEM2RuNUJhbzhxbVRtYXpyYzk5UDNHWFd6aEtyZWU0Rk1NTjlvYnhaTlZfNld1RVVURTJvZm1jcG1BdnNWeWVSUE8wOVNnbVZjWUZfTHdNaUZVTG1uVWF1TExR?oc=5",
+      "source": "Google 新聞 美股",
+      "published": "2026-11-10T01:29:16+00:00"
+     },
+     {
+      "title": "北韓官媒：試射新型高速魚雷 預定2027年交付海軍",
+      "url": "https://www.cna.com.tw/news/aopl/202611100032.aspx",
+      "source": "中央社 國際",
+      "published": "2026-11-10T01:24:43+00:00"
+     },
+     {
+      "title": "台股有望續發爐！韓股飆逾5.6％觸發熔斷 日經漲逾1800點 - 自由財經",
+      "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFBPM3N1c3hYLXNETlVCS1hZRWxyY0FJc0g4ZU52a3FhMzl2SVBvbDhWOGh0alBQcXdUVllDanljVFVYNHNpNTZKUTlFLWZ2Ul85Ql9MQUpqanJyUHN3dFdZ0gFkQVVfeXFMTzZGOEx1ZkZod3FvelVZRTJSbjlUd2NhNmVqWi16Yl9ZUlVyR1l0YWt6MzFXMVRobmZQbE9YWGk0Z2g4Z2VITnVtTFFia2ptRHFXMk5CUHlKNTlLNkwwcVdMMXlwZA?oc=5",
+      "source": "Google 新聞 財經",
+      "published": "2026-11-10T00:27:18+00:00"
+     },
+     {
+      "title": "輝達牽動全球AI命脈 黃仁勳爆婚外情調查凸顯接班危機",
       "url": "https://www.cna.com.tw/news/aopl/202611100004.aspx",
       "source": "中央社 國際",
       "published": "2026-11-09T19:17:34+00:00"
@@ -3007,12 +3089,6 @@
       "url": "https://www.cna.com.tw/news/afe/202611090278.aspx",
       "source": "中央社 財經",
       "published": "2026-11-09T13:20:39+00:00"
-     },
-     {
-      "title": "前輝達韓國代表俞應浚揭密企業文化 7年任職收穫多【專訪】",
-      "url": "https://www.cna.com.tw/news/ait/202611040130.aspx",
-      "source": "中央社 科技",
-      "published": "2026-11-04T05:28:52+00:00"
      }
     ]
    },
@@ -3027,10 +3103,10 @@
     "risk": [],
     "news": [
      {
-      "title": "日本河口湖飯店台女命案 楊姓台籍女子因持菜刀遭起訴",
-      "url": "https://www.cna.com.tw/news/aopl/202611090263.aspx",
-      "source": "中央社 國際",
-      "published": "2026-11-09T12:39:04+00:00"
+      "title": "台股有望續發爐！韓股飆逾5.6％觸發熔斷 日經漲逾1800點 - 自由財經",
+      "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFBPM3N1c3hYLXNETlVCS1hZRWxyY0FJc0g4ZU52a3FhMzl2SVBvbDhWOGh0alBQcXdUVllDanljVFVYNHNpNTZKUTlFLWZ2Ul85Ql9MQUpqanJyUHN3dFdZ0gFkQVVfeXFMTzZGOEx1ZkZod3FvelVZRTJSbjlUd2NhNmVqWi16Yl9ZUlVyR1l0YWt6MzFXMVRobmZQbE9YWGk0Z2g4Z2VITnVtTFFia2ptRHFXMk5CUHlKNTlLNkwwcVdMMXlwZA?oc=5",
+      "source": "Google 新聞 財經",
+      "published": "2026-11-10T00:27:18+00:00"
      },
      {
       "title": "新／日本又地震！東京也在晃 - 東森新聞",
@@ -3047,111 +3123,111 @@
     "lat": 23.7,
     "label_lon": 146,
     "label_lat": 17,
-    "count": 39,
+    "count": 36,
     "risk": [],
     "news": [
      {
-      "title": "美股｜油價跌緩解通膨擔憂 道瓊飆1,104點 費半漲近7％ 台積電ADR揚3.5％ - 工商時報",
-      "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE9yVUVOQjhVRG1NWHItbVJSYm5kT2JSbFMyc0lNQTZEczh4Wm5rd3pEZ2wtQVNHbTQyTnM5czVranZzRVdvdE44ei1JZlNBa05QMkttbzB6Z1R5MVp1bWRB?oc=5",
+      "title": "台股早盤續彈逾1200點站回42900點 電子類股強勢 - Yahoo股市",
+      "url": "https://news.google.com/rss/articles/CBMitAJBVV95cUxQck5TcDkwY1VfQzVKQUNvS08zY3BaNngzU2dGSVdRSm9XT0FLUDZJT0Z0aDItbmdWaFE2WVJKZnA5QVRsTHJvRVB2YW1SeHV2MTUzX3dGUlRJWDE3dzJLZ19WYjhoSnRhdXEwSzZBOXhvckpOZXVudU9sNGhNOExnSk1xTk1tdlh5SlotLXdQckRyWGxqT2RveGxYZTk2OFZYeGloRmMzRnFaYUJOSjdVVGZINXNVMi11Yjc0WG8zSDJDaHItckxpUmYxS3BfeXVGdU4tRG52MzZ0c19fZ3BLSGNNWE0yQzlrQ3NhbkZRSXpIdzZvRkJ6VnZrQlNCcUJha0doMkxzMGhTWGVWallnYzdMV3R3bVc0MkJZWVZ0cjB4ZDZGTE56Z0RtUUg4MG9pV0ljYQ?oc=5",
+      "source": "Google 新聞 台股",
+      "published": "2026-11-10T01:39:57+00:00"
+     },
+     {
+      "title": "台股大漲逾千點 新台幣升快1角破32.8元 - PChome Online新聞",
+      "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOOE9ZbVAtbm1DNnU5ZDBTV21Ya1NkTVZNT1lSaDBsLTVfdXVHemdVby0yd0g3dEljLVEydlk0aDVZOTB6TzBXRVcwWnIyUTBYSFZwMUVEUHp0elN5Z2xZVjJtOWtWMVVVY0VVbVdaamtiWEZZU0p0bEZta2JYUmFWYm5zT1UtejA1dTFj?oc=5",
+      "source": "Google 新聞 台股",
+      "published": "2026-11-10T01:34:25+00:00"
+     },
+     {
+      "title": "台股開盤衝1200點！台達電再飆漲停、欣興不到10分鐘攻頂 國安基金助攻挑戰收復43K - Yahoo股市",
+      "url": "https://news.google.com/rss/articles/CBMi3wNBVV95cUxPVlpMNGpOaFkxYWRkQUF0eTc0VkZlOFUwRDBEMkRxMk1kUTJhSmhqcjN6OWoyaGFkMXFpcVZiMXhBTUJsbTJsMEhveld0eUlWVzR2cUtNdkw0TXZ3U0VXU3BXak9UOTZHV19Nc3FQdnZObHcyY1IyUC1za2pyRVVXUGpUTG13Q04tcjJEbE5fclBKOUttSlRFNnhFNEV2c05FbXVRRUNUTm56X2tjZGZTbHNaSEZSa1BkeFU5S0ljNG8yM1ZjSHQyaEl0QU1xcm1BR1J1SFBpOGdrYkFKSElEWWxPYnloOFM3NjNPQXpGRVpDTUlsS1NMUkp6cTc2dWpRMUpYa25ITnRsRlhuT3VuVU1DeURwdllxbUFMeGJYUTNyOEpUU2NmRGludVFUNXlFdmw4RTJnYThKamI5UzQ1QV9aZnIyaUVTQndXQ1o1RjdoQVBIOVBuYjB2QTRyUzROT2NNRlRNeGtBUzB1WURqa0tiejNGeXR2RW1xeHJFeDItTC1zLU9CQUNKVGdWVURiUGppdG1MRkNWNFIzbEgzSHA2aWN3RFROUjh1dkdHRGFlTVRBUkRzTnZWa3pObERHUm9hX1NmWGZBblZ5M21qRDZ6TWItazVIZHFlX3NoTQ?oc=5",
+      "source": "Google 新聞 台股",
+      "published": "2026-11-10T01:32:15+00:00"
+     },
+     {
+      "title": "美股科技股強彈帶動亞股反攻！韓股飆逾5%、台股大漲逾1,100點 - Yahoo新聞",
+      "url": "https://news.google.com/rss/articles/CBMi8gJBVV95cUxOLXU5SlQ3OFE1NUYwU1VrUThKX3JHRWMza0lpZ25Ud2RmbWxNbmY3YW90cjdCcDgtcXVjTU5obFBLMWY0VE9leGxwWDMwT1dCWFRLUllwXzhldGtJWl9wRUlGXzRwOFBkSGJyUDl4dk8tVWVrel9DNG1lc0NQNk0wWTN2V3NOY3hxSGk1Q2tpZ3k2OW9kZ2RmNmJLNTR2c25ZaVN5NWJhR2hMT0NFRWE5LTRBcEFhZzJLSzhmRFlyTjdyaExmdEpUSGxCOUFrY3NWZXZQRC1OWDZuVnN0SFJiWVFXdVdqV1hMdDkwY2UtUG1DM0pXc19QLWdoTUVvSDZyeHRZdWxCYl90U0JBelVjSFktV1hNaEhEM2RuNUJhbzhxbVRtYXpyYzk5UDNHWFd6aEtyZWU0Rk1NTjlvYnhaTlZfNld1RVVURTJvZm1jcG1BdnNWeWVSUE8wOVNnbVZjWUZfTHdNaUZVTG1uVWF1TExR?oc=5",
       "source": "Google 新聞 美股",
-      "published": "2026-11-09T22:39:00+00:00"
+      "published": "2026-11-10T01:29:16+00:00"
      },
      {
-      "title": "美股主指全收紅、輝達逆勢重跌4.27％ 台積電ADR上漲3.51％ - 自由財經",
-      "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFBEUDh2dHF5aXU3ZkdnSndwcURmSjhhQkdRVzIwcldzSXJ1Vk5JY0RCS0x1S3FhWjh0UmhpanlRVWswOS11OWczaGItWWpScktpbEFzaS1oaTdiaV9XTUsw0gFkQVVfeXFMTklHel9aRDVqMnB6Q1JBX1dYekdDWVdHTWY0bEZqRUlLSjNwY0lKcWNRQlY5bGZTaUk5TWlJbWlBZEFHY054Ym12dTAtYTlaOFdDWGZIZWUtTTZ2ZE84b3RwUTd2Sw?oc=5",
-      "source": "Google 新聞 美股",
-      "published": "2026-11-09T22:34:11+00:00"
-     },
-     {
-      "title": "【盤前】油價大跌費半狂飆6.8%！台指夜盤漲1064點 台股今拚續攻 - Yahoo新聞",
-      "url": "https://news.google.com/rss/articles/CBMi6AJBVV95cUxPYjJDNF80VDRMSDF1dEtFS2tBek1jc3lOLUZ0UGtZdmlzWUM4cFBPUkdVYWNBajhLTVZWMk1MUVc5bHR5bER1TEVrTlF1NHZqXzltc3VrdEdud1FDMnliZnZibHVWQ1BUaEhIREtzMmQ2d2dEQk1zNUxHNkpSM0lGbEhNMFNRVFZLOWFGUWg1b1o1RWIyTVBjNExSYmNneEtOWnhvMEoyR3JDQ19kbnlBb1c5N2RvblE0T3lfdk1RUzdUQ3luaHMyUF95YzdxVjNoOWlDSWxyV1NuRmR1aFpCM1Z3cTliVTFXeWJ4ZktnQVFSb01kcUJ5QW1rUFgtUzVUZklzNkI2ckJFM3pSUXJvXzhDNy1GdmJ1bl93SEl3NUk3bWRsbjhnc3JjVkxxMk5sV3NOZkltcDk5Sk56YlpsbktVb1hsdW1fRDFoLW9tVzRCdGhzbmFwdTFZMmhNWGZsd3M4ZDNiSHI?oc=5",
-      "source": "Google 新聞 財經",
-      "published": "2026-11-09T22:18:00+00:00"
-     },
-     {
-      "title": "投書：美股啟動夜盤每日23小時交易，金管會應補強風險揭露 - 鏡週刊Mirror Media",
-      "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE5fSHFpOXk3UzV6LU0xZzBxbHM4dE9neVEyZDdZY0pPQTVIVUJkNl9pTU00UlA3Zy1uY1VENFJIR2FsNkRrRWZiWGlwMkhvY3BUQV9pT2cyX0RkU2xlMTRjSkVMc9IBaEFVX3lxTE5kcnc5QTdHM3hfX3E5SEtjTFdVUXJkRWVHLVdNaGR5cjk5ZnBzSXVGYm5RUWZUXzlMYi1Hajl3VFRsTUtEZ21qQVk1ZEhQSndBZVNWOG45THh1cWZHbXNhX3VHQnpYQXFY?oc=5",
-      "source": "Google 新聞 美股",
-      "published": "2026-11-09T22:00:00+00:00"
-     },
-     {
-      "title": "觀點投書：歐盟已建立AI法制，台灣不能只靠基本法治理人工智慧 | 蘇勳璧 | 評論 - 風傳媒",
-      "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE9mQUl4OTVPYy1VZzJjYVRXbG9sMnQyMmI4ZVZtVllGOVJVS0tUNnRSZHA2UG9OaUVHS0JqYkZuNjBINC0tVzRiN21qUVlGZw?oc=5",
-      "source": "Google 新聞 AI",
-      "published": "2026-11-09T21:25:00+00:00"
+      "title": "台股早盤漲逾1200點 台積電漲45元 - Yahoo新聞",
+      "url": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxNZFJOckJmSHFITUs3ejJySkpCUHBuSC16dFE4cGN2QXRWTm5PRXZtT3UxTU1EVEdGM1dDSXV3aGplSThTbDZkN3hMSzBqemRMOF9EeHdIM0dWV1JDLTczMHhQR3NONUs2eVNDX3BLZFJoZEo2V09tMlV2RVplSDgzSU1SWlZIc3ZVQlJMVUIwRmZoSHNVa1VRNUZRNm9OYi1wNjF2dW16V0RBMU1HM2tpME9yRzI1bGZxZWJRNEhob1dYdlNXWnBGMm5vbDdkZUxIVHRpSkdxcjFWTG42cmVmS0ltcHdmQTk0UVJLRQ?oc=5",
+      "source": "Google 新聞 台股",
+      "published": "2026-11-10T01:17:06+00:00"
      }
     ]
    }
   ],
   "ai_news": [
    {
-    "title": "花旗調降美股及科技股評等看好歐股成AI修正避風港- 國際 - 工商時報",
-    "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE5QRGpPeUF6aGF2TTIxTXNyb1FXcXozNDZqRlE2Q0VyXzZyemdYcFAybzNhYmZFYml0WDdxYWtSZGFwMm03N2xESmdTWTBuTXUwYWJwSmwzcENjQ0RYWUlR?oc=5",
-    "source": "Google 新聞 美股",
-    "published": "2026-11-09T23:46:00+00:00",
-    "category": "應用"
-   },
-   {
-    "title": "輝達逆勢跌逾6%！黃仁勳調查案衝擊多大？華爾街點出三大風險 - 鉅亨網",
-    "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTFBINDVVcU5ZMDdDa05LWDVRZU1vTW8tLTRiYm5ORWoyZWNBR2V3Tlh5NThsbnBBNjM1S0toT1BwVVpiMlNDM0xyS0hPSnU0a1E?oc=5",
-    "source": "Google 新聞 AI 產業",
-    "published": "2026-11-09T23:21:57+00:00",
+    "title": "黃樂是被獻祭出來的？知情人士曝黃仁勳婚外情「女共諜有家室」：想要輝達訂單走私被判無期 - Yahoo股市",
+    "url": "https://news.google.com/rss/articles/CBMipwRBVV95cUxOUXhxS2R2Nk5Xd2h3NzlMQkZGd3hHR3pNekExZmxGYTNpd2U5QjhiNWU2dlZVdXN5eGZQdDU1aS10RVJPNnlBUk1rdm5WV2wxMHNvMEcxc3VlMFRZYkk0V0pvRm1QM1NUbHpvNklYOG96N2xNQ1RlaUNOZ0tDTWlVYVFlMlhKNmJReEc2eFBRX0YwZG9PdXdfLWhIQ2FhcDB0dlFUemRYbFlzRXRrQlhTenFMY0VabUNZbGVvWEYzbWtZc1NIZ2dSRGx6UDR6eUc0eHRfb3Y5Q1dBaXpPNC1OdWg2bndoRklQMGJDOTdnZllnTXc2d2dHazVFTm85Q3VOcWhFell2c1JrU2xXVUNsOEl4UlZLX1RGVW9LVWtxY3dRWWJfV3NLS1NmYXF5ZnAxd2NFLTBUb243bnVCY0M1M3RmSlVWUEVSTHNSYm1LOUJFSGFLZG1ja1FSVzliSnZtWW1iZ01HWTRhMFNiblZma3k3bEdmUVJORDNjT2VBNFFldk5fRUNqd0VlTnBvMC1HSklCNzZTazc1WndERFlRR0ZHaWV1VXQxa2wtUlZkVGtmeHp0OWs3RjIzY01qSmdvWkpMSWpiTll1V19aNER1dm9wTGVHM3QwYmhNeUxwbWIxVEU5Slo2TGdNeVBXYkxxSkJtMDRKZXRIVmlwOXlSTEdiN2phMDZtd2JFR093emdySlN5c2ZTQ1ZSVUNhU1ZRT0Qybi15UQ?oc=5",
+    "source": "Google 新聞 財經",
+    "published": "2026-11-10T01:23:53+00:00",
     "category": "晶片"
    },
    {
-    "title": "《巴隆》分析：為何黃仁勳下台 恐比婚外情更傷輝達？ - 鉅亨網",
-    "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTFBmSE5nZnA3OW01Rm9BS2hmTWktUlZiQzh3YWkwUnZ4QTdXdzhYVUFrRkt5SGxGbFNiX2toSjRTbVNCTVptWTNmSzBIZHRjYzg?oc=5",
+    "title": "美股走高輝達逆勢收跌4.27% 市場關注黃仁勳相關調查| 證券 - 中央社 CNA",
+    "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE5adUpaR2h5dXhJUXNudzd2YktKRDRwclhJM1pSVHR1c1VDLVJfWHJnbllCbkg3Rk14OGh3YUNUYTNvRFlRNl9pZWwzTk40ZklieU9IVkE3ZXBscXVQYUE?oc=5",
     "source": "Google 新聞 AI 產業",
-    "published": "2026-11-09T23:18:07+00:00",
+    "published": "2026-11-10T01:14:00+00:00",
     "category": "晶片"
    },
    {
-    "title": "《美股》AI股反攻+油價挫費半強彈輝達獨垂淚- 新聞 - MoneyDJ",
-    "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQYXBobzZycVctUkRVUXc3eEVFWXp4eDV3ZmlOQ3cwM2diNjBVU21NSzlnTWNhZHAtNkFRYmZHZHZFSjh2SkUtNWNQeDVzVEZVSzFnaXlBaGVpVTZPaVc4ZmlSclIyYWxTYVFNZFZESzVhM1BzNmtiY24yWTJHeHBaaEpmbm43VnhKbzNuZEZJN2kyZw?oc=5",
+    "title": "黃仁勳婚外情重挫輝達股價！標普500卻逆勢上漲2.3% 17年罕見大脫鉤 - 鉅亨網",
+    "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE1sRmRlN1JCRnpWRU15QmpVU3o0cnl1RkZ4cUN3NW5vZGItbVdTUGtzcEN3UHhrVHhYYlNfY3k4Vkd0UmdRNGR1b2RUMlJIWWs?oc=5",
     "source": "Google 新聞 AI 產業",
-    "published": "2026-11-09T23:09:00+00:00",
+    "published": "2026-11-10T01:10:07+00:00",
     "category": "晶片"
    },
    {
-    "title": "川普：黃仁勳稱不知道她是間諜！FBI介入調查 輝達董事會啟動獨立調查 - 鉅亨網",
-    "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE5kUFRlRkNRNFRKaU9IU0RqaFJPb0g4dW82MU15dURjV3FHSGFMX2hHUXB1OHpoOUcwVzNvdVZnV3BsZUJpcXp5SEtYQTBILWM?oc=5",
+    "title": "婚外情燒出共諜案 股東向輝達、黃仁勳提集體訴訟 - 自由財經",
+    "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE90TlZ3SzFwaGJ2bzhiV0VOLXpETDZZV3lobDZncm1nemduZ3dEaHNNY3M5YmtJeWNpalZMTk1RdlRZb2h2aTMyRjJmNUoyYUU0NmMyQVpKMTdXQXBsZU5r0gFkQVVfeXFMTTlNQzM4VnNhR1BrS3Zid3Q0aFQyOUxMeWR1YVJtM0lSS3NfczBSaTVmTVFFU2RoSVRzWVBwcVRaMFk1THVyY1BTNndBdkQxRi1lRFBqbFF3VUl2Z0RYaGxuSWF0Ng?oc=5",
     "source": "Google 新聞 AI 產業",
-    "published": "2026-11-09T22:41:15+00:00",
+    "published": "2026-11-10T00:54:15+00:00",
     "category": "晶片"
    },
    {
-    "title": "輝達逆勢跌逾4% 成費半唯一殞落股 黃仁勳去留引爆華爾街論戰 - 鉅亨網",
-    "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTFA1S2VTdXBzZHBYaHc0dDh6dXdpN3VvUUxUeGF1dnp0U2d0bGtVeC1WMV9YZThweldDSHFoTm1aQjg5TW9wRjRZbkRvMGcyd3M?oc=5",
+    "title": "Google推新TPU迎戰輝達雙晶片強化加密與記憶體- 新聞 - MoneyDJ",
+    "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPWWdIaEczWXZKVkpEZUs0ZUVCa2l6UXVYbmdVN3NiTlQ0d1l1SnVSWWc4eTlISXJMWGVHQ0pZZUN5WS12bGhPV3lGV012MkQ1UGp5VTc3T040cHl3bzRUajlCc2V2XzNSa1pUQWI5eXdqUzVLcG45aWp4ajhWWE9aU0ZIREw3R2ZoX3prZ2lkZVJiZw?oc=5",
     "source": "Google 新聞 AI 產業",
-    "published": "2026-11-09T22:37:34+00:00",
+    "published": "2026-11-10T00:41:00+00:00",
     "category": "晶片"
    },
    {
-    "title": "美股主指全收紅、輝達逆勢重跌4.27％ 台積電ADR上漲3.51％ - 自由財經",
-    "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFBEUDh2dHF5aXU3ZkdnSndwcURmSjhhQkdRVzIwcldzSXJ1Vk5JY0RCS0x1S3FhWjh0UmhpanlRVWswOS11OWczaGItWWpScktpbEFzaS1oaTdiaV9XTUsw0gFkQVVfeXFMTklHel9aRDVqMnB6Q1JBX1dYekdDWVdHTWY0bEZqRUlLSjNwY0lKcWNRQlY5bGZTaUk5TWlJbWlBZEFHY054Ym12dTAtYTlaOFdDWGZIZWUtTTZ2ZE84b3RwUTd2Sw?oc=5",
-    "source": "Google 新聞 美股",
-    "published": "2026-11-09T22:34:11+00:00",
+    "title": "輝達最大危機來了？黃仁勳爆醜聞恐丟CEO職位 股價逆勢重挫 - 自由財經",
+    "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE9iVkJnanRmYzFWX0FBT1B3YUFhOWtYMjVwWXQ2b2pTei1FbmJBZ1o3dkpNUGVnVy04R3pJU3pZQTFZSktVMXdSLVNQU0phSWh3X0djeG5tNUxSaXUtMmNB0gFkQVVfeXFMUElmTU9nSk1MMDZsaktMczZ1WEhqOUZaRlNvWGw4OHJRMW9NcVNYcFEyczBzZWZqT05EaFRVdl9zSk9yVGd4V1JaZkg3RTRDbHZrVnE0b1JvOEtXOWQzUmRIc3RvLQ?oc=5",
+    "source": "Google 新聞 AI 產業",
+    "published": "2026-11-10T00:36:19+00:00",
     "category": "晶片"
    },
    {
-    "title": "天下晨間新聞：黃仁勳陷諜影風暴！費半暴漲、輝達獨跌4%，Google補刀 - 天下雜誌",
-    "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE1QczVSQW1WelRMN3FtR1BoMzVaSG9DWTFrMXZmVDQxcDRWTlM5aHVNQmgwbE1JZE1ENW1CdElfWjltZDZtalVBSWtST2Vadw?oc=5",
+    "title": "輝達股價暴跌逾4%！股東集體提告控未揭露黃仁勳外遇影響數千人| 國際焦點 - 太報 TaiSounds",
+    "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE1HOTlGTnFzYjktMlFmYk9XcGtTWEkzcldtdlNKMlBaRXFHOGdXUUhaSHRFcXlReEt3NXFUX0twN1ppQmxOZW9Eangyb2JvM044eXpUd2p5eW1FNFZK?oc=5",
     "source": "Google 新聞 AI 產業",
-    "published": "2026-11-09T22:34:06+00:00",
+    "published": "2026-11-10T00:35:30+00:00",
     "category": "晶片"
    },
    {
-    "title": "黃仁勳偷吃、輝達後院失火 Google出招拆CUDA高牆 - 民報",
-    "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE9peDFLOTF3cWFvUUNFRks1X0Z4VEtTd3dGR2h1bVNJTDFsOUlxT0VlSDNEaEJ2dzVjS2Q1UGpTS1h1bDJCRVBoRXVZNDRXSVI0RUQ5SlpWZnlqdGxUdFRRY1dsNGM?oc=5",
+    "title": "今晨國際頭條一次看／黃仁勳事件凸顯輝達經營風險 美防長恐遭彈劾 - UDN",
+    "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE9OaUZqNV92eFFVX0JKRlNtY0lCTmJYTlBVcjJhdGh2cmhwTEpEamtUbXM5VjRqbFlPVXl4d2VSMnEtT3FFTHlCX3NOZm1pbEhI?oc=5",
     "source": "Google 新聞 AI 產業",
-    "published": "2026-11-09T22:30:00+00:00",
+    "published": "2026-11-10T00:31:31+00:00",
     "category": "晶片"
    },
    {
-    "title": "「黃仁勳無可取代」 輝達凸顯接班危機 - ETtoday新聞雲",
-    "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTFBlRGdSei1yNnJ6U3hCd3B2bGlpY0dVZ0dvcDAyS0dlSDRaaFAzWkJ0OE51aHU1QU45OXBJenhqV0RFcUhDdE1ncmNYUVNpSl81cG9QWVFrM1B3Z3BSbnfSAUtBVV95cUxNaHBZV3MwaDJ0OFhHa2JaVmxKWFFJUkNiZUZWcGJ4aDdaVjFOT3ZnNUswdGRuVVppRmFvQk9oR0VmOG0xNjFWc3FXaFE?oc=5",
+    "title": "輝達董事會調查黃仁勳國安風波市場押注短期離任機率低- 國際 - 工商時報",
+    "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE1zWWZqdXNSa0VlLUdFcEVWLUdqN045UDJWSzAyQlp0d3dhdjZ3RTczVXN0Tm4tQUpuZjJKc2tqV05vRGt3NXdfTWxjRDR6ckhPV0Q2aHlVY2NacERWQjQ0?oc=5",
     "source": "Google 新聞 AI 產業",
-    "published": "2026-11-09T22:24:00+00:00",
+    "published": "2026-11-10T00:31:00+00:00",
+    "category": "晶片"
+   },
+   {
+    "title": "輝達失守180美元！神秘大單砸4700萬美元押反彈 - 鉅亨網",
+    "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTFBWa2o1eTFZQzZJckFFeEZIbWpDV05qeVZOS2Z1YVh3LUF3WHZueUZJVjFGV05hMm5tRDJIM2dRY1VOWVBZRm9fM0ctSnV5OHM?oc=5",
+    "source": "Google 新聞 AI 產業",
+    "published": "2026-11-10T00:20:03+00:00",
     "category": "晶片"
    }
   ]
@@ -3168,6 +3244,10 @@
      "韓國半導體出口轉強",
      "月營收加速（單月年增比今年累計高 33.7 個百分點，中位數）"
     ],
+    "basis": {
+     "have": 2,
+     "total": 3
+    },
     "upstream": [
      {
       "name": "DRAM 合約價",
@@ -3192,26 +3272,26 @@
      "count": 5
     },
     "price": {
-     "avg_1m": -28.14,
+     "avg_1m": -24.7,
      "bench": "^SOX",
      "bench_name": "費城半導體",
      "bench_1m": -20.19,
-     "gap": -7.95,
+     "gap": -4.51,
      "note": "訊號轉強，但股價近一個月沒有跑贏對照指數，值得追蹤",
-     "bench_last": 10033.93
+     "bench_last": 10033.93,
+     "bench_as_of": "2026-11-09"
     },
     "stocks": [
      {
       "symbol": "2408.TW",
       "name": "南亞科",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 370.0,
-      "change_pct": 7.71,
-      "chg_1m": -28.02,
-      "range_pos": 0.591,
+      "as_of": "2026-11-10",
+      "last": 395.5,
+      "change_pct": 6.89,
+      "chg_1m": -25.66,
+      "range_pos": 0.643,
       "spark": [
-       514.0,
        532.0,
        527.0,
        488.0,
@@ -3232,7 +3312,8 @@
        399.5,
        360.0,
        343.5,
-       370.0
+       370.0,
+       395.5
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 576.62,
@@ -3242,13 +3323,12 @@
       "symbol": "2344.TW",
       "name": "華邦電",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 132.5,
-      "change_pct": 9.96,
-      "chg_1m": -26.18,
-      "range_pos": 0.477,
+      "as_of": "2026-11-10",
+      "last": 140.0,
+      "change_pct": 5.66,
+      "chg_1m": -20.9,
+      "range_pos": 0.517,
       "spark": [
-       179.5,
        177.0,
        174.0,
        161.5,
@@ -3269,7 +3349,8 @@
        141.5,
        127.5,
        120.5,
-       132.5
+       132.5,
+       140.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 256.67,
@@ -3279,13 +3360,12 @@
       "symbol": "2337.TW",
       "name": "旺宏",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 83.3,
-      "change_pct": 9.89,
-      "chg_1m": -29.41,
-      "range_pos": 0.344,
+      "as_of": "2026-11-10",
+      "last": 86.6,
+      "change_pct": 3.96,
+      "chg_1m": -25.34,
+      "range_pos": 0.365,
       "spark": [
-       118.0,
        116.0,
        115.5,
        106.5,
@@ -3306,7 +3386,8 @@
        87.2,
        79.7,
        75.8,
-       83.3
+       83.3,
+       86.6
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 188.24,
@@ -3316,13 +3397,12 @@
       "symbol": "3260.TWO",
       "name": "威剛",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 305.0,
-      "change_pct": 1.84,
-      "chg_1m": -16.44,
-      "range_pos": 0.374,
+      "as_of": "2026-11-10",
+      "last": 319.5,
+      "change_pct": 4.75,
+      "chg_1m": -11.86,
+      "range_pos": 0.415,
       "spark": [
-       365.0,
        362.5,
        367.5,
        363.0,
@@ -3343,7 +3423,8 @@
        318.0,
        299.5,
        299.5,
-       305.0
+       305.0,
+       319.5
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 199.95,
@@ -3353,13 +3434,12 @@
       "symbol": "8299.TWO",
       "name": "群聯",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 1650.0,
-      "change_pct": 10.0,
-      "chg_1m": -19.9,
-      "range_pos": 0.357,
+      "as_of": "2026-11-10",
+      "last": 1720.0,
+      "change_pct": 4.24,
+      "chg_1m": -16.5,
+      "range_pos": 0.378,
       "spark": [
-       2060.0,
        2060.0,
        2055.0,
        1965.0,
@@ -3380,7 +3460,8 @@
        1710.0,
        1560.0,
        1500.0,
-       1650.0
+       1650.0,
+       1720.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 370.26,
@@ -3391,10 +3472,10 @@
       "name": "美光",
       "market": "美股",
       "as_of": "2026-11-09",
-      "last": 733.15,
-      "change_pct": 6.25,
-      "chg_1m": -28.75,
-      "range_pos": 0.525,
+      "last": 733.5,
+      "change_pct": 6.3,
+      "chg_1m": -28.72,
+      "range_pos": 0.526,
       "spark": [
        1029.0,
        989.04,
@@ -3417,7 +3498,7 @@
        795.23,
        656.39,
        690.0,
-       733.15
+       733.5
       ]
      },
      {
@@ -3425,10 +3506,10 @@
       "name": "SanDisk",
       "market": "美股",
       "as_of": "2026-11-09",
-      "last": 886.51,
-      "change_pct": 6.16,
-      "chg_1m": -43.96,
-      "range_pos": 0.323,
+      "last": 887.34,
+      "change_pct": 6.26,
+      "chg_1m": -43.9,
+      "range_pos": 0.324,
       "spark": [
        1581.82,
        1487.33,
@@ -3451,20 +3532,19 @@
        1037.4,
        806.43,
        835.06,
-       886.51
+       887.34
       ]
      },
      {
       "symbol": "000660.KS",
       "name": "SK 海力士",
       "market": "韓股",
-      "as_of": "2026-11-09",
-      "last": 1136000.0,
-      "change_pct": 0.35,
-      "chg_1m": -32.42,
-      "range_pos": 0.257,
+      "as_of": "2026-11-10",
+      "last": 1208500.0,
+      "change_pct": 6.38,
+      "chg_1m": -24.7,
+      "range_pos": 0.287,
       "spark": [
-       1681000.0,
        1605000.0,
        1443000.0,
        1419000.0,
@@ -3485,7 +3565,8 @@
        1396000.0,
        1264000.0,
        1132000.0,
-       1136000.0
+       1136000.0,
+       1208500.0
       ]
      }
     ]
@@ -3499,6 +3580,10 @@
     "why": [
      "月營收加速（單月年增比今年累計高 12.3 個百分點，中位數）"
     ],
+    "basis": {
+     "have": 1,
+     "total": 2
+    },
     "upstream": [
      {
       "name": "台積電法說營收指引",
@@ -3516,26 +3601,26 @@
      "count": 4
     },
     "price": {
-     "avg_1m": -26.37,
+     "avg_1m": -23.44,
      "bench": "^SOX",
      "bench_name": "費城半導體",
      "bench_1m": -20.19,
-     "gap": -6.18,
+     "gap": -3.25,
      "note": "訊號轉強，但股價近一個月沒有跑贏對照指數，值得追蹤",
-     "bench_last": 10033.93
+     "bench_last": 10033.93,
+     "bench_as_of": "2026-11-09"
     },
     "stocks": [
      {
       "symbol": "2330.TW",
       "name": "台積電",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 2235.0,
-      "change_pct": 4.68,
-      "chg_1m": -13.54,
-      "range_pos": 0.711,
+      "as_of": "2026-11-10",
+      "last": 2270.0,
+      "change_pct": 1.57,
+      "chg_1m": -10.98,
+      "range_pos": 0.74,
       "spark": [
-       2585.0,
        2550.0,
        2540.0,
        2490.0,
@@ -3556,7 +3641,8 @@
        2260.0,
        2240.0,
        2135.0,
-       2235.0
+       2235.0,
+       2270.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 54.65,
@@ -3566,13 +3652,12 @@
       "symbol": "2303.TW",
       "name": "聯電",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 96.7,
-      "change_pct": 5.11,
-      "chg_1m": -34.88,
-      "range_pos": 0.392,
+      "as_of": "2026-11-10",
+      "last": 102.0,
+      "change_pct": 5.48,
+      "chg_1m": -30.85,
+      "range_pos": 0.432,
       "spark": [
-       148.5,
        147.5,
        145.5,
        141.5,
@@ -3593,7 +3678,8 @@
        105.5,
        98.4,
        92.0,
-       96.7
+       96.7,
+       102.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 27.22,
@@ -3603,13 +3689,12 @@
       "symbol": "5347.TWO",
       "name": "世界",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 132.0,
-      "change_pct": 10.0,
-      "chg_1m": -30.53,
-      "range_pos": 0.333,
+      "as_of": "2026-11-10",
+      "last": 139.0,
+      "change_pct": 5.3,
+      "chg_1m": -25.47,
+      "range_pos": 0.386,
       "spark": [
-       190.0,
        186.5,
        181.0,
        175.0,
@@ -3630,7 +3715,8 @@
        137.0,
        126.0,
        120.0,
-       132.0
+       132.0,
+       139.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 15.51,
@@ -3640,13 +3726,12 @@
       "symbol": "6770.TW",
       "name": "力積電",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 58.1,
-      "change_pct": 9.83,
-      "chg_1m": -19.97,
-      "range_pos": 0.487,
+      "as_of": "2026-11-10",
+      "last": 62.1,
+      "change_pct": 6.88,
+      "chg_1m": -13.99,
+      "range_pos": 0.554,
       "spark": [
-       72.6,
        72.2,
        71.4,
        67.5,
@@ -3667,7 +3752,8 @@
        59.4,
        54.8,
        52.9,
-       58.1
+       58.1,
+       62.1
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 93.95,
@@ -3679,8 +3765,8 @@
       "market": "美股",
       "as_of": "2026-11-09",
       "last": 40.51,
-      "change_pct": 4.89,
-      "chg_1m": -16.02,
+      "change_pct": 4.88,
+      "chg_1m": -16.03,
       "range_pos": 0.143,
       "spark": [
        48.24,
@@ -3712,9 +3798,9 @@
       "name": "英特爾",
       "market": "美股",
       "as_of": "2026-11-09",
-      "last": 59.37,
-      "change_pct": 5.49,
-      "chg_1m": -43.3,
+      "last": 59.38,
+      "change_pct": 5.51,
+      "chg_1m": -43.29,
       "range_pos": 0.24,
       "spark": [
        104.7,
@@ -3738,7 +3824,7 @@
        58.27,
        52.25,
        56.28,
-       59.37
+       59.38
       ]
      }
     ]
@@ -3748,10 +3834,14 @@
     "name": "IC 設計",
     "group": "半導體",
     "desc": "手機、PC、網通晶片與 AI ASIC；終端需求與庫存調整先反映在月營收。",
-    "light": "轉強",
+    "light": "持平",
     "why": [
-     "月營收加速（單月年增比今年累計高 7.5 個百分點，中位數）"
+     "月營收成長速度持平"
     ],
+    "basis": {
+     "have": 1,
+     "total": 1
+    },
     "upstream": [],
     "revenue": {
      "month": "2026-09",
@@ -3761,26 +3851,26 @@
      "count": 5
     },
     "price": {
-     "avg_1m": -13.44,
+     "avg_1m": -10.34,
      "bench": "^SOX",
      "bench_name": "費城半導體",
      "bench_1m": -20.19,
-     "gap": 6.75,
-     "note": "代表股近一個月平均多漲對照指數 6.8%",
-     "bench_last": 10033.93
+     "gap": 9.85,
+     "note": "代表股近一個月平均多漲對照指數 9.8%",
+     "bench_last": 10033.93,
+     "bench_as_of": "2026-11-09"
     },
     "stocks": [
      {
       "symbol": "2454.TW",
       "name": "聯發科",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 3725.0,
-      "change_pct": 9.88,
-      "chg_1m": -22.96,
-      "range_pos": 0.623,
+      "as_of": "2026-11-10",
+      "last": 4010.0,
+      "change_pct": 7.65,
+      "chg_1m": -14.5,
+      "range_pos": 0.692,
       "spark": [
-       4835.0,
        4690.0,
        4625.0,
        4525.0,
@@ -3801,7 +3891,8 @@
        3715.0,
        3460.0,
        3390.0,
-       3725.0
+       3725.0,
+       4010.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 1.97,
@@ -3811,13 +3902,12 @@
       "symbol": "3034.TW",
       "name": "聯詠",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 486.5,
-      "change_pct": -1.82,
-      "chg_1m": -8.03,
-      "range_pos": 0.527,
+      "as_of": "2026-11-10",
+      "last": 496.5,
+      "change_pct": 2.06,
+      "chg_1m": -6.5,
+      "range_pos": 0.569,
       "spark": [
-       529.0,
        531.0,
        529.0,
        546.0,
@@ -3838,7 +3928,8 @@
        533.0,
        510.0,
        495.5,
-       486.5
+       486.5,
+       496.5
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 24.99,
@@ -3848,13 +3939,12 @@
       "symbol": "2379.TW",
       "name": "瑞昱",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 743.0,
-      "change_pct": 4.94,
-      "chg_1m": 0.27,
-      "range_pos": 0.655,
+      "as_of": "2026-11-10",
+      "last": 765.0,
+      "change_pct": 2.96,
+      "chg_1m": 2.14,
+      "range_pos": 0.703,
       "spark": [
-       741.0,
        749.0,
        746.0,
        758.0,
@@ -3875,7 +3965,8 @@
        748.0,
        720.0,
        708.0,
-       743.0
+       743.0,
+       765.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 23.35,
@@ -3885,13 +3976,12 @@
       "symbol": "3443.TW",
       "name": "創意",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 6705.0,
-      "change_pct": 8.06,
-      "chg_1m": -20.74,
-      "range_pos": 0.735,
+      "as_of": "2026-11-10",
+      "last": 7325.0,
+      "change_pct": 9.25,
+      "chg_1m": -12.38,
+      "range_pos": 0.822,
       "spark": [
-       8460.0,
        8360.0,
        8100.0,
        8095.0,
@@ -3912,7 +4002,8 @@
        7115.0,
        6405.0,
        6205.0,
-       6705.0
+       6705.0,
+       7325.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 97.78,
@@ -3922,13 +4013,12 @@
       "symbol": "3661.TW",
       "name": "世芯-KY",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 3110.0,
-      "change_pct": 9.89,
-      "chg_1m": -25.78,
-      "range_pos": 0.216,
+      "as_of": "2026-11-10",
+      "last": 3420.0,
+      "change_pct": 9.97,
+      "chg_1m": -21.29,
+      "range_pos": 0.324,
       "spark": [
-       4190.0,
        4345.0,
        4395.0,
        4055.0,
@@ -3949,7 +4039,8 @@
        3180.0,
        2960.0,
        2830.0,
-       3110.0
+       3110.0,
+       3420.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 496.0,
@@ -3960,10 +4051,10 @@
       "name": "高通",
       "market": "美股",
       "as_of": "2026-11-09",
-      "last": 171.47,
-      "change_pct": 3.66,
-      "chg_1m": -2.3,
-      "range_pos": 0.373,
+      "last": 171.56,
+      "change_pct": 3.72,
+      "chg_1m": -2.25,
+      "range_pos": 0.374,
       "spark": [
        175.5,
        174.43,
@@ -3986,7 +4077,7 @@
        173.19,
        156.75,
        165.41,
-       171.47
+       171.56
       ]
      },
      {
@@ -3994,10 +4085,10 @@
       "name": "AMD",
       "market": "美股",
       "as_of": "2026-11-09",
-      "last": 508.58,
-      "change_pct": 13.26,
-      "chg_1m": -16.37,
-      "range_pos": 0.693,
+      "last": 509.01,
+      "change_pct": 13.36,
+      "chg_1m": -16.3,
+      "range_pos": 0.694,
       "spark": [
        608.1,
        594.24,
@@ -4020,7 +4111,7 @@
        488.78,
        404.4,
        449.04,
-       508.58
+       509.01
       ]
      },
      {
@@ -4028,9 +4119,9 @@
       "name": "博通",
       "market": "美股",
       "as_of": "2026-11-09",
-      "last": 319.48,
-      "change_pct": 8.78,
-      "chg_1m": -11.63,
+      "last": 319.53,
+      "change_pct": 8.8,
+      "chg_1m": -11.62,
       "range_pos": 0.147,
       "spark": [
        361.54,
@@ -4054,7 +4145,7 @@
        325.48,
        291.53,
        293.69,
-       319.48
+       319.53
       ]
      }
     ]
@@ -4068,6 +4159,10 @@
     "why": [
      "月營收加速（單月年增比今年累計高 15.3 個百分點，中位數）"
     ],
+    "basis": {
+     "have": 1,
+     "total": 2
+    },
     "upstream": [
      {
       "name": "日本半導體設備 B/B 比",
@@ -4085,26 +4180,26 @@
      "count": 5
     },
     "price": {
-     "avg_1m": -33.8,
+     "avg_1m": -29.78,
      "bench": "^SOX",
      "bench_name": "費城半導體",
      "bench_1m": -20.19,
-     "gap": -13.61,
+     "gap": -9.59,
      "note": "訊號轉強，但股價近一個月沒有跑贏對照指數，值得追蹤",
-     "bench_last": 10033.93
+     "bench_last": 10033.93,
+     "bench_as_of": "2026-11-09"
     },
     "stocks": [
      {
       "symbol": "3711.TW",
       "name": "日月光投控",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 561.0,
-      "change_pct": 6.45,
-      "chg_1m": -23.36,
-      "range_pos": 0.641,
+      "as_of": "2026-11-10",
+      "last": 610.0,
+      "change_pct": 8.73,
+      "chg_1m": -18.01,
+      "range_pos": 0.728,
       "spark": [
-       732.0,
        744.0,
        762.0,
        740.0,
@@ -4125,7 +4220,8 @@
        627.0,
        572.0,
        527.0,
-       561.0
+       561.0,
+       610.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 45.52,
@@ -4135,13 +4231,12 @@
       "symbol": "3131.TWO",
       "name": "弘塑",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 1580.0,
-      "change_pct": 9.72,
-      "chg_1m": -35.51,
-      "range_pos": 0.095,
+      "as_of": "2026-11-10",
+      "last": 1715.0,
+      "change_pct": 8.54,
+      "chg_1m": -30.43,
+      "range_pos": 0.148,
       "spark": [
-       2450.0,
        2465.0,
        2525.0,
        2360.0,
@@ -4162,7 +4257,8 @@
        1700.0,
        1555.0,
        1440.0,
-       1580.0
+       1580.0,
+       1715.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 61.89,
@@ -4172,13 +4268,12 @@
       "symbol": "6187.TWO",
       "name": "萬潤",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 950.0,
-      "change_pct": 9.95,
-      "chg_1m": -38.11,
-      "range_pos": 0.467,
+      "as_of": "2026-11-10",
+      "last": 1045.0,
+      "change_pct": 10.0,
+      "chg_1m": -31.48,
+      "range_pos": 0.537,
       "spark": [
-       1535.0,
        1525.0,
        1675.0,
        1600.0,
@@ -4199,7 +4294,8 @@
        1065.0,
        959.0,
        864.0,
-       950.0
+       950.0,
+       1045.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 109.24,
@@ -4209,13 +4305,12 @@
       "symbol": "3583.TW",
       "name": "辛耘",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 460.0,
-      "change_pct": 8.24,
-      "chg_1m": -38.09,
-      "range_pos": 0.24,
+      "as_of": "2026-11-10",
+      "last": 490.5,
+      "change_pct": 6.63,
+      "chg_1m": -33.36,
+      "range_pos": 0.286,
       "spark": [
-       743.0,
        736.0,
        755.0,
        710.0,
@@ -4236,7 +4331,8 @@
        512.0,
        465.0,
        425.0,
-       460.0
+       460.0,
+       490.5
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 2.79,
@@ -4246,13 +4342,12 @@
       "symbol": "2467.TW",
       "name": "志聖",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 308.5,
-      "change_pct": 1.31,
-      "chg_1m": -45.78,
-      "range_pos": 0.278,
+      "as_of": "2026-11-10",
+      "last": 326.0,
+      "change_pct": 5.67,
+      "chg_1m": -40.94,
+      "range_pos": 0.313,
       "spark": [
-       569.0,
        552.0,
        590.0,
        556.0,
@@ -4273,7 +4368,8 @@
        375.5,
        338.0,
        304.5,
-       308.5
+       308.5,
+       326.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 90.65,
@@ -4284,9 +4380,9 @@
       "name": "應用材料",
       "market": "美股",
       "as_of": "2026-11-09",
-      "last": 370.55,
-      "change_pct": 11.37,
-      "chg_1m": -26.92,
+      "last": 370.57,
+      "change_pct": 11.38,
+      "chg_1m": -26.91,
       "range_pos": 0.299,
       "spark": [
        507.03,
@@ -4310,7 +4406,7 @@
        369.4,
        319.25,
        332.72,
-       370.55
+       370.57
       ]
      },
      {
@@ -4318,10 +4414,10 @@
       "name": "科林研發",
       "market": "美股",
       "as_of": "2026-11-09",
-      "last": 221.31,
-      "change_pct": 10.41,
-      "chg_1m": -30.59,
-      "range_pos": 0.278,
+      "last": 221.53,
+      "change_pct": 10.52,
+      "chg_1m": -30.52,
+      "range_pos": 0.279,
       "spark": [
        318.84,
        309.56,
@@ -4344,20 +4440,19 @@
        221.43,
        185.2,
        200.44,
-       221.31
+       221.53
       ]
      },
      {
       "symbol": "8035.T",
       "name": "東京威力",
       "market": "美股",
-      "as_of": "2026-11-09",
-      "last": 8492.0,
-      "change_pct": 2.77,
-      "chg_1m": -32.06,
-      "range_pos": 0.253,
+      "as_of": "2026-11-10",
+      "last": 8947.0,
+      "change_pct": 5.36,
+      "chg_1m": -26.6,
+      "range_pos": 0.299,
       "spark": [
-       12500.0,
        12190.0,
        12445.0,
        11555.0,
@@ -4378,7 +4473,8 @@
        9663.0,
        8753.0,
        8263.0,
-       8492.0
+       8492.0,
+       8947.0
       ]
      }
     ]
@@ -4388,10 +4484,14 @@
     "name": "矽晶圓",
     "group": "半導體",
     "desc": "晶圓廠稼動率回升 → 矽晶圓長約與現貨價；景氣循環比晶圓代工晚一點。",
-    "light": "轉弱",
+    "light": "持平",
     "why": [
-     "月營收放緩（單月年增比今年累計低 8.7 個百分點，中位數）"
+     "月營收成長速度持平"
     ],
+    "basis": {
+     "have": 1,
+     "total": 2
+    },
     "upstream": [
      {
       "name": "矽晶圓報價",
@@ -4409,26 +4509,26 @@
      "count": 3
     },
     "price": {
-     "avg_1m": -43.54,
+     "avg_1m": -36.9,
      "bench": "^SOX",
      "bench_name": "費城半導體",
      "bench_1m": -20.19,
-     "gap": -23.35,
-     "note": "代表股近一個月平均少漲對照指數 23.4%",
-     "bench_last": 10033.93
+     "gap": -16.71,
+     "note": "代表股近一個月平均少漲對照指數 16.7%",
+     "bench_last": 10033.93,
+     "bench_as_of": "2026-11-09"
     },
     "stocks": [
      {
       "symbol": "6488.TWO",
       "name": "環球晶",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 563.0,
-      "change_pct": 9.96,
-      "chg_1m": -53.66,
-      "range_pos": 0.187,
+      "as_of": "2026-11-10",
+      "last": 607.0,
+      "change_pct": 7.82,
+      "chg_1m": -46.28,
+      "range_pos": 0.225,
       "spark": [
-       1215.0,
        1130.0,
        1115.0,
        1015.0,
@@ -4449,7 +4549,8 @@
        619.0,
        564.0,
        512.0,
-       563.0
+       563.0,
+       607.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": -13.13,
@@ -4459,13 +4560,12 @@
       "symbol": "5483.TWO",
       "name": "中美晶",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 152.5,
-      "change_pct": 5.54,
-      "chg_1m": -31.92,
-      "range_pos": 0.307,
+      "as_of": "2026-11-10",
+      "last": 164.0,
+      "change_pct": 7.54,
+      "chg_1m": -24.25,
+      "range_pos": 0.37,
       "spark": [
-       224.0,
        216.5,
        213.5,
        207.0,
@@ -4486,7 +4586,8 @@
        160.5,
        148.0,
        144.5,
-       152.5
+       152.5,
+       164.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": -5.61,
@@ -4496,13 +4597,12 @@
       "symbol": "3532.TW",
       "name": "台勝科",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 282.0,
-      "change_pct": 9.94,
-      "chg_1m": -45.03,
-      "range_pos": 0.45,
+      "as_of": "2026-11-10",
+      "last": 304.5,
+      "change_pct": 7.98,
+      "chg_1m": -40.18,
+      "range_pos": 0.501,
       "spark": [
-       513.0,
        509.0,
        485.5,
        444.0,
@@ -4523,7 +4623,8 @@
        312.5,
        281.5,
        256.5,
-       282.0
+       282.0,
+       304.5
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 28.97,
@@ -4541,6 +4642,10 @@
      "雲端大廠資本支出轉強",
      "月營收成長速度持平"
     ],
+    "basis": {
+     "have": 2,
+     "total": 2
+    },
     "upstream": [
      {
       "name": "雲端大廠資本支出",
@@ -4558,26 +4663,26 @@
      "count": 5
     },
     "price": {
-     "avg_1m": -18.89,
+     "avg_1m": -16.73,
      "bench": "^SOX",
      "bench_name": "費城半導體",
      "bench_1m": -20.19,
-     "gap": 1.3,
-     "note": "代表股近一個月平均多漲對照指數 1.3%",
-     "bench_last": 10033.93
+     "gap": 3.46,
+     "note": "代表股近一個月平均多漲對照指數 3.5%",
+     "bench_last": 10033.93,
+     "bench_as_of": "2026-11-09"
     },
     "stocks": [
      {
       "symbol": "2382.TW",
       "name": "廣達",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 296.5,
-      "change_pct": 2.07,
-      "chg_1m": -11.49,
-      "range_pos": 0.232,
+      "as_of": "2026-11-10",
+      "last": 303.0,
+      "change_pct": 2.19,
+      "chg_1m": -6.91,
+      "range_pos": 0.274,
       "spark": [
-       335.0,
        325.5,
        322.0,
        323.0,
@@ -4598,7 +4703,8 @@
        302.5,
        300.0,
        290.5,
-       296.5
+       296.5,
+       303.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 76.69,
@@ -4608,13 +4714,12 @@
       "symbol": "6669.TW",
       "name": "緯穎",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 1645.0,
-      "change_pct": 5.79,
-      "chg_1m": -26.56,
-      "range_pos": 0.357,
+      "as_of": "2026-11-10",
+      "last": 1720.0,
+      "change_pct": 4.56,
+      "chg_1m": -23.21,
+      "range_pos": 0.407,
       "spark": [
-       2240.0,
        2240.0,
        2275.0,
        2195.0,
@@ -4635,7 +4740,8 @@
        1785.0,
        1650.0,
        1555.0,
-       1645.0
+       1645.0,
+       1720.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 99.99,
@@ -4645,13 +4751,12 @@
       "symbol": "2317.TW",
       "name": "鴻海",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 239.0,
-      "change_pct": 6.46,
-      "chg_1m": -5.16,
-      "range_pos": 0.424,
+      "as_of": "2026-11-10",
+      "last": 246.0,
+      "change_pct": 2.93,
+      "chg_1m": -1.2,
+      "range_pos": 0.481,
       "spark": [
-       252.0,
        249.0,
        244.5,
        240.0,
@@ -4672,7 +4777,8 @@
        240.0,
        235.0,
        224.5,
-       239.0
+       239.0,
+       246.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 38.42,
@@ -4682,13 +4788,12 @@
       "symbol": "3231.TW",
       "name": "緯創",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 168.5,
-      "change_pct": 5.31,
-      "chg_1m": -8.92,
-      "range_pos": 0.609,
+      "as_of": "2026-11-10",
+      "last": 172.5,
+      "change_pct": 2.37,
+      "chg_1m": -8.49,
+      "range_pos": 0.662,
       "spark": [
-       185.0,
        188.5,
        189.5,
        187.0,
@@ -4709,7 +4814,8 @@
        176.0,
        168.5,
        160.0,
-       168.5
+       168.5,
+       172.5
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 87.19,
@@ -4719,13 +4825,12 @@
       "symbol": "2356.TW",
       "name": "英業達",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 55.6,
-      "change_pct": 5.7,
-      "chg_1m": -4.3,
-      "range_pos": 0.343,
+      "as_of": "2026-11-10",
+      "last": 57.9,
+      "change_pct": 4.14,
+      "chg_1m": 0.7,
+      "range_pos": 0.394,
       "spark": [
-       58.1,
        57.5,
        58.1,
        57.3,
@@ -4746,7 +4851,8 @@
        56.4,
        55.0,
        52.6,
-       55.6
+       55.6,
+       57.9
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 62.87,
@@ -4757,10 +4863,10 @@
       "name": "NVIDIA",
       "market": "美股",
       "as_of": "2026-11-09",
-      "last": 178.67,
-      "change_pct": -4.27,
-      "chg_1m": -22.07,
-      "range_pos": 0.182,
+      "last": 178.6,
+      "change_pct": -4.31,
+      "chg_1m": -22.1,
+      "range_pos": 0.181,
       "spark": [
        229.28,
        226.32,
@@ -4783,7 +4889,7 @@
        200.13,
        181.6,
        186.64,
-       178.67
+       178.6
       ]
      },
      {
@@ -4792,8 +4898,8 @@
       "market": "美股",
       "as_of": "2026-11-09",
       "last": 28.6,
-      "change_pct": -0.56,
-      "chg_1m": -31.68,
+      "change_pct": -0.54,
+      "chg_1m": -31.67,
       "range_pos": 0.272,
       "spark": [
        41.86,
@@ -4825,9 +4931,9 @@
       "name": "戴爾",
       "market": "美股",
       "as_of": "2026-11-09",
-      "last": 346.31,
-      "change_pct": 5.41,
-      "chg_1m": -40.91,
+      "last": 346.18,
+      "change_pct": 5.37,
+      "chg_1m": -40.93,
       "range_pos": 0.493,
       "spark": [
        586.06,
@@ -4851,7 +4957,7 @@
        372.36,
        316.91,
        328.53,
-       346.31
+       346.18
       ]
      }
     ]
@@ -4866,6 +4972,10 @@
      "雲端大廠資本支出轉強",
      "月營收放緩（單月年增比今年累計低 15.1 個百分點，中位數）"
     ],
+    "basis": {
+     "have": 2,
+     "total": 2
+    },
     "upstream": [
      {
       "name": "雲端大廠資本支出",
@@ -4883,26 +4993,26 @@
      "count": 4
     },
     "price": {
-     "avg_1m": -22.18,
+     "avg_1m": -17.33,
      "bench": "^TWII",
      "bench_name": "台股加權指數",
-     "bench_1m": -20.14,
-     "gap": -2.04,
-     "note": "代表股近一個月平均少漲對照指數 2.0%",
-     "bench_last": 39701.64
+     "bench_1m": -13.66,
+     "gap": -3.67,
+     "note": "代表股近一個月平均少漲對照指數 3.7%",
+     "bench_last": 43017.81,
+     "bench_as_of": "2026-11-10"
     },
     "stocks": [
      {
       "symbol": "3017.TW",
       "name": "奇鋐",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 2540.0,
-      "change_pct": 9.96,
-      "chg_1m": -28.35,
-      "range_pos": 0.541,
+      "as_of": "2026-11-10",
+      "last": 2790.0,
+      "change_pct": 9.84,
+      "chg_1m": -18.9,
+      "range_pos": 0.634,
       "spark": [
-       3545.0,
        3440.0,
        3385.0,
        3280.0,
@@ -4923,7 +5033,8 @@
        2820.0,
        2565.0,
        2310.0,
-       2540.0
+       2540.0,
+       2790.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 44.92,
@@ -4933,13 +5044,12 @@
       "symbol": "3324.TWO",
       "name": "雙鴻",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 1150.0,
-      "change_pct": 9.0,
-      "chg_1m": -24.59,
-      "range_pos": 0.371,
+      "as_of": "2026-11-10",
+      "last": 1230.0,
+      "change_pct": 6.96,
+      "chg_1m": -19.08,
+      "range_pos": 0.461,
       "spark": [
-       1525.0,
        1520.0,
        1540.0,
        1475.0,
@@ -4960,7 +5070,8 @@
        1300.0,
        1170.0,
        1055.0,
-       1150.0
+       1150.0,
+       1230.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 23.23,
@@ -4970,13 +5081,12 @@
       "symbol": "2421.TW",
       "name": "建準",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 131.5,
-      "change_pct": 5.2,
-      "chg_1m": -23.32,
-      "range_pos": 0.159,
+      "as_of": "2026-11-10",
+      "last": 140.5,
+      "change_pct": 6.84,
+      "chg_1m": -16.37,
+      "range_pos": 0.29,
       "spark": [
-       171.5,
        168.0,
        168.5,
        168.0,
@@ -4997,7 +5107,8 @@
        141.5,
        131.0,
        125.0,
-       131.5
+       131.5,
+       140.5
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 16.54,
@@ -5007,13 +5118,12 @@
       "symbol": "3653.TW",
       "name": "健策",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 5635.0,
-      "change_pct": 7.85,
-      "chg_1m": -17.19,
-      "range_pos": 0.697,
+      "as_of": "2026-11-10",
+      "last": 6100.0,
+      "change_pct": 8.25,
+      "chg_1m": -14.86,
+      "range_pos": 0.787,
       "spark": [
-       6805.0,
        7165.0,
        7160.0,
        6990.0,
@@ -5034,7 +5144,8 @@
        6450.0,
        5805.0,
        5225.0,
-       5635.0
+       5635.0,
+       6100.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 79.97,
@@ -5081,11 +5192,15 @@
     "name": "電源",
     "group": "AI 與資料中心",
     "desc": "資料中心電源、UPS、高壓直流；跟著 AI 機櫃出貨與電力建設走。",
-    "light": "持平",
+    "light": "轉強",
     "why": [
      "雲端大廠資本支出轉強",
-     "月營收放緩（單月年增比今年累計低 9.8 個百分點，中位數）"
+     "月營收成長速度持平"
     ],
+    "basis": {
+     "have": 2,
+     "total": 2
+    },
     "upstream": [
      {
       "name": "雲端大廠資本支出",
@@ -5103,26 +5218,26 @@
      "count": 3
     },
     "price": {
-     "avg_1m": -25.49,
+     "avg_1m": -22.48,
      "bench": "^TWII",
      "bench_name": "台股加權指數",
-     "bench_1m": -20.14,
-     "gap": -5.35,
-     "note": "代表股近一個月平均少漲對照指數 5.3%",
-     "bench_last": 39701.64
+     "bench_1m": -13.66,
+     "gap": -8.82,
+     "note": "訊號轉強，但股價近一個月沒有跑贏對照指數，值得追蹤",
+     "bench_last": 43017.81,
+     "bench_as_of": "2026-11-10"
     },
     "stocks": [
      {
       "symbol": "2308.TW",
       "name": "台達電",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 1160.0,
-      "change_pct": 9.95,
-      "chg_1m": -41.71,
-      "range_pos": 0.166,
+      "as_of": "2026-11-10",
+      "last": 1275.0,
+      "change_pct": 9.91,
+      "chg_1m": -35.11,
+      "range_pos": 0.236,
       "spark": [
-       1990.0,
        1965.0,
        1900.0,
        1775.0,
@@ -5143,7 +5258,8 @@
        1220.0,
        1130.0,
        1055.0,
-       1160.0
+       1160.0,
+       1275.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 14.61,
@@ -5153,13 +5269,12 @@
       "symbol": "2301.TW",
       "name": "光寶科",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 217.5,
-      "change_pct": 9.85,
-      "chg_1m": -27.5,
-      "range_pos": 0.435,
+      "as_of": "2026-11-10",
+      "last": 236.5,
+      "change_pct": 8.74,
+      "chg_1m": -20.5,
+      "range_pos": 0.542,
       "spark": [
-       300.0,
        297.5,
        288.0,
        276.0,
@@ -5180,7 +5295,8 @@
        226.0,
        211.5,
        198.0,
-       217.5
+       217.5,
+       236.5
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 22.15,
@@ -5190,13 +5306,12 @@
       "symbol": "6412.TW",
       "name": "群電",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 55.9,
-      "change_pct": -0.36,
-      "chg_1m": -24.46,
-      "range_pos": 0.0,
+      "as_of": "2026-11-10",
+      "last": 56.2,
+      "change_pct": 0.54,
+      "chg_1m": -23.01,
+      "range_pos": 0.006,
       "spark": [
-       74.0,
        73.0,
        73.3,
        73.0,
@@ -5217,7 +5332,8 @@
        64.8,
        58.4,
        56.1,
-       55.9
+       55.9,
+       56.2
       ],
       "rev_ym": "2026-09",
       "rev_yoy": -20.98,
@@ -5228,9 +5344,9 @@
       "name": "伊頓",
       "market": "美股",
       "as_of": "2026-11-09",
-      "last": 359.3,
-      "change_pct": 5.14,
-      "chg_1m": -16.37,
+      "last": 359.4,
+      "change_pct": 5.17,
+      "chg_1m": -16.35,
       "range_pos": 0.302,
       "spark": [
        429.65,
@@ -5254,7 +5370,7 @@
        353.08,
        327.02,
        341.72,
-       359.3
+       359.4
       ]
      },
      {
@@ -5303,6 +5419,10 @@
      "雲端大廠資本支出轉強",
      "月營收加速（單月年增比今年累計高 47.1 個百分點，中位數）"
     ],
+    "basis": {
+     "have": 2,
+     "total": 2
+    },
     "upstream": [
      {
       "name": "雲端大廠資本支出",
@@ -5320,26 +5440,26 @@
      "count": 5
     },
     "price": {
-     "avg_1m": -35.04,
+     "avg_1m": -30.64,
      "bench": "^TWII",
      "bench_name": "台股加權指數",
-     "bench_1m": -20.14,
-     "gap": -14.9,
+     "bench_1m": -13.66,
+     "gap": -16.98,
      "note": "訊號轉強，但股價近一個月沒有跑贏對照指數，值得追蹤",
-     "bench_last": 39701.64
+     "bench_last": 43017.81,
+     "bench_as_of": "2026-11-10"
     },
     "stocks": [
      {
       "symbol": "2345.TW",
       "name": "智邦",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 1405.0,
-      "change_pct": 9.77,
-      "chg_1m": -30.27,
-      "range_pos": 0.27,
+      "as_of": "2026-11-10",
+      "last": 1540.0,
+      "change_pct": 9.61,
+      "chg_1m": -25.6,
+      "range_pos": 0.343,
       "spark": [
-       2015.0,
        2070.0,
        2130.0,
        2040.0,
@@ -5360,7 +5480,8 @@
        1480.0,
        1380.0,
        1280.0,
-       1405.0
+       1405.0,
+       1540.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 66.13,
@@ -5370,13 +5491,12 @@
       "symbol": "4979.TWO",
       "name": "華星光",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 348.5,
-      "change_pct": 9.94,
-      "chg_1m": -39.81,
-      "range_pos": 0.304,
+      "as_of": "2026-11-10",
+      "last": 383.0,
+      "change_pct": 9.9,
+      "chg_1m": -32.21,
+      "range_pos": 0.369,
       "spark": [
-       579.0,
        565.0,
        582.0,
        535.0,
@@ -5397,7 +5517,8 @@
        376.0,
        346.5,
        317.0,
-       348.5
+       348.5,
+       383.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 97.78,
@@ -5407,13 +5528,12 @@
       "symbol": "3081.TWO",
       "name": "聯亞",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 1925.0,
-      "change_pct": 10.0,
-      "chg_1m": -38.69,
-      "range_pos": 0.495,
+      "as_of": "2026-11-10",
+      "last": 2115.0,
+      "change_pct": 9.87,
+      "chg_1m": -28.55,
+      "range_pos": 0.555,
       "spark": [
-       3140.0,
        2960.0,
        3025.0,
        2725.0,
@@ -5434,7 +5554,8 @@
        2100.0,
        1890.0,
        1750.0,
-       1925.0
+       1925.0,
+       2115.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 190.16,
@@ -5444,13 +5565,12 @@
       "symbol": "3363.TWO",
       "name": "上詮",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 377.5,
-      "change_pct": 4.72,
-      "chg_1m": -44.4,
-      "range_pos": 0.07,
+      "as_of": "2026-11-10",
+      "last": 415.0,
+      "change_pct": 9.93,
+      "chg_1m": -37.78,
+      "range_pos": 0.127,
       "spark": [
-       679.0,
        667.0,
        602.0,
        547.0,
@@ -5471,7 +5591,8 @@
        421.0,
        400.5,
        360.5,
-       377.5
+       377.5,
+       415.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 28.38,
@@ -5481,13 +5602,12 @@
       "symbol": "6442.TW",
       "name": "光聖",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 1105.0,
-      "change_pct": 9.95,
-      "chg_1m": -39.12,
-      "range_pos": 0.155,
+      "as_of": "2026-11-10",
+      "last": 1195.0,
+      "change_pct": 8.14,
+      "chg_1m": -33.05,
+      "range_pos": 0.211,
       "spark": [
-       1815.0,
        1785.0,
        1725.0,
        1630.0,
@@ -5508,7 +5628,8 @@
        1130.0,
        1070.0,
        1005.0,
-       1105.0
+       1105.0,
+       1195.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 97.26,
@@ -5519,10 +5640,10 @@
       "name": "Arista",
       "market": "美股",
       "as_of": "2026-11-09",
-      "last": 186.17,
-      "change_pct": 9.0,
-      "chg_1m": -14.1,
-      "range_pos": 0.696,
+      "last": 186.26,
+      "change_pct": 9.05,
+      "chg_1m": -14.06,
+      "range_pos": 0.697,
       "spark": [
        216.74,
        210.88,
@@ -5545,7 +5666,7 @@
        178.48,
        159.16,
        170.8,
-       186.17
+       186.26
       ]
      },
      {
@@ -5587,10 +5708,10 @@
       "name": "Lumentum",
       "market": "美股",
       "as_of": "2026-11-09",
-      "last": 596.16,
-      "change_pct": 10.69,
-      "chg_1m": -45.97,
-      "range_pos": 0.407,
+      "last": 596.57,
+      "change_pct": 10.77,
+      "chg_1m": -45.93,
+      "range_pos": 0.408,
       "spark": [
        1103.35,
        995.41,
@@ -5613,7 +5734,7 @@
        626.75,
        509.7,
        538.59,
-       596.16
+       596.57
       ]
      }
     ]
@@ -5627,6 +5748,10 @@
     "why": [
      "月營收加速（單月年增比今年累計高 13.4 個百分點，中位數）"
     ],
+    "basis": {
+     "have": 1,
+     "total": 2
+    },
     "upstream": [
      {
       "name": "銅箔基板（CCL）報價",
@@ -5644,26 +5769,26 @@
      "count": 6
     },
     "price": {
-     "avg_1m": -34.69,
+     "avg_1m": -29.49,
      "bench": "^TWII",
      "bench_name": "台股加權指數",
-     "bench_1m": -20.14,
-     "gap": -14.55,
+     "bench_1m": -13.66,
+     "gap": -15.83,
      "note": "訊號轉強，但股價近一個月沒有跑贏對照指數，值得追蹤",
-     "bench_last": 39701.64
+     "bench_last": 43017.81,
+     "bench_as_of": "2026-11-10"
     },
     "stocks": [
      {
       "symbol": "2383.TW",
       "name": "台光電",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 4070.0,
-      "change_pct": 6.54,
-      "chg_1m": -31.6,
-      "range_pos": 0.56,
+      "as_of": "2026-11-10",
+      "last": 4470.0,
+      "change_pct": 9.83,
+      "chg_1m": -25.5,
+      "range_pos": 0.631,
       "spark": [
-       5950.0,
        6000.0,
        6150.0,
        5545.0,
@@ -5684,7 +5809,8 @@
        4555.0,
        4100.0,
        3820.0,
-       4070.0
+       4070.0,
+       4470.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 168.87,
@@ -5694,13 +5820,12 @@
       "symbol": "2368.TW",
       "name": "金像電",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 894.0,
+      "as_of": "2026-11-10",
+      "last": 983.0,
       "change_pct": 9.96,
-      "chg_1m": -28.19,
-      "range_pos": 0.447,
+      "chg_1m": -23.5,
+      "range_pos": 0.525,
       "spark": [
-       1245.0,
        1285.0,
        1235.0,
        1170.0,
@@ -5721,7 +5846,8 @@
        964.0,
        868.0,
        813.0,
-       894.0
+       894.0,
+       983.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 55.46,
@@ -5731,13 +5857,12 @@
       "symbol": "3037.TW",
       "name": "欣興",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 757.0,
-      "change_pct": 4.13,
-      "chg_1m": -41.99,
-      "range_pos": 0.512,
+      "as_of": "2026-11-10",
+      "last": 832.0,
+      "change_pct": 9.91,
+      "chg_1m": -34.49,
+      "range_pos": 0.577,
       "spark": [
-       1305.0,
        1270.0,
        1255.0,
        1180.0,
@@ -5758,7 +5883,8 @@
        888.0,
        800.0,
        727.0,
-       757.0
+       757.0,
+       832.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 64.67,
@@ -5768,13 +5894,12 @@
       "symbol": "8046.TW",
       "name": "南電",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 933.0,
-      "change_pct": 6.63,
-      "chg_1m": -36.96,
-      "range_pos": 0.55,
+      "as_of": "2026-11-10",
+      "last": 1025.0,
+      "change_pct": 9.86,
+      "chg_1m": -30.51,
+      "range_pos": 0.622,
       "spark": [
-       1480.0,
        1475.0,
        1440.0,
        1440.0,
@@ -5795,7 +5920,8 @@
        1080.0,
        972.0,
        875.0,
-       933.0
+       933.0,
+       1025.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 57.82,
@@ -5805,13 +5931,12 @@
       "symbol": "3189.TW",
       "name": "景碩",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 690.0,
-      "change_pct": 2.83,
-      "chg_1m": -37.27,
-      "range_pos": 0.578,
+      "as_of": "2026-11-10",
+      "last": 747.0,
+      "change_pct": 8.26,
+      "chg_1m": -30.51,
+      "range_pos": 0.637,
       "spark": [
-       1100.0,
        1075.0,
        1060.0,
        1040.0,
@@ -5832,7 +5957,8 @@
        822.0,
        740.0,
        671.0,
-       690.0
+       690.0,
+       747.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 44.47,
@@ -5842,13 +5968,12 @@
       "symbol": "2313.TW",
       "name": "華通",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 174.5,
-      "change_pct": 9.75,
-      "chg_1m": -29.07,
-      "range_pos": 0.442,
+      "as_of": "2026-11-10",
+      "last": 188.0,
+      "change_pct": 7.74,
+      "chg_1m": -24.19,
+      "range_pos": 0.502,
       "spark": [
-       246.0,
        248.0,
        252.0,
        243.5,
@@ -5869,7 +5994,8 @@
        182.5,
        165.5,
        159.0,
-       174.5
+       174.5,
+       188.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 15.02,
@@ -5880,9 +6006,9 @@
       "name": "TTM",
       "market": "美股",
       "as_of": "2026-11-09",
-      "last": 75.33,
-      "change_pct": 13.26,
-      "chg_1m": -37.75,
+      "last": 75.34,
+      "change_pct": 13.28,
+      "chg_1m": -37.74,
       "range_pos": 0.104,
       "spark": [
        121.01,
@@ -5906,7 +6032,7 @@
        73.38,
        62.22,
        66.51,
-       75.33
+       75.34
       ]
      }
     ]
@@ -5920,6 +6046,10 @@
     "why": [
      "月營收加速（單月年增比今年累計高 13.7 個百分點，中位數）"
     ],
+    "basis": {
+     "have": 1,
+     "total": 2
+    },
     "upstream": [
      {
       "name": "MLCC 報價與通路庫存",
@@ -5937,26 +6067,26 @@
      "count": 4
     },
     "price": {
-     "avg_1m": -32.02,
+     "avg_1m": -28.28,
      "bench": "^TWII",
      "bench_name": "台股加權指數",
-     "bench_1m": -20.14,
-     "gap": -11.88,
+     "bench_1m": -13.66,
+     "gap": -14.62,
      "note": "訊號轉強，但股價近一個月沒有跑贏對照指數，值得追蹤",
-     "bench_last": 39701.64
+     "bench_last": 43017.81,
+     "bench_as_of": "2026-11-10"
     },
     "stocks": [
      {
       "symbol": "2327.TW",
       "name": "國巨",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 411.0,
-      "change_pct": 9.89,
-      "chg_1m": -36.48,
-      "range_pos": 0.209,
+      "as_of": "2026-11-10",
+      "last": 436.0,
+      "change_pct": 6.08,
+      "chg_1m": -31.34,
+      "range_pos": 0.236,
       "spark": [
-       647.0,
        635.0,
        636.0,
        599.0,
@@ -5977,7 +6107,8 @@
        449.0,
        404.5,
        374.0,
-       411.0
+       411.0,
+       436.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 46.12,
@@ -5987,13 +6118,12 @@
       "symbol": "2492.TW",
       "name": "華新科",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 284.0,
-      "change_pct": 9.86,
-      "chg_1m": -33.64,
-      "range_pos": 0.339,
+      "as_of": "2026-11-10",
+      "last": 304.0,
+      "change_pct": 7.04,
+      "chg_1m": -27.62,
+      "range_pos": 0.379,
       "spark": [
-       428.0,
        420.0,
        418.0,
        392.0,
@@ -6014,7 +6144,8 @@
        312.0,
        281.5,
        258.5,
-       284.0
+       284.0,
+       304.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 53.93,
@@ -6024,13 +6155,12 @@
       "symbol": "3026.TW",
       "name": "禾伸堂",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 499.0,
-      "change_pct": 4.94,
-      "chg_1m": -40.52,
-      "range_pos": 0.441,
+      "as_of": "2026-11-10",
+      "last": 542.0,
+      "change_pct": 8.62,
+      "chg_1m": -38.2,
+      "range_pos": 0.489,
       "spark": [
-       839.0,
        877.0,
        840.0,
        806.0,
@@ -6051,7 +6181,8 @@
        586.0,
        528.0,
        475.5,
-       499.0
+       499.0,
+       542.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 27.11,
@@ -6061,13 +6192,12 @@
       "symbol": "2375.TW",
       "name": "凱美",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 94.5,
-      "change_pct": 9.0,
-      "chg_1m": -27.03,
-      "range_pos": 0.137,
+      "as_of": "2026-11-10",
+      "last": 102.0,
+      "change_pct": 7.94,
+      "chg_1m": -21.84,
+      "range_pos": 0.184,
       "spark": [
-       129.5,
        130.5,
        129.5,
        124.5,
@@ -6088,7 +6218,8 @@
        103.0,
        93.9,
        86.7,
-       94.5
+       94.5,
+       102.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 35.85,
@@ -6135,10 +6266,14 @@
     "name": "面板",
     "group": "電子零組件",
     "desc": "電視、筆電面板報價每月兩次公布；報價止跌回升通常領先面板股。",
-    "light": "轉弱",
+    "light": "持平",
     "why": [
-     "月營收放緩（單月年增比今年累計低 9.9 個百分點，中位數）"
+     "月營收成長速度持平"
     ],
+    "basis": {
+     "have": 1,
+     "total": 2
+    },
     "upstream": [
      {
       "name": "面板報價",
@@ -6156,26 +6291,26 @@
      "count": 3
     },
     "price": {
-     "avg_1m": -19.22,
+     "avg_1m": -16.07,
      "bench": "^TWII",
      "bench_name": "台股加權指數",
-     "bench_1m": -20.14,
-     "gap": 0.92,
-     "note": "代表股近一個月平均多漲對照指數 0.9%",
-     "bench_last": 39701.64
+     "bench_1m": -13.66,
+     "gap": -2.41,
+     "note": "代表股近一個月平均少漲對照指數 2.4%",
+     "bench_last": 43017.81,
+     "bench_as_of": "2026-11-10"
     },
     "stocks": [
      {
       "symbol": "2409.TW",
       "name": "友達",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 28.2,
-      "change_pct": 6.21,
-      "chg_1m": -25.69,
-      "range_pos": 0.587,
+      "as_of": "2026-11-10",
+      "last": 28.85,
+      "change_pct": 2.3,
+      "chg_1m": -21.17,
+      "range_pos": 0.609,
       "spark": [
-       37.95,
        36.6,
        35.55,
        34.15,
@@ -6196,7 +6331,8 @@
        29.1,
        27.25,
        26.55,
-       28.2
+       28.2,
+       28.85
       ],
       "rev_ym": "2026-09",
       "rev_yoy": -4.26,
@@ -6206,13 +6342,12 @@
       "symbol": "3481.TW",
       "name": "群創",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 39.65,
-      "change_pct": 9.99,
-      "chg_1m": -24.48,
-      "range_pos": 0.469,
+      "as_of": "2026-11-10",
+      "last": 40.6,
+      "change_pct": 2.4,
+      "chg_1m": -20.39,
+      "range_pos": 0.485,
       "spark": [
-       52.5,
        51.0,
        51.3,
        50.0,
@@ -6233,7 +6368,8 @@
        40.9,
        38.0,
        36.05,
-       39.65
+       39.65,
+       40.6
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 0.67,
@@ -6243,13 +6379,12 @@
       "symbol": "6116.TW",
       "name": "彩晶",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 12.7,
-      "change_pct": 4.53,
-      "chg_1m": -18.06,
-      "range_pos": 0.367,
+      "as_of": "2026-11-10",
+      "last": 13.0,
+      "change_pct": 2.36,
+      "chg_1m": -13.91,
+      "range_pos": 0.386,
       "spark": [
-       15.5,
        15.1,
        15.2,
        14.7,
@@ -6270,7 +6405,8 @@
        12.7,
        12.1,
        12.15,
-       12.7
+       12.7,
+       13.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": -24.22,
@@ -6281,10 +6417,10 @@
       "name": "LG Display",
       "market": "美股",
       "as_of": "2026-11-09",
-      "last": 2.64,
-      "change_pct": 3.94,
-      "chg_1m": -8.65,
-      "range_pos": 0.046,
+      "last": 2.63,
+      "change_pct": 3.74,
+      "chg_1m": -8.82,
+      "range_pos": 0.044,
       "spark": [
        2.89,
        2.75,
@@ -6307,7 +6443,7 @@
        2.65,
        2.49,
        2.54,
-       2.64
+       2.63
       ]
      }
     ]
@@ -6321,6 +6457,10 @@
     "why": [
      "月營收成長速度持平"
     ],
+    "basis": {
+     "have": 1,
+     "total": 2
+    },
     "upstream": [
      {
       "name": "新 iPhone 備貨量",
@@ -6338,26 +6478,26 @@
      "count": 4
     },
     "price": {
-     "avg_1m": -6.02,
+     "avg_1m": -2.93,
      "bench": "^TWII",
      "bench_name": "台股加權指數",
-     "bench_1m": -20.14,
-     "gap": 14.12,
-     "note": "代表股近一個月平均比對照指數多漲 14.1%，好消息可能已經反映在股價",
-     "bench_last": 39701.64
+     "bench_1m": -13.66,
+     "gap": 10.73,
+     "note": "代表股近一個月平均比對照指數多漲 10.7%，好消息可能已經反映在股價",
+     "bench_last": 43017.81,
+     "bench_as_of": "2026-11-10"
     },
     "stocks": [
      {
       "symbol": "2317.TW",
       "name": "鴻海",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 239.0,
-      "change_pct": 6.46,
-      "chg_1m": -5.16,
-      "range_pos": 0.424,
+      "as_of": "2026-11-10",
+      "last": 246.0,
+      "change_pct": 2.93,
+      "chg_1m": -1.2,
+      "range_pos": 0.481,
       "spark": [
-       252.0,
        249.0,
        244.5,
        240.0,
@@ -6378,7 +6518,8 @@
        240.0,
        235.0,
        224.5,
-       239.0
+       239.0,
+       246.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 38.42,
@@ -6388,13 +6529,12 @@
       "symbol": "3008.TW",
       "name": "大立光",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 4925.0,
-      "change_pct": 9.93,
-      "chg_1m": -28.05,
-      "range_pos": 0.501,
+      "as_of": "2026-11-10",
+      "last": 5245.0,
+      "change_pct": 6.5,
+      "chg_1m": -21.25,
+      "range_pos": 0.557,
       "spark": [
-       6845.0,
        6660.0,
        7325.0,
        7275.0,
@@ -6415,7 +6555,8 @@
        5010.0,
        4525.0,
        4480.0,
-       4925.0
+       4925.0,
+       5245.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": -7.31,
@@ -6425,13 +6566,12 @@
       "symbol": "4938.TW",
       "name": "和碩",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 95.4,
-      "change_pct": 2.69,
-      "chg_1m": 6.0,
-      "range_pos": 0.683,
+      "as_of": "2026-11-10",
+      "last": 96.7,
+      "change_pct": 1.36,
+      "chg_1m": 7.8,
+      "range_pos": 0.715,
       "spark": [
-       90.0,
        89.7,
        98.6,
        102.5,
@@ -6452,7 +6592,8 @@
        101.5,
        97.2,
        92.9,
-       95.4
+       95.4,
+       96.7
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 86.88,
@@ -6462,13 +6603,12 @@
       "symbol": "2474.TW",
       "name": "可成",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 185.0,
-      "change_pct": 0.82,
-      "chg_1m": -7.04,
-      "range_pos": 0.083,
+      "as_of": "2026-11-10",
+      "last": 187.5,
+      "change_pct": 1.35,
+      "chg_1m": -4.09,
+      "range_pos": 0.115,
       "spark": [
-       199.0,
        195.5,
        194.5,
        194.0,
@@ -6489,7 +6629,8 @@
        186.5,
        186.5,
        183.5,
-       185.0
+       185.0,
+       187.5
       ],
       "rev_ym": "2026-09",
       "rev_yoy": -34.19,
@@ -6500,9 +6641,9 @@
       "name": "蘋果",
       "market": "美股",
       "as_of": "2026-11-09",
-      "last": 350.69,
-      "change_pct": 2.43,
-      "chg_1m": 4.17,
+      "last": 350.49,
+      "change_pct": 2.37,
+      "chg_1m": 4.11,
       "range_pos": 1.0,
       "spark": [
        336.64,
@@ -6526,7 +6667,7 @@
        349.51,
        344.17,
        342.37,
-       350.69
+       350.49
       ]
      }
     ]
@@ -6540,6 +6681,10 @@
     "why": [
      "月營收成長速度持平"
     ],
+    "basis": {
+     "have": 1,
+     "total": 2
+    },
     "upstream": [
      {
       "name": "全球 PC 出貨量",
@@ -6557,26 +6702,26 @@
      "count": 4
     },
     "price": {
-     "avg_1m": -13.06,
+     "avg_1m": -10.99,
      "bench": "^TWII",
      "bench_name": "台股加權指數",
-     "bench_1m": -20.14,
-     "gap": 7.08,
-     "note": "代表股近一個月平均多漲對照指數 7.1%",
-     "bench_last": 39701.64
+     "bench_1m": -13.66,
+     "gap": 2.67,
+     "note": "代表股近一個月平均多漲對照指數 2.7%",
+     "bench_last": 43017.81,
+     "bench_as_of": "2026-11-10"
     },
     "stocks": [
      {
       "symbol": "2357.TW",
       "name": "華碩",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 860.0,
-      "change_pct": 0.12,
-      "chg_1m": -13.04,
-      "range_pos": 0.688,
+      "as_of": "2026-11-10",
+      "last": 909.0,
+      "change_pct": 5.7,
+      "chg_1m": -8.73,
+      "range_pos": 0.781,
       "spark": [
-       989.0,
        996.0,
        977.0,
        966.0,
@@ -6597,7 +6742,8 @@
        877.0,
        867.0,
        859.0,
-       860.0
+       860.0,
+       909.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 17.73,
@@ -6607,13 +6753,12 @@
       "symbol": "2353.TW",
       "name": "宏碁",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 31.15,
-      "change_pct": 7.41,
-      "chg_1m": -0.48,
-      "range_pos": 0.331,
+      "as_of": "2026-11-10",
+      "last": 31.8,
+      "change_pct": 2.09,
+      "chg_1m": 1.6,
+      "range_pos": 0.366,
       "spark": [
-       31.3,
        31.3,
        31.35,
        31.25,
@@ -6634,7 +6779,8 @@
        29.45,
        29.2,
        29.0,
-       31.15
+       31.15,
+       31.8
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 17.63,
@@ -6644,13 +6790,12 @@
       "symbol": "2324.TW",
       "name": "仁寶",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 32.8,
-      "change_pct": 4.13,
-      "chg_1m": -9.14,
-      "range_pos": 0.295,
+      "as_of": "2026-11-10",
+      "last": 33.6,
+      "change_pct": 2.44,
+      "chg_1m": -5.35,
+      "range_pos": 0.334,
       "spark": [
-       36.1,
        35.5,
        36.6,
        35.8,
@@ -6671,7 +6816,8 @@
        33.25,
        32.45,
        31.5,
-       32.8
+       32.8,
+       33.6
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 35.45,
@@ -6681,13 +6827,12 @@
       "symbol": "2377.TW",
       "name": "微星",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 143.0,
-      "change_pct": 4.38,
-      "chg_1m": -8.33,
-      "range_pos": 0.69,
+      "as_of": "2026-11-10",
+      "last": 145.0,
+      "change_pct": 1.4,
+      "chg_1m": -6.15,
+      "range_pos": 0.714,
       "spark": [
-       156.0,
        154.5,
        155.0,
        157.0,
@@ -6708,7 +6853,8 @@
        150.5,
        142.5,
        137.0,
-       143.0
+       143.0,
+       145.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 1.83,
@@ -6719,9 +6865,9 @@
       "name": "惠普",
       "market": "美股",
       "as_of": "2026-11-09",
-      "last": 28.25,
-      "change_pct": -0.74,
-      "chg_1m": -6.46,
+      "last": 28.26,
+      "change_pct": -0.69,
+      "chg_1m": -6.41,
       "range_pos": 0.582,
       "spark": [
        30.2,
@@ -6745,7 +6891,7 @@
        29.93,
        29.44,
        28.46,
-       28.25
+       28.26
       ]
      },
      {
@@ -6753,9 +6899,9 @@
       "name": "戴爾",
       "market": "美股",
       "as_of": "2026-11-09",
-      "last": 346.31,
-      "change_pct": 5.41,
-      "chg_1m": -40.91,
+      "last": 346.18,
+      "change_pct": 5.37,
+      "chg_1m": -40.93,
       "range_pos": 0.493,
       "spark": [
        586.06,
@@ -6779,7 +6925,7 @@
        372.36,
        316.91,
        328.53,
-       346.31
+       346.18
       ]
      }
     ]
@@ -6793,6 +6939,10 @@
     "why": [
      "月營收放緩（單月年增比今年累計低 14.7 個百分點，中位數）"
     ],
+    "basis": {
+     "have": 1,
+     "total": 2
+    },
     "upstream": [
      {
       "name": "特斯拉季交車數",
@@ -6810,26 +6960,26 @@
      "count": 5
     },
     "price": {
-     "avg_1m": -21.73,
+     "avg_1m": -19.61,
      "bench": "^TWII",
      "bench_name": "台股加權指數",
-     "bench_1m": -20.14,
-     "gap": -1.59,
-     "note": "代表股近一個月平均少漲對照指數 1.6%",
-     "bench_last": 39701.64
+     "bench_1m": -13.66,
+     "gap": -5.95,
+     "note": "代表股近一個月平均少漲對照指數 6.0%",
+     "bench_last": 43017.81,
+     "bench_as_of": "2026-11-10"
     },
     "stocks": [
      {
       "symbol": "1536.TW",
       "name": "和大",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 38.1,
-      "change_pct": 4.1,
-      "chg_1m": -18.15,
-      "range_pos": 0.052,
+      "as_of": "2026-11-10",
+      "last": 38.6,
+      "change_pct": 1.31,
+      "chg_1m": -16.81,
+      "range_pos": 0.07,
       "spark": [
-       46.55,
        46.4,
        45.55,
        45.0,
@@ -6850,7 +7000,8 @@
        40.4,
        38.6,
        36.6,
-       38.1
+       38.1,
+       38.6
       ],
       "rev_ym": "2026-09",
       "rev_yoy": -13.8,
@@ -6860,13 +7011,12 @@
       "symbol": "2231.TW",
       "name": "為升",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 79.2,
-      "change_pct": 2.06,
-      "chg_1m": -12.97,
-      "range_pos": 0.025,
+      "as_of": "2026-11-10",
+      "last": 80.5,
+      "change_pct": 1.64,
+      "chg_1m": -11.83,
+      "range_pos": 0.045,
       "spark": [
-       91.0,
        91.3,
        90.8,
        90.9,
@@ -6887,7 +7037,8 @@
        82.8,
        80.5,
        77.6,
-       79.2
+       79.2,
+       80.5
       ],
       "rev_ym": "2026-09",
       "rev_yoy": -12.24,
@@ -6897,13 +7048,12 @@
       "symbol": "1533.TW",
       "name": "車王電",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 25.15,
-      "change_pct": -1.95,
-      "chg_1m": -17.68,
+      "as_of": "2026-11-10",
+      "last": 25.1,
+      "change_pct": -0.2,
+      "chg_1m": -16.61,
       "range_pos": 0.0,
       "spark": [
-       30.55,
        30.1,
        29.9,
        29.4,
@@ -6924,7 +7074,8 @@
        26.0,
        25.75,
        25.65,
-       25.15
+       25.15,
+       25.1
       ],
       "rev_ym": "2026-09",
       "rev_yoy": -23.86,
@@ -6934,13 +7085,12 @@
       "symbol": "3665.TW",
       "name": "貿聯-KY",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 1420.0,
-      "change_pct": 7.17,
-      "chg_1m": -38.66,
-      "range_pos": 0.098,
+      "as_of": "2026-11-10",
+      "last": 1510.0,
+      "change_pct": 6.34,
+      "chg_1m": -36.02,
+      "range_pos": 0.151,
       "spark": [
-       2315.0,
        2360.0,
        2355.0,
        2260.0,
@@ -6961,7 +7111,8 @@
        1570.0,
        1470.0,
        1325.0,
-       1420.0
+       1420.0,
+       1510.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 39.16,
@@ -6971,13 +7122,12 @@
       "symbol": "2308.TW",
       "name": "台達電",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 1160.0,
-      "change_pct": 9.95,
-      "chg_1m": -41.71,
-      "range_pos": 0.166,
+      "as_of": "2026-11-10",
+      "last": 1275.0,
+      "change_pct": 9.91,
+      "chg_1m": -35.11,
+      "range_pos": 0.236,
       "spark": [
-       1990.0,
        1965.0,
        1900.0,
        1775.0,
@@ -6998,7 +7148,8 @@
        1220.0,
        1130.0,
        1055.0,
-       1160.0
+       1160.0,
+       1275.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 14.61,
@@ -7009,9 +7160,9 @@
       "name": "特斯拉",
       "market": "美股",
       "as_of": "2026-11-09",
-      "last": 378.05,
-      "change_pct": 5.54,
-      "chg_1m": -1.22,
+      "last": 377.93,
+      "change_pct": 5.5,
+      "chg_1m": -1.25,
       "range_pos": 0.416,
       "spark": [
        382.7,
@@ -7035,7 +7186,7 @@
        385.19,
        343.69,
        358.22,
-       378.05
+       377.93
       ]
      }
     ]
@@ -7045,10 +7196,14 @@
     "name": "重電與電網",
     "group": "車用與能源",
     "desc": "台電強韌電網計畫、資料中心用電、美國電網更新；變壓器訂單能見度很長。",
-    "light": "轉強",
+    "light": "持平",
     "why": [
-     "月營收加速（單月年增比今年累計高 4.2 個百分點，中位數）"
+     "月營收成長速度持平"
     ],
+    "basis": {
+     "have": 1,
+     "total": 2
+    },
     "upstream": [
      {
       "name": "台電強韌電網計畫標案",
@@ -7066,26 +7221,26 @@
      "count": 4
     },
     "price": {
-     "avg_1m": -17.85,
+     "avg_1m": -16.41,
      "bench": "^TWII",
      "bench_name": "台股加權指數",
-     "bench_1m": -20.14,
-     "gap": 2.29,
-     "note": "代表股近一個月平均多漲對照指數 2.3%",
-     "bench_last": 39701.64
+     "bench_1m": -13.66,
+     "gap": -2.75,
+     "note": "代表股近一個月平均少漲對照指數 2.8%",
+     "bench_last": 43017.81,
+     "bench_as_of": "2026-11-10"
     },
     "stocks": [
      {
       "symbol": "1519.TW",
       "name": "華城",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 497.0,
-      "change_pct": 9.96,
-      "chg_1m": -29.2,
-      "range_pos": 0.085,
+      "as_of": "2026-11-10",
+      "last": 508.0,
+      "change_pct": 2.21,
+      "chg_1m": -26.59,
+      "range_pos": 0.106,
       "spark": [
-       702.0,
        692.0,
        724.0,
        663.0,
@@ -7106,7 +7261,8 @@
        505.0,
        493.5,
        452.0,
-       497.0
+       497.0,
+       508.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 7.19,
@@ -7116,13 +7272,12 @@
       "symbol": "1513.TW",
       "name": "中興電",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 145.0,
-      "change_pct": 4.69,
-      "chg_1m": -13.69,
-      "range_pos": 0.134,
+      "as_of": "2026-11-10",
+      "last": 147.5,
+      "change_pct": 1.72,
+      "chg_1m": -11.68,
+      "range_pos": 0.186,
       "spark": [
-       168.0,
        167.0,
        169.0,
        165.5,
@@ -7143,7 +7298,8 @@
        146.5,
        143.5,
        138.5,
-       145.0
+       145.0,
+       147.5
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 11.27,
@@ -7153,13 +7309,12 @@
       "symbol": "1503.TW",
       "name": "士電",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 174.5,
-      "change_pct": 9.75,
-      "chg_1m": -12.53,
-      "range_pos": 0.142,
+      "as_of": "2026-11-10",
+      "last": 176.0,
+      "change_pct": 0.86,
+      "chg_1m": -10.66,
+      "range_pos": 0.156,
       "spark": [
-       199.5,
        197.0,
        204.0,
        198.5,
@@ -7180,7 +7335,8 @@
        173.5,
        168.5,
        159.0,
-       174.5
+       174.5,
+       176.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 8.24,
@@ -7190,13 +7346,12 @@
       "symbol": "1514.TW",
       "name": "亞力",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 85.0,
-      "change_pct": 6.65,
-      "chg_1m": -17.87,
-      "range_pos": 0.079,
+      "as_of": "2026-11-10",
+      "last": 86.4,
+      "change_pct": 1.65,
+      "chg_1m": -15.71,
+      "range_pos": 0.1,
       "spark": [
-       103.5,
        102.5,
        105.0,
        102.0,
@@ -7217,7 +7372,8 @@
        86.9,
        83.7,
        79.7,
-       85.0
+       85.0,
+       86.4
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 10.4,
@@ -7228,10 +7384,10 @@
       "name": "GE Vernova",
       "market": "美股",
       "as_of": "2026-11-09",
-      "last": 829.34,
-      "change_pct": 7.13,
-      "chg_1m": -17.46,
-      "range_pos": 0.443,
+      "last": 829.08,
+      "change_pct": 7.1,
+      "chg_1m": -17.48,
+      "range_pos": 0.442,
       "spark": [
        1004.73,
        996.8,
@@ -7254,7 +7410,7 @@
        832.83,
        770.51,
        774.11,
-       829.34
+       829.08
       ]
      },
      {
@@ -7262,9 +7418,9 @@
       "name": "伊頓",
       "market": "美股",
       "as_of": "2026-11-09",
-      "last": 359.3,
-      "change_pct": 5.14,
-      "chg_1m": -16.37,
+      "last": 359.4,
+      "change_pct": 5.17,
+      "chg_1m": -16.35,
       "range_pos": 0.302,
       "spark": [
        429.65,
@@ -7288,7 +7444,7 @@
        353.08,
        327.02,
        341.72,
-       359.3
+       359.4
       ]
      }
     ]
@@ -7302,6 +7458,10 @@
     "why": [
      "月營收成長速度持平"
     ],
+    "basis": {
+     "have": 1,
+     "total": 2
+    },
     "upstream": [
      {
       "name": "太陽能模組報價",
@@ -7319,26 +7479,26 @@
      "count": 2
     },
     "price": {
-     "avg_1m": -2.38,
+     "avg_1m": 0.53,
      "bench": "^TWII",
      "bench_name": "台股加權指數",
-     "bench_1m": -20.14,
-     "gap": 17.76,
-     "note": "代表股近一個月平均比對照指數多漲 17.8%，好消息可能已經反映在股價",
-     "bench_last": 39701.64
+     "bench_1m": -13.66,
+     "gap": 14.19,
+     "note": "代表股近一個月平均比對照指數多漲 14.2%，好消息可能已經反映在股價",
+     "bench_last": 43017.81,
+     "bench_as_of": "2026-11-10"
     },
     "stocks": [
      {
       "symbol": "3576.TW",
       "name": "聯合再生",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 17.9,
-      "change_pct": 0.56,
-      "chg_1m": -3.76,
-      "range_pos": 0.572,
+      "as_of": "2026-11-10",
+      "last": 18.35,
+      "change_pct": 2.51,
+      "chg_1m": 1.1,
+      "range_pos": 0.593,
       "spark": [
-       18.6,
        18.15,
        18.15,
        17.8,
@@ -7359,7 +7519,8 @@
        15.95,
        16.4,
        17.8,
-       17.9
+       17.9,
+       18.35
       ],
       "rev_ym": "2026-09",
       "rev_yoy": -8.34,
@@ -7369,13 +7530,12 @@
       "symbol": "6443.TW",
       "name": "元晶",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 27.0,
-      "change_pct": 4.05,
-      "chg_1m": -2.17,
-      "range_pos": 0.373,
+      "as_of": "2026-11-10",
+      "last": 28.25,
+      "change_pct": 4.63,
+      "chg_1m": 4.63,
+      "range_pos": 0.404,
       "spark": [
-       27.6,
        27.0,
        26.55,
        25.35,
@@ -7396,7 +7556,8 @@
        22.95,
        23.6,
        25.95,
-       27.0
+       27.0,
+       28.25
       ],
       "rev_ym": "2026-09",
       "rev_yoy": -48.16,
@@ -7407,9 +7568,9 @@
       "name": "First Solar",
       "market": "美股",
       "as_of": "2026-11-09",
-      "last": 191.61,
-      "change_pct": -4.74,
-      "chg_1m": 7.76,
+      "last": 191.59,
+      "change_pct": -4.75,
+      "chg_1m": 7.74,
       "range_pos": 0.156,
       "spark": [
        177.82,
@@ -7433,7 +7594,7 @@
        194.51,
        195.76,
        201.14,
-       191.61
+       191.59
       ]
      },
      {
@@ -7481,6 +7642,10 @@
     "why": [
      "月營收加速（單月年增比今年累計高 52.1 個百分點，中位數）"
     ],
+    "basis": {
+     "have": 1,
+     "total": 2
+    },
     "upstream": [
      {
       "name": "SCFI 上海出口貨櫃運價指數",
@@ -7498,26 +7663,26 @@
      "count": 3
     },
     "price": {
-     "avg_1m": -1.52,
+     "avg_1m": 0.39,
      "bench": "^TWII",
      "bench_name": "台股加權指數",
-     "bench_1m": -20.14,
-     "gap": 18.62,
-     "note": "代表股近一個月平均比對照指數多漲 18.6%，好消息可能已經反映在股價",
-     "bench_last": 39701.64
+     "bench_1m": -13.66,
+     "gap": 14.05,
+     "note": "代表股近一個月平均比對照指數多漲 14.1%，好消息可能已經反映在股價",
+     "bench_last": 43017.81,
+     "bench_as_of": "2026-11-10"
     },
     "stocks": [
      {
       "symbol": "2603.TW",
       "name": "長榮",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 245.5,
-      "change_pct": -0.41,
-      "chg_1m": 5.59,
-      "range_pos": 0.698,
+      "as_of": "2026-11-10",
+      "last": 253.5,
+      "change_pct": 3.26,
+      "chg_1m": 9.03,
+      "range_pos": 0.781,
       "spark": [
-       232.5,
        232.5,
        255.5,
        264.0,
@@ -7538,7 +7703,8 @@
        268.0,
        259.0,
        246.5,
-       245.5
+       245.5,
+       253.5
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 63.75,
@@ -7548,13 +7714,12 @@
       "symbol": "2609.TW",
       "name": "陽明",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 57.5,
-      "change_pct": 0.7,
-      "chg_1m": -2.71,
-      "range_pos": 0.528,
+      "as_of": "2026-11-10",
+      "last": 58.8,
+      "change_pct": 2.26,
+      "chg_1m": -1.51,
+      "range_pos": 0.6,
       "spark": [
-       59.1,
        59.7,
        63.6,
        64.5,
@@ -7575,7 +7740,8 @@
        62.3,
        60.0,
        57.1,
-       57.5
+       57.5,
+       58.8
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 69.94,
@@ -7585,13 +7751,12 @@
       "symbol": "2615.TW",
       "name": "萬海",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 107.0,
-      "change_pct": -0.47,
-      "chg_1m": -4.04,
-      "range_pos": 0.632,
+      "as_of": "2026-11-10",
+      "last": 110.5,
+      "change_pct": 3.27,
+      "chg_1m": -0.9,
+      "range_pos": 0.698,
       "spark": [
-       111.5,
        111.5,
        121.0,
        121.5,
@@ -7612,7 +7777,8 @@
        115.5,
        113.0,
        107.5,
-       107.0
+       107.0,
+       110.5
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 97.63,
@@ -7623,10 +7789,10 @@
       "name": "以星",
       "market": "美股",
       "as_of": "2026-11-09",
-      "last": 28.51,
-      "change_pct": 2.0,
-      "chg_1m": -4.93,
-      "range_pos": 0.852,
+      "last": 28.48,
+      "change_pct": 1.9,
+      "chg_1m": -5.04,
+      "range_pos": 0.85,
       "spark": [
        29.99,
        30.9,
@@ -7649,7 +7815,7 @@
        28.41,
        27.43,
        27.95,
-       28.51
+       28.48
       ]
      }
     ]
@@ -7663,6 +7829,10 @@
     "why": [
      "月營收成長速度持平"
     ],
+    "basis": {
+     "have": 1,
+     "total": 2
+    },
     "upstream": [
      {
       "name": "BDI 波羅的海乾散貨指數",
@@ -7680,26 +7850,26 @@
      "count": 3
     },
     "price": {
-     "avg_1m": -5.3,
+     "avg_1m": -4.52,
      "bench": "^TWII",
      "bench_name": "台股加權指數",
-     "bench_1m": -20.14,
-     "gap": 14.84,
-     "note": "代表股近一個月平均比對照指數多漲 14.8%，好消息可能已經反映在股價",
-     "bench_last": 39701.64
+     "bench_1m": -13.66,
+     "gap": 9.14,
+     "note": "代表股近一個月平均多漲對照指數 9.1%",
+     "bench_last": 43017.81,
+     "bench_as_of": "2026-11-10"
     },
     "stocks": [
      {
       "symbol": "2606.TW",
       "name": "裕民",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 69.1,
-      "change_pct": 3.91,
-      "chg_1m": -7.25,
-      "range_pos": 0.594,
+      "as_of": "2026-11-10",
+      "last": 70.5,
+      "change_pct": 2.03,
+      "chg_1m": -5.87,
+      "range_pos": 0.648,
       "spark": [
-       74.5,
        74.9,
        77.3,
        77.7,
@@ -7720,7 +7890,8 @@
        70.2,
        69.4,
        66.5,
-       69.1
+       69.1,
+       70.5
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 25.68,
@@ -7730,13 +7901,12 @@
       "symbol": "2637.TW",
       "name": "慧洋-KY",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 98.4,
-      "change_pct": 4.24,
-      "chg_1m": 1.65,
-      "range_pos": 0.877,
+      "as_of": "2026-11-10",
+      "last": 101.0,
+      "change_pct": 2.64,
+      "chg_1m": 2.64,
+      "range_pos": 0.939,
       "spark": [
-       96.8,
        98.4,
        102.0,
        103.0,
@@ -7757,7 +7927,8 @@
        98.9,
        98.6,
        94.4,
-       98.4
+       98.4,
+       101.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 24.53,
@@ -7767,13 +7938,12 @@
       "symbol": "2605.TW",
       "name": "新興",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 31.65,
-      "change_pct": 2.26,
-      "chg_1m": -13.52,
-      "range_pos": 0.428,
+      "as_of": "2026-11-10",
+      "last": 32.0,
+      "change_pct": 1.11,
+      "chg_1m": -12.81,
+      "range_pos": 0.445,
       "spark": [
-       36.6,
        36.7,
        37.3,
        37.3,
@@ -7794,7 +7964,8 @@
        33.1,
        32.65,
        30.95,
-       31.65
+       31.65,
+       32.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 60.11,
@@ -7805,10 +7976,10 @@
       "name": "Genco",
       "market": "美股",
       "as_of": "2026-11-09",
-      "last": 25.95,
-      "change_pct": -0.19,
-      "chg_1m": -2.08,
-      "range_pos": 0.806,
+      "last": 25.96,
+      "change_pct": -0.15,
+      "chg_1m": -2.04,
+      "range_pos": 0.807,
       "spark": [
        26.5,
        26.64,
@@ -7831,7 +8002,7 @@
        24.71,
        25.28,
        26.0,
-       25.95
+       25.96
       ]
      }
     ]
@@ -7843,17 +8014,22 @@
     "desc": "客運量與油價；油價下跌對航空是好事。",
     "light": "轉強",
     "why": [
-     "原油 WTI轉強",
+     "原油 WTI下跌（對這條鏈有利）",
      "月營收加速（單月年增比今年累計高 13.4 個百分點，中位數）"
     ],
+    "basis": {
+     "have": 2,
+     "total": 3
+    },
     "upstream": [
      {
       "name": "原油 WTI",
       "auto": true,
       "url": "https://finance.yahoo.com/quote/CL=F",
       "trend": "up",
-      "value": "近一個月 -5.9%，現在 86.45（價格上漲對這條鏈不利）",
-      "as_of": "2026-11-09"
+      "value": "近一個月 -6.3%，現在 86.1（價格上漲對這條鏈不利）",
+      "as_of": "2026-11-09",
+      "label": "原油 WTI下跌（對這條鏈有利）"
      },
      {
       "name": "桃園機場旅客量",
@@ -7871,26 +8047,26 @@
      "count": 3
     },
     "price": {
-     "avg_1m": 5.19,
+     "avg_1m": 7.62,
      "bench": "^TWII",
      "bench_name": "台股加權指數",
-     "bench_1m": -20.14,
-     "gap": 25.33,
-     "note": "代表股近一個月平均比對照指數多漲 25.3%，好消息可能已經反映在股價",
-     "bench_last": 39701.64
+     "bench_1m": -13.66,
+     "gap": 21.28,
+     "note": "代表股近一個月平均比對照指數多漲 21.3%，好消息可能已經反映在股價",
+     "bench_last": 43017.81,
+     "bench_as_of": "2026-11-10"
     },
     "stocks": [
      {
       "symbol": "2618.TW",
       "name": "長榮航",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 43.9,
-      "change_pct": 0.69,
-      "chg_1m": 4.65,
-      "range_pos": 0.905,
+      "as_of": "2026-11-10",
+      "last": 45.15,
+      "change_pct": 2.85,
+      "chg_1m": 9.06,
+      "range_pos": 1.0,
       "spark": [
-       41.95,
        41.4,
        42.0,
        43.0,
@@ -7911,7 +8087,8 @@
        43.75,
        45.1,
        43.6,
-       43.9
+       43.9,
+       45.15
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 32.86,
@@ -7921,13 +8098,12 @@
       "symbol": "2610.TW",
       "name": "華航",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 21.75,
-      "change_pct": 2.59,
-      "chg_1m": 6.88,
-      "range_pos": 0.617,
+      "as_of": "2026-11-10",
+      "last": 22.25,
+      "change_pct": 2.3,
+      "chg_1m": 10.42,
+      "range_pos": 0.695,
       "spark": [
-       20.35,
        20.15,
        20.4,
        20.5,
@@ -7948,7 +8124,8 @@
        20.5,
        21.65,
        21.2,
-       21.75
+       21.75,
+       22.25
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 31.86,
@@ -7958,13 +8135,12 @@
       "symbol": "2646.TW",
       "name": "星宇航空",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 19.6,
-      "change_pct": 1.29,
-      "chg_1m": -2.49,
-      "range_pos": 0.051,
+      "as_of": "2026-11-10",
+      "last": 19.95,
+      "change_pct": 1.79,
+      "chg_1m": -0.75,
+      "range_pos": 0.126,
       "spark": [
-       20.1,
        20.1,
        20.15,
        20.15,
@@ -7985,7 +8161,8 @@
        19.5,
        19.7,
        19.35,
-       19.6
+       19.6,
+       19.95
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 68.89,
@@ -7996,9 +8173,9 @@
       "name": "達美航空",
       "market": "美股",
       "as_of": "2026-11-09",
-      "last": 91.8,
+      "last": 91.81,
       "change_pct": 5.28,
-      "chg_1m": 11.72,
+      "chg_1m": 11.73,
       "range_pos": 0.951,
       "spark": [
        82.17,
@@ -8022,7 +8199,7 @@
        89.24,
        85.36,
        87.2,
-       91.8
+       91.81
       ]
      }
     ]
@@ -8037,13 +8214,17 @@
      "美國熱軋鋼捲期貨轉強",
      "月營收加速（單月年增比今年累計高 13.5 個百分點，中位數）"
     ],
+    "basis": {
+     "have": 2,
+     "total": 3
+    },
     "upstream": [
      {
       "name": "美國熱軋鋼捲期貨",
       "auto": true,
       "url": "https://finance.yahoo.com/quote/HRC=F",
       "trend": "up",
-      "value": "近一個月 +10.9%，現在 1,415.0",
+      "value": "近一個月 +10.8%，現在 1,414.0",
       "as_of": "2026-11-09"
      },
      {
@@ -8062,26 +8243,26 @@
      "count": 4
     },
     "price": {
-     "avg_1m": -3.82,
+     "avg_1m": -3.2,
      "bench": "^TWII",
      "bench_name": "台股加權指數",
-     "bench_1m": -20.14,
-     "gap": 16.32,
-     "note": "代表股近一個月平均比對照指數多漲 16.3%，好消息可能已經反映在股價",
-     "bench_last": 39701.64
+     "bench_1m": -13.66,
+     "gap": 10.46,
+     "note": "代表股近一個月平均比對照指數多漲 10.5%，好消息可能已經反映在股價",
+     "bench_last": 43017.81,
+     "bench_as_of": "2026-11-10"
     },
     "stocks": [
      {
       "symbol": "2002.TW",
       "name": "中鋼",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 18.55,
-      "change_pct": 0.0,
-      "chg_1m": -2.11,
-      "range_pos": 0.25,
+      "as_of": "2026-11-10",
+      "last": 18.65,
+      "change_pct": 0.54,
+      "chg_1m": -1.58,
+      "range_pos": 0.278,
       "spark": [
-       18.95,
        18.95,
        19.2,
        19.15,
@@ -8102,7 +8283,8 @@
        19.15,
        18.95,
        18.55,
-       18.55
+       18.55,
+       18.65
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 27.13,
@@ -8112,13 +8294,12 @@
       "symbol": "2014.TW",
       "name": "中鴻",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 15.15,
-      "change_pct": 3.41,
-      "chg_1m": -10.36,
-      "range_pos": 0.186,
+      "as_of": "2026-11-10",
+      "last": 15.2,
+      "change_pct": 0.33,
+      "chg_1m": -10.32,
+      "range_pos": 0.195,
       "spark": [
-       16.9,
        16.95,
        16.95,
        16.85,
@@ -8139,7 +8320,8 @@
        15.7,
        15.2,
        14.65,
-       15.15
+       15.15,
+       15.2
       ],
       "rev_ym": "2026-09",
       "rev_yoy": -5.33,
@@ -8149,13 +8331,12 @@
       "symbol": "2027.TW",
       "name": "大成鋼",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 48.15,
-      "change_pct": 5.36,
-      "chg_1m": 0.84,
-      "range_pos": 0.824,
+      "as_of": "2026-11-10",
+      "last": 48.9,
+      "change_pct": 1.56,
+      "chg_1m": 1.35,
+      "range_pos": 0.87,
       "spark": [
-       47.75,
        48.25,
        48.25,
        48.8,
@@ -8176,7 +8357,8 @@
        48.7,
        47.75,
        45.7,
-       48.15
+       48.15,
+       48.9
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 41.07,
@@ -8186,13 +8368,12 @@
       "symbol": "2031.TW",
       "name": "新光鋼",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 43.0,
-      "change_pct": -0.12,
-      "chg_1m": -6.32,
-      "range_pos": 0.543,
+      "as_of": "2026-11-10",
+      "last": 44.25,
+      "change_pct": 2.91,
+      "chg_1m": -3.7,
+      "range_pos": 0.642,
       "spark": [
-       45.9,
        45.95,
        46.2,
        46.3,
@@ -8213,7 +8394,8 @@
        45.55,
        44.5,
        43.05,
-       43.0
+       43.0,
+       44.25
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 37.1,
@@ -8258,10 +8440,10 @@
       "name": "Steel Dynamics",
       "market": "美股",
       "as_of": "2026-11-09",
-      "last": 227.56,
-      "change_pct": 2.09,
-      "chg_1m": -4.54,
-      "range_pos": 0.578,
+      "last": 227.63,
+      "change_pct": 2.12,
+      "chg_1m": -4.51,
+      "range_pos": 0.579,
       "spark": [
        238.38,
        239.14,
@@ -8284,7 +8466,7 @@
        240.12,
        221.9,
        222.9,
-       227.56
+       227.63
       ]
      }
     ]
@@ -8299,13 +8481,17 @@
      "原油 WTI轉弱",
      "月營收加速（單月年增比今年累計高 27.1 個百分點，中位數）"
     ],
+    "basis": {
+     "have": 2,
+     "total": 2
+    },
     "upstream": [
      {
       "name": "原油 WTI",
       "auto": true,
       "url": "https://finance.yahoo.com/quote/CL=F",
       "trend": "down",
-      "value": "近一個月 -5.9%，現在 86.45",
+      "value": "近一個月 -6.3%，現在 86.1",
       "as_of": "2026-11-09"
      }
     ],
@@ -8317,26 +8503,26 @@
      "count": 4
     },
     "price": {
-     "avg_1m": -7.21,
+     "avg_1m": -5.41,
      "bench": "^TWII",
      "bench_name": "台股加權指數",
-     "bench_1m": -20.14,
-     "gap": 12.93,
-     "note": "代表股近一個月平均比對照指數多漲 12.9%，好消息可能已經反映在股價",
-     "bench_last": 39701.64
+     "bench_1m": -13.66,
+     "gap": 8.25,
+     "note": "代表股近一個月平均多漲對照指數 8.2%",
+     "bench_last": 43017.81,
+     "bench_as_of": "2026-11-10"
     },
     "stocks": [
      {
       "symbol": "1301.TW",
       "name": "台塑",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 68.9,
-      "change_pct": 9.89,
-      "chg_1m": -8.62,
-      "range_pos": 0.616,
+      "as_of": "2026-11-10",
+      "last": 72.3,
+      "change_pct": 4.93,
+      "chg_1m": -11.07,
+      "range_pos": 0.681,
       "spark": [
-       75.4,
        81.3,
        80.7,
        80.9,
@@ -8357,7 +8543,8 @@
        69.1,
        65.1,
        62.7,
-       68.9
+       68.9,
+       72.3
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 7.14,
@@ -8367,13 +8554,12 @@
       "symbol": "1303.TW",
       "name": "南亞",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 263.0,
-      "change_pct": 9.81,
-      "chg_1m": -16.24,
-      "range_pos": 0.721,
+      "as_of": "2026-11-10",
+      "last": 289.0,
+      "change_pct": 9.89,
+      "chg_1m": -6.77,
+      "range_pos": 0.805,
       "spark": [
-       314.0,
        310.0,
        303.0,
        319.0,
@@ -8394,7 +8580,8 @@
        276.5,
        249.0,
        239.5,
-       263.0
+       263.0,
+       289.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 55.26,
@@ -8404,13 +8591,12 @@
       "symbol": "1326.TW",
       "name": "台化",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 68.9,
-      "change_pct": 9.89,
-      "chg_1m": -9.1,
-      "range_pos": 0.712,
+      "as_of": "2026-11-10",
+      "last": 73.5,
+      "change_pct": 6.68,
+      "chg_1m": -5.28,
+      "range_pos": 0.792,
       "spark": [
-       75.8,
        77.6,
        76.8,
        77.8,
@@ -8431,7 +8617,8 @@
        69.2,
        65.0,
        62.7,
-       68.9
+       68.9,
+       73.5
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 44.78,
@@ -8441,13 +8628,12 @@
       "symbol": "6505.TW",
       "name": "台塑化",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 88.4,
-      "change_pct": 3.15,
+      "as_of": "2026-11-10",
+      "last": 91.3,
+      "change_pct": 3.28,
       "chg_1m": -17.38,
-      "range_pos": 0.566,
+      "range_pos": 0.603,
       "spark": [
-       107.0,
        110.5,
        108.5,
        119.0,
@@ -8468,7 +8654,8 @@
        97.6,
        87.9,
        85.7,
-       88.4
+       88.4,
+       91.3
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 65.59,
@@ -8513,10 +8700,10 @@
       "name": "利安德巴塞爾",
       "market": "美股",
       "as_of": "2026-11-09",
-      "last": 59.5,
-      "change_pct": -2.01,
-      "chg_1m": -0.88,
-      "range_pos": 0.429,
+      "last": 59.51,
+      "change_pct": -2.0,
+      "chg_1m": -0.87,
+      "range_pos": 0.43,
       "spark": [
        60.03,
        59.41,
@@ -8539,7 +8726,7 @@
        62.96,
        61.63,
        60.72,
-       59.5
+       59.51
       ]
      }
     ]
@@ -8549,18 +8736,22 @@
     "name": "電線電纜（銅）",
     "group": "傳產與原物料",
     "desc": "銅價上漲時庫存利益與報價調漲；電網、資料中心建設帶動需求。",
-    "light": "轉強",
+    "light": "持平",
     "why": [
      "銅期貨持平",
-     "月營收加速（單月年增比今年累計高 7.0 個百分點，中位數）"
+     "月營收成長速度持平"
     ],
+    "basis": {
+     "have": 2,
+     "total": 2
+    },
     "upstream": [
      {
       "name": "銅期貨",
       "auto": true,
       "url": "https://finance.yahoo.com/quote/HG=F",
       "trend": "flat",
-      "value": "近一個月 -3.9%，現在 6.38",
+      "value": "近一個月 -4.1%，現在 6.37",
       "as_of": "2026-11-09"
      }
     ],
@@ -8572,26 +8763,26 @@
      "count": 3
     },
     "price": {
-     "avg_1m": -17.12,
+     "avg_1m": -14.54,
      "bench": "^TWII",
      "bench_name": "台股加權指數",
-     "bench_1m": -20.14,
-     "gap": 3.02,
-     "note": "代表股近一個月平均多漲對照指數 3.0%",
-     "bench_last": 39701.64
+     "bench_1m": -13.66,
+     "gap": -0.88,
+     "note": "代表股近一個月平均少漲對照指數 0.9%",
+     "bench_last": 43017.81,
+     "bench_as_of": "2026-11-10"
     },
     "stocks": [
      {
       "symbol": "1605.TW",
       "name": "華新",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 33.35,
-      "change_pct": 6.04,
-      "chg_1m": -16.42,
-      "range_pos": 0.313,
+      "as_of": "2026-11-10",
+      "last": 34.35,
+      "change_pct": 3.0,
+      "chg_1m": -12.15,
+      "range_pos": 0.376,
       "spark": [
-       39.9,
        39.1,
        40.15,
        38.55,
@@ -8612,7 +8803,8 @@
        34.45,
        32.6,
        31.45,
-       33.35
+       33.35,
+       34.35
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 10.27,
@@ -8622,13 +8814,12 @@
       "symbol": "1609.TW",
       "name": "大亞",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 31.55,
-      "change_pct": 5.34,
-      "chg_1m": -19.1,
-      "range_pos": 0.092,
+      "as_of": "2026-11-10",
+      "last": 32.1,
+      "change_pct": 1.74,
+      "chg_1m": -16.08,
+      "range_pos": 0.124,
       "spark": [
-       39.0,
        38.25,
        39.3,
        38.65,
@@ -8649,7 +8840,8 @@
        32.7,
        31.35,
        29.95,
-       31.55
+       31.55,
+       32.1
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 30.32,
@@ -8659,13 +8851,12 @@
       "symbol": "1608.TW",
       "name": "華榮",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 30.55,
-      "change_pct": 3.56,
-      "chg_1m": -17.54,
-      "range_pos": 0.265,
+      "as_of": "2026-11-10",
+      "last": 31.25,
+      "change_pct": 2.29,
+      "chg_1m": -14.5,
+      "range_pos": 0.316,
       "spark": [
-       37.05,
        36.55,
        37.15,
        36.5,
@@ -8686,7 +8877,8 @@
        31.7,
        31.05,
        29.5,
-       30.55
+       30.55,
+       31.25
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 18.61,
@@ -8733,10 +8925,14 @@
     "name": "水泥與營建",
     "group": "傳產與原物料",
     "desc": "營建與公共工程需求；煤價是成本。",
-    "light": "轉強",
+    "light": "持平",
     "why": [
-     "月營收加速（單月年增比今年累計高 4.3 個百分點，中位數）"
+     "月營收成長速度持平"
     ],
+    "basis": {
+     "have": 1,
+     "total": 2
+    },
     "upstream": [
      {
       "name": "國內水泥內銷量",
@@ -8754,26 +8950,26 @@
      "count": 3
     },
     "price": {
-     "avg_1m": 5.91,
+     "avg_1m": 5.22,
      "bench": "^TWII",
      "bench_name": "台股加權指數",
-     "bench_1m": -20.14,
-     "gap": 26.05,
-     "note": "代表股近一個月平均比對照指數多漲 26.1%，好消息可能已經反映在股價",
-     "bench_last": 39701.64
+     "bench_1m": -13.66,
+     "gap": 18.88,
+     "note": "代表股近一個月平均比對照指數多漲 18.9%，好消息可能已經反映在股價",
+     "bench_last": 43017.81,
+     "bench_as_of": "2026-11-10"
     },
     "stocks": [
      {
       "symbol": "1101.TW",
       "name": "台泥",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 26.8,
-      "change_pct": 0.19,
-      "chg_1m": 5.1,
-      "range_pos": 0.805,
+      "as_of": "2026-11-10",
+      "last": 27.3,
+      "change_pct": 1.87,
+      "chg_1m": 6.23,
+      "range_pos": 0.868,
       "spark": [
-       25.5,
        25.7,
        27.0,
        26.35,
@@ -8794,7 +8990,8 @@
        27.25,
        27.2,
        26.75,
-       26.8
+       26.8,
+       27.3
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 7.63,
@@ -8804,13 +9001,12 @@
       "symbol": "1102.TW",
       "name": "亞泥",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 36.85,
-      "change_pct": 0.82,
-      "chg_1m": 2.65,
-      "range_pos": 0.705,
+      "as_of": "2026-11-10",
+      "last": 36.45,
+      "change_pct": -1.09,
+      "chg_1m": 0.28,
+      "range_pos": 0.651,
       "spark": [
-       35.9,
        36.35,
        36.65,
        36.8,
@@ -8831,7 +9027,8 @@
        36.9,
        37.25,
        36.55,
-       36.85
+       36.85,
+       36.45
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 5.18,
@@ -8841,13 +9038,12 @@
       "symbol": "2542.TW",
       "name": "興富發",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 37.85,
-      "change_pct": 0.26,
-      "chg_1m": -2.45,
-      "range_pos": 0.265,
+      "as_of": "2026-11-10",
+      "last": 37.5,
+      "change_pct": -0.92,
+      "chg_1m": -3.97,
+      "range_pos": 0.242,
       "spark": [
-       38.8,
        39.05,
        40.1,
        39.6,
@@ -8868,7 +9064,8 @@
        38.25,
        38.65,
        37.75,
-       37.85
+       37.85,
+       37.5
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 103.73,
@@ -8879,9 +9076,9 @@
       "name": "Vulcan",
       "market": "美股",
       "as_of": "2026-11-09",
-      "last": 289.44,
+      "last": 289.46,
       "change_pct": 2.38,
-      "chg_1m": 18.34,
+      "chg_1m": 18.35,
       "range_pos": 0.543,
       "spark": [
        244.58,
@@ -8905,7 +9102,7 @@
        297.69,
        285.51,
        282.72,
-       289.44
+       289.46
       ]
      }
     ]
@@ -8917,26 +9114,32 @@
     "desc": "黃豆、玉米、小麥是成本；穀物價格下跌對食品廠毛利有利。",
     "light": "轉強",
     "why": [
-     "玉米期貨轉強",
-     "黃豆期貨轉強",
+     "玉米期貨下跌（對這條鏈有利）",
+     "黃豆期貨下跌（對這條鏈有利）",
      "月營收成長速度持平"
     ],
+    "basis": {
+     "have": 3,
+     "total": 3
+    },
     "upstream": [
      {
       "name": "玉米期貨",
       "auto": true,
       "url": "https://finance.yahoo.com/quote/ZC=F",
       "trend": "up",
-      "value": "近一個月 -8.6%，現在 438.75（價格上漲對這條鏈不利）",
-      "as_of": "2026-11-09"
+      "value": "近一個月 -8.2%，現在 440.5（價格上漲對這條鏈不利）",
+      "as_of": "2026-11-09",
+      "label": "玉米期貨下跌（對這條鏈有利）"
      },
      {
       "name": "黃豆期貨",
       "auto": true,
       "url": "https://finance.yahoo.com/quote/ZS=F",
       "trend": "up",
-      "value": "近一個月 -8.1%，現在 1,187.0（價格上漲對這條鏈不利）",
-      "as_of": "2026-11-09"
+      "value": "近一個月 -7.8%，現在 1,191.5（價格上漲對這條鏈不利）",
+      "as_of": "2026-11-09",
+      "label": "黃豆期貨下跌（對這條鏈有利）"
      }
     ],
     "revenue": {
@@ -8947,26 +9150,26 @@
      "count": 4
     },
     "price": {
-     "avg_1m": 1.36,
+     "avg_1m": 0.14,
      "bench": "^TWII",
      "bench_name": "台股加權指數",
-     "bench_1m": -20.14,
-     "gap": 21.5,
-     "note": "代表股近一個月平均比對照指數多漲 21.5%，好消息可能已經反映在股價",
-     "bench_last": 39701.64
+     "bench_1m": -13.66,
+     "gap": 13.8,
+     "note": "代表股近一個月平均比對照指數多漲 13.8%，好消息可能已經反映在股價",
+     "bench_last": 43017.81,
+     "bench_as_of": "2026-11-10"
     },
     "stocks": [
      {
       "symbol": "1216.TW",
       "name": "統一",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 76.7,
-      "change_pct": -0.13,
-      "chg_1m": 1.59,
-      "range_pos": 0.645,
+      "as_of": "2026-11-10",
+      "last": 75.0,
+      "change_pct": -2.22,
+      "chg_1m": -0.79,
+      "range_pos": 0.508,
       "spark": [
-       75.5,
        75.6,
        76.0,
        77.1,
@@ -8987,7 +9190,8 @@
        80.9,
        80.9,
        76.8,
-       76.7
+       76.7,
+       75.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 5.8,
@@ -8997,13 +9201,12 @@
       "symbol": "2912.TW",
       "name": "統一超",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 211.5,
-      "change_pct": 0.48,
-      "chg_1m": -0.94,
-      "range_pos": 0.127,
+      "as_of": "2026-11-10",
+      "last": 210.0,
+      "change_pct": -0.71,
+      "chg_1m": -1.41,
+      "range_pos": 0.089,
       "spark": [
-       213.5,
        213.0,
        216.0,
        216.0,
@@ -9024,7 +9227,8 @@
        217.5,
        214.5,
        210.5,
-       211.5
+       211.5,
+       210.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 7.82,
@@ -9034,13 +9238,12 @@
       "symbol": "1201.TW",
       "name": "味全",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 12.3,
-      "change_pct": -1.6,
-      "chg_1m": 7.42,
-      "range_pos": 0.241,
+      "as_of": "2026-11-10",
+      "last": 12.25,
+      "change_pct": -0.41,
+      "chg_1m": 6.06,
+      "range_pos": 0.237,
       "spark": [
-       11.45,
        11.55,
        11.6,
        11.45,
@@ -9061,7 +9264,8 @@
        13.05,
        12.8,
        12.5,
-       12.3
+       12.3,
+       12.25
       ],
       "rev_ym": "2026-09",
       "rev_yoy": -12.34,
@@ -9071,13 +9275,12 @@
       "symbol": "1210.TW",
       "name": "大成",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 49.95,
-      "change_pct": -0.3,
-      "chg_1m": -2.63,
+      "as_of": "2026-11-10",
+      "last": 49.6,
+      "change_pct": -0.7,
+      "chg_1m": -3.31,
       "range_pos": 0.0,
       "spark": [
-       51.3,
        51.3,
        51.3,
        51.1,
@@ -9098,7 +9301,8 @@
        50.6,
        50.5,
        50.1,
-       49.95
+       49.95,
+       49.6
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 13.15,
@@ -9111,10 +9315,14 @@
     "name": "紡織與製鞋",
     "group": "傳產與原物料",
     "desc": "歐美品牌庫存與訂單；Nike 等品牌財報與美國零售銷售是領先訊號。",
-    "light": "轉強",
+    "light": "持平",
     "why": [
-     "月營收加速（單月年增比今年累計高 6.9 個百分點，中位數）"
+     "月營收成長速度持平"
     ],
+    "basis": {
+     "have": 1,
+     "total": 2
+    },
     "upstream": [
      {
       "name": "美國零售銷售（服飾）",
@@ -9132,26 +9340,26 @@
      "count": 4
     },
     "price": {
-     "avg_1m": 9.43,
+     "avg_1m": 7.82,
      "bench": "^TWII",
      "bench_name": "台股加權指數",
-     "bench_1m": -20.14,
-     "gap": 29.57,
-     "note": "代表股近一個月平均比對照指數多漲 29.6%，好消息可能已經反映在股價",
-     "bench_last": 39701.64
+     "bench_1m": -13.66,
+     "gap": 21.48,
+     "note": "代表股近一個月平均比對照指數多漲 21.5%，好消息可能已經反映在股價",
+     "bench_last": 43017.81,
+     "bench_as_of": "2026-11-10"
     },
     "stocks": [
      {
       "symbol": "9910.TW",
       "name": "豐泰",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 68.1,
-      "change_pct": -2.16,
-      "chg_1m": 2.71,
-      "range_pos": 0.028,
+      "as_of": "2026-11-10",
+      "last": 67.8,
+      "change_pct": -0.44,
+      "chg_1m": 2.26,
+      "range_pos": 0.024,
       "spark": [
-       66.3,
        66.3,
        67.4,
        67.4,
@@ -9172,7 +9380,8 @@
        67.8,
        69.2,
        69.6,
-       68.1
+       68.1,
+       67.8
       ],
       "rev_ym": "2026-09",
       "rev_yoy": -4.76,
@@ -9182,13 +9391,12 @@
       "symbol": "9904.TW",
       "name": "寶成",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 25.7,
-      "change_pct": 0.0,
-      "chg_1m": 3.01,
-      "range_pos": 0.257,
+      "as_of": "2026-11-10",
+      "last": 25.8,
+      "change_pct": 0.39,
+      "chg_1m": 2.99,
+      "range_pos": 0.269,
       "spark": [
-       24.95,
        25.05,
        25.65,
        25.85,
@@ -9209,7 +9417,8 @@
        25.45,
        26.0,
        25.7,
-       25.7
+       25.7,
+       25.8
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 10.4,
@@ -9219,13 +9428,12 @@
       "symbol": "1476.TW",
       "name": "儒鴻",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 356.0,
-      "change_pct": 2.74,
-      "chg_1m": 19.87,
-      "range_pos": 0.464,
+      "as_of": "2026-11-10",
+      "last": 352.0,
+      "change_pct": -1.12,
+      "chg_1m": 13.55,
+      "range_pos": 0.441,
       "spark": [
-       297.0,
        310.0,
        312.0,
        311.5,
@@ -9246,7 +9454,8 @@
        312.5,
        339.5,
        346.5,
-       356.0
+       356.0,
+       352.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 8.28,
@@ -9256,13 +9465,12 @@
       "symbol": "1477.TW",
       "name": "聚陽",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 216.0,
-      "change_pct": 1.41,
-      "chg_1m": 6.67,
-      "range_pos": 0.175,
+      "as_of": "2026-11-10",
+      "last": 215.0,
+      "change_pct": -0.46,
+      "chg_1m": 5.39,
+      "range_pos": 0.168,
       "spark": [
-       202.5,
        204.0,
        205.5,
        206.0,
@@ -9283,7 +9491,8 @@
        203.5,
        214.5,
        213.0,
-       216.0
+       216.0,
+       215.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 24.05,
@@ -9330,10 +9539,14 @@
     "name": "機器人與自動化",
     "group": "其他",
     "desc": "工廠自動化與人形機器人；工具機訂單、日本工具機協會數據是訊號。",
-    "light": "轉強",
+    "light": "持平",
     "why": [
-     "月營收加速（單月年增比今年累計高 6.3 個百分點，中位數）"
+     "月營收成長速度持平"
     ],
+    "basis": {
+     "have": 1,
+     "total": 2
+    },
     "upstream": [
      {
       "name": "日本工具機訂單",
@@ -9351,26 +9564,26 @@
      "count": 3
     },
     "price": {
-     "avg_1m": -15.71,
+     "avg_1m": -13.1,
      "bench": "^TWII",
      "bench_name": "台股加權指數",
-     "bench_1m": -20.14,
-     "gap": 4.43,
-     "note": "代表股近一個月平均多漲對照指數 4.4%",
-     "bench_last": 39701.64
+     "bench_1m": -13.66,
+     "gap": 0.56,
+     "note": "代表股近一個月平均多漲對照指數 0.6%",
+     "bench_last": 43017.81,
+     "bench_as_of": "2026-11-10"
     },
     "stocks": [
      {
       "symbol": "2049.TW",
       "name": "上銀",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 287.0,
-      "change_pct": 4.55,
-      "chg_1m": -16.2,
-      "range_pos": 0.464,
+      "as_of": "2026-11-10",
+      "last": 303.0,
+      "change_pct": 5.57,
+      "chg_1m": -8.87,
+      "range_pos": 0.534,
       "spark": [
-       342.5,
        332.5,
        338.0,
        327.0,
@@ -9391,7 +9604,8 @@
        302.5,
        284.5,
        274.5,
-       287.0
+       287.0,
+       303.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 30.14,
@@ -9401,13 +9615,12 @@
       "symbol": "1590.TW",
       "name": "亞德客-KY",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 1060.0,
-      "change_pct": 4.95,
-      "chg_1m": -13.82,
-      "range_pos": 0.257,
+      "as_of": "2026-11-10",
+      "last": 1085.0,
+      "change_pct": 2.36,
+      "chg_1m": -9.96,
+      "range_pos": 0.292,
       "spark": [
-       1230.0,
        1205.0,
        1210.0,
        1170.0,
@@ -9428,7 +9641,8 @@
        1050.0,
        1050.0,
        1010.0,
-       1060.0
+       1060.0,
+       1085.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 26.6,
@@ -9438,13 +9652,12 @@
       "symbol": "4583.TW",
       "name": "台灣精銳",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 340.0,
-      "change_pct": 6.42,
-      "chg_1m": -18.27,
-      "range_pos": 0.042,
+      "as_of": "2026-11-10",
+      "last": 348.5,
+      "change_pct": 2.5,
+      "chg_1m": -16.43,
+      "range_pos": 0.059,
       "spark": [
-       416.0,
        417.0,
        410.0,
        394.5,
@@ -9465,7 +9678,8 @@
        360.5,
        337.0,
        319.5,
-       340.0
+       340.0,
+       348.5
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 26.55,
@@ -9476,9 +9690,9 @@
       "name": "直覺手術",
       "market": "美股",
       "as_of": "2026-11-09",
-      "last": 460.56,
-      "change_pct": 1.71,
-      "chg_1m": 8.63,
+      "last": 460.48,
+      "change_pct": 1.7,
+      "chg_1m": 8.61,
       "range_pos": 0.493,
       "spark": [
        423.96,
@@ -9502,7 +9716,7 @@
        482.1,
        468.52,
        452.8,
-       460.56
+       460.48
       ]
      },
      {
@@ -9510,9 +9724,9 @@
       "name": "泰瑞達",
       "market": "美股",
       "as_of": "2026-11-09",
-      "last": 246.0,
-      "change_pct": 12.73,
-      "chg_1m": -38.91,
+      "last": 246.18,
+      "change_pct": 12.81,
+      "chg_1m": -38.86,
       "range_pos": 0.275,
       "spark": [
        402.68,
@@ -9536,7 +9750,7 @@
        250.99,
        212.74,
        218.22,
-       246.0
+       246.18
       ]
      }
     ]
@@ -9550,6 +9764,10 @@
     "why": [
      "月營收成長速度持平"
     ],
+    "basis": {
+     "have": 1,
+     "total": 2
+    },
     "upstream": [
      {
       "name": "國防預算",
@@ -9567,26 +9785,26 @@
      "count": 2
     },
     "price": {
-     "avg_1m": -3.55,
+     "avg_1m": -1.69,
      "bench": "^TWII",
      "bench_name": "台股加權指數",
-     "bench_1m": -20.14,
-     "gap": 16.59,
-     "note": "代表股近一個月平均比對照指數多漲 16.6%，好消息可能已經反映在股價",
-     "bench_last": 39701.64
+     "bench_1m": -13.66,
+     "gap": 11.97,
+     "note": "代表股近一個月平均比對照指數多漲 12.0%，好消息可能已經反映在股價",
+     "bench_last": 43017.81,
+     "bench_as_of": "2026-11-10"
     },
     "stocks": [
      {
       "symbol": "2634.TW",
       "name": "漢翔",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 54.0,
-      "change_pct": 5.26,
-      "chg_1m": -15.09,
-      "range_pos": 0.318,
+      "as_of": "2026-11-10",
+      "last": 55.3,
+      "change_pct": 2.41,
+      "chg_1m": -12.5,
+      "range_pos": 0.364,
       "spark": [
-       63.6,
        63.2,
        62.5,
        61.4,
@@ -9607,7 +9825,8 @@
        56.5,
        53.9,
        51.3,
-       54.0
+       54.0,
+       55.3
       ],
       "rev_ym": "2026-09",
       "rev_yoy": -6.66,
@@ -9617,13 +9836,12 @@
       "symbol": "8033.TW",
       "name": "雷虎",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 139.0,
-      "change_pct": 6.92,
-      "chg_1m": -20.11,
-      "range_pos": 0.179,
+      "as_of": "2026-11-10",
+      "last": 144.5,
+      "change_pct": 3.96,
+      "chg_1m": -15.25,
+      "range_pos": 0.214,
       "spark": [
-       174.0,
        170.5,
        168.0,
        164.5,
@@ -9644,7 +9862,8 @@
        146.5,
        137.0,
        130.0,
-       139.0
+       139.0,
+       144.5
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 27.91,
@@ -9655,10 +9874,10 @@
       "name": "洛克希德馬丁",
       "market": "美股",
       "as_of": "2026-11-09",
-      "last": 588.19,
-      "change_pct": 3.72,
-      "chg_1m": 15.42,
-      "range_pos": 0.627,
+      "last": 588.28,
+      "change_pct": 3.74,
+      "chg_1m": 15.44,
+      "range_pos": 0.628,
       "spark": [
        509.59,
        511.88,
@@ -9681,7 +9900,7 @@
        595.04,
        576.16,
        567.08,
-       588.19
+       588.28
       ]
      },
      {
@@ -9689,9 +9908,9 @@
       "name": "RTX",
       "market": "美股",
       "as_of": "2026-11-09",
-      "last": 196.31,
+      "last": 196.32,
       "change_pct": 3.58,
-      "chg_1m": 5.56,
+      "chg_1m": 5.57,
       "range_pos": 0.492,
       "spark": [
        185.97,
@@ -9715,7 +9934,7 @@
        198.43,
        191.88,
        189.53,
-       196.31
+       196.32
       ]
      }
     ]
@@ -9725,10 +9944,14 @@
     "name": "生技醫療",
     "group": "其他",
     "desc": "新藥審查進度、授權案與健保政策；個別公司差異大，產業訊號弱。",
-    "light": "轉強",
+    "light": "持平",
     "why": [
-     "月營收加速（單月年增比今年累計高 8.6 個百分點，中位數）"
+     "月營收成長速度持平"
     ],
+    "basis": {
+     "have": 1,
+     "total": 2
+    },
     "upstream": [
      {
       "name": "新藥審查與授權案",
@@ -9746,26 +9969,26 @@
      "count": 4
     },
     "price": {
-     "avg_1m": 3.7,
+     "avg_1m": 4.2,
      "bench": "^TWII",
      "bench_name": "台股加權指數",
-     "bench_1m": -20.14,
-     "gap": 23.84,
-     "note": "代表股近一個月平均比對照指數多漲 23.8%，好消息可能已經反映在股價",
-     "bench_last": 39701.64
+     "bench_1m": -13.66,
+     "gap": 17.86,
+     "note": "代表股近一個月平均比對照指數多漲 17.9%，好消息可能已經反映在股價",
+     "bench_last": 43017.81,
+     "bench_as_of": "2026-11-10"
     },
     "stocks": [
      {
       "symbol": "6446.TW",
       "name": "藥華藥",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 1370.0,
-      "change_pct": 7.87,
-      "chg_1m": 13.69,
-      "range_pos": 0.817,
+      "as_of": "2026-11-10",
+      "last": 1375.0,
+      "change_pct": 0.36,
+      "chg_1m": 15.06,
+      "range_pos": 0.821,
       "spark": [
-       1205.0,
        1195.0,
        1185.0,
        1165.0,
@@ -9786,7 +10009,8 @@
        1250.0,
        1185.0,
        1270.0,
-       1370.0
+       1370.0,
+       1375.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 99.98,
@@ -9796,13 +10020,12 @@
       "symbol": "6472.TW",
       "name": "保瑞",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 409.0,
-      "change_pct": 2.38,
-      "chg_1m": -4.44,
-      "range_pos": 0.239,
+      "as_of": "2026-11-10",
+      "last": 416.0,
+      "change_pct": 1.71,
+      "chg_1m": -1.19,
+      "range_pos": 0.262,
       "spark": [
-       428.0,
        421.0,
        422.5,
        420.0,
@@ -9823,7 +10046,8 @@
        371.0,
        389.0,
        399.5,
-       409.0
+       409.0,
+       416.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 35.13,
@@ -9833,13 +10057,12 @@
       "symbol": "1760.TW",
       "name": "寶齡富錦",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 49.3,
-      "change_pct": 0.72,
-      "chg_1m": -9.21,
-      "range_pos": 0.031,
+      "as_of": "2026-11-10",
+      "last": 49.55,
+      "change_pct": 0.51,
+      "chg_1m": -11.04,
+      "range_pos": 0.043,
       "spark": [
-       54.3,
        55.7,
        55.2,
        54.0,
@@ -9860,7 +10083,8 @@
        49.45,
        48.95,
        48.95,
-       49.3
+       49.3,
+       49.55
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 1.06,
@@ -9870,13 +10094,12 @@
       "symbol": "4743.TWO",
       "name": "合一",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 46.5,
-      "change_pct": 3.45,
-      "chg_1m": -1.27,
-      "range_pos": 0.159,
+      "as_of": "2026-11-10",
+      "last": 47.35,
+      "change_pct": 1.83,
+      "chg_1m": -1.56,
+      "range_pos": 0.184,
       "spark": [
-       47.1,
        48.1,
        49.25,
        47.55,
@@ -9897,7 +10120,8 @@
        44.2,
        44.3,
        44.95,
-       46.5
+       46.5,
+       47.35
       ],
       "rev_ym": "2026-09",
       "rev_yoy": -18.47,
@@ -9908,9 +10132,9 @@
       "name": "禮來",
       "market": "美股",
       "as_of": "2026-11-09",
-      "last": 1411.95,
-      "change_pct": 4.28,
-      "chg_1m": 19.73,
+      "last": 1411.82,
+      "change_pct": 4.27,
+      "chg_1m": 19.72,
       "range_pos": 0.989,
       "spark": [
        1179.27,
@@ -9934,7 +10158,7 @@
        1417.99,
        1364.73,
        1354.0,
-       1411.95
+       1411.82
       ]
      }
     ]
@@ -9949,6 +10173,10 @@
      "美國 10 年債殖利率轉弱",
      "月營收放緩（單月年增比今年累計低 52.7 個百分點，中位數）"
     ],
+    "basis": {
+     "have": 2,
+     "total": 2
+    },
     "upstream": [
      {
       "name": "美國 10 年債殖利率",
@@ -9967,26 +10195,26 @@
      "count": 4
     },
     "price": {
-     "avg_1m": 3.23,
+     "avg_1m": 5.18,
      "bench": "^TWII",
      "bench_name": "台股加權指數",
-     "bench_1m": -20.14,
-     "gap": 23.37,
-     "note": "代表股近一個月平均比對照指數多漲 23.4%，好消息可能已經反映在股價",
-     "bench_last": 39701.64
+     "bench_1m": -13.66,
+     "gap": 18.84,
+     "note": "代表股近一個月平均比對照指數多漲 18.8%，好消息可能已經反映在股價",
+     "bench_last": 43017.81,
+     "bench_as_of": "2026-11-10"
     },
     "stocks": [
      {
       "symbol": "2881.TW",
       "name": "富邦金",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 153.5,
-      "change_pct": 3.72,
-      "chg_1m": -1.29,
-      "range_pos": 0.888,
+      "as_of": "2026-11-10",
+      "last": 155.0,
+      "change_pct": 0.98,
+      "chg_1m": 1.31,
+      "range_pos": 0.908,
       "spark": [
-       155.5,
        153.0,
        158.5,
        160.0,
@@ -10007,7 +10235,8 @@
        154.5,
        155.5,
        148.0,
-       153.5
+       153.5,
+       155.0
       ],
       "rev_ym": "2026-09",
       "rev_yoy": -63.8,
@@ -10017,13 +10246,12 @@
       "symbol": "2882.TW",
       "name": "國泰金",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 111.0,
-      "change_pct": 4.72,
-      "chg_1m": -1.77,
-      "range_pos": 0.896,
+      "as_of": "2026-11-10",
+      "last": 112.5,
+      "change_pct": 1.35,
+      "chg_1m": 2.27,
+      "range_pos": 0.925,
       "spark": [
-       113.0,
        110.0,
        113.0,
        114.5,
@@ -10044,7 +10272,8 @@
        111.0,
        112.0,
        106.0,
-       111.0
+       111.0,
+       112.5
       ],
       "rev_ym": "2026-09",
       "rev_yoy": -47.39,
@@ -10054,13 +10283,12 @@
       "symbol": "2891.TW",
       "name": "中信金",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 75.9,
-      "change_pct": 3.41,
-      "chg_1m": 10.48,
-      "range_pos": 1.0,
+      "as_of": "2026-11-10",
+      "last": 74.9,
+      "change_pct": -1.32,
+      "chg_1m": 11.29,
+      "range_pos": 0.971,
       "spark": [
-       68.7,
        67.3,
        69.8,
        71.6,
@@ -10081,7 +10309,8 @@
        73.2,
        74.9,
        73.4,
-       75.9
+       75.9,
+       74.9
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 12.82,
@@ -10091,13 +10320,12 @@
       "symbol": "2886.TW",
       "name": "兆豐金",
       "market": "台股",
-      "as_of": "2026-11-09",
-      "last": 52.8,
-      "change_pct": -1.31,
-      "chg_1m": 6.02,
-      "range_pos": 0.858,
+      "as_of": "2026-11-10",
+      "last": 53.4,
+      "change_pct": 1.14,
+      "chg_1m": 8.32,
+      "range_pos": 0.893,
       "spark": [
-       49.8,
        49.3,
        50.0,
        50.9,
@@ -10118,7 +10346,8 @@
        53.5,
        54.0,
        53.5,
-       52.8
+       52.8,
+       53.4
       ],
       "rev_ym": "2026-09",
       "rev_yoy": 16.45,
@@ -10129,9 +10358,9 @@
       "name": "摩根大通",
       "market": "美股",
       "as_of": "2026-11-09",
-      "last": 342.08,
-      "change_pct": 2.27,
-      "chg_1m": 2.73,
+      "last": 342.05,
+      "change_pct": 2.26,
+      "chg_1m": 2.72,
       "range_pos": 0.719,
       "spark": [
        332.99,
@@ -10155,7 +10384,7 @@
        352.11,
        337.34,
        334.49,
-       342.08
+       342.05
       ]
      }
     ]
@@ -10684,141 +10913,13 @@
    }
   ],
   "revenue_latest": {
-   "1303": {
+   "2408": {
     "ym": "2026-09",
-    "name": "南亞",
-    "rev": 34423266.0,
-    "yoy": 55.26,
-    "mom": 12.49,
-    "ytd_yoy": 26.81
-   },
-   "6505": {
-    "ym": "2026-09",
-    "name": "台塑化",
-    "rev": 86928034.0,
-    "yoy": 65.59,
-    "mom": 6.13,
-    "ytd_yoy": 22.03
-   },
-   "2317": {
-    "ym": "2026-09",
-    "name": "鴻海",
-    "rev": 1158633235.0,
-    "yoy": 38.42,
-    "mom": 25.7,
-    "ytd_yoy": 39.53
-   },
-   "3443": {
-    "ym": "2026-09",
-    "name": "創意",
-    "rev": 7145236.0,
-    "yoy": 97.78,
-    "mom": 22.35,
-    "ytd_yoy": 102.83
-   },
-   "4979": {
-    "ym": "2026-09",
-    "name": "華星光",
-    "rev": 574774.0,
-    "yoy": 97.78,
-    "mom": 5.3,
-    "ytd_yoy": 27.29
-   },
-   "3260": {
-    "ym": "2026-09",
-    "name": "威剛",
-    "rev": 15729789.0,
-    "yoy": 199.95,
-    "mom": -16.88,
-    "ytd_yoy": 215.57
-   },
-   "2912": {
-    "ym": "2026-09",
-    "name": "統一超",
-    "rev": 31448583.0,
-    "yoy": 7.82,
-    "mom": -0.25,
-    "ytd_yoy": 5.72
-   },
-   "3231": {
-    "ym": "2026-09",
-    "name": "緯創",
-    "rev": 380806168.0,
-    "yoy": 87.19,
-    "mom": -17.23,
-    "ytd_yoy": 97.25
-   },
-   "6412": {
-    "ym": "2026-09",
-    "name": "群電",
-    "rev": 2413451.0,
-    "yoy": -20.98,
-    "mom": -2.25,
-    "ytd_yoy": -11.15
-   },
-   "2377": {
-    "ym": "2026-09",
-    "name": "微星",
-    "rev": 19910016.0,
-    "yoy": 1.83,
-    "mom": 12.53,
-    "ytd_yoy": -5.49
-   },
-   "2881": {
-    "ym": "2026-09",
-    "name": "富邦金",
-    "rev": 19467727.0,
-    "yoy": -63.8,
-    "mom": -51.99,
-    "ytd_yoy": 78.92
-   },
-   "3653": {
-    "ym": "2026-09",
-    "name": "健策",
-    "rev": 3054167.0,
-    "yoy": 79.97,
-    "mom": -5.32,
-    "ytd_yoy": 47.12
-   },
-   "6488": {
-    "ym": "2026-09",
-    "name": "環球晶",
-    "rev": 5128632.0,
-    "yoy": -13.13,
-    "mom": 7.65,
-    "ytd_yoy": -4.4
-   },
-   "8046": {
-    "ym": "2026-09",
-    "name": "南電",
-    "rev": 5585816.0,
-    "yoy": 57.82,
-    "mom": 4.36,
-    "ytd_yoy": 41.79
-   },
-   "2379": {
-    "ym": "2026-09",
-    "name": "瑞昱",
-    "rev": 12377529.0,
-    "yoy": 23.35,
-    "mom": -0.65,
-    "ytd_yoy": 15.85
-   },
-   "3576": {
-    "ym": "2026-09",
-    "name": "聯合再生",
-    "rev": 260402.0,
-    "yoy": -8.34,
-    "mom": 6.39,
-    "ytd_yoy": -13.85
-   },
-   "1503": {
-    "ym": "2026-09",
-    "name": "士電",
-    "rev": 3139479.0,
-    "yoy": 8.24,
-    "mom": 10.29,
-    "ytd_yoy": 9.4
+    "name": "南亞科",
+    "rev": 45091089.0,
+    "yoy": 576.62,
+    "mom": 0.9,
+    "ytd_yoy": 626.95
    },
    "5483": {
     "ym": "2026-09",
@@ -10828,229 +10929,21 @@
     "mom": 6.67,
     "ytd_yoy": 4.59
    },
-   "2357": {
+   "2912": {
     "ym": "2026-09",
-    "name": "華碩",
-    "rev": 97243019.0,
-    "yoy": 17.73,
-    "mom": 2.41,
-    "ytd_yoy": 38.52
+    "name": "統一超",
+    "rev": 31448583.0,
+    "yoy": 7.82,
+    "mom": -0.25,
+    "ytd_yoy": 5.72
    },
-   "4743": {
+   "2327": {
     "ym": "2026-09",
-    "name": "合一",
-    "rev": 5649.0,
-    "yoy": -18.47,
-    "mom": -4.46,
-    "ytd_yoy": 12.62
-   },
-   "2646": {
-    "ym": "2026-09",
-    "name": "星宇航空",
-    "rev": 4974650.0,
-    "yoy": 68.89,
-    "mom": -10.83,
-    "ytd_yoy": 37.12
-   },
-   "2542": {
-    "ym": "2026-09",
-    "name": "興富發",
-    "rev": 6122516.0,
-    "yoy": 103.73,
-    "mom": 102.44,
-    "ytd_yoy": 228.36
-   },
-   "6446": {
-    "ym": "2026-09",
-    "name": "藥華藥",
-    "rev": 2635360.0,
-    "yoy": 99.98,
-    "mom": 0.69,
-    "ytd_yoy": 83.54
-   },
-   "3034": {
-    "ym": "2026-09",
-    "name": "聯詠",
-    "rev": 10347340.0,
-    "yoy": 24.99,
-    "mom": 0.19,
-    "ytd_yoy": 6.33
-   },
-   "3711": {
-    "ym": "2026-09",
-    "name": "日月光投控",
-    "rev": 88130084.0,
-    "yoy": 45.52,
-    "mom": 7.15,
-    "ytd_yoy": 30.25
-   },
-   "6669": {
-    "ym": "2026-09",
-    "name": "緯穎",
-    "rev": 172620352.0,
-    "yoy": 99.99,
-    "mom": 19.62,
-    "ytd_yoy": 50.3
-   },
-   "2474": {
-    "ym": "2026-09",
-    "name": "可成",
-    "rev": 1028108.0,
-    "yoy": -34.19,
-    "mom": 2.49,
-    "ytd_yoy": -33.25
-   },
-   "2637": {
-    "ym": "2026-09",
-    "name": "慧洋-KY",
-    "rev": 2012020.0,
-    "yoy": 24.53,
-    "mom": -0.06,
-    "ytd_yoy": 33.78
-   },
-   "6187": {
-    "ym": "2026-09",
-    "name": "萬潤",
-    "rev": 1160237.0,
-    "yoy": 109.24,
-    "mom": 4.64,
-    "ytd_yoy": 58.31
-   },
-   "1476": {
-    "ym": "2026-09",
-    "name": "儒鴻",
-    "rev": 3508348.0,
-    "yoy": 8.28,
-    "mom": 5.96,
-    "ytd_yoy": 5.41
-   },
-   "2454": {
-    "ym": "2026-09",
-    "name": "聯發科",
-    "rev": 55399497.0,
-    "yoy": 1.97,
-    "mom": -13.69,
-    "ytd_yoy": 5.3
-   },
-   "2886": {
-    "ym": "2026-09",
-    "name": "兆豐金",
-    "rev": 8344036.0,
-    "yoy": 16.45,
-    "mom": 7.03,
-    "ytd_yoy": 16.56
-   },
-   "2313": {
-    "ym": "2026-09",
-    "name": "華通",
-    "rev": 8617380.0,
-    "yoy": 15.02,
-    "mom": 22.89,
-    "ytd_yoy": 13.0
-   },
-   "2308": {
-    "ym": "2026-09",
-    "name": "台達電",
-    "rev": 65399563.0,
-    "yoy": 14.61,
-    "mom": 1.26,
-    "ytd_yoy": 37.22
-   },
-   "3131": {
-    "ym": "2026-09",
-    "name": "弘塑",
-    "rev": 747114.0,
-    "yoy": 61.89,
-    "mom": 9.65,
-    "ytd_yoy": 27.03
-   },
-   "2891": {
-    "ym": "2026-09",
-    "name": "中信金",
-    "rev": 21331939.0,
-    "yoy": 12.82,
-    "mom": -12.58,
-    "ytd_yoy": 33.23
-   },
-   "3532": {
-    "ym": "2026-09",
-    "name": "台勝科",
-    "rev": 1349479.0,
-    "yoy": 28.97,
-    "mom": 1.32,
-    "ytd_yoy": 20.27
-   },
-   "5347": {
-    "ym": "2026-09",
-    "name": "世界",
-    "rev": 5903705.0,
-    "yoy": 15.51,
-    "mom": 15.93,
-    "ytd_yoy": 18.0
-   },
-   "1201": {
-    "ym": "2026-09",
-    "name": "味全",
-    "rev": 1894004.0,
-    "yoy": -12.34,
-    "mom": -5.33,
-    "ytd_yoy": -2.31
-   },
-   "1101": {
-    "ym": "2026-09",
-    "name": "台泥",
-    "rev": 14321556.0,
-    "yoy": 7.63,
-    "mom": 5.96,
-    "ytd_yoy": 3.3
-   },
-   "2049": {
-    "ym": "2026-09",
-    "name": "上銀",
-    "rev": 2720090.0,
-    "yoy": 30.14,
-    "mom": 0.45,
-    "ytd_yoy": 23.86
-   },
-   "2409": {
-    "ym": "2026-09",
-    "name": "友達",
-    "rev": 23403717.0,
-    "yoy": -4.26,
-    "mom": 1.31,
-    "ytd_yoy": -2.11
-   },
-   "3189": {
-    "ym": "2026-09",
-    "name": "景碩",
-    "rev": 5181276.0,
-    "yoy": 44.47,
-    "mom": 7.73,
-    "ytd_yoy": 33.64
-   },
-   "2609": {
-    "ym": "2026-09",
-    "name": "陽明",
-    "rev": 21699526.0,
-    "yoy": 69.94,
-    "mom": 0.41,
-    "ytd_yoy": 17.79
-   },
-   "2375": {
-    "ym": "2026-09",
-    "name": "凱美",
-    "rev": 691692.0,
-    "yoy": 35.85,
-    "mom": 5.8,
-    "ytd_yoy": 18.32
-   },
-   "3661": {
-    "ym": "2026-09",
-    "name": "世芯-KY",
-    "rev": 9978701.0,
-    "yoy": 496.0,
-    "mom": 13.7,
-    "ytd_yoy": 44.59
+    "name": "國巨*",
+    "rev": 17068153.0,
+    "yoy": 46.12,
+    "mom": 4.51,
+    "ytd_yoy": 36.29
    },
    "2368": {
     "ym": "2026-09",
@@ -11060,125 +10953,21 @@
     "mom": -10.25,
     "ytd_yoy": 69.07
    },
-   "8299": {
+   "3131": {
     "ym": "2026-09",
-    "name": "群聯",
-    "rev": 30638984.0,
-    "yoy": 370.26,
-    "mom": 8.36,
-    "ytd_yoy": 290.92
+    "name": "弘塑",
+    "rev": 747114.0,
+    "yoy": 61.89,
+    "mom": 9.65,
+    "ytd_yoy": 27.03
    },
-   "3363": {
+   "1210": {
     "ym": "2026-09",
-    "name": "上詮",
-    "rev": 224257.0,
-    "yoy": 28.38,
-    "mom": 9.67,
-    "ytd_yoy": -6.03
-   },
-   "2344": {
-    "ym": "2026-09",
-    "name": "華邦電",
-    "rev": 28248909.0,
-    "yoy": 256.67,
-    "mom": 3.44,
-    "ytd_yoy": 187.39
-   },
-   "3037": {
-    "ym": "2026-09",
-    "name": "欣興",
-    "rev": 18650679.0,
-    "yoy": 64.67,
-    "mom": 5.1,
-    "ytd_yoy": 37.74
-   },
-   "1216": {
-    "ym": "2026-09",
-    "name": "統一",
-    "rev": 61805124.0,
-    "yoy": 5.8,
-    "mom": -2.05,
-    "ytd_yoy": 4.25
-   },
-   "2882": {
-    "ym": "2026-09",
-    "name": "國泰金",
-    "rev": 20405136.0,
-    "yoy": -47.39,
-    "mom": -30.8,
-    "ytd_yoy": 37.55
-   },
-   "1590": {
-    "ym": "2026-09",
-    "name": "亞德客-KY",
-    "rev": 3810653.0,
-    "yoy": 26.6,
-    "mom": 2.78,
-    "ytd_yoy": 33.19
-   },
-   "1514": {
-    "ym": "2026-09",
-    "name": "亞力",
-    "rev": 980973.0,
-    "yoy": 10.4,
-    "mom": 26.8,
-    "ytd_yoy": 8.24
-   },
-   "2027": {
-    "ym": "2026-09",
-    "name": "大成鋼",
-    "rev": 12396569.0,
-    "yoy": 41.07,
-    "mom": 0.09,
-    "ytd_yoy": 35.0
-   },
-   "2421": {
-    "ym": "2026-09",
-    "name": "建準",
-    "rev": 2048924.0,
-    "yoy": 16.54,
-    "mom": 3.79,
-    "ytd_yoy": 20.5
-   },
-   "3583": {
-    "ym": "2026-09",
-    "name": "辛耘",
-    "rev": 1040662.0,
-    "yoy": 2.79,
-    "mom": -2.59,
-    "ytd_yoy": 7.49
-   },
-   "6770": {
-    "ym": "2026-09",
-    "name": "力積電",
-    "rev": 7665064.0,
-    "yoy": 93.95,
-    "mom": 9.36,
-    "ytd_yoy": 52.49
-   },
-   "1533": {
-    "ym": "2026-09",
-    "name": "車王電",
-    "rev": 298066.0,
-    "yoy": -23.86,
-    "mom": -35.17,
-    "ytd_yoy": 37.28
-   },
-   "1102": {
-    "ym": "2026-09",
-    "name": "亞泥",
-    "rev": 6719168.0,
-    "yoy": 5.18,
-    "mom": 20.19,
-    "ytd_yoy": -5.15
-   },
-   "6472": {
-    "ym": "2026-09",
-    "name": "保瑞",
-    "rev": 2325228.0,
-    "yoy": 35.13,
-    "mom": 6.44,
-    "ytd_yoy": 9.44
+    "name": "大成",
+    "rev": 9880170.0,
+    "yoy": 13.15,
+    "mom": 1.81,
+    "ytd_yoy": 9.52
    },
    "3324": {
     "ym": "2026-09",
@@ -11188,13 +10977,53 @@
     "mom": -8.19,
     "ytd_yoy": 72.39
    },
-   "2324": {
+   "4583": {
     "ym": "2026-09",
-    "name": "仁寶",
-    "rev": 94434113.0,
-    "yoy": 35.45,
-    "mom": 40.24,
-    "ytd_yoy": 20.42
+    "name": "台灣精銳",
+    "rev": 282941.0,
+    "yoy": 26.55,
+    "mom": 8.34,
+    "ytd_yoy": 17.02
+   },
+   "2603": {
+    "ym": "2026-09",
+    "name": "長榮",
+    "rev": 49711309.0,
+    "yoy": 63.75,
+    "mom": 1.48,
+    "ytd_yoy": 15.36
+   },
+   "2881": {
+    "ym": "2026-09",
+    "name": "富邦金",
+    "rev": 19467727.0,
+    "yoy": -63.8,
+    "mom": -51.99,
+    "ytd_yoy": 78.92
+   },
+   "3231": {
+    "ym": "2026-09",
+    "name": "緯創",
+    "rev": 380806168.0,
+    "yoy": 87.19,
+    "mom": -17.23,
+    "ytd_yoy": 97.25
+   },
+   "1533": {
+    "ym": "2026-09",
+    "name": "車王電",
+    "rev": 298066.0,
+    "yoy": -23.86,
+    "mom": -35.17,
+    "ytd_yoy": 37.28
+   },
+   "1514": {
+    "ym": "2026-09",
+    "name": "亞力",
+    "rev": 980973.0,
+    "yoy": 10.4,
+    "mom": 26.8,
+    "ytd_yoy": 8.24
    },
    "2634": {
     "ym": "2026-09",
@@ -11204,69 +11033,29 @@
     "mom": 3.71,
     "ytd_yoy": 7.22
    },
-   "3081": {
+   "3711": {
     "ym": "2026-09",
-    "name": "聯亞",
-    "rev": 540492.0,
-    "yoy": 190.16,
-    "mom": 3.85,
-    "ytd_yoy": 136.33
+    "name": "日月光投控",
+    "rev": 88130084.0,
+    "yoy": 45.52,
+    "mom": 7.15,
+    "ytd_yoy": 30.25
    },
-   "3017": {
+   "2337": {
     "ym": "2026-09",
-    "name": "奇鋐",
-    "rev": 21018128.0,
-    "yoy": 44.92,
-    "mom": 7.89,
-    "ytd_yoy": 71.17
+    "name": "旺宏",
+    "rev": 8367275.0,
+    "yoy": 188.24,
+    "mom": 2.73,
+    "ytd_yoy": 154.51
    },
-   "1536": {
+   "2345": {
     "ym": "2026-09",
-    "name": "和大",
-    "rev": 334558.0,
-    "yoy": -13.8,
-    "mom": -27.28,
-    "ytd_yoy": 0.85
-   },
-   "6442": {
-    "ym": "2026-09",
-    "name": "光聖",
-    "rev": 2061154.0,
-    "yoy": 97.26,
-    "mom": 26.59,
-    "ytd_yoy": 50.19
-   },
-   "4583": {
-    "ym": "2026-09",
-    "name": "台灣精銳",
-    "rev": 282941.0,
-    "yoy": 26.55,
-    "mom": 8.34,
-    "ytd_yoy": 17.02
-   },
-   "1519": {
-    "ym": "2026-09",
-    "name": "華城",
-    "rev": 2028540.0,
-    "yoy": 7.19,
-    "mom": 5.85,
-    "ytd_yoy": -0.73
-   },
-   "1477": {
-    "ym": "2026-09",
-    "name": "聚陽",
-    "rev": 2930592.0,
-    "yoy": 24.05,
-    "mom": -17.54,
-    "ytd_yoy": 0.17
-   },
-   "1760": {
-    "ym": "2026-09",
-    "name": "寶齡富錦",
-    "rev": 137197.0,
-    "yoy": 1.06,
-    "mom": -24.3,
-    "ytd_yoy": 0.36
+    "name": "智邦",
+    "rev": 40398562.0,
+    "yoy": 66.13,
+    "mom": -1.16,
+    "ytd_yoy": 62.45
    },
    "1301": {
     "ym": "2026-09",
@@ -11276,13 +11065,45 @@
     "mom": 7.33,
     "ytd_yoy": -0.57
    },
-   "3481": {
+   "3661": {
     "ym": "2026-09",
-    "name": "群創",
-    "rev": 19994593.0,
-    "yoy": 0.67,
-    "mom": 6.94,
-    "ytd_yoy": 10.56
+    "name": "世芯-KY",
+    "rev": 9978701.0,
+    "yoy": 496.0,
+    "mom": 13.7,
+    "ytd_yoy": 44.59
+   },
+   "2031": {
+    "ym": "2026-09",
+    "name": "新光鋼",
+    "rev": 1803723.0,
+    "yoy": 37.1,
+    "mom": 24.53,
+    "ytd_yoy": 7.16
+   },
+   "2014": {
+    "ym": "2026-09",
+    "name": "中鴻",
+    "rev": 1513789.0,
+    "yoy": -5.33,
+    "mom": 47.66,
+    "ytd_yoy": -7.39
+   },
+   "3260": {
+    "ym": "2026-09",
+    "name": "威剛",
+    "rev": 15729789.0,
+    "yoy": 199.95,
+    "mom": -16.88,
+    "ytd_yoy": 215.57
+   },
+   "1326": {
+    "ym": "2026-09",
+    "name": "台化",
+    "rev": 33399645.0,
+    "yoy": 44.78,
+    "mom": 9.3,
+    "ytd_yoy": 18.96
    },
    "2618": {
     "ym": "2026-09",
@@ -11292,6 +11113,278 @@
     "mom": -9.36,
     "ytd_yoy": 19.48
    },
+   "3034": {
+    "ym": "2026-09",
+    "name": "聯詠",
+    "rev": 10347340.0,
+    "yoy": 24.99,
+    "mom": 0.19,
+    "ytd_yoy": 6.33
+   },
+   "1477": {
+    "ym": "2026-09",
+    "name": "聚陽",
+    "rev": 2930592.0,
+    "yoy": 24.05,
+    "mom": -17.54,
+    "ytd_yoy": 0.17
+   },
+   "2049": {
+    "ym": "2026-09",
+    "name": "上銀",
+    "rev": 2720090.0,
+    "yoy": 30.14,
+    "mom": 0.45,
+    "ytd_yoy": 23.86
+   },
+   "2027": {
+    "ym": "2026-09",
+    "name": "大成鋼",
+    "rev": 12396569.0,
+    "yoy": 41.07,
+    "mom": 0.09,
+    "ytd_yoy": 35.0
+   },
+   "1608": {
+    "ym": "2026-09",
+    "name": "華榮",
+    "rev": 1106056.0,
+    "yoy": 18.61,
+    "mom": -6.3,
+    "ytd_yoy": 19.12
+   },
+   "2421": {
+    "ym": "2026-09",
+    "name": "建準",
+    "rev": 2048924.0,
+    "yoy": 16.54,
+    "mom": 3.79,
+    "ytd_yoy": 20.5
+   },
+   "1216": {
+    "ym": "2026-09",
+    "name": "統一",
+    "rev": 61805124.0,
+    "yoy": 5.8,
+    "mom": -2.05,
+    "ytd_yoy": 4.25
+   },
+   "2409": {
+    "ym": "2026-09",
+    "name": "友達",
+    "rev": 23403717.0,
+    "yoy": -4.26,
+    "mom": 1.31,
+    "ytd_yoy": -2.11
+   },
+   "2317": {
+    "ym": "2026-09",
+    "name": "鴻海",
+    "rev": 1158633235.0,
+    "yoy": 38.42,
+    "mom": 25.7,
+    "ytd_yoy": 39.53
+   },
+   "2605": {
+    "ym": "2026-09",
+    "name": "新興",
+    "rev": 593657.0,
+    "yoy": 60.11,
+    "mom": 16.89,
+    "ytd_yoy": 41.77
+   },
+   "3583": {
+    "ym": "2026-09",
+    "name": "辛耘",
+    "rev": 1040662.0,
+    "yoy": 2.79,
+    "mom": -2.59,
+    "ytd_yoy": 7.49
+   },
+   "2231": {
+    "ym": "2026-09",
+    "name": "為升",
+    "rev": 277543.0,
+    "yoy": -12.24,
+    "mom": 24.71,
+    "ytd_yoy": -14.39
+   },
+   "2610": {
+    "ym": "2026-09",
+    "name": "華航",
+    "rev": 20933415.0,
+    "yoy": 31.86,
+    "mom": -4.62,
+    "ytd_yoy": 20.0
+   },
+   "1201": {
+    "ym": "2026-09",
+    "name": "味全",
+    "rev": 1894004.0,
+    "yoy": -12.34,
+    "mom": -5.33,
+    "ytd_yoy": -2.31
+   },
+   "4979": {
+    "ym": "2026-09",
+    "name": "華星光",
+    "rev": 574774.0,
+    "yoy": 97.78,
+    "mom": 5.3,
+    "ytd_yoy": 27.29
+   },
+   "1519": {
+    "ym": "2026-09",
+    "name": "華城",
+    "rev": 2028540.0,
+    "yoy": 7.19,
+    "mom": 5.85,
+    "ytd_yoy": -0.73
+   },
+   "3481": {
+    "ym": "2026-09",
+    "name": "群創",
+    "rev": 19994593.0,
+    "yoy": 0.67,
+    "mom": 6.94,
+    "ytd_yoy": 10.56
+   },
+   "2882": {
+    "ym": "2026-09",
+    "name": "國泰金",
+    "rev": 20405136.0,
+    "yoy": -47.39,
+    "mom": -30.8,
+    "ytd_yoy": 37.55
+   },
+   "3081": {
+    "ym": "2026-09",
+    "name": "聯亞",
+    "rev": 540492.0,
+    "yoy": 190.16,
+    "mom": 3.85,
+    "ytd_yoy": 136.33
+   },
+   "4743": {
+    "ym": "2026-09",
+    "name": "合一",
+    "rev": 5649.0,
+    "yoy": -18.47,
+    "mom": -4.46,
+    "ytd_yoy": 12.62
+   },
+   "6443": {
+    "ym": "2026-09",
+    "name": "元晶",
+    "rev": 96562.0,
+    "yoy": -48.16,
+    "mom": 45.11,
+    "ytd_yoy": -37.73
+   },
+   "2308": {
+    "ym": "2026-09",
+    "name": "台達電",
+    "rev": 65399563.0,
+    "yoy": 14.61,
+    "mom": 1.26,
+    "ytd_yoy": 37.22
+   },
+   "8046": {
+    "ym": "2026-09",
+    "name": "南電",
+    "rev": 5585816.0,
+    "yoy": 57.82,
+    "mom": 4.36,
+    "ytd_yoy": 41.79
+   },
+   "2454": {
+    "ym": "2026-09",
+    "name": "聯發科",
+    "rev": 55399497.0,
+    "yoy": 1.97,
+    "mom": -13.69,
+    "ytd_yoy": 5.3
+   },
+   "1590": {
+    "ym": "2026-09",
+    "name": "亞德客-KY",
+    "rev": 3810653.0,
+    "yoy": 26.6,
+    "mom": 2.78,
+    "ytd_yoy": 33.19
+   },
+   "2474": {
+    "ym": "2026-09",
+    "name": "可成",
+    "rev": 1028108.0,
+    "yoy": -34.19,
+    "mom": 2.49,
+    "ytd_yoy": -33.25
+   },
+   "2379": {
+    "ym": "2026-09",
+    "name": "瑞昱",
+    "rev": 12377529.0,
+    "yoy": 23.35,
+    "mom": -0.65,
+    "ytd_yoy": 15.85
+   },
+   "1513": {
+    "ym": "2026-09",
+    "name": "中興電",
+    "rev": 2416918.0,
+    "yoy": 11.27,
+    "mom": -3.42,
+    "ytd_yoy": 4.97
+   },
+   "3363": {
+    "ym": "2026-09",
+    "name": "上詮",
+    "rev": 224257.0,
+    "yoy": 28.38,
+    "mom": 9.67,
+    "ytd_yoy": -6.03
+   },
+   "3443": {
+    "ym": "2026-09",
+    "name": "創意",
+    "rev": 7145236.0,
+    "yoy": 97.78,
+    "mom": 22.35,
+    "ytd_yoy": 102.83
+   },
+   "6412": {
+    "ym": "2026-09",
+    "name": "群電",
+    "rev": 2413451.0,
+    "yoy": -20.98,
+    "mom": -2.25,
+    "ytd_yoy": -11.15
+   },
+   "6187": {
+    "ym": "2026-09",
+    "name": "萬潤",
+    "rev": 1160237.0,
+    "yoy": 109.24,
+    "mom": 4.64,
+    "ytd_yoy": 58.31
+   },
+   "2375": {
+    "ym": "2026-09",
+    "name": "凱美",
+    "rev": 691692.0,
+    "yoy": 35.85,
+    "mom": 5.8,
+    "ytd_yoy": 18.32
+   },
+   "3026": {
+    "ym": "2026-09",
+    "name": "禾伸堂",
+    "rev": 1597836.0,
+    "yoy": 27.11,
+    "mom": 10.98,
+    "ytd_yoy": 21.24
+   },
    "2615": {
     "ym": "2026-09",
     "name": "萬海",
@@ -11300,13 +11393,21 @@
     "mom": 13.41,
     "ytd_yoy": 27.28
    },
-   "2356": {
+   "1101": {
     "ym": "2026-09",
-    "name": "英業達",
-    "rev": 98635776.0,
-    "yoy": 62.87,
-    "mom": 18.46,
-    "ytd_yoy": 42.77
+    "name": "台泥",
+    "rev": 14321556.0,
+    "yoy": 7.63,
+    "mom": 5.96,
+    "ytd_yoy": 3.3
+   },
+   "2467": {
+    "ym": "2026-09",
+    "name": "志聖",
+    "rev": 945153.0,
+    "yoy": 90.65,
+    "mom": 9.16,
+    "ytd_yoy": 84.2
    },
    "9910": {
     "ym": "2026-09",
@@ -11316,13 +11417,133 @@
     "mom": -12.61,
     "ytd_yoy": -3.13
    },
-   "2303": {
+   "6488": {
     "ym": "2026-09",
-    "name": "聯電",
-    "rev": 25350431.0,
-    "yoy": 27.22,
-    "mom": 1.22,
-    "ytd_yoy": 16.08
+    "name": "環球晶",
+    "rev": 5128632.0,
+    "yoy": -13.13,
+    "mom": 7.65,
+    "ytd_yoy": -4.4
+   },
+   "1609": {
+    "ym": "2026-09",
+    "name": "大亞",
+    "rev": 3572692.0,
+    "yoy": 30.32,
+    "mom": 5.42,
+    "ytd_yoy": 21.24
+   },
+   "8033": {
+    "ym": "2026-09",
+    "name": "雷虎",
+    "rev": 117583.0,
+    "yoy": 27.91,
+    "mom": -33.24,
+    "ytd_yoy": 14.84
+   },
+   "1760": {
+    "ym": "2026-09",
+    "name": "寶齡富錦",
+    "rev": 137197.0,
+    "yoy": 1.06,
+    "mom": -24.3,
+    "ytd_yoy": 0.36
+   },
+   "1476": {
+    "ym": "2026-09",
+    "name": "儒鴻",
+    "rev": 3508348.0,
+    "yoy": 8.28,
+    "mom": 5.96,
+    "ytd_yoy": 5.41
+   },
+   "2646": {
+    "ym": "2026-09",
+    "name": "星宇航空",
+    "rev": 4974650.0,
+    "yoy": 68.89,
+    "mom": -10.83,
+    "ytd_yoy": 37.12
+   },
+   "3665": {
+    "ym": "2026-09",
+    "name": "貿聯-KY",
+    "rev": 9332402.0,
+    "yoy": 39.16,
+    "mom": 4.96,
+    "ytd_yoy": 39.9
+   },
+   "2330": {
+    "ym": "2026-09",
+    "name": "台積電",
+    "rev": 511857399.0,
+    "yoy": 54.65,
+    "mom": -0.57,
+    "ytd_yoy": 41.11
+   },
+   "1503": {
+    "ym": "2026-09",
+    "name": "士電",
+    "rev": 3139479.0,
+    "yoy": 8.24,
+    "mom": 10.29,
+    "ytd_yoy": 9.4
+   },
+   "5347": {
+    "ym": "2026-09",
+    "name": "世界",
+    "rev": 5903705.0,
+    "yoy": 15.51,
+    "mom": 15.93,
+    "ytd_yoy": 18.0
+   },
+   "6770": {
+    "ym": "2026-09",
+    "name": "力積電",
+    "rev": 7665064.0,
+    "yoy": 93.95,
+    "mom": 9.36,
+    "ytd_yoy": 52.49
+   },
+   "2353": {
+    "ym": "2026-09",
+    "name": "宏碁",
+    "rev": 34737210.0,
+    "yoy": 17.63,
+    "mom": 15.1,
+    "ytd_yoy": 23.99
+   },
+   "2542": {
+    "ym": "2026-09",
+    "name": "興富發",
+    "rev": 6122516.0,
+    "yoy": 103.73,
+    "mom": 102.44,
+    "ytd_yoy": 228.36
+   },
+   "2356": {
+    "ym": "2026-09",
+    "name": "英業達",
+    "rev": 98635776.0,
+    "yoy": 62.87,
+    "mom": 18.46,
+    "ytd_yoy": 42.77
+   },
+   "1303": {
+    "ym": "2026-09",
+    "name": "南亞",
+    "rev": 34423266.0,
+    "yoy": 55.26,
+    "mom": 12.49,
+    "ytd_yoy": 26.81
+   },
+   "2313": {
+    "ym": "2026-09",
+    "name": "華通",
+    "rev": 8617380.0,
+    "yoy": 15.02,
+    "mom": 22.89,
+    "ytd_yoy": 13.0
    },
    "1605": {
     "ym": "2026-09",
@@ -11340,133 +11561,13 @@
     "mom": 3.76,
     "ytd_yoy": -0.52
    },
-   "2382": {
+   "3653": {
     "ym": "2026-09",
-    "name": "廣達",
-    "rev": 325299509.0,
-    "yoy": 76.69,
-    "mom": -23.27,
-    "ytd_yoy": 99.41
-   },
-   "2301": {
-    "ym": "2026-09",
-    "name": "光寶科",
-    "rev": 18848445.0,
-    "yoy": 22.15,
-    "mom": -3.8,
-    "ytd_yoy": 26.15
-   },
-   "2603": {
-    "ym": "2026-09",
-    "name": "長榮",
-    "rev": 49711309.0,
-    "yoy": 63.75,
-    "mom": 1.48,
-    "ytd_yoy": 15.36
-   },
-   "3665": {
-    "ym": "2026-09",
-    "name": "貿聯-KY",
-    "rev": 9332402.0,
-    "yoy": 39.16,
-    "mom": 4.96,
-    "ytd_yoy": 39.9
-   },
-   "2327": {
-    "ym": "2026-09",
-    "name": "國巨*",
-    "rev": 17068153.0,
-    "yoy": 46.12,
-    "mom": 4.51,
-    "ytd_yoy": 36.29
-   },
-   "3026": {
-    "ym": "2026-09",
-    "name": "禾伸堂",
-    "rev": 1597836.0,
-    "yoy": 27.11,
-    "mom": 10.98,
-    "ytd_yoy": 21.24
-   },
-   "1608": {
-    "ym": "2026-09",
-    "name": "華榮",
-    "rev": 1106056.0,
-    "yoy": 18.61,
-    "mom": -6.3,
-    "ytd_yoy": 19.12
-   },
-   "1210": {
-    "ym": "2026-09",
-    "name": "大成",
-    "rev": 9880170.0,
-    "yoy": 13.15,
-    "mom": 1.81,
-    "ytd_yoy": 9.52
-   },
-   "2002": {
-    "ym": "2026-09",
-    "name": "中鋼",
-    "rev": 31001054.0,
-    "yoy": 27.13,
-    "mom": 10.92,
-    "ytd_yoy": 6.16
-   },
-   "1326": {
-    "ym": "2026-09",
-    "name": "台化",
-    "rev": 33399645.0,
-    "yoy": 44.78,
-    "mom": 9.3,
-    "ytd_yoy": 18.96
-   },
-   "2492": {
-    "ym": "2026-09",
-    "name": "華新科",
-    "rev": 4889022.0,
-    "yoy": 53.93,
-    "mom": 7.01,
-    "ytd_yoy": 25.75
-   },
-   "2330": {
-    "ym": "2026-09",
-    "name": "台積電",
-    "rev": 511857399.0,
-    "yoy": 54.65,
-    "mom": -0.57,
-    "ytd_yoy": 41.11
-   },
-   "1609": {
-    "ym": "2026-09",
-    "name": "大亞",
-    "rev": 3572692.0,
-    "yoy": 30.32,
-    "mom": 5.42,
-    "ytd_yoy": 21.24
-   },
-   "1513": {
-    "ym": "2026-09",
-    "name": "中興電",
-    "rev": 2416918.0,
-    "yoy": 11.27,
-    "mom": -3.42,
-    "ytd_yoy": 4.97
-   },
-   "6443": {
-    "ym": "2026-09",
-    "name": "元晶",
-    "rev": 96562.0,
-    "yoy": -48.16,
-    "mom": 45.11,
-    "ytd_yoy": -37.73
-   },
-   "2606": {
-    "ym": "2026-09",
-    "name": "裕民",
-    "rev": 1798591.0,
-    "yoy": 25.68,
-    "mom": 3.83,
-    "ytd_yoy": 25.18
+    "name": "健策",
+    "rev": 3054167.0,
+    "yoy": 79.97,
+    "mom": -5.32,
+    "ytd_yoy": 47.12
    },
    "4938": {
     "ym": "2026-09",
@@ -11476,77 +11577,69 @@
     "mom": 143.19,
     "ytd_yoy": 13.79
    },
-   "2610": {
+   "2886": {
     "ym": "2026-09",
-    "name": "華航",
-    "rev": 20933415.0,
-    "yoy": 31.86,
-    "mom": -4.62,
-    "ytd_yoy": 20.0
+    "name": "兆豐金",
+    "rev": 8344036.0,
+    "yoy": 16.45,
+    "mom": 7.03,
+    "ytd_yoy": 16.56
    },
-   "2605": {
+   "6446": {
     "ym": "2026-09",
-    "name": "新興",
-    "rev": 593657.0,
-    "yoy": 60.11,
-    "mom": 16.89,
-    "ytd_yoy": 41.77
+    "name": "藥華藥",
+    "rev": 2635360.0,
+    "yoy": 99.98,
+    "mom": 0.69,
+    "ytd_yoy": 83.54
    },
-   "6116": {
+   "2609": {
     "ym": "2026-09",
-    "name": "彩晶",
-    "rev": 756359.0,
-    "yoy": -24.22,
-    "mom": -19.03,
-    "ytd_yoy": -0.19
+    "name": "陽明",
+    "rev": 21699526.0,
+    "yoy": 69.94,
+    "mom": 0.41,
+    "ytd_yoy": 17.79
    },
-   "2383": {
+   "8299": {
     "ym": "2026-09",
-    "name": "台光電",
-    "rev": 21532230.0,
-    "yoy": 168.87,
-    "mom": 6.88,
-    "ytd_yoy": 103.69
+    "name": "群聯",
+    "rev": 30638984.0,
+    "yoy": 370.26,
+    "mom": 8.36,
+    "ytd_yoy": 290.92
    },
-   "2467": {
+   "2344": {
     "ym": "2026-09",
-    "name": "志聖",
-    "rev": 945153.0,
-    "yoy": 90.65,
-    "mom": 9.16,
-    "ytd_yoy": 84.2
+    "name": "華邦電",
+    "rev": 28248909.0,
+    "yoy": 256.67,
+    "mom": 3.44,
+    "ytd_yoy": 187.39
    },
-   "2353": {
+   "2637": {
     "ym": "2026-09",
-    "name": "宏碁",
-    "rev": 34737210.0,
-    "yoy": 17.63,
-    "mom": 15.1,
-    "ytd_yoy": 23.99
+    "name": "慧洋-KY",
+    "rev": 2012020.0,
+    "yoy": 24.53,
+    "mom": -0.06,
+    "ytd_yoy": 33.78
    },
-   "2337": {
+   "2891": {
     "ym": "2026-09",
-    "name": "旺宏",
-    "rev": 8367275.0,
-    "yoy": 188.24,
-    "mom": 2.73,
-    "ytd_yoy": 154.51
+    "name": "中信金",
+    "rev": 21331939.0,
+    "yoy": 12.82,
+    "mom": -12.58,
+    "ytd_yoy": 33.23
    },
-   "8033": {
+   "2357": {
     "ym": "2026-09",
-    "name": "雷虎",
-    "rev": 117583.0,
-    "yoy": 27.91,
-    "mom": -33.24,
-    "ytd_yoy": 14.84
-   },
-   "2031": {
-    "ym": "2026-09",
-    "name": "新光鋼",
-    "rev": 1803723.0,
-    "yoy": 37.1,
-    "mom": 24.53,
-    "ytd_yoy": 7.16
+    "name": "華碩",
+    "rev": 97243019.0,
+    "yoy": 17.73,
+    "mom": 2.41,
+    "ytd_yoy": 38.52
    },
    "3008": {
     "ym": "2026-09",
@@ -11556,37 +11649,173 @@
     "mom": 15.31,
     "ytd_yoy": 2.12
    },
-   "2014": {
+   "2492": {
     "ym": "2026-09",
-    "name": "中鴻",
-    "rev": 1513789.0,
-    "yoy": -5.33,
-    "mom": 47.66,
-    "ytd_yoy": -7.39
+    "name": "華新科",
+    "rev": 4889022.0,
+    "yoy": 53.93,
+    "mom": 7.01,
+    "ytd_yoy": 25.75
    },
-   "2345": {
+   "2383": {
     "ym": "2026-09",
-    "name": "智邦",
-    "rev": 40398562.0,
-    "yoy": 66.13,
-    "mom": -1.16,
-    "ytd_yoy": 62.45
+    "name": "台光電",
+    "rev": 21532230.0,
+    "yoy": 168.87,
+    "mom": 6.88,
+    "ytd_yoy": 103.69
    },
-   "2231": {
+   "1102": {
     "ym": "2026-09",
-    "name": "為升",
-    "rev": 277543.0,
-    "yoy": -12.24,
-    "mom": 24.71,
-    "ytd_yoy": -14.39
+    "name": "亞泥",
+    "rev": 6719168.0,
+    "yoy": 5.18,
+    "mom": 20.19,
+    "ytd_yoy": -5.15
    },
-   "2408": {
+   "2324": {
     "ym": "2026-09",
-    "name": "南亞科",
-    "rev": 45091089.0,
-    "yoy": 576.62,
-    "mom": 0.9,
-    "ytd_yoy": 626.95
+    "name": "仁寶",
+    "rev": 94434113.0,
+    "yoy": 35.45,
+    "mom": 40.24,
+    "ytd_yoy": 20.42
+   },
+   "2303": {
+    "ym": "2026-09",
+    "name": "聯電",
+    "rev": 25350431.0,
+    "yoy": 27.22,
+    "mom": 1.22,
+    "ytd_yoy": 16.08
+   },
+   "2301": {
+    "ym": "2026-09",
+    "name": "光寶科",
+    "rev": 18848445.0,
+    "yoy": 22.15,
+    "mom": -3.8,
+    "ytd_yoy": 26.15
+   },
+   "2606": {
+    "ym": "2026-09",
+    "name": "裕民",
+    "rev": 1798591.0,
+    "yoy": 25.68,
+    "mom": 3.83,
+    "ytd_yoy": 25.18
+   },
+   "3576": {
+    "ym": "2026-09",
+    "name": "聯合再生",
+    "rev": 260402.0,
+    "yoy": -8.34,
+    "mom": 6.39,
+    "ytd_yoy": -13.85
+   },
+   "6669": {
+    "ym": "2026-09",
+    "name": "緯穎",
+    "rev": 172620352.0,
+    "yoy": 99.99,
+    "mom": 19.62,
+    "ytd_yoy": 50.3
+   },
+   "3017": {
+    "ym": "2026-09",
+    "name": "奇鋐",
+    "rev": 21018128.0,
+    "yoy": 44.92,
+    "mom": 7.89,
+    "ytd_yoy": 71.17
+   },
+   "3037": {
+    "ym": "2026-09",
+    "name": "欣興",
+    "rev": 18650679.0,
+    "yoy": 64.67,
+    "mom": 5.1,
+    "ytd_yoy": 37.74
+   },
+   "2377": {
+    "ym": "2026-09",
+    "name": "微星",
+    "rev": 19910016.0,
+    "yoy": 1.83,
+    "mom": 12.53,
+    "ytd_yoy": -5.49
+   },
+   "6442": {
+    "ym": "2026-09",
+    "name": "光聖",
+    "rev": 2061154.0,
+    "yoy": 97.26,
+    "mom": 26.59,
+    "ytd_yoy": 50.19
+   },
+   "6472": {
+    "ym": "2026-09",
+    "name": "保瑞",
+    "rev": 2325228.0,
+    "yoy": 35.13,
+    "mom": 6.44,
+    "ytd_yoy": 9.44
+   },
+   "3189": {
+    "ym": "2026-09",
+    "name": "景碩",
+    "rev": 5181276.0,
+    "yoy": 44.47,
+    "mom": 7.73,
+    "ytd_yoy": 33.64
+   },
+   "3532": {
+    "ym": "2026-09",
+    "name": "台勝科",
+    "rev": 1349479.0,
+    "yoy": 28.97,
+    "mom": 1.32,
+    "ytd_yoy": 20.27
+   },
+   "6116": {
+    "ym": "2026-09",
+    "name": "彩晶",
+    "rev": 756359.0,
+    "yoy": -24.22,
+    "mom": -19.03,
+    "ytd_yoy": -0.19
+   },
+   "2382": {
+    "ym": "2026-09",
+    "name": "廣達",
+    "rev": 325299509.0,
+    "yoy": 76.69,
+    "mom": -23.27,
+    "ytd_yoy": 99.41
+   },
+   "1536": {
+    "ym": "2026-09",
+    "name": "和大",
+    "rev": 334558.0,
+    "yoy": -13.8,
+    "mom": -27.28,
+    "ytd_yoy": 0.85
+   },
+   "2002": {
+    "ym": "2026-09",
+    "name": "中鋼",
+    "rev": 31001054.0,
+    "yoy": 27.13,
+    "mom": 10.92,
+    "ytd_yoy": 6.16
+   },
+   "6505": {
+    "ym": "2026-09",
+    "name": "台塑化",
+    "rev": 86928034.0,
+    "yoy": 65.59,
+    "mom": 6.13,
+    "ytd_yoy": 22.03
    }
   },
   "revenue_history": {
@@ -12383,7 +12612,7 @@
    ]
   },
   "backtest": {
-   "days_logged": 2,
+   "days_logged": 3,
    "since": "2026-11-06",
    "horizons": {
     "1 週": {
@@ -12423,7 +12652,88 @@
      }
     }
    },
-   "changes": []
+   "changes": [
+    {
+     "date": "2026-11-10",
+     "id": "biotech",
+     "name": "生技醫療",
+     "from": "轉強",
+     "to": "持平",
+     "excess_since": null
+    },
+    {
+     "date": "2026-11-10",
+     "id": "automation",
+     "name": "機器人與自動化",
+     "from": "轉強",
+     "to": "持平",
+     "excess_since": null
+    },
+    {
+     "date": "2026-11-10",
+     "id": "textile",
+     "name": "紡織與製鞋",
+     "from": "轉強",
+     "to": "持平",
+     "excess_since": null
+    },
+    {
+     "date": "2026-11-10",
+     "id": "cement",
+     "name": "水泥與營建",
+     "from": "轉強",
+     "to": "持平",
+     "excess_since": null
+    },
+    {
+     "date": "2026-11-10",
+     "id": "copper",
+     "name": "電線電纜（銅）",
+     "from": "轉強",
+     "to": "持平",
+     "excess_since": null
+    },
+    {
+     "date": "2026-11-10",
+     "id": "grid",
+     "name": "重電與電網",
+     "from": "轉強",
+     "to": "持平",
+     "excess_since": null
+    },
+    {
+     "date": "2026-11-10",
+     "id": "panel",
+     "name": "面板",
+     "from": "轉弱",
+     "to": "持平",
+     "excess_since": null
+    },
+    {
+     "date": "2026-11-10",
+     "id": "power",
+     "name": "電源",
+     "from": "持平",
+     "to": "轉強",
+     "excess_since": null
+    },
+    {
+     "date": "2026-11-10",
+     "id": "wafer",
+     "name": "矽晶圓",
+     "from": "轉弱",
+     "to": "持平",
+     "excess_since": null
+    },
+    {
+     "date": "2026-11-10",
+     "id": "ic_design",
+     "name": "IC 設計",
+     "from": "轉強",
+     "to": "持平",
+     "excess_since": null
+    }
+   ]
   }
  },
  "calendar": {
