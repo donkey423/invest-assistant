@@ -39,6 +39,8 @@ cd site && python -m http.server 8000   # 打開 http://localhost:8000
 - 鏈與代表股：`briefing/config.py` 的 `CHAINS`；月營收提醒額外追蹤的台股：`REVENUE_WATCH`
 - 上游訊號：原油、銅、鋼價、穀物、美債殖利率由 Yahoo 自動抓（`CHAINS` 的 `market`）；報價、運價、出口、資本支出等手動填在 `site/data/chain_inputs.json`（附來源與日期，沒資料的標「待更新」）
 - 月營收提醒（預設推由負轉正、由正轉負、創新高；加速／放緩只在網頁顯示）：`alerts/rules.json` 的 `revenue`，跟著警報排程推 LINE／Email
+- 手動上游訊號由雲端排程每月 1 日、16 日用你的 Claude 帳號上網查詢更新，規則見 [docs/upstream-routine.md](docs/upstream-routine.md)；格式檢查：`python -m briefing.inputs_file check site/data`
+- 燈號旁的「依據 1/2 項資料」表示這條鏈有幾項訊號有資料；只靠月營收一項時，燈號參考性較低
 - 訊號回測：每個交易日把燈號與代表股價格記在 `site/data/signal_log.json`，網頁顯示燈號亮起後 1 週、1 個月、3 個月的平均超額報酬與命中率（`briefing/backtest.py`）
 - AI 早報的「主題推理」由雲端排程寫在 `ai_summary.json` 的 `themes`，規則見 [docs/ai-routine.md](docs/ai-routine.md)
 
@@ -50,6 +52,14 @@ cd site && python -m http.server 8000   # 打開 http://localhost:8000
 ## 不用 API key：用你的 Claude 帳號寫 AI 摘要
 
 每個交易日 07:47（台灣時間）有一個雲端排程用你的 Claude 帳號讀當天資料，寫出 `site/data/ai_summary.json` 推回這個 repo，接著 GitHub Actions 自動重新產生早報並寄 Email。工作步驟寫在 [docs/ai-routine.md](docs/ai-routine.md)。這份摘要會用到當天傍晚，22:00 那次回到免費模式。有設 `ANTHROPIC_API_KEY` 的話，以 API 為準。
+
+## 資料日期的保護
+
+- Yahoo 批次下載偶爾會漏掉亞洲市場最新一天：落後的代號會單獨重抓；台股加權指數以證交所官方收盤（FMTQIK）為準。
+- 新資料不可以比上一份舊：某個項目這次的資料日比上次早，就沿用上次的數字。
+- 資料日落後 2 個平日以上的卡片會標「停在 M/D」。
+- 訊號回測紀錄壞掉時，可以從存檔重建：`python tools/rebuild_signal_log.py`。
+- `site/data/archive/`：最近 3 天每次執行都留，更早的每天留一份，超過 90 天刪除。
 
 ## 原則
 

@@ -8,6 +8,7 @@ def _no_twse_network(monkeypatch):
         raise OSError("測試中不連網")
     monkeypatch.setattr("briefing.chips._get_json", offline)
     monkeypatch.setattr("briefing.calendar._get_json", offline)
+    monkeypatch.setattr("briefing.market.twse_taiex", lambda: None)
     monkeypatch.setattr("briefing.calendar._earnings_dates", lambda symbols: {})
 
 

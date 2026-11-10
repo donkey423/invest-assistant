@@ -40,7 +40,7 @@
         <div class="range-labels"><span id="range-lo"></span><span id="range-text"></span><span id="range-hi"></span></div></div>
     </section>
 
-    <section class="card gauge-card">
+    <section class="card gauge-card" data-fold="gauge-card">
       <div class="card-head"><h2>市場溫度計</h2><span class="muted">台股籌碼與全球風險指標</span></div>
       <div class="gauge-wrap">
         <div class="chips-panel">
@@ -55,28 +55,30 @@
       </div>
     </section>
 
-    <section class="card cal-card">
+    <section class="card cal-card" data-fold="cal-card">
       <div class="card-head"><h2>未來一週行事曆</h2><span id="cal-range" class="muted"></span></div>
       <div id="cal" class="cal"></div>
     </section>
 
-    <section class="card global-card">
+    <section class="card global-card" data-fold="global-card">
       <div class="card-head"><h2>全球主要股市</h2><span class="muted">近 60 個交易日</span></div>
+      <span id="global-sum" class="card-sum"></span>
       <div id="global" class="minis"></div>
     </section>
 
-    <section class="card ai-card">
+    <section class="card ai-card" data-fold="ai-card">
       <div class="card-head"><h2>美國 AI 股</h2><span id="ai-bench" class="muted"></span></div>
+      <span id="ai-sum" class="card-sum"></span>
       <div id="ai" class="stocks"></div>
     </section>
 
-    <section class="card news-card">
+    <section class="card news-card" data-fold="news-card">
       <div class="card-head"><h2>財經重點</h2><span class="muted">AI 整理，點標題看原文</span></div>
       <p id="comment" class="comment"></p>
       <ul id="points" class="points"></ul>
     </section>
 
-    <section class="card theme-card" id="theme-card" hidden>
+    <section class="card theme-card" id="theme-card" data-fold="theme-card" hidden>
       <div class="card-head"><h2>主題推理</h2><span class="muted">AI 推理，不是買賣建議</span></div>
       <ul id="themes" class="themes"></ul>
     </section>

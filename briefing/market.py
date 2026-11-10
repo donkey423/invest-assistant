@@ -45,9 +45,42 @@ def compute_quote(dates: list[str], closes: list[float], spark_days: int) -> dic
     }
 
 
+def _single_history(sym: str, period: str) -> tuple[list[str], list[float]] | None:
+    """單獨抓一檔。批次下載偶爾會漏掉亞洲市場最新一天，用這個補。"""
+    import yfinance as yf
+
+    s = yf.Ticker(sym).history(period=period, interval="1d", auto_adjust=False)["Close"].dropna()
+    if len(s) < 1:
+        return None
+    return [d.strftime("%Y-%m-%d") for d in s.index], [float(v) for v in s.values]
+
+
+def merge_series(base: tuple[list[str], list[float]] | None,
+                 extra: tuple[list[str], list[float]] | None) -> tuple[list[str], list[float]] | None:
+    """把 extra 裡比 base 新的日期接到後面（同一天以 extra 為準）。"""
+    if not extra:
+        return base
+    if not base:
+        return extra
+    d, c = list(base[0]), list(base[1])
+    for day, close in zip(*extra):
+        if day > d[-1]:
+            d.append(day)
+            c.append(close)
+        elif day == d[-1]:
+            c[-1] = close
+    return d, c
+
+
 def _history(symbols: Iterable[str]) -> dict[str, tuple[list[str], list[float]]]:
-    """用 yfinance 一次抓所有代號約 13 個月的日線。失敗的代號會被略過。"""
+    """用 yfinance 一次抓所有代號約 13 個月的日線。失敗的代號會被略過。
+
+    批次下載把不同時區的市場對齊到同一張表時，亞洲市場最新一天常被漏掉
+    （2026-11-10 早上台股、日股、韓股都停在 11/6）。所以比最新日期舊、或批次抓不到的代號，
+    再單獨抓一次補上。
+    """
     import yfinance as yf  # 延後匯入，測試時不需要
+    from concurrent.futures import ThreadPoolExecutor
 
     symbols = list(dict.fromkeys(symbols))
     df = yf.download(
@@ -61,27 +94,127 @@ def _history(symbols: Iterable[str]) -> dict[str, tuple[list[str], list[float]]]
             if len(s) < 2:
                 raise ValueError("no data")
             out[sym] = ([d.strftime("%Y-%m-%d") for d in s.index], [float(v) for v in s.values])
-        except Exception as e:  # noqa: BLE001 單一代號失敗不影響整體
-            log.warning("抓不到 %s 的行情：%s", sym, e)
+        except Exception:  # noqa: BLE001 單一代號失敗不影響整體，下面會單獨重抓
+            pass
+
+    newest = max((v[0][-1] for v in out.values()), default="")
+    retry = [s for s in symbols if s not in out or out[s][0][-1] < newest]
+
+    def fetch(sym):
+        try:
+            return sym, _single_history(sym, "1mo" if sym in out else "13mo")
+        except Exception as e:  # noqa: BLE001
+            log.warning("單獨重抓 %s 失敗：%s", sym, e)
+            return sym, None
+
+    if retry:
+        with ThreadPoolExecutor(max_workers=8) as pool:
+            for sym, extra in pool.map(fetch, retry):
+                merged = merge_series(out.get(sym), extra)
+                if merged and len(merged[1]) >= 2:
+                    out[sym] = merged
+        log.info("批次下載落後或缺漏 %d 檔，已單獨重抓", len(retry))
+    for sym in symbols:
+        if sym not in out:
+            log.warning("抓不到 %s 的行情", sym)
     return out
 
 
-def build_market(cfg, history_fn=_history) -> dict:
-    """回傳早報的行情區塊。history_fn 可替換成測試用的假資料。"""
+TWSE_TAIEX_URL = "https://www.twse.com.tw/rwd/zh/afterTrading/FMTQIK?date={d}&response=json"
+
+
+def parse_fmtqik(data: dict) -> tuple[list[str], list[float]]:
+    """證交所每日市場成交資訊：日期（民國）…發行量加權股價指數。"""
+    if not isinstance(data, dict) or data.get("stat") != "OK":
+        return [], []
+    fields = data.get("fields") or []
+    idx = next((i for i, f in enumerate(fields) if "加權股價指數" in f), 4)
+    dates, closes = [], []
+    for row in data.get("data") or []:
+        try:
+            y, m, d = str(row[0]).strip().split("/")
+            dates.append(f"{int(y) + 1911:04d}-{int(m):02d}-{int(d):02d}")
+            closes.append(float(str(row[idx]).replace(",", "")))
+        except (ValueError, IndexError):
+            continue
+    return dates, closes
+
+
+def twse_taiex() -> tuple[list[str], list[float]] | None:
+    """證交所官方的加權指數收盤（這個月與上個月），Yahoo 落後時用來補。"""
+    import json
+    import urllib.request
+    from datetime import datetime, timedelta, timezone
+
+    today = datetime.now(timezone(timedelta(hours=8))).date()
+    first = today.replace(day=1)
+    out: tuple[list[str], list[float]] = ([], [])
+    for day in (first - timedelta(days=1), today):
+        req = urllib.request.Request(TWSE_TAIEX_URL.format(d=day.strftime("%Y%m%d")),
+                                     headers={"User-Agent": "Mozilla/5.0 invest-assistant"})
+        try:
+            with urllib.request.urlopen(req, timeout=15) as r:  # noqa: S310 固定的證交所網址
+                d, c = parse_fmtqik(json.loads(r.read().decode("utf-8")))
+        except Exception as e:  # noqa: BLE001
+            log.warning("證交所加權指數抓取失敗：%s", e)
+            continue
+        out = (out[0] + d, out[1] + c)
+    return out if out[0] else None
+
+
+def weekdays_behind(as_of: str | None, today: str) -> int:
+    """資料日到今天之間隔了幾個平日（不含資料日當天）。"""
+    from datetime import date, timedelta
+
+    if not as_of:
+        return 99
+    a, t = date.fromisoformat(as_of), date.fromisoformat(today)
+    n, d = 0, a + timedelta(days=1)
+    while d <= t:
+        n += d.weekday() < 5
+        d += timedelta(days=1)
+    return n
+
+
+def mark_stale(q: dict, today: str) -> dict:
+    """資料日落後 2 個平日以上（例如週二早上還是上週五的資料）就標記，網頁會提醒。"""
+    if "as_of" in q and weekdays_behind(q["as_of"], today) >= 2:
+        q["stale"] = True
+    return q
+
+
+def build_market(cfg, history_fn=_history, taiex_fn=None, today: str | None = None) -> dict:
+    """回傳早報的行情區塊。history_fn、taiex_fn 可替換成測試用的假資料。"""
+    from datetime import datetime, timedelta, timezone
+
+    today = today or datetime.now(timezone(timedelta(hours=8))).strftime("%Y-%m-%d")
     gauges_cfg = getattr(cfg, "GAUGES", [])
     items = [cfg.TAIEX, *cfg.GLOBAL_INDICES, *cfg.AI_STOCKS, cfg.AI_BENCHMARK, *gauges_cfg]
     hist = history_fn(i["symbol"] for i in items)
+
+    # 台股加權指數以證交所官方收盤為準：Yahoo 少了最新幾天就補上
+    tsym = cfg.TAIEX["symbol"]
+    try:
+        official = (taiex_fn or twse_taiex)()
+    except Exception as e:  # noqa: BLE001
+        log.warning("證交所加權指數失敗：%s", e)
+        official = None
+    if official:
+        hist[tsym] = merge_series(hist.get(tsym), official)
 
     def quote(item: dict, spark_days: int = cfg.SPARKLINE_DAYS) -> dict:
         sym = item["symbol"]
         if sym not in hist:
             return {**item, "error": "抓不到資料"}
         dates, closes = hist[sym]
-        return {**item, **compute_quote(dates, closes, spark_days)}
+        try:
+            return mark_stale({**item, **compute_quote(dates, closes, spark_days)}, today)
+        except ValueError:
+            return {**item, "error": "抓不到資料"}
 
     taiex = quote(cfg.TAIEX, cfg.TAIEX_CHART_DAYS)
     if "error" not in taiex:
-        dates, _ = hist[cfg.TAIEX["symbol"]]
+        dates, _ = hist[tsym]
         taiex["spark_dates"] = dates[-cfg.TAIEX_CHART_DAYS:]
 
     return {
@@ -91,3 +224,34 @@ def build_market(cfg, history_fn=_history) -> dict:
         "ai_benchmark": quote(cfg.AI_BENCHMARK),
         "gauges": [{**q, "note": gauge_note(q)} for q in map(quote, gauges_cfg)],
     }
+
+
+def keep_newer(market: dict, prev: dict | None, today: str | None = None) -> dict:
+    """新資料不可以比上一份舊：某個代號這次的資料日比上次早，就沿用上次的數字。
+
+    Yahoo 偶爾會回傳少了最新一天的資料（2026-11-10 早上台股從 11/9 退回 11/6），
+    這是最後一道保護。
+    """
+    if not prev:
+        return market
+    from datetime import datetime, timedelta, timezone
+
+    today = today or datetime.now(timezone(timedelta(hours=8))).strftime("%Y-%m-%d")
+
+    def pick(new: dict, old: dict | None) -> dict:
+        if not old or old.get("symbol") != new.get("symbol") or "as_of" not in old:
+            return new
+        if "error" in new or new.get("as_of", "") < old["as_of"]:
+            log.warning("%s 這次的資料比上一份舊，沿用上一份（%s）", new.get("symbol"), old["as_of"])
+            kept = {k: v for k, v in old.items() if k != "stale"}
+            return mark_stale({**kept, "kept_previous": True}, today)
+        return new
+
+    out = dict(market)
+    for key in ("taiex", "ai_benchmark"):
+        if isinstance(market.get(key), dict):
+            out[key] = pick(market[key], prev.get(key))
+    for key in ("global", "ai_stocks", "gauges"):
+        old = {q.get("symbol"): q for q in prev.get(key) or []}
+        out[key] = [pick(q, old.get(q.get("symbol"))) for q in market.get(key) or []]
+    return out

@@ -183,6 +183,9 @@ def build_chips(cfg, previous: dict | None = None, today: date | None = None) ->
         fut_hist.append({"date": fut["date"], "foreign_oi": fut["foreign_oi"]})
     fut_hist = sorted(fut_hist, key=lambda h: h["date"])[-cfg.CHIPS_HISTORY_DAYS:]
     fut = fut or previous.get("futures")
+    # 期交所偶爾回傳較舊的一天：以自己記下的最新一筆為準，不倒退
+    if fut and fut_hist and fut_hist[-1]["date"] > fut["date"]:
+        fut = {"date": fut_hist[-1]["date"], "foreign_oi": fut_hist[-1]["foreign_oi"]}
     if fut and len(fut_hist) >= 2 and fut_hist[-1]["date"] == fut["date"]:
         fut = {**fut, "change": fut_hist[-1]["foreign_oi"] - fut_hist[-2]["foreign_oi"]}
 

@@ -245,3 +245,30 @@ h3, .bt-sub, .chain h3, #tab-assets h3 { color: var(--ink-2); }
   .futures { grid-template-columns: 1fr; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+/* 資料落後標籤：資料來源還沒更新到最新交易日 */
+.stale-tag { display: inline-block; padding: 0 6px; border-radius: 999px; font-size: 11px; font-weight: 600;
+  line-height: 18px; color: #8a4b00; background: #ffe7c2; white-space: nowrap; vertical-align: 1px; }
+@media (prefers-color-scheme: dark) { .stale-tag { color: #ffd591; background: #4a3413; } }
+.gauge.big-move { box-shadow: inset 3px 0 0 var(--ink-2); }
+
+/* 可收合的卡片：點標題收起或展開 */
+.brief-grid .card[data-fold] > .card-head { cursor: pointer; user-select: none; }
+.brief-grid .card[data-fold] > .card-head h2::after { content: "▾"; margin-left: 6px; color: var(--muted); font-size: .8em; }
+.brief-grid .card.folded > .card-head h2::after { content: "▸"; }
+.brief-grid .card.folded > .card-head { margin-bottom: 0; }
+.brief-grid .card.folded > :not(.card-head):not(.card-sum) { display: none !important; }
+.card-sum { display: none; font-size: var(--fs-sm, 13px); color: var(--ink-2); margin-top: 4px; }
+.brief-grid .card.folded > .card-sum { display: block; }
+
+/* 手機：最有價值的 AI 重點與主題推理排在指數後面，行情細節往後放 */
+@media (max-width: 759px) {
+  .brief-grid .taiex { order: 1; } .brief-grid .news-card { order: 2; } .brief-grid .theme-card { order: 3; }
+  .brief-grid .gauge-card { order: 4; } .brief-grid .cal-card { order: 5; }
+  .brief-grid .global-card { order: 6; } .brief-grid .ai-card { order: 7; }
+}
+
+.basis { display: inline-block; margin-left: 4px; padding: 0 6px; border-radius: 999px; font-size: 11px; line-height: 18px;
+  color: var(--muted); background: var(--sunken); white-space: nowrap; }
+.basis.thin { color: #8a4b00; background: #ffe7c2; }
+@media (prefers-color-scheme: dark) { .basis.thin { color: #ffd591; background: #4a3413; } }

@@ -49,12 +49,17 @@
     el.title = "";
   }
 
+  // 資料日落後（例如週二早上還是上週五的數字）就在卡片上明講，不讓舊數字被當成今天的
+  const md = (d) => (d ? `${+d.slice(5, 7)}/${+d.slice(8, 10)}` : "");
+  const staleTag = (q) => (q && q.stale ? `<span class="stale-tag" title="資料來源還沒更新到最新交易日">停在 ${md(q.as_of)}</span>` : "");
+  const setSum = (id, html) => { const el = $(id); if (el) el.innerHTML = html; };
+
   function renderTaiex(t) {
     if (t.error) { $("taiex-last").textContent = "暫無資料"; return; }
-    $("taiex-date").textContent = `資料日 ${t.as_of}`;
+    $("taiex-date").innerHTML = `資料日 ${esc(t.as_of)} ${staleTag(t)}`;
     $("taiex-last").textContent = num(t.last);
     $("taiex-chg").innerHTML = `<span class="${cls(t.change_pct)}">${arrow(t.change_pct)} ${pct(t.change_pct)}</span>`;
-    $("taiex-periods").innerHTML = [["今天", t.change_pct], ["近五天", t.chg_5d], ["近一個月", t.chg_1m], ["近一年", t.chg_1y]]
+    $("taiex-periods").innerHTML = [[`${md(t.as_of)} 當日`, t.change_pct], ["近五天", t.chg_5d], ["近一個月", t.chg_1m], ["近一年", t.chg_1y]]
       .map(([k, v]) => `<div><span class="muted">${k}</span><b class="${cls(v)}">${pct(v)}</b></div>`).join("");
     $("taiex-chart").innerHTML = sparkline(t.spark, { w: 600, h: 150 });
     hoverChart($("taiex-chart"), t.spark, t.spark_dates, num);
@@ -67,10 +72,12 @@
   }
 
   function renderGlobal(list) {
+    setSum("global-sum", list.filter((q) => !q.error).slice(0, 4)
+      .map((q) => `${esc(q.name.replace(/^美國 |^日本 |^韓國 /, ""))} <span class="${cls(q.change_pct)}">${pct(q.change_pct)}</span>`).join("・"));
     $("global").innerHTML = list.map((q) => q.error
       ? `<div class="mini"><div class="row"><span class="name">${esc(q.name)}</span><span class="muted">無資料</span></div></div>`
       : `<div class="mini" title="${esc(q.name)} ${num(q.last)}（資料日 ${esc(q.as_of)}）">
-          <div class="name">${esc(q.name)}</div>
+          <div class="name">${esc(q.name)} ${staleTag(q)}</div>
           <div class="row"><span>${num(q.last)}</span><span class="${cls(q.change_pct)}">${arrow(q.change_pct)}${pct(q.change_pct)}</span></div>
           ${sparkline(q.spark, { w: 120, h: 36 })}
           <div class="row muted"><span>近五天 <span class="${cls(q.chg_5d)}">${pct(q.chg_5d)}</span></span><span>一年 <span class="${cls(q.chg_1y)}">${pct(q.chg_1y)}</span></span></div>
@@ -79,9 +86,13 @@
 
   function renderAI(list, bench) {
     if (bench && !bench.error) $("ai-bench").innerHTML = `${esc(bench.name)} 今天 <span class="${cls(bench.change_pct)}">${pct(bench.change_pct)}</span>`;
+    const ok = list.filter((q) => !q.error);
+    setSum("ai-sum", `${ok.filter((q) => q.change_pct > 0).length} 漲 ${ok.filter((q) => q.change_pct < 0).length} 跌` +
+      [...ok].sort((a, b) => Math.abs(b.change_pct) - Math.abs(a.change_pct)).slice(0, 2)
+        .map((q) => `・${esc(q.name)} <span class="${cls(q.change_pct)}">${pct(q.change_pct)}</span>`).join(""));
     $("ai").innerHTML = list.map((q) => q.error
       ? `<div class="stock"><span class="name">${esc(q.name)}</span><span class="muted">無資料</span></div>`
-      : `<div class="stock"><div><div class="name">${esc(q.name)}</div><div class="sub">${esc(q.symbol)} ${num(q.last)}</div><div class="sub">近五天 <span class="${cls(q.chg_5d)}">${pct(q.chg_5d)}</span></div></div>
+      : `<div class="stock"><div><div class="name">${esc(q.name)} ${staleTag(q)}</div><div class="sub">${esc(q.symbol)} ${num(q.last)}</div><div class="sub">近五天 <span class="${cls(q.chg_5d)}">${pct(q.chg_5d)}</span></div></div>
           <div class="pct ${cls(q.change_pct)}">${arrow(q.change_pct)}${pct(q.change_pct)}</div></div>`).join("");
   }
 
@@ -101,8 +112,9 @@
       const chg = q.kind === "yield"
         ? `<span class="${cls(q.change)}">${arrow(q.change)}${Math.abs(Math.round(q.change * 100))} 基點</span>`
         : `<span class="${cls(q.change_pct)}">${arrow(q.change_pct)}${pct(q.change_pct)}</span>`;
-      return `<div class="gauge" title="資料日 ${esc(q.as_of)}">
-        <div class="name">${esc(q.name)}</div>
+      const big = q.kind === "yield" ? Math.abs(q.change) >= 0.1 : Math.abs(q.change_pct) >= (q.symbol === "^VIX" ? 10 : 2);
+      return `<div class="gauge${big ? " big-move" : ""}" title="資料日 ${esc(q.as_of)}">
+        <div class="name">${esc(q.name)} ${staleTag(q)}</div>
         <div class="row"><b>${val}</b>${chg}</div>
         ${sparkline(q.spark.slice(-22), { w: 120, h: 28, fill: false })}
         <div class="note">${esc(q.note)}</div></div>`;
@@ -229,7 +241,8 @@
           <td class="${cls(s.chg_1m)}">${pct(s.chg_1m)}</td>
           <td><div class="pos"><span style="left:${Math.round((s.range_pos ?? 0.5) * 100)}%"></span></div></td>
           <td class="${cls(s.rev_yoy)}">${s.rev_yoy == null ? "—" : pp(s.rev_yoy)}</td></tr>`).join("");
-    return `<div class="why">${(c.why || []).map(esc).join("；")}</div>
+    const basis = c.basis ? `<span class="basis${c.basis.have < c.basis.total ? " thin" : ""}">燈號依據 ${c.basis.have}/${c.basis.total} 項資料${c.basis.have < c.basis.total ? "，其餘待更新" : ""}</span>` : "";
+    return `<div class="why">${(c.why || []).map(esc).join("；")} ${basis}</div>
       <div class="detail-grid">
         <div><h3>① 上游訊號</h3><ul class="upstream">${up}</ul></div>
         <div><h3>② 台股月營收${r.month ? `（${esc(r.month)}）` : ""}</h3>${r.count
@@ -257,7 +270,7 @@
         <div class="muted">資料累積中：再 ${need} 個交易日可以看到「1 週後」的結果，約 1 個月後看到「1 個月後」，3 個月後看到「3 個月後」。</div></div>`;
     } else {
       const cell = (x) => !x || !x.n ? `<td class="muted">—</td>`
-        : `<td><b class="${cls(x.avg_excess)}">${pp(x.avg_excess)}</b><div class="muted">${x.hit == null ? "" : `命中 ${x.hit}%｜`}${x.n} 次</div></td>`;
+        : `<td><b class="${cls(x.avg_excess)}">${pp(x.avg_excess)}</b><div class="muted">${x.hit == null ? "" : `命中 ${x.hit}%｜`}${x.n} 次${x.n < 20 ? "｜樣本少，僅供參考" : ""}</div></td>`;
       $("bt-table").innerHTML = `<table class="chain-table bt"><thead><tr><th>燈號亮起後</th>${hs.map(([k]) => `<th>${esc(k)}</th>`).join("")}</tr></thead><tbody>
         ${["轉強", "持平", "轉弱"].map((l) => `<tr><td><span class="light ${LIGHT[l]}">${l}</span></td>${hs.map(([, h]) => cell(h[l])).join("")}</tr>`).join("")}</tbody></table>`;
     }
@@ -426,6 +439,28 @@
     renderChains(b.signals);
     renderBacktest((b.signals || {}).backtest);
   }
+
+  // 卡片可以收合（點標題），記住每張卡片的狀態；手機預設先收起全球股市與美國 AI 股
+  const FOLD_DEFAULT = { "global-card": true, "ai-card": true };
+  const narrow = () => window.matchMedia("(max-width: 759px)").matches;
+  let folds = {};
+  try { folds = JSON.parse(localStorage.getItem("folds") || "{}"); } catch (e) { /* 無痕模式 */ }
+  document.querySelectorAll(".brief-grid .card[data-fold]").forEach((card) => {
+    const key = card.dataset.fold;
+    const head = card.querySelector(".card-head");
+    const apply = (on) => { card.classList.toggle("folded", on); head.setAttribute("aria-expanded", String(!on)); };
+    apply(key in folds ? folds[key] : narrow() && !!FOLD_DEFAULT[key]);
+    head.setAttribute("role", "button");
+    head.tabIndex = 0;
+    const toggle = () => {
+      const on = !card.classList.contains("folded");
+      apply(on);
+      folds[key] = on;
+      try { localStorage.setItem("folds", JSON.stringify(folds)); } catch (e) { /* 無痕模式 */ }
+    };
+    head.addEventListener("click", toggle);
+    head.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); } });
+  });
 
   // 分頁切換，記住上次看的頁籤
   function showTab(name) {

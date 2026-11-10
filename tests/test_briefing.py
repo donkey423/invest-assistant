@@ -111,3 +111,51 @@ def test_free_mode_without_api_key(monkeypatch):
     assert 0 < len(s["points"]) <= 6
     assert all(p["sources"][0]["url"] == next(n["url"] for n in news if n["title"] == p["title"]) for p in s["points"])
     assert len({p["sources"][0]["source"] for p in s["points"]}) > 1
+
+
+def test_merge_series_appends_only_newer_days():
+    from briefing.market import merge_series
+    base = (["2026-11-05", "2026-11-06"], [1.0, 2.0])
+    extra = (["2026-11-06", "2026-11-09"], [2.5, 3.0])
+    assert merge_series(base, extra) == (["2026-11-05", "2026-11-06", "2026-11-09"], [1.0, 2.5, 3.0])
+    assert merge_series(base, None) == base and merge_series(None, extra) == extra
+
+
+def test_taiex_uses_twse_close_when_yahoo_lags():
+    from briefing.market import parse_fmtqik
+    official = parse_fmtqik({"stat": "OK", "fields": ["日期", "成交股數", "成交金額", "成交筆數", "發行量加權股價指數", "漲跌點數"],
+                             "data": [["115/11/06", "1", "1", "1", "39,701.64", "-1873.08"],
+                                      ["115/11/09", "1", "1", "1", "41,661.70", "1960.06"]]})
+    assert official == (["2026-11-06", "2026-11-09"], [39701.64, 41661.7])
+
+    def hist(symbols):
+        return {s: (["2026-11-05", "2026-11-06"], [41574.72, 39701.64]) for s in symbols}
+
+    m = build_market(config, history_fn=hist, taiex_fn=lambda: official, today="2026-11-10")
+    assert m["taiex"]["as_of"] == "2026-11-09" and m["taiex"]["last"] == 41661.7
+    assert m["taiex"]["change_pct"] == 4.94 and "stale" not in m["taiex"]
+    assert m["global"][0]["stale"] is True          # 週二早上還停在上週五
+
+
+def test_keep_newer_never_goes_back_in_time():
+    from briefing.market import keep_newer
+    prev = {"taiex": {"symbol": "^TWII", "as_of": "2026-11-09", "last": 41661.7},
+            "global": [{"symbol": "^N225", "as_of": "2026-11-09", "last": 2.0}], "ai_stocks": [], "gauges": []}
+    new = {"taiex": {"symbol": "^TWII", "as_of": "2026-11-06", "last": 39701.64},
+           "global": [{"symbol": "^N225", "error": "抓不到資料"}],
+           "ai_stocks": [{"symbol": "NVDA", "as_of": "2026-11-09", "last": 1.0}], "gauges": []}
+    out = keep_newer(new, prev, today="2026-11-10")
+    assert out["taiex"]["last"] == 41661.7 and out["taiex"]["kept_previous"]
+    assert out["global"][0]["last"] == 2.0 and out["ai_stocks"][0]["last"] == 1.0
+
+
+def test_prune_archive_keeps_recent_runs_and_one_per_older_day(tmp_path):
+    from datetime import date
+    from briefing.__main__ import prune_archive
+    names = ["2026-07-01_0730.json", "2026-11-01_0730.json", "2026-11-01_1400.json",
+             "2026-11-09_0730.json", "2026-11-09_1400.json", "notes.json"]
+    for n in names:
+        (tmp_path / n).write_text("{}")
+    removed = prune_archive(tmp_path, date(2026, 11, 10))
+    assert sorted(removed) == ["2026-07-01_0730.json", "2026-11-01_0730.json"]
+    assert (tmp_path / "notes.json").exists() and (tmp_path / "2026-11-09_0730.json").exists()

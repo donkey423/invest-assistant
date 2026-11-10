@@ -19,15 +19,41 @@ HORIZONS = [(5, "1 週"), (20, "1 個月"), (60, "3 個月")]
 LIGHTS = ("轉強", "持平", "轉弱")
 
 
-def snapshot(signals: dict) -> dict:
+def _is_tw(sym: str) -> bool:
+    return sym.endswith((".TW", ".TWO")) or sym == "^TWII"
+
+
+def _usable(sym: str, as_of: str | None, date: str | None) -> bool:
+    """這個價格能不能記在 date 這一天。
+
+    台股要是當天的收盤；美股、韓股只收「台股收盤時已經確定」的前一個收盤（資料日早於 date），
+    避免晚上那次執行把美股盤中價記進去，也避免舊資料被記成新的一天。
+    沒有資料日（測試或舊格式）就照收。
+    """
+    if not as_of or not date:
+        return True
+    return as_of == date if _is_tw(sym) else as_of < date
+
+
+def snapshot(signals: dict, date: str | None = None) -> dict:
     """把這次的燈號與價格縮成一筆紀錄。"""
     chains = {}
     for c in signals.get("chains") or []:
-        prices = {s["symbol"]: s["last"] for s in c.get("stocks") or [] if s.get("last") is not None}
+        prices = {s["symbol"]: s["last"] for s in c.get("stocks") or []
+                  if s.get("last") is not None and _usable(s["symbol"], s.get("as_of"), date)}
         p = c.get("price") or {}
+        bench = p.get("bench")
+        ok = bench and _usable(bench, p.get("bench_as_of"), date)
         chains[c["id"]] = {"light": c["light"], "prices": prices,
-                           "bench": p.get("bench"), "bench_last": p.get("bench_last")}
+                           "bench": bench, "bench_last": p.get("bench_last") if ok else None}
     return chains
+
+
+def trade_date(signals: dict) -> str | None:
+    """紀錄日期＝台股代表股最新的資料日（不靠指數，指數資料偶爾會落後）。"""
+    days = [s["as_of"] for c in signals.get("chains") or [] for s in c.get("stocks") or []
+            if s.get("as_of") and _is_tw(s["symbol"])]
+    return max(days) if days else None
 
 
 def load_log(data_dir: Path) -> list[dict]:
@@ -39,9 +65,17 @@ def load_log(data_dir: Path) -> list[dict]:
 
 
 def update_log(entries: list[dict], date: str, signals: dict) -> list[dict]:
-    snap = snapshot(signals)
+    """同一天多次執行：燈號以最後一次為準，價格逐檔更新（這次沒有可用價格的保留先前記下的）。"""
+    snap = snapshot(signals, date)
     if not snap:
         return entries
+    old = next((e for e in entries if e.get("date") == date), None)
+    if old:
+        for cid, c in snap.items():
+            before = old["chains"].get(cid) or {}
+            c["prices"] = {**before.get("prices", {}), **c["prices"]}
+            if c["bench_last"] is None and before.get("bench") == c["bench"]:
+                c["bench_last"] = before.get("bench_last")
     out = [e for e in entries if e.get("date") != date]
     out.append({"date": date, "chains": snap})
     out.sort(key=lambda e: e["date"])
