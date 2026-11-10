@@ -142,3 +142,15 @@ def test_exposure_rules():
     assert methods.exposure({"light": "紅燈", "above_ma60": True, "vix": 18})[0] == 1.0
     lvl, note = methods.exposure({"light": "綠燈", "above_ma60": False, "vix": 30})
     assert lvl == pytest.approx(0.4) and "跌破季線" in note
+
+
+def test_lagging_index_does_not_delay_decision(tmp_path):
+    setup_dir(tmp_path)
+    now = datetime.fromisoformat("2026-11-09").replace(hour=18, tzinfo=TW)
+
+    def lagging(syms):
+        px = fake_px(syms, "2026-11-09")
+        px["^TWII"] = {k: v[:-1] for k, v in px["^TWII"].items()}  # 指數少最後一天
+        return px
+    r = pm.main(["--out", str(tmp_path)], history_fn=lagging, get_json=fake_get, now=now)
+    assert r["last_decision"] == "2026-11-09"

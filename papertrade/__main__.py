@@ -88,7 +88,11 @@ def main(argv=None, history_fn=data.history, get_json=data.get_json, now=None) -
     taiex = px_all.get("^TWII")
     if not taiex:
         raise RuntimeError("抓不到台股加權指數，今天不處理")
-    dates = list(taiex["dates"])
+    # Yahoo 的加權指數偶爾晚一兩天才有新 K 棒，交易日以指數、0050、台積電三者聯集為準
+    cal = set(taiex["dates"])
+    for k in ("0050.TW", "2330.TW"):
+        cal |= set((px_all.get(k) or {}).get("dates") or [])
+    dates = sorted(cal)
     today = now.date().isoformat()
     if dates and dates[-1] == today and now.hour < 14:  # 盤中的 K 棒還沒收盤
         dates = dates[:-1]
