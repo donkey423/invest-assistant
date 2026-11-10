@@ -168,6 +168,31 @@
     $("pt-warn").innerHTML = (d.warnings || []).map((w) => `<div>${esc(w)}</div>`).join("");
   }
 
+  // 歷史回測
+  let BT = null, BTI = 0;
+  function renderBT() {
+    const w = BT.windows[BTI];
+    $("pt-bt").hidden = false;
+    $("pt-bt-meta").textContent = `${md(w.start)}–${md(w.end)}，${w.days} 個交易日 · 計算於 ${md(BT.generated_at.slice(0, 10))}`;
+    $("pt-bt-tabs").innerHTML = BT.windows.map((x, i) => `<button class="chip${i === BTI ? " selected" : ""}" data-i="${i}">${esc(x.label)}</button>`).join("");
+    document.querySelectorAll("#pt-bt-tabs [data-i]").forEach((b) => b.addEventListener("click", () => { BTI = +b.dataset.i; renderBT(); }));
+    const bret = (s) => { const e = (w.benchmarks[s] || {}).equity || []; return e.length ? (e.at(-1).equity / 1e6 - 1) * 100 : null; };
+    const rows = [...w.methods].sort((a, b) => a.rank - b.rank).map((m) => {
+      const h = m.picks_hit || {};
+      return `<tr class="${m.id === "claude" ? "sel" : ""}"><td><b>${m.rank}</b> ${esc(m.name)}</td><td class="${cls(m.return_pct)}">${pct(m.return_pct)}</td><td class="${cls(m.excess_pct)}">${pct(m.excess_pct)}</td><td>${pct(m.mdd_pct)}</td><td>${h.n ? `${h.hit_rate}%` : "—"}</td><td>${m.trades}</td></tr>`;
+    }).join("");
+    $("pt-bt-table").innerHTML = `<div class="pt-kpis"><div><span class="muted">台股加權指數</span><b class="${cls(bret("^TWII"))}">${pct(bret("^TWII"))}</b></div><div><span class="muted">0050</span><b class="${cls(bret("0050.TW"))}">${pct(bret("0050.TW"))}</b></div></div>
+      <div class="pt-scroll"><table class="chain-table pt-table"><thead><tr><th>方法</th><th>報酬</th><th>比大盤</th><th>最大回落</th><th>5 日命中率</th><th>交易數</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+    const keep = DATA;
+    DATA = { start_cash: 1e6 };
+    $("pt-bt-chart").innerHTML = chart(w.methods, w.benchmarks, "claude");
+    DATA = keep;
+    $("pt-bt-notes").innerHTML = (BT.notes || []).map((n) => `<li>${esc(n)}</li>`).join("") +
+      `<li>資料涵蓋：月營收 ${BT.coverage.revenue}/${BT.coverage.stocks} 檔、本益比 ${BT.coverage.value}/${BT.coverage.stocks} 檔、法人資料 ${BT.coverage.chip_days} 天。</li>`;
+    $("pt-bt-trades").innerHTML = tradeRows(w.claude_trades.slice(0, 15), false);
+  }
+  fetch(`data/backtest.json?t=${Date.now()}`).then((r) => (r.ok ? r.json() : null)).then((b) => { if (b && b.windows && b.windows.length) { BT = b; BTI = b.windows.length - 1; renderBT(); } }).catch(() => {});
+
   fetch(`data/papertrade.json?t=${Date.now()}`)
     .then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); })
     .then(render)
