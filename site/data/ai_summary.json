@@ -1,191 +1,155 @@
 {
-  "written_at": "2026-11-10T07:50+08:00",
-  "headline": "油價跌、美股強彈費半漲 6.85%，輝達獨跌 4.27%；台股反彈但外資續賣 900 億，今晚看 CPI",
-  "market_comment": "（台股指數資料時間：11/6 收盤 39,701.64，-4.51%）新聞報導台股週一大漲近 2,000 點，但外資賣超 900.56 億、連 2 天賣超，台指期外資淨空單 10.18 萬口，新台幣貶值。美股 11/9 S&P 500 +2.35%、那斯達克 +2.74%，費城半導體 +6.85%、台積電 ADR +3.51%、AMD +13.26%，輝達 -4.27%；WTI 原油 -5.05% 至 86.24，VIX 降至 19.92，今晚 21:30 公布美國 CPI。",
-  "world_headline": "美伊霍爾木茲協議穩住油市、油價探 8 月來低；中國再停對美 24% 關稅兩個月，川習下週深圳會",
-  "ai_headline": "黃仁勳婚外情風波 FBI 介入、輝達董事會調查；Google 擴大第 8 代 TPU，AMD、ASIC 被看好分食",
+  "written_at": "2026-11-11T07:55+08:00",
+  "headline": "美國 CPI 超預期、10 年債殖利率 4.98%，輝達 -5.87%；台股 +2.52% 但外資連 9 賣",
+  "market_comment": "台股 11/10 收 42,711.92（+2.52%），連 2 日反彈逾千點，但外資賣超 341.16 億、連 9 賣，連 23 賣台積電。美股 11/10 因 10 月 CPI 高於預期而走弱，S&P 500 -0.46%、那斯達克 -0.88%、費城半導體 -0.78%，輝達 -5.87%；美國 10 年債殖利率升至 4.98%（+2.45%），新台幣貶至 32.99。",
+  "world_headline": "中國延長暫停 24% 對美關稅兩個月，美伊與俄烏仍在談判與對峙之間",
+  "ai_headline": "黃仁勳風波拖累輝達，台積電擬入股 Anthropic 與 OpenAI，Anthropic 啟動 IPO",
   "points": [
     {
-      "tag": "市場",
-      "title": "美股強彈、費半大漲 6.85%",
-      "summary": "油價下跌緩解通膨疑慮，上週暴跌的科技股反彈，S&P 500 +2.35%、那斯達克 +2.74%。",
+      "tag": "經濟數據",
+      "title": "美國 10 月 CPI 高於預期",
+      "summary": "殖利率全面跳升，Fed 官員稱 12 月不排除升息 2 碼，壓抑科技股估值",
       "sources": [
         {
-          "title": "美股收盤／油價下跌緩解通膨疑慮道瓊大漲1,104點、費半勁揚6.9% - 鉅亨網",
-          "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTFAtYUU4S1YzVVlFZGwzZlJ3dnNVRFJNNFVsTXJfcFBmY1g1RHZiUlFNWkNhU3VFckFyYjhDcWpWd1ZEaWRuZ3c4cHdLMDItc00?oc=5",
-          "source": "Google 新聞 美股"
+          "title": "美國10月CPI高於市場預期 聯準會升息壓力增",
+          "url": "https://www.cna.com.tw/news/aopl/202611100366.aspx",
+          "source": "中央社 財經"
         },
         {
-          "title": "科技股歷經暴跌後強彈 美股收盤齊揚",
-          "url": "https://www.cna.com.tw/news/afe/202611100009.aspx",
+          "title": "通膨高於預期 美債殖利率全面跳升、12月恐升息2碼",
+          "url": "https://www.cna.com.tw/news/afe/202611110004.aspx",
           "source": "中央社 財經"
         }
       ]
     },
     {
       "tag": "企業",
-      "title": "輝達逆勢跌、台積電 ADR 漲",
-      "summary": "黃仁勳調查案讓輝達成費半唯一下跌股，台積電 ADR +3.51%，資金轉向其他晶片股。",
+      "title": "黃仁勳風波，輝達重挫",
+      "summary": "董事會展開獨立調查，輝達 -5.87%，市值退居全球第三，AI 股情緒受壓",
       "sources": [
         {
-          "title": "美股主指全收紅、輝達逆勢重跌4.27％ 台積電ADR上漲3.51％ - 自由財經",
-          "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFBEUDh2dHF5aXU3ZkdnSndwcURmSjhhQkdRVzIwcldzSXJ1Vk5JY0RCS0x1S3FhWjh0UmhpanlRVWswOS11OWczaGItWWpScktpbEFzaS1oaTdiaV9XTUsw0gFkQVVfeXFMTklHel9aRDVqMnB6Q1JBX1dYekdDWVdHTWY0bEZqRUlLSjNwY0lKcWNRQlY5bGZTaUk5TWlJbWlBZEFHY054Ym12dTAtYTlaOFdDWGZIZWUtTTZ2ZE84b3RwUTd2Sw?oc=5",
-          "source": "Google 新聞 美股"
+          "title": "黃仁勳出軌拖累輝達重挫逾6% 市值急縮落後蘋果與微軟",
+          "url": "https://www.cna.com.tw/news/afe/202611110005.aspx",
+          "source": "中央社 財經"
+        }
+      ]
+    },
+    {
+      "tag": "市場",
+      "title": "台股反彈千點，外資續賣",
+      "summary": "國安基金護盤下指數站回 4 萬 2，但外資連 9 賣、累計逾 8,298 億，反彈基礎仍待確認",
+      "sources": [
+        {
+          "title": "外資連9賣台股續砍341億元 連23賣台積電",
+          "url": "https://www.cna.com.tw/news/afe/202611100353.aspx",
+          "source": "中央社 財經"
         },
         {
-          "title": "川普：黃仁勳稱不知道她是間諜！FBI介入調查 輝達董事會啟動獨立調查 - 鉅亨網",
-          "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE5kUFRlRkNRNFRKaU9IU0RqaFJPb0g4dW82MU15dURjV3FHSGFMX2hHUXB1OHpoOUcwVzNvdVZnV3BsZUJpcXp5SEtYQTBILWM?oc=5",
+          "title": "〈台股盤後〉台股連2日反彈超過千點 終場大漲1050點站回4萬2千點 - 鉅亨網",
+          "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE53UC1HbGpXangtMk5vWE5yUTRWYUZfS0xOQldFVFIzZ3pzZS1zTU45b2NSUm5kMG1DQ3hJTUNBNGYyODgtaDFCWGU1U2hkSGc?oc=5",
+          "source": "Google 新聞 台股"
+        }
+      ]
+    },
+    {
+      "tag": "企業",
+      "title": "台積電 10 月營收年增近六成",
+      "summary": "單月營收 5,869 億元，另擬投資 Anthropic、OpenAI，基本面與股價走勢分歧",
+      "sources": [
+        {
+          "title": "台積電10月營收飆5,869億元、年增近六成 全年營收挑戰5.6兆元 - UDN",
+          "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE9LVXpEYkEyczJMT0tqbC1FZGFpRU9FbXkxYjA2UHRESGUyV2F0NmQ2aXpyY3BpMm53MEhpTzVCVDF1Y3RRVkNsUGpWRzFxVjVl0gFWQVVfeXFMTVlIeWJwSHJLUjd4X0gtUkMzRXA3VXBlVjZVd1FKTV96b3NSV2pBUGpObVNtbHd1d2RqTEJLeGFUeGR3SGIxSjJNOHl6VUEtdXNDNFVoQWc?oc=5",
+          "source": "Google 新聞 財經"
+        },
+        {
+          "title": "台積電(2330)擬投資Anthropic與OpenAI最高10億美元從AI晶片供應跨入模型業者股東 - 鉅亨網",
+          "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE9BNkM1RW5VR2Rfc1E2QTZCTE5wZGpMcHNXVDlxc0ZBUDhFYnVDWTFIUFhsWW91QmhJSFJRXzJZQmhqak5lcXZ6dTRLc2NOMk0?oc=5",
           "source": "Google 新聞 AI 產業"
         }
       ]
     },
     {
       "tag": "地緣政治",
-      "title": "中東外交曙光，油價跌至 8 月來低",
-      "summary": "WTI -5.05% 至 86.24，通膨壓力減輕有利降息預期，塑化、航運成本面同步受影響。",
+      "title": "中美關稅休戰再延兩個月",
+      "summary": "中方暫停 24% 對美加徵關稅、保留 10%，出口鏈獲得緩衝時間",
       "sources": [
         {
-          "title": "中東戰局現外交曙光 國際油價跌至8月來新低",
-          "url": "https://www.cna.com.tw/news/afe/202611100008.aspx",
-          "source": "中央社 財經"
+          "title": "陸續暫停實施對美加徵24%關稅2個月，保留10%稅率 - MoneyDJ",
+          "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPX3VibDR4dVdXOHV6SnlZek1KalZJRFd6VVJlMWhUTExWUXlNOHE4c05rQ3BlMExsUVJHdmtTY0RJMWF1MjdBTUVwMzI2MXBYWWdfLUx2anplWTkwbFJUZEcybVZWYk9YLXZLZjNRbWNIQ1Q2bU9VSkhXbUtXeFZHYjdZWUE3Xzh5aDhZVkl0UUd2UQ?oc=5",
+          "source": "Google 新聞 地緣政治"
         },
         {
-          "title": "美伊霍爾木茲協議穩定全球油市 降低原油地緣政治風險 - 商傳媒",
-          "url": "https://news.google.com/rss/articles/CBMi-wJBVV95cUxObkFjYVhNWlczZG5nakU1TW9neXY1aEZsZHE4TWx0bzZaZksxeGJ4VDFNLW8zNmlURG9HNVFuOWtTWTM5OEFZMGZwbWRMc0JJQVNhZ0VsbEhDUWpTODFYSUxrTU5NZUt0X3NFa2dJRzZkX0kxNzVGbHYwODFpVlQtWm92U3hkZE9ZM2NxOUtWS3ZmX2dCbTctUFF6U0QtOEhZVWFFbjdQR1BCbzBOWGlaV3g3NWJ6OTE1WlFaRnZIc3NFMXJxVEhkdnlybDBfU0ZyVUFURFVjRkxEOGJCQ2Y1WjBGX0NZQVFXenY4RkQ4UWJoUlVyajE5RmZyU25PSEl4bzltWFlYRHVrWTBZR0ZNVmZiVTdTd0Qycm51Q2RiSUc1TnNSeWEycy1IQWlvVExNSUF0MFRYelBYMllWbUZrM1F4cGtvamwxcVhDNXFmMkpESVZlY0hPM2NEeG1aYmRFM3FWOXFpZGNrT1dJYVNBYnJUR2Y0OHZvaW1N?oc=5",
+          "title": "美中關稅休戰延2個月 學者：中方為 APEC 鋪紅地毯 - Rti 中央廣播電臺",
+          "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE1hdUxSZ1dCUk9MMFVSUnBEQlZZbXZwX0d0Y080UHNuN2J5NWYtdzJRVlF0Rlk2UW9QWjVJWU1RM3RFV3ZVWk16MVdNWWxEb1hoUk5vRlRNejk?oc=5",
           "source": "Google 新聞 地緣政治"
         }
       ]
     },
     {
-      "tag": "市場",
-      "title": "台股反彈，外資賣超 900 億",
-      "summary": "政府護盤、外資連 2 天大賣，期貨淨空單 10.18 萬口創新高，反彈籌碼面仍偏弱。",
+      "tag": "企業",
+      "title": "Anthropic 啟動美股 IPO",
+      "summary": "估值上看 1.4 兆美元、略低於部分預期，反映投資人對 AI 熱情降溫",
       "sources": [
         {
-          "title": "外資再砍900億！台股大漲近2000點 新台幣爆量重貶1.14角 - 自由財經",
-          "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE9OYk9Ea3EzZnhBa3Z6cGJCdWlBYUZGOEp4ejhSM0MyRWgyeW85WnlPS3RIbUhURF9QbU9JT1NpRmFmZThtcktnRDRwYjJ0TC1vQmJXSkJJSEItWDFyZDRz0gFkQVVfeXFMT2pFa3BoMGJRT0dIZldxUWE5MlNJTGFPZUo4RUVEY2t0LVhpVXpZTnVRRDV1dW1GRWJleGpmMW5LY3JVaHBISXA5a1FhenhjOEYtRl9xY0dQa1V1enhlak9rbFdoZQ?oc=5",
-          "source": "Google 新聞 台股"
-        },
-        {
-          "title": "外資10.1萬口空單創歷史新高 台指期夜盤41K保衛戰開打 - UDN",
-          "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE9vR3dmc19DVjlwd2htRmMxcnNYOVozOWFaQVJjenM3YmpyNmQxUjREcV9UVG05c3VaVmdMWnB4TktRdlJzRWFJX1U0N2NEVlJX0gFWQVVfeXFMT2N3LWEtckhYYkRnOUhTNG1FSmFDYmhXTjcwem1tMy0takZBeTV1MFdtU3lxWDNMa3BZVzh2UEpTczk3Zy1QQk1yTk43cm5HSHVPWjZZNlE?oc=5",
-          "source": "Google 新聞 財經"
-        },
-        {
-          "title": "政府護盤、外資倒貨 台股上演你丟我撿 - UDN",
-          "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE5GTHcwS1JycFREbi01U0ZDbzN1SkY4OF9Xb05icXpPcWNXZE9MakZZQ1ZvY09fcGE1a3RFTFFCWkktZmhFVl9zR0VHcUhQTWxJ0gFWQVVfeXFMT1BfclB6eWJKV21RWFl5RjktWkJEa2ZRb2dXRFV0RktIWGVfSHozQWUyNUtpeHYtZ1AtREthUmZtREYtdXRBaWtoSTZKcmRGdUJzMmM2NFE?oc=5",
-          "source": "Google 新聞 財經"
-        }
-      ]
-    },
-    {
-      "tag": "經濟數據",
-      "title": "台灣 10 月出口創單月新高",
-      "summary": "出口 967.6 億美元續創新高，基本面支撐仍在，與股價急跌形成落差。",
-      "sources": [
-        {
-          "title": "首破900億美元！10月出口飆967.6億美元 續創史上新高 - 自由財經",
-          "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFBSankwOHlyOTZsSlBDUndZbExyUkNiaklkU1hKbjZ4UURyX1ZPS3FwQXk3WVhBOU0wSXBpTnEyRy1GSDFfc2JpMGdZa1BWYWFGNkpOdURCUG0wcDJ4Ujhr0gFkQVVfeXFMUEpwaHJ2cnh1b0Yxb0FrQUUzdFd4TWMwM1EwZUdQN29oOThZaFhQWWlGZEhKajhBTjRieHh2UGlEQzVfMUIzdnJGVG05T29fSnlZTnlRcnpvMzlmc2EzMndFT19FMw?oc=5",
-          "source": "Google 新聞 財經"
-        },
-        {
-          "title": "〈台股盤前要聞〉10月進出口創單月新高連36紅、台達電及國巨10月營收同寫新猷 - 鉅亨網",
-          "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTFBXWXBtTlpNeFN3MVZveWsyMHBIRS1rY0xZajlKOGQ2VzRRQlB5QXVGbE1laU83NU9QZDBIME9PQUN3ZGFBdXYtamVWQlkzdU0?oc=5",
-          "source": "Google 新聞 台股"
-        }
-      ]
-    },
-    {
-      "tag": "市場",
-      "title": "急殺後爆違約交割，留意槓桿",
-      "summary": "景碩、富喬、聯亞合計逾 1.17 億元違約交割，融資餘額仍增 58.6 億，波動期槓桿風險高。",
-      "sources": [
-        {
-          "title": "台股急殺引發槓桿斷鏈！景碩、富喬、聯亞爆違約交割 總額逾1.17億元 - 鉅亨網",
-          "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE9ja2tMVW04OGlqQkNJV3Jpd0taeE5UN00zQXpjZ1kycXlHWnVwalNNM0hsQ2FZeldaSUVBT0t4UDdwWlhQQmJEYk1lSll4VW8?oc=5",
-          "source": "Google 新聞 台股"
+          "title": "Anthropic將在美IPO 估值上看1.4兆美元",
+          "url": "https://www.cna.com.tw/news/aopl/202611100361.aspx",
+          "source": "中央社 財經"
         }
       ]
     }
   ],
   "themes": [
     {
-      "title": "輝達風波，ASIC 與 AMD 受關注",
-      "chain": "IC 設計（ASIC）、AI 伺服器",
-      "reasoning": "輝達執行長遭調查 → 雲端大廠加速分散 GPU 依賴、Google 擴大 TPU → ASIC 設計服務與 AMD 可能分到訂單；台鏈組裝影響較小。",
+      "title": "台積電、日月光營收創高",
+      "chain": "晶圓代工、半導體設備與先進封裝",
+      "reasoning": "台積電 10 月營收年增近六成、日月光單月新高 → AI 晶片與先進封裝需求仍強 → 封測與設備（弘塑、萬潤）訂單可望延續，訊號燈為轉強",
       "watch": [
-        "世芯-KY 3661",
-        "創意 3443",
-        "AMD",
-        "博通 AVGO",
-        "廣達 2382"
+        "台積電 2330",
+        "日月光投控 3711",
+        "弘塑 3131",
+        "萬潤 6187"
       ],
-      "counter": "調查若很快落幕、台鏈訂單未變，輝達地位不受影響；ASIC 從設計到量產需時間。",
-      "priced_in": "IC 設計鏈近一月 -13.44%、多漲費半 6.75%，AMD 單日 +13.26%，可能已反映。",
+      "counter": "升息壓力與外資連續賣超可能持續壓抑評價，營收好不等於股價回升",
+      "priced_in": "未明顯反映：晶圓代工代表股近一個月平均 -24.81%、設備與先進封裝 -30.09%，落後費半 -18.62%",
       "sources": [
         {
-          "title": "經濟日報社論／從黃仁勳事件看AI晶片國安風險 - UDN",
-          "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE9LNGt2bTlkSWIwaVBZUTZRODlwZmNzX0NfM1NEc2VWckFyMkFjOWR2ZTRnSTlaNGJiZV9RX2R2OG41dXREM2VDN21mWDJCY3Ns0gFWQVVfeXFMT25LNW9ENE5ndGdBa1VQTldfcVV5T3lFLXFVem5jU0JvQnRrXzhLcWRUUXVTSlZya3VBOWhfT1YyY2Q3OWhVanp3TFBibmxrNEJpOTk5VGc?oc=5",
-          "source": "Google 新聞 AI 產業"
-        },
-        {
-          "title": "Google擴展第8代TPU陣容 迎AI代理算力爆發期",
-          "url": "https://www.cna.com.tw/news/afe/202611090282.aspx",
-          "source": "中央社 財經"
-        },
-        {
-          "title": "從駭客操縱超市冰箱到煽動法國暴動！歐洲面臨「國家恐怖主義」與認知戰夾擊 - 自由時報",
-          "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE9PMjc4Ul8tUXlLazNNYnR5a0s4N08td1dHRXhWYUFjZGlGVl9vd2VwQTEtemJZWk5jQmo4LXBheG5xTHFFVExsbXNVN0F0YW5DbXEwbWNQc3oyLXlmTy1kVjZ2ZDNrZ9IBa0FVX3lxTE5Xa3hXVlpNVmNkQmdBU1gtQkppd2g5NWJOY3hFYTRjb2NEdHkxX2dkcHNDaVpINkJCZ3V2TXdTWEtxcmZ0MzVHM2pkQ09xYnE2UGc2MUkwaWhGNDF5bldxbHNDeDN3WEoyY1pn?oc=5",
-          "source": "Google 新聞 國際"
-        }
-      ]
-    },
-    {
-      "title": "記憶體營收大增，股價仍落後",
-      "chain": "記憶體",
-      "reasoning": "韓國晶片出口轉強、台廠 9 月營收大幅加速，蘋果也示警記憶體成本走高 → 報價仍強 → DRAM、NAND 廠與模組廠獲利受惠。",
-      "watch": [
-        "南亞科 2408",
-        "華邦電 2344",
-        "旺宏 2337",
-        "群聯 8299",
-        "美光 MU"
-      ],
-      "counter": "若微軟等雲端大廠縮減算力租用、AI 資本支出放緩，記憶體需求與報價可能反轉。",
-      "priced_in": "代表股近一個月平均 -28.14%，落後費半 7.95 個百分點，尚未反映營收成長。",
-      "sources": [
-        {
-          "title": "記憶體漲價侵蝕獲利 蘋果估購物季毛利率下滑",
-          "url": "https://www.cna.com.tw/news/ait/202611030054.aspx",
-          "source": "中央社 科技"
-        },
-        {
-          "title": "傳台積電進軍3D DRAM 應輝達要求規劃製造、評估建廠",
-          "url": "https://www.cna.com.tw/news/ait/202611070002.aspx",
-          "source": "中央社 科技"
-        }
-      ]
-    },
-    {
-      "title": "貨櫃航運營收創高、油價降",
-      "chain": "貨櫃航運",
-      "reasoning": "萬海 10 月營收年增 124%、台驊海運貨量大增 → 運量仍強；油價下跌降低燃油成本 → 貨櫃三雄獲利率可能改善。",
-      "watch": [
-        "萬海 2615",
-        "長榮 2603",
-        "陽明 2609"
-      ],
-      "counter": "SCFI 運價資料待更新；若運價回落或中美貿易談判生變，營收高點可能就是頂。",
-      "priced_in": "代表股近一個月平均 -1.52%，比台股多漲 18.6%，好消息可能已反映。",
-      "sources": [
-        {
-          "title": "近50月新高！萬海10月營收234億元 年增124% - Yahoo股市",
-          "url": "https://news.google.com/rss/articles/CBMikgJBVV95cUxNODBmaGtXYUF0TzB4X0prVkEyVmZUQjBzM3FVa2ZHNnBrcTUyZW43UXVtRzJCLVJvYUdmcEZaWGwyS3ViQ3cySXJLWlpmWFhtWk9zdjY4NTViZkh3QkdLOU00NWhPYXZCVC1BSF8zZm9GLUNJQnVnVldCemxjbDFKekZ4V1pmcUtISnNUMF91YjM0eVdvNFdldEdFTDlETk5SUHd4U0pEaUc4XzNkN1BMSmhHMUU2YnFYZTRSRDlBY29PdVZmRHI3RndMM3l2S1NaVUg1SHNFdXBLNjljVXUySW5wQzZES2tsRUZzamZvbEtVQXhab09rOTZudWhYQ0ZlMWw4dm03ZUxhMmF5RFFvUUlB?oc=5",
+          "title": "台積電10月營收飆5,869億元、年增近六成 全年營收挑戰5.6兆元 - UDN",
+          "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE9LVXpEYkEyczJMT0tqbC1FZGFpRU9FbXkxYjA2UHRESGUyV2F0NmQ2aXpyY3BpMm53MEhpTzVCVDF1Y3RRVkNsUGpWRzFxVjVl0gFWQVVfeXFMTVlIeWJwSHJLUjd4X0gtUkMzRXA3VXBlVjZVd1FKTV96b3NSV2pBUGpObVNtbHd1d2RqTEJLeGFUeGR3SGIxSjJNOHl6VUEtdXNDNFVoQWc?oc=5",
           "source": "Google 新聞 財經"
         },
         {
-          "title": "台驊10月營收年增1.25倍 海運業務成主要動能",
-          "url": "https://www.cna.com.tw/news/afe/202611090260.aspx",
+          "title": "日月光10月營收886億元、改寫單月新高明年成長有望續強- 產業 - 工商時報",
+          "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE83QXJZd1ZIR2ZWTHh2UEx6NUQ5b3FkbVhQQm1MY0RTRWJjLVBEZS1CdXZjMEFLMG9jc3RBQW1nSjA3WUhPdmNNeERaUEFhbVM4dTl5MEZZZktKZ1ZwUlp3?oc=5",
+          "source": "Google 新聞 財經"
+        }
+      ]
+    },
+    {
+      "title": "微軟縮減外部算力租用",
+      "chain": "AI 伺服器、網通與光通訊",
+      "reasoning": "微軟不擴大 Nscale 合約、傳終止租用甲骨文算力，加上美擬禁中製資料中心零件 → 市場擔心雲端資本支出放緩 → 伺服器組裝與光模組訂單能見度受質疑",
+      "watch": [
+        "廣達 2382",
+        "緯穎 6669",
+        "智邦 2345",
+        "華星光 4979"
+      ],
+      "counter": "四大雲端 2026 年 AI 支出計畫仍約 7,000 億美元，可能只是轉向自建而非砍單",
+      "priced_in": "可能已部分反映：AI 伺服器代表股近一個月平均 -18.6%、網通與光通訊 -30.0%",
+      "sources": [
+        {
+          "title": "路透：微軟不擴大與Nscale德州資料中心算力租用合約",
+          "url": "https://www.cna.com.tw/news/ait/202611050353.aspx",
+          "source": "中央社 科技"
+        },
+        {
+          "title": "傳微軟逐步終止租用甲骨文AI算力 重新評估雲端合作",
+          "url": "https://www.cna.com.tw/news/ait/202611070005.aspx",
+          "source": "中央社 科技"
+        },
+        {
+          "title": "美擬禁中製資料中心關鍵零件進口 傳微軟向川普政府施壓要求擱置",
+          "url": "https://www.cna.com.tw/news/aopl/202611100351.aspx",
           "source": "中央社 財經"
         }
       ]
