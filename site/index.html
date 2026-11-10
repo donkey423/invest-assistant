@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="assets.css">
 <link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="papertrade.css">
 <meta name="theme-color" content="#f4f3ef" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0f0f11" media="(prefers-color-scheme: dark)">
 </head>
@@ -20,6 +21,7 @@
     <button class="tab active" data-tab="brief" role="tab">今日早報</button>
     <button class="tab" data-tab="world" role="tab">今天的世界</button>
     <button class="tab" data-tab="chains" role="tab">產業鏈訊號</button>
+    <button class="tab" data-tab="paper" role="tab">模擬帳戶</button>
     <button class="tab" data-tab="assets" role="tab">我的資產</button>
   </nav>
 </header>
@@ -128,6 +130,19 @@
     </section>
   </div>
 </main>
+<main id="tab-paper" class="tabpane" hidden>
+  <section class="card">
+    <div class="card-head"><h2>30 天模擬帳戶</h2><span id="pt-updated" class="muted"></span></div>
+    <div id="pt-warn"></div>
+    <div id="pt-hero"></div>
+  </section>
+  <div class="pt-top">
+    <section class="card"><div class="card-head"><h2>方法排行榜</h2><span class="muted">點一列看該方法的持股與理由</span></div><div id="pt-board"></div></section>
+    <section class="card"><div class="card-head"><h2>帳戶淨值走勢</h2><span class="muted">起點 0%＝100 萬</span></div><div id="pt-chart"></div></section>
+  </div>
+  <section class="card" id="pt-detail"></section>
+  <section class="card"><div class="card-head"><h2>每日換股紀錄</h2><span class="muted">收盤後決定，隔天開盤成交</span></div><ul id="pt-history" class="pt-history"></ul></section>
+</main>
 <main id="tab-assets" class="tabpane" hidden>
   <section class="card placeholder">持股明細與分析在第三階段加入。</section>
 </main>
@@ -136,5 +151,6 @@
 <script src="worldmap.js"></script>
 <script src="app.js"></script>
 <script src="assets.js" defer></script>
+<script src="papertrade.js" defer></script>
 </body>
 </html>

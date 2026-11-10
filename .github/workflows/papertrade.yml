@@ -1,0 +1,57 @@
+# 30 天模擬帳戶：每個交易日收盤、法人資料公布後選股，隔天開盤價成交。
+# 不需要任何 Secrets（全部用 Yahoo、證交所、櫃買中心的免費資料）。
+name: 模擬帳戶
+
+on:
+  schedule:
+    - cron: '30 10 * * 1-5'   # 台灣時間 18:30（三大法人個股資料約 16:00 後公布）
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: briefing            # 和早報共用，避免同時部署網站
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: 處理模擬帳戶
+        run: python -m papertrade
+
+      - name: 存回 repo
+        run: |
+          git config user.name "briefing-bot"
+          git config user.email "briefing-bot@users.noreply.github.com"
+          git add site/data/papertrade.json site/data/papertrade_state.json
+          git diff --cached --quiet || git commit -m "模擬帳戶 $(TZ=Asia/Taipei date '+%Y-%m-%d %H:%M')"
+          git pull --rebase origin main
+          git push
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
