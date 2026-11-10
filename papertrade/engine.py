@@ -126,7 +126,18 @@ def plan_orders(state: dict, mid: str, acc: dict, ranking: list[dict], day: str,
     ranked = [r["code"] for r in ranking]
     reason = {r["code"]: r["reason"] for r in ranking}
     sells = []
-    if mid == "trust":
+    exit_rules = any(k in method for k in ("stop_loss", "take_profit", "max_hold"))
+    if exit_rules:
+        for code, pos in held.items():
+            c = price_on(px.get(sym.get(code)), day) or pos["price"]
+            chg = (c / pos["price"] - 1) * 100
+            if method.get("stop_loss") is not None and chg <= method["stop_loss"]:
+                sells.append({"code": code, "reason": f"跌 {chg:.1f}%，觸發 {method['stop_loss']}% 停損"})
+            elif method.get("take_profit") is not None and chg >= method["take_profit"]:
+                sells.append({"code": code, "reason": f"漲 {chg:+.1f}%，觸發 +{method['take_profit']}% 停利"})
+            elif method.get("max_hold") and _held_days(state, pos["date"]) >= method["max_hold"]:
+                sells.append({"code": code, "reason": f"已持有 {method['max_hold']} 個交易日，依方法出場"})
+    elif mid == "trust":
         hold = method.get("hold_days", 11)
         for code, pos in held.items():
             if _held_days(state, pos["date"]) >= hold:
@@ -142,7 +153,7 @@ def plan_orders(state: dict, mid: str, acc: dict, ranking: list[dict], day: str,
     invested = sum(held[c]["shares"] * (price_on(px.get(sym.get(c)), day) or held[c]["price"]) for c in remain)
     # 綜合帳戶：持股比例降低時，先賣排名最後的
     target_total = equity * expo
-    if invested > target_total * 1.1:
+    if expo > 0 and invested > target_total * 1.1:
         for code in sorted(remain, key=lambda c: ranked.index(c) if c in ranked else 999, reverse=True):
             if invested <= target_total * 1.05:
                 break
@@ -184,13 +195,17 @@ def decide(state: dict, ctx: dict, day: str, px: dict, sym: dict, names: dict) -
         rankings[mid] = ranking
         acc = state["accounts"][mid]
         e = expo if mid == "combo" else 1.0
+        note = ""
+        mf = m.get("market_filter")
+        if mf and (ctx.get("regime") or {}).get(f"above_ma{mf}") is False:
+            e, note = 0.0, "大盤在年線之下，依方法不買新股（持股照規則續抱）"
         acc["pending"] = plan_orders(state, mid, acc, ranking, day, px, sym, e)
         state["journal"].append({
             "date": day, "method": mid,
             "picks": [{"code": r["code"], "name": names.get(r["code"], ""), "reason": r["reason"]} for r in ranking[:C.TOP_N]],
             "buys": [b["code"] for b in acc["pending"]["buys"]],
             "sells": [{"code": s["code"], "name": names.get(s["code"], ""), "reason": s["reason"]} for s in acc["pending"]["sells"]],
-            "note": expo_note if mid == "combo" else ("" if ranking else "今天沒有符合條件的股票或資料抓不到，維持原持股"),
+            "note": expo_note if mid == "combo" else note or ("" if ranking else "今天沒有符合條件的股票或資料抓不到，維持原持股"),
         })
     return rankings
 
@@ -203,6 +218,8 @@ def run_day(state: dict, ctx: dict, trade_dates: list[str], px: dict, sym: dict,
     if state["last_decision"] == day and state.get("checkpoint"):
         keep = {"chips_cache": state.get("chips_cache"), "ai_hist": state.get("ai_hist")}
         state = {**state["checkpoint"], **keep}
+    for m in C.METHODS:  # 新增的方法：開一個新帳戶
+        state["accounts"].setdefault(m["id"], new_account())
     checkpoint = copy.deepcopy({k: v for k, v in state.items() if k != "checkpoint"})
     advance(state, trade_dates, px, sym, names)
     state["journal"] = [j for j in state["journal"] if j["date"] != day]

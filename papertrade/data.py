@@ -42,7 +42,7 @@ def _key(row: dict, *words: str, without: tuple = ()):
 
 
 def history(symbols) -> dict[str, dict]:
-    """{代號: {"dates": [...], "open": [...], "close": [...]}}，約 15 個月日線，舊到新。"""
+    """{代號: {"dates", "open", "close", "volume"}}，約 15 個月日線，舊到新。"""
     import yfinance as yf  # 延後匯入，測試時不需要
 
     symbols = list(dict.fromkeys(symbols))
@@ -51,12 +51,13 @@ def history(symbols) -> dict[str, dict]:
     out = {}
     for sym in symbols:
         try:
-            s = df[sym][["Open", "Close"]].dropna()
+            s = df[sym][["Open", "Close", "Volume"]].dropna()
             if len(s) < 2:
                 raise ValueError("no data")
             out[sym] = {"dates": [d.strftime("%Y-%m-%d") for d in s.index],
                         "open": [round(float(v), 4) for v in s["Open"].values],
-                        "close": [round(float(v), 4) for v in s["Close"].values]}
+                        "close": [round(float(v), 4) for v in s["Close"].values],
+                        "volume": [float(v) for v in s["Volume"].values]}
         except Exception as e:  # noqa: BLE001 單一代號失敗不影響整體
             log.warning("抓不到 %s 的日線：%s", sym, e)
     return out

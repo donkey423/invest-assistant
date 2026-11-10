@@ -109,6 +109,7 @@ def main(argv=None, history_fn=data.history, get_json=data.get_json, now=None) -
     vix = (px.get("^VIX") or {}).get("close") or [None]
     tw_close = taiex["close"][:len(px["^TWII"]["close"])]
     ma60 = sum(tw_close[-60:]) / 60 if len(tw_close) >= 60 else None
+    ma200 = sum(tw_close[-200:]) / 200 if len(tw_close) >= 200 else None
     warnings = []
     if not chips.get(day):
         warnings.append(f"{day} 的法人買賣超還沒抓到，投信／外資方法今天維持原持股")
@@ -117,7 +118,8 @@ def main(argv=None, history_fn=data.history, get_json=data.get_json, now=None) -
         "revenue": sig.get("revenue_latest") or {}, "chips": chips, "chip_dates": [d for d in chip_dates if d in chips],
         "value": data.fetch_value(get=get_json), "ai_watch": ai_watch(state, _read(out / "ai_summary.json"), dates),
         "regime": {"light": C.BUSINESS_CYCLE.get("light"), "score": C.BUSINESS_CYCLE.get("score"),
-                   "above_ma60": (tw_close[-1] >= ma60) if ma60 else None, "ma60": round(ma60, 2) if ma60 else None,
+                   "above_ma60": (tw_close[-1] >= ma60) if ma60 else None,
+                   "above_ma200": (tw_close[-1] >= ma200) if ma200 else None, "ma60": round(ma60, 2) if ma60 else None,
                    "taiex": tw_close[-1], "vix": vix[-1]},
         "warnings": warnings,
     }

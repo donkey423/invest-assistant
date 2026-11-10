@@ -5,7 +5,8 @@
 - 選股範圍：產業鏈訊號裡的台股代表股（約 113 檔）。
 - 每個交易日 18:30（台灣時間）由 `.github/workflows/papertrade.yml` 執行：用當天收盤為止的資料選股，**隔天開盤價成交**，不偷看未來價格。
 - 成本：手續費 0.1425%（最低 20 元）、賣出證交稅 0.3%；可買零股。
-- 每個方法最多 5 檔等權重；持股掉出前 10 名才賣（投信方法固定抱 11 天）。
+- 每個方法最多 5 檔等權重；持股掉出前 10 名才賣（投信固定抱 11 天；歐尼爾、技術面四指標用停損／停利／最長持有天數出場）。
+- 方法來源包括論文、文章與 GitHub 台股策略專案（Joyen09/tw-stock-strategy-framework、kevin801221/stock-strategies-only、qwe60818/tw-stock-strategy-v5）。
 - 方法、依據與來源在 `config.py` 的 `METHODS`；景氣燈號在 `BUSINESS_CYCLE`，國發會每月底公布後手動更新。
 - 輸出：`site/data/papertrade.json`（網頁「模擬帳戶」頁）、`site/data/papertrade_state.json`（帳戶狀態）。
 - 同一天重跑會先還原再算，不會重複成交。要重新開始：刪掉這兩個檔再執行。
