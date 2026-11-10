@@ -1,0 +1,207 @@
+"""各種選股方法。每個函式收到同一份 ctx，回傳排好名次的清單 [{code, score, reason}]。
+
+ctx 的資料都只到「決策日」收盤為止，不會偷看到之後的價格。
+"""
+from __future__ import annotations
+
+
+def _closes(ctx, code):
+    s = ctx["px"].get(ctx["sym"][code])
+    return s["close"] if s else []
+
+
+def ret(ctx, code, n, skip=0):
+    """近 n 個交易日（扣掉最近 skip 天）的報酬率 %。"""
+    c = _closes(ctx, code)
+    if len(c) <= n:
+        return None
+    a, b = c[-1 - n], c[-1 - skip]
+    return (b / a - 1) * 100 if a else None
+
+
+def ma(ctx, code, n):
+    c = _closes(ctx, code)
+    return sum(c[-n:]) / n if len(c) >= n else None
+
+
+def _rank(items, key, reverse=True):
+    items = [i for i in items if i["score"] is not None]
+    return sorted(items, key=key or (lambda i: i["score"]), reverse=reverse)
+
+
+def momentum(ctx):
+    out = []
+    for code in ctx["codes"]:
+        r = ret(ctx, code, 252, skip=21)
+        if r is not None:
+            out.append({"code": code, "score": r, "reason": f"過去 12 個月漲 {r:+.1f}%（不含最近 1 個月）"})
+    return _rank(out, None)
+
+
+def reversal(ctx):
+    out = []
+    for code in ctx["codes"]:
+        r = ret(ctx, code, 21)
+        rev = ctx["revenue"].get(code) or {}
+        if r is None or rev.get("yoy") is None or rev["yoy"] <= 0:
+            continue
+        out.append({"code": code, "score": -r,
+                    "reason": f"近 1 個月 {r:+.1f}%，但 {rev.get('ym', '')} 營收年增 {rev['yoy']:+.1f}%"})
+    return _rank(out, None)
+
+
+def revenue(ctx):
+    out = []
+    for code in ctx["codes"]:
+        rev = ctx["revenue"].get(code) or {}
+        yoy, ytd = rev.get("yoy"), rev.get("ytd_yoy")
+        if yoy is None or ytd is None or yoy <= 0 or yoy <= ytd:
+            continue
+        out.append({"code": code, "score": yoy - ytd,
+                    "reason": f"{rev.get('ym', '')} 營收年增 {yoy:+.1f}%，比今年累計 {ytd:+.1f}% 加速 {yoy - ytd:.1f} 個百分點"})
+    return _rank(out, None)
+
+
+def _flow(ctx, code, who, days):
+    """近 days 個交易日的法人買賣超金額（億元，用決策日收盤價估算）。"""
+    c = _closes(ctx, code)
+    if not c:
+        return None, 0
+    total, seen, pos = 0.0, 0, 0
+    for d in ctx["chip_dates"][-days:]:
+        row = (ctx["chips"].get(d) or {}).get(code)
+        if row is None:
+            continue
+        seen += 1
+        total += row[who]
+        pos += row[who] > 0
+    if not seen:
+        return None, 0
+    return total * c[-1] / 1e8, pos
+
+
+def trust(ctx):
+    out = []
+    for code in ctx["codes"]:
+        v, _ = _flow(ctx, code, "trust", 1)
+        if v is not None and v > 0:
+            out.append({"code": code, "score": v, "reason": f"{ctx['chip_dates'][-1]} 投信買超約 {v:.2f} 億元"})
+    return _rank(out, None)
+
+
+def foreign(ctx):
+    out = []
+    for code in ctx["codes"]:
+        v, pos = _flow(ctx, code, "foreign", 5)
+        m = ma(ctx, code, 20)
+        c = _closes(ctx, code)
+        if v is None or v <= 0 or m is None or c[-1] < m:
+            continue
+        out.append({"code": code, "score": v,
+                    "reason": f"外資近 5 日買超約 {v:.2f} 億元（{pos} 天買超），股價在 20 日均線之上"})
+    return _rank(out, None)
+
+
+def _pct_rank(values: dict, higher_better=True) -> dict:
+    """{code: 值} → {code: 0~1 百分位}，1 最好。"""
+    xs = sorted((v, k) for k, v in values.items() if v is not None)
+    n = len(xs)
+    if n < 2:
+        return {k: 0.5 for _, k in xs}
+    out = {k: i / (n - 1) for i, (_, k) in enumerate(xs)}
+    return out if higher_better else {k: 1 - v for k, v in out.items()}
+
+
+def value(ctx):
+    cand = {}
+    for code in ctx["codes"]:
+        v = ctx["value"].get(code) or {}
+        r3 = ret(ctx, code, 63)
+        if not v.get("yield") or v["yield"] < 3.5 or r3 is None or r3 < 0:
+            continue
+        if v.get("pe") is not None and v["pe"] <= 0:
+            continue
+        cand[code] = v
+    pe = _pct_rank({k: v.get("pe") for k, v in cand.items()}, higher_better=False)
+    dy = _pct_rank({k: v.get("yield") for k, v in cand.items()})
+    pb = _pct_rank({k: v.get("pb") for k, v in cand.items()}, higher_better=False)
+    out = []
+    for code, v in cand.items():
+        parts = [x[code] for x in (pe, dy, pb) if code in x]
+        if not parts:
+            continue
+        pe_txt = f"本益比 {v['pe']:.1f}、" if v.get("pe") else ""
+        pb_txt = f"、股價淨值比 {v['pb']:.2f}" if v.get("pb") else ""
+        out.append({"code": code, "score": sum(parts) / len(parts),
+                    "reason": f"{pe_txt}殖利率 {v['yield']:.2f}%{pb_txt}，近 3 個月 {ret(ctx, code, 63):+.1f}%"})
+    return _rank(out, None)
+
+
+def chain(ctx):
+    best = {}
+    for code in ctx["codes"]:
+        for cid in ctx["chain_of"].get(code, []):
+            ch = ctx["chains"].get(cid) or {}
+            if ch.get("light") != "轉強":
+                continue
+            yoy = (ctx["revenue"].get(code) or {}).get("yoy")
+            if yoy is None:
+                continue
+            cur = best.get(cid)
+            if cur is None or yoy > cur["score"]:
+                best[cid] = {"code": code, "score": yoy,
+                             "reason": f"「{ch.get('name', cid)}」鏈燈號轉強（{'、'.join(ch.get('why') or [])[:60]}），營收年增 {yoy:+.1f}%"}
+    seen, out = set(), []
+    for item in sorted(best.values(), key=lambda i: i["score"], reverse=True):
+        if item["code"] not in seen:
+            seen.add(item["code"])
+            out.append(item)
+    return out
+
+
+def ai_theme(ctx):
+    out, n = [], len(ctx["ai_watch"])
+    for i, w in enumerate(ctx["ai_watch"]):
+        if w["code"] in ctx["sym"]:
+            out.append({"code": w["code"], "score": n - i, "reason": f"AI 主題推理（{w['date']}）：{w['title']}"})
+    return out
+
+
+def combo(ctx):
+    comps = {
+        "動能": _pct_rank({c: ret(ctx, c, 63) for c in ctx["codes"]}),
+        "營收": _pct_rank({c: ((ctx["revenue"].get(c) or {}).get("yoy") or 0) - ((ctx["revenue"].get(c) or {}).get("ytd_yoy") or 0)
+                         if (ctx["revenue"].get(c) or {}).get("yoy") is not None else None for c in ctx["codes"]}),
+        "外資": _pct_rank({c: _flow(ctx, c, "foreign", 5)[0] for c in ctx["codes"]}),
+        "價值": _pct_rank({c: (ctx["value"].get(c) or {}).get("yield") for c in ctx["codes"]}),
+        "產業鏈": _pct_rank({c: max([{"轉強": 1, "持平": 0, "轉弱": -1}.get((ctx["chains"].get(i) or {}).get("light"), 0)
+                                   for i in ctx["chain_of"].get(c, [])] or [0]) for c in ctx["codes"]}),
+    }
+    out = []
+    for code in ctx["codes"]:
+        got = {k: v[code] for k, v in comps.items() if code in v}
+        if len(got) < 3:
+            continue
+        top = sorted(got.items(), key=lambda kv: kv[1], reverse=True)[:2]
+        out.append({"code": code, "score": sum(got.values()) / len(got),
+                    "reason": f"綜合分數 {sum(got.values()) / len(got) * 100:.0f}（{len(got)} 項，強項：{'、'.join(f'{k} {v * 100:.0f}' for k, v in top)}）"})
+    return _rank(out, None)
+
+
+def exposure(regime: dict) -> tuple[float, str]:
+    """綜合帳戶的持股比例：景氣燈號＋大盤是否在季線之上＋VIX。"""
+    light, above, vix = regime.get("light"), regime.get("above_ma60"), regime.get("vix")
+    level = {"紅燈": 1.0, "黃紅燈": 1.0, "綠燈": 0.9, "黃藍燈": 0.8, "藍燈": 1.0}.get(light, 0.9)
+    why = [f"景氣{light or '未知'}"]
+    if above is False:
+        level -= 0.3
+        why.append("大盤跌破季線")
+    if vix is not None and vix >= 25:
+        level -= 0.2
+        why.append(f"VIX {vix:.0f} 偏高")
+    level = max(0.3, min(1.0, level))
+    return level, "、".join(why) + f" → 持股 {level * 100:.0f}%"
+
+
+METHOD_FNS = {"momentum": momentum, "reversal": reversal, "revenue": revenue, "trust": trust,
+              "foreign": foreign, "value": value, "chain": chain, "ai_theme": ai_theme, "combo": combo}

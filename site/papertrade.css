@@ -1,0 +1,39 @@
+/* 模擬帳戶頁 */
+#tab-paper { display: grid; gap: var(--s3); }
+.pt-status .bar { height: 6px; background: var(--sunken); border-radius: 999px; overflow: hidden; margin: 6px 0 10px; }
+.pt-status .bar span { display: block; height: 100%; background: var(--accent); }
+.pt-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: var(--s2); margin-bottom: var(--s2); }
+.pt-kpis > div { background: var(--sunken); border-radius: var(--r-sm); padding: 8px 10px; display: flex; flex-direction: column; gap: 2px; }
+.pt-kpis b { font-size: var(--fs-lg); font-variant-numeric: tabular-nums; }
+.pt-top { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: var(--s3); }
+@media (max-width: 900px) { .pt-top { grid-template-columns: 1fr; } }
+.pt-scroll { overflow-x: auto; }
+.pt-table tbody tr { cursor: pointer; }
+.pt-table tbody tr:hover td { background: var(--sunken); }
+.pt-table tr.sel td { background: var(--accent-tint); }
+.pt-table td:first-child { white-space: nowrap; }
+.pt-chart { width: 100%; height: auto; display: block; }
+.pt-axis text { font-size: 10px; fill: var(--muted); }
+.pt-axis line { stroke: var(--line); stroke-width: 1; }
+.pt-line { fill: none; stroke: var(--muted); stroke-opacity: .35; stroke-width: 1.2; }
+.pt-bench { fill: none; stroke: var(--ink); stroke-width: 1.6; stroke-dasharray: 4 3; }
+.pt-sel { fill: none; stroke: var(--accent); stroke-width: 2.6; stroke-linejoin: round; }
+.pt-legend { display: flex; gap: var(--s3); flex-wrap: wrap; font-size: var(--fs-sm); color: var(--ink-2); margin-top: 4px; }
+.pt-legend .k { display: inline-block; width: 16px; height: 0; border-top: 2.6px solid var(--accent); vertical-align: middle; margin-right: 4px; }
+.pt-legend .k.bench { border-top: 1.6px dashed var(--ink); }
+.pt-legend .k.other { border-top: 1.2px solid color-mix(in srgb, var(--muted) 45%, transparent); }
+.pt-cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: var(--s4); }
+@media (max-width: 760px) { .pt-cols { grid-template-columns: 1fr; } }
+.pt-picks { margin: 0; padding-left: 1.4em; display: grid; gap: 6px; }
+.pt-why { color: var(--muted); font-size: var(--fs-sm); line-height: 1.4; }
+.pt-sells { list-style: none; padding: 0; margin: 8px 0 0; display: grid; gap: 4px; font-size: var(--fs-sm); }
+.pt-tag { font-size: var(--fs-xs); padding: 1px 7px; border-radius: 999px; background: var(--sunken); color: var(--ink-2); white-space: nowrap; }
+.pt-tag.buy { color: var(--up); background: color-mix(in srgb, var(--up) 12%, var(--card)); }
+.pt-tag.sell { color: var(--down); background: color-mix(in srgb, var(--down) 12%, var(--card)); }
+.pt-empty { color: var(--muted); padding: 10px 0; }
+.pt-history { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.pt-history li { border-top: 1px solid var(--line); padding-top: 6px; }
+.pt-hi { display: inline-block; margin-left: 8px; font-size: var(--fs-sm); color: var(--ink-2); }
+#pt-warn div { background: var(--warn-bg); color: var(--warn-ink); padding: 6px 10px; border-radius: var(--r-sm); font-size: var(--fs-sm); }
+.pt-trades td:nth-child(-n+3), .pt-trades th:nth-child(-n+3) { text-align: left; }
+@media (max-width: 520px) { .pt-hold th:nth-child(6), .pt-hold td:nth-child(6), .pt-hold th:nth-child(3), .pt-hold td:nth-child(3) { display: none; } .pt-hold td:first-child { min-width: 120px; } }
