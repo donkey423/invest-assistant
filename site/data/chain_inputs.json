@@ -3,10 +3,10 @@
  "memory": [
   {
    "name": "DRAM 合約價",
-   "trend": null,
-   "value": "待更新：看 TrendForce 每月底的合約價",
-   "as_of": "",
-   "url": "https://www.trendforce.com/research/category/DRAM"
+   "trend": "up",
+   "value": "TrendForce 估 4Q26 DRAM 合約價季增約 20%，漲幅收斂",
+   "as_of": "2026-10-20",
+   "url": "https://www.trendforce.com/news/2026/10/20/news-dram-prices-seen-rising-20-qoq-in-4q26-despite-slower-gains-ai-demand"
   },
   {
    "name": "韓國半導體出口",
@@ -28,19 +28,19 @@
  "foundry": [
   {
    "name": "台積電法說營收指引",
-   "trend": null,
-   "value": "待更新：每季法說會的下一季營收與毛利率指引",
-   "as_of": "",
-   "url": "https://investor.tsmc.com/"
+   "trend": "up",
+   "value": "Q4 營收指引 523–543 億美元（Q3 467 億），毛利率 65–67%",
+   "as_of": "2026-10-15",
+   "url": "https://www.sec.gov/Archives/edgar/data/0001046179/000104617926000726/a3q26e_withguidancexfinal.htm"
   }
  ],
  "semi_equip": [
   {
    "name": "日本半導體設備 B/B 比",
-   "trend": null,
-   "value": "待更新：SEAJ 每月公布",
-   "as_of": "",
-   "url": "https://www.seaj.or.jp/english/statistics/"
+   "trend": "up",
+   "value": "8 月日本製設備銷售額 5,979 億日圓，年增 47.4%，創新高",
+   "as_of": "2026-08",
+   "url": "https://technews.tw/2026/09/29/japanese-chip-equipment-sales-approach-600-billion-yen/"
   }
  ],
  "wafer": [
@@ -100,10 +100,10 @@
  "panel": [
   {
    "name": "面板報價",
-   "trend": null,
-   "value": "待更新：TrendForce 每月上、下旬公布",
-   "as_of": "",
-   "url": "https://www.trendforce.com/price"
+   "trend": "flat",
+   "value": "TrendForce：11 月電視、監視器、筆電面板報價全面持平",
+   "as_of": "2026-11-05",
+   "url": "https://ec.ltn.com.tw/article/breakingnews/5630965"
   }
  ],
  "apple": [
@@ -118,19 +118,19 @@
  "pc": [
   {
    "name": "全球 PC 出貨量",
-   "trend": null,
-   "value": "待更新：IDC／Gartner 每季公布",
-   "as_of": "",
-   "url": "https://www.idc.com/promo/pcdforecast"
+   "trend": "down",
+   "value": "IDC：3Q26 全球 PC 出貨 6,270 萬台，年減 20.1%",
+   "as_of": "2026-10-08",
+   "url": "https://idc.com/resource-center/press-releases/idc-pc-tracker-3q26"
   }
  ],
  "ev": [
   {
    "name": "特斯拉季交車數",
-   "trend": null,
-   "value": "待更新",
-   "as_of": "",
-   "url": "https://ir.tesla.com/"
+   "trend": "flat",
+   "value": "3Q26 交車 48.65 萬輛，季增 1.3%、年減 2.1%",
+   "as_of": "2026-10-02",
+   "url": "https://electrek.co/2026/10/02/tesla-q3-2026-deliveries-486532/"
   }
  ],
  "grid": [
@@ -154,28 +154,28 @@
  "container": [
   {
    "name": "SCFI 上海出口貨櫃運價指數",
-   "trend": null,
-   "value": "待更新：每週五公布",
-   "as_of": "",
-   "url": "https://en.sse.net.cn/indices/scfinew.jsp"
+   "trend": "flat",
+   "value": "11/6 SCFI 3,633 點，週跌 1.46%，9 月中以來低點",
+   "as_of": "2026-11-06",
+   "url": "https://uanalyze.com.tw/articles/8723858562"
   }
  ],
  "bulk": [
   {
    "name": "BDI 波羅的海乾散貨指數",
-   "trend": null,
-   "value": "待更新：每個交易日公布",
-   "as_of": "",
-   "url": "https://www.balticexchange.com/"
+   "trend": "up",
+   "value": "11/6 BDI 2,805 點，週漲 3.4%，連三日上漲",
+   "as_of": "2026-11-06",
+   "url": "https://tradingeconomics.com/commodity/baltic/news/599210"
   }
  ],
  "steel": [
   {
    "name": "中鋼月盤價",
-   "trend": null,
-   "value": "待更新：每月中旬公布",
-   "as_of": "",
-   "url": "https://www.csc.com.tw/"
+   "trend": "flat",
+   "value": "中鋼 12 月盤價每公噸小漲 300 元",
+   "as_of": "2026-11-05",
+   "url": "https://uanalyze.com.tw/articles/1044658443"
   }
  ],
  "cement": [
@@ -199,10 +199,10 @@
  "automation": [
   {
    "name": "日本工具機訂單",
-   "trend": null,
-   "value": "待更新：JMTBA 每月公布",
-   "as_of": "",
-   "url": "https://www.jmtba.or.jp/english/"
+   "trend": "up",
+   "value": "9 月訂單 2,232 億日圓，年增 60.4%，創新高",
+   "as_of": "2026-09",
+   "url": "https://tradingeconomics.com/japan/machine-tool-orders/news/590723"
   }
  ],
  "defense": [
