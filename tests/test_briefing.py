@@ -113,11 +113,13 @@ def test_free_mode_without_api_key(monkeypatch):
     assert len({p["sources"][0]["source"] for p in s["points"]}) > 1
 
 
-def test_merge_series_appends_only_newer_days():
+def test_merge_series_fills_holes_and_newer_days():
     from briefing.market import merge_series
-    base = (["2026-11-05", "2026-11-06"], [1.0, 2.0])
-    extra = (["2026-11-06", "2026-11-09"], [2.5, 3.0])
-    assert merge_series(base, extra) == (["2026-11-05", "2026-11-06", "2026-11-09"], [1.0, 2.5, 3.0])
+    base = (["2026-11-05", "2026-11-06", "2026-11-10"], [1.0, 2.0, 4.0])     # 少了 11/9
+    extra = (["2026-11-04", "2026-11-06", "2026-11-09", "2026-11-11"], [0.5, 2.5, 3.0, 5.0])
+    days = ["2026-11-05", "2026-11-06", "2026-11-09", "2026-11-10", "2026-11-11"]
+    assert merge_series(base, extra) == (days, [1.0, 2.5, 3.0, 4.0, 5.0])
+    assert merge_series(base, extra, fill_only=True) == (days, [1.0, 2.0, 3.0, 4.0, 5.0])
     assert merge_series(base, None) == base and merge_series(None, extra) == extra
 
 
@@ -135,6 +137,13 @@ def test_taiex_uses_twse_close_when_yahoo_lags():
     assert m["taiex"]["as_of"] == "2026-11-09" and m["taiex"]["last"] == 41661.7
     assert m["taiex"]["change_pct"] == 4.94 and "stale" not in m["taiex"]
     assert m["global"][0]["stale"] is True          # 週二早上還停在上週五
+
+    # Yahoo 有今天盤中價、卻少了昨天：漲跌幅要對昨天算，不是對上週五
+    def hole(symbols):
+        return {s: (["2026-11-05", "2026-11-06", "2026-11-10"], [41574.72, 39701.64, 42841.4]) for s in symbols}
+
+    m = build_market(config, history_fn=hole, taiex_fn=lambda: official, today="2026-11-10")
+    assert m["taiex"]["as_of"] == "2026-11-10" and m["taiex"]["change_pct"] == 2.83
 
 
 def test_keep_newer_never_goes_back_in_time():

@@ -45,8 +45,7 @@ def compute_quote(dates: list[str], closes: list[float], spark_days: int) -> dic
     }
 
 
-def _single_history(sym: str, period: str) -> tuple[list[str], list[float]] | None:
-    """單獨抓一檔。批次下載偶爾會漏掉亞洲市場最新一天，用這個補。"""
+def _daily(sym: str, period: str) -> tuple[list[str], list[float]] | None:
     import yfinance as yf
 
     s = yf.Ticker(sym).history(period=period, interval="1d", auto_adjust=False)["Close"].dropna()
@@ -55,29 +54,49 @@ def _single_history(sym: str, period: str) -> tuple[list[str], list[float]] | No
     return [d.strftime("%Y-%m-%d") for d in s.index], [float(v) for v in s.values]
 
 
+def _hourly_as_daily(sym: str) -> tuple[list[str], list[float]] | None:
+    """用最近 5 天的小時線，取每天最後一筆當收盤。
+
+    Yahoo 的日線偶爾會少掉最新一兩天（2026-11-10 實測：美股個股日線停在 11/6，指數卻有 11/9；
+    台股指數日線少了 11/9），小時線走另一組資料，通常是完整的。
+    """
+    import yfinance as yf
+
+    s = yf.Ticker(sym).history(period="5d", interval="60m", auto_adjust=False)["Close"].dropna()
+    if len(s) < 1:
+        return None
+    by_day: dict[str, float] = {}
+    for ts, v in zip(s.index, s.values):
+        by_day[ts.strftime("%Y-%m-%d")] = float(v)   # 交易所當地日期，後面的蓋掉前面的
+    days = sorted(by_day)
+    return days, [by_day[d] for d in days]
+
+
 def merge_series(base: tuple[list[str], list[float]] | None,
-                 extra: tuple[list[str], list[float]] | None) -> tuple[list[str], list[float]] | None:
-    """把 extra 裡比 base 新的日期接到後面（同一天以 extra 為準）。"""
-    if not extra:
+                 extra: tuple[list[str], list[float]] | None,
+                 fill_only: bool = False) -> tuple[list[str], list[float]] | None:
+    """依日期合併兩組收盤價。同一天預設以 extra 為準；fill_only=True 時只補 base 沒有的日期。
+    extra 比 base 第一天還早的日期不收（避免把短期資料接到長期資料前面）。"""
+    if not extra or not extra[0]:
         return base
-    if not base:
+    if not base or not base[0]:
         return extra
-    d, c = list(base[0]), list(base[1])
+    merged = dict(zip(*base))
+    first = base[0][0]
     for day, close in zip(*extra):
-        if day > d[-1]:
-            d.append(day)
-            c.append(close)
-        elif day == d[-1]:
-            c[-1] = close
-    return d, c
+        if day < first or (fill_only and day in merged):
+            continue
+        merged[day] = close
+    days = sorted(merged)
+    return days, [merged[d] for d in days]
 
 
-def _history(symbols: Iterable[str]) -> dict[str, tuple[list[str], list[float]]]:
-    """用 yfinance 一次抓所有代號約 13 個月的日線。失敗的代號會被略過。
+def _history(symbols: Iterable[str], patch_all: bool = False) -> dict[str, tuple[list[str], list[float]]]:
+    """用 yfinance 一次抓所有代號約 13 個月的日線，再把缺的最新幾天補上。失敗的代號會被略過。
 
-    批次下載把不同時區的市場對齊到同一張表時，亞洲市場最新一天常被漏掉
-    （2026-11-10 早上台股、日股、韓股都停在 11/6）。所以比最新日期舊、或批次抓不到的代號，
-    再單獨抓一次補上。
+    Yahoo 的日線偶爾會少掉最新一兩天，而且每個代號缺的不一樣。補法：
+    - 批次抓不到的代號，單獨重抓日線；
+    - 資料日比其他代號舊的（patch_all=True 時是全部），用小時線補上最近 5 天缺的日期。
     """
     import yfinance as yf  # 延後匯入，測試時不需要
     from concurrent.futures import ThreadPoolExecutor
@@ -98,22 +117,26 @@ def _history(symbols: Iterable[str]) -> dict[str, tuple[list[str], list[float]]]
             pass
 
     newest = max((v[0][-1] for v in out.values()), default="")
-    retry = [s for s in symbols if s not in out or out[s][0][-1] < newest]
+    todo = [s for s in symbols if patch_all or s not in out or out[s][0][-1] < newest]
 
     def fetch(sym):
+        base = out.get(sym)
         try:
-            return sym, _single_history(sym, "1mo" if sym in out else "13mo")
+            if base is None:
+                base = _daily(sym, "13mo")
+            return sym, merge_series(base, _hourly_as_daily(sym), fill_only=True)
         except Exception as e:  # noqa: BLE001
-            log.warning("單獨重抓 %s 失敗：%s", sym, e)
-            return sym, None
+            log.warning("補抓 %s 失敗：%s", sym, e)
+            return sym, base
 
-    if retry:
+    patched = 0
+    if todo:
         with ThreadPoolExecutor(max_workers=8) as pool:
-            for sym, extra in pool.map(fetch, retry):
-                merged = merge_series(out.get(sym), extra)
+            for sym, merged in pool.map(fetch, todo):
                 if merged and len(merged[1]) >= 2:
+                    patched += sym not in out or merged[0] != out[sym][0]
                     out[sym] = merged
-        log.info("批次下載落後或缺漏 %d 檔，已單獨重抓", len(retry))
+        log.info("檢查 %d 檔的最新資料，補上缺漏 %d 檔", len(todo), patched)
     for sym in symbols:
         if sym not in out:
             log.warning("抓不到 %s 的行情", sym)
@@ -183,14 +206,15 @@ def mark_stale(q: dict, today: str) -> dict:
     return q
 
 
-def build_market(cfg, history_fn=_history, taiex_fn=None, today: str | None = None) -> dict:
+def build_market(cfg, history_fn=None, taiex_fn=None, today: str | None = None) -> dict:
     """回傳早報的行情區塊。history_fn、taiex_fn 可替換成測試用的假資料。"""
     from datetime import datetime, timedelta, timezone
 
     today = today or datetime.now(timezone(timedelta(hours=8))).strftime("%Y-%m-%d")
     gauges_cfg = getattr(cfg, "GAUGES", [])
     items = [cfg.TAIEX, *cfg.GLOBAL_INDICES, *cfg.AI_STOCKS, cfg.AI_BENCHMARK, *gauges_cfg]
-    hist = history_fn(i["symbol"] for i in items)
+    # 首頁這幾十個指數與個股每次都用小時線檢查最近幾天有沒有缺
+    hist = history_fn(i["symbol"] for i in items) if history_fn else _history((i["symbol"] for i in items), patch_all=True)
 
     # 台股加權指數以證交所官方收盤為準：Yahoo 少了最新幾天就補上
     tsym = cfg.TAIEX["symbol"]
