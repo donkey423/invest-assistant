@@ -53,6 +53,13 @@ cd site && python -m http.server 8000   # 打開 http://localhost:8000
 
 每個交易日 07:47（台灣時間）有一個雲端排程用你的 Claude 帳號讀當天資料，寫出 `site/data/ai_summary.json` 推回這個 repo，接著 GitHub Actions 自動重新產生早報並寄 Email。工作步驟寫在 [docs/ai-routine.md](docs/ai-routine.md)。這份摘要會用到當天傍晚，22:00 那次回到免費模式。有設 `ANTHROPIC_API_KEY` 的話，以 API 為準。
 
+## 準時執行（準時鐘）
+
+GitHub 自己的排程在這個 repo 常常晚好幾個小時，所以另外有 `.github/workflows/clock.yml`：每個交易日早上由 AI 摘要的推送準時啟動，
+之後每分鐘看一次時間，到點就觸發早報（12:00、14:00、22:00）、警報（每 30 分鐘）、持股損益（14:30、05:30）、模擬帳戶（18:30），
+快滿 6 小時前自己接力，週六清晨收工。時刻表在 `tools/clock.py` 的 `SCHEDULE`；要改時間，那裡和各 workflow 的 `schedule`（備援）一起改。
+不需要任何權杖或額外服務。鏈斷掉時可以到 Actions 手動執行「準時鐘」重新啟動。
+
 ## 資料日期的保護
 
 - Yahoo 批次下載偶爾會漏掉亞洲市場最新一天：落後的代號會單獨重抓；台股加權指數以證交所官方收盤（FMTQIK）為準。
