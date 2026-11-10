@@ -14,7 +14,7 @@ from pathlib import Path
 from . import config
 from .calendar import build_calendar
 from .chips import build_chips
-from .market import build_market
+from .market import build_market, keep_newer
 from .news import fetch_news
 from .notify import send_email
 from .summarize import FREE_MODEL, summarize
@@ -36,6 +36,7 @@ def build(out_dir: Path, market_fn=build_market, news_fn=fetch_news, summary_fn=
     market = market_fn(config)
     if "error" in market["taiex"] and all("error" in q for q in market["global"]):
         raise RuntimeError("所有行情都抓不到，保留上一份早報")
+    market = keep_newer(market, previous.get("market"))
 
     prev_chips = (previous.get("market") or {}).get("chips")
     # 台股籌碼（證交所）：抓不到就沿用上一份，不影響其他區塊
@@ -82,8 +83,9 @@ def build(out_dir: Path, market_fn=build_market, news_fn=fetch_news, summary_fn=
 
     now = datetime.now(TW)
     if signals and fresh_signals:
-        # 以行情資料日當紀錄日期，週末或同一天多次執行不會多記
-        trade_date = (market.get("taiex") or {}).get("as_of") or now.strftime("%Y-%m-%d")
+        # 以台股代表股的資料日當紀錄日期，週末或同一天多次執行不會多記
+        trade_date = (backtest.trade_date(signals) or (market.get("taiex") or {}).get("as_of")
+                      or now.strftime("%Y-%m-%d"))
         try:
             signals["backtest"] = backtest.run(out_dir, trade_date, signals)
         except Exception as e:  # noqa: BLE001
@@ -105,8 +107,28 @@ def build(out_dir: Path, market_fn=build_market, news_fn=fetch_news, summary_fn=
     archive = out_dir / "archive"
     archive.mkdir(exist_ok=True)
     (archive / f"{now:%Y-%m-%d_%H%M}.json").write_text(text, "utf-8")
+    prune_archive(archive, now.date())
     log.info("已寫入 %s（新聞 %d 則）", latest, len(news))
     return brief
+
+
+def prune_archive(archive: Path, today, full_days: int = 3, keep_days: int = 90) -> list[str]:
+    """存檔瘦身：最近 full_days 天每次執行都留（出問題時可以重建），更早的每天只留最後一份，
+    超過 keep_days 天的刪掉。回傳刪掉的檔名。"""
+    by_day: dict[str, list[Path]] = {}
+    for f in sorted(archive.glob("????-??-??_????.json")):
+        by_day.setdefault(f.name[:10], []).append(f)
+    removed = []
+    for day, files in by_day.items():
+        try:
+            age = (today - datetime.strptime(day, "%Y-%m-%d").date()).days
+        except ValueError:
+            continue
+        drop = files if age > keep_days else files[:-1] if age > full_days else []
+        for f in drop:
+            f.unlink()
+            removed.append(f.name)
+    return removed
 
 
 def main() -> None:

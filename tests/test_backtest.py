@@ -42,3 +42,28 @@ def test_run_writes_file(tmp_path):
     out = backtest.run(tmp_path, "2026-11-06", _sig("轉強", 10))
     assert (tmp_path / backtest.LOG_FILE).exists() and out["days_logged"] == 1
     assert backtest.run(tmp_path, "2026-11-06", None) is None
+
+
+def _dated(tw_day, us_day, tw_price=10, us_price=50, bench_day=None):
+    return {"chains": [{"id": "m", "name": "記憶體", "light": "轉強",
+                        "stocks": [{"symbol": "2408.TW", "last": tw_price, "as_of": tw_day},
+                                   {"symbol": "MU", "last": us_price, "as_of": us_day}],
+                        "price": {"bench": "^SOX", "bench_last": 100.0, "bench_as_of": bench_day or us_day}}]}
+
+
+def test_trade_date_follows_tw_stocks_not_index():
+    assert backtest.trade_date(_dated("2026-11-09", "2026-11-06")) == "2026-11-09"
+
+
+def test_us_intraday_price_is_not_recorded_and_earlier_close_is_kept():
+    # 下午：台股 11/9 收盤、美股是 11/6 收盤 → 都記
+    log = backtest.update_log([], "2026-11-09", _dated("2026-11-09", "2026-11-06", us_price=50))
+    # 晚上：美股 11/9 盤中 → 不可以蓋掉
+    log = backtest.update_log(log, "2026-11-09", _dated("2026-11-09", "2026-11-09", us_price=55))
+    c = log[0]["chains"]["m"]
+    assert c["prices"] == {"2408.TW": 10, "MU": 50} and c["bench_last"] == 100.0
+
+
+def test_stale_tw_price_is_not_written_into_a_newer_day():
+    log = backtest.update_log([], "2026-11-09", _dated("2026-11-06", "2026-11-06"))
+    assert "2408.TW" not in log[0]["chains"]["m"]["prices"]
