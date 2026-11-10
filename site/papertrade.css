@@ -46,3 +46,5 @@
 #pt-filter .chip { min-height: 30px; padding: 4px 10px; font-size: var(--fs-sm); }
 .pt-more { margin-top: 8px; }
 .pt-mine .pt-log td.pt-reason { min-width: 220px; }
+#pt-bt-tabs { display: flex; gap: 6px; margin-bottom: 10px; }
+.pt-bt-body { margin-bottom: 8px; }

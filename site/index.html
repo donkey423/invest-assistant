@@ -143,6 +143,13 @@
     <section class="card"><div class="card-head"><h2>方法排行榜</h2><span class="muted">點一列看該方法的持股與理由</span></div><div id="pt-board"></div></section>
     <section class="card"><div class="card-head"><h2>帳戶淨值走勢</h2><span class="muted">起點 0%＝100 萬</span></div><div id="pt-chart"></div></section>
   </div>
+  <section class="card" id="pt-bt" hidden>
+    <div class="card-head"><h2>歷史回測：同一套方法放到過去</h2><span id="pt-bt-meta" class="muted"></span></div>
+    <div id="pt-bt-tabs" class="chips" role="tablist" aria-label="回測區間"></div>
+    <div class="pt-top pt-bt-body"><div id="pt-bt-table"></div><div id="pt-bt-chart"></div></div>
+    <details class="howto"><summary>回測怎麼做、有哪些限制？</summary><ul id="pt-bt-notes" class="pt-why"></ul></details>
+    <h3 class="bt-sub">回測期間 Claude 判斷的交易（最近 15 筆）</h3><div id="pt-bt-trades" class="pt-scroll"></div>
+  </section>
   <section class="card" id="pt-detail"></section>
   <section class="card"><div class="card-head"><h2>全部交易紀錄</h2><span class="muted">每一筆買進、賣出與原因</span></div>
     <div id="pt-filter" class="chips" role="tablist" aria-label="依帳戶篩選"></div><div id="pt-trades" class="pt-scroll"></div></section>
