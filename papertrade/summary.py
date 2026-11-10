@@ -24,6 +24,7 @@ def bench_series(state: dict, px: dict) -> dict:
         if not s or not state["start"]:
             continue
         o = price_on(s, state["start"], "open", exact=True) or price_on(s, state["start"])
+        # 指數缺第一天時，用前一天收盤當起點
         if not o:
             continue
         out[b["symbol"]] = {"name": b["name"], "equity": [
@@ -33,14 +34,16 @@ def bench_series(state: dict, px: dict) -> dict:
 
 def pick_hits(state: dict, px: dict, sym: dict, trade_dates: list[str]) -> dict:
     """每天各方法的前 5 名，推薦後（隔天開盤買）5 個交易日有沒有贏大盤。不管有沒有真的買。"""
-    taiex = px.get("^TWII")
+    taiex, etf = px.get("^TWII"), px.get("0050.TW")
     res = {}
     for j in state["journal"]:
         i = bisect_right(trade_dates, j["date"])
         if i + PICK_HORIZON - 1 >= len(trade_dates):
             continue
         d0, d1 = trade_dates[i], trade_dates[i + PICK_HORIZON - 1]
-        bo, bc = price_on(taiex, d0, "open", exact=True), price_on(taiex, d1)
+        bo, bc = price_on(taiex, d0, "open", exact=True), price_on(taiex, d1, exact=True)
+        if not bo or not bc:  # 指數缺資料時改用 0050
+            bo, bc = price_on(etf, d0, "open", exact=True), price_on(etf, d1, exact=True)
         if not bo or not bc:
             continue
         br = bc / bo - 1
