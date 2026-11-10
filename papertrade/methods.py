@@ -203,5 +203,107 @@ def exposure(regime: dict) -> tuple[float, str]:
     return level, "、".join(why) + f" → 持股 {level * 100:.0f}%"
 
 
+def graham(ctx):
+    out = []
+    for code in ctx["codes"]:
+        v = ctx["value"].get(code) or {}
+        pe, pb = v.get("pe"), v.get("pb")
+        if not pe or not pb or pe <= 0 or pb <= 0 or pe > 15 or pb > 1.5 or pe * pb > 22.5:
+            continue
+        out.append({"code": code, "score": -pe * pb,
+                    "reason": f"本益比 {pe:.1f}、股價淨值比 {pb:.2f}，葛拉漢數 {pe * pb:.1f}（≤ 22.5）"})
+    return _rank(out, None)
+
+
+def lynch(ctx):
+    out = []
+    for code in ctx["codes"]:
+        pe = (ctx["value"].get(code) or {}).get("pe")
+        g = (ctx["revenue"].get(code) or {}).get("ytd_yoy")
+        m60 = ma(ctx, code, 60)
+        c = _closes(ctx, code)
+        if not pe or pe <= 0 or g is None or not 15 <= g <= 50 or m60 is None or c[-1] < m60:
+            continue
+        peg = pe / g
+        if peg > 1.2:
+            continue
+        out.append({"code": code, "score": -peg,
+                    "reason": f"本益比 {pe:.1f}、今年累計營收 {g:+.1f}%，PEG {peg:.2f}，股價在季線之上"})
+    return _rank(out, None)
+
+
+def _vol(ctx, code):
+    s = ctx["px"].get(ctx["sym"][code]) or {}
+    return s.get("volume") or []
+
+
+def oneil(ctx):
+    out = []
+    for code in ctx["codes"]:
+        c, v = _closes(ctx, code), _vol(ctx, code)
+        if len(c) < 200 or len(v) < 51:
+            continue
+        hi = max(c[-252:-1])
+        avg = sum(v[-51:-1]) / 50
+        if c[-1] < hi or not avg or v[-1] < 1.5 * avg:
+            continue
+        rs = ret(ctx, code, 126)
+        out.append({"code": code, "score": rs if rs is not None else 0,
+                    "reason": f"收盤 {c[-1]:g} 創 52 週新高，成交量為 50 日均量 {v[-1] / avg:.1f} 倍，近 6 個月 {rs:+.1f}%"})
+    return _rank(out, None)
+
+
+def _ema(xs, n):
+    k, out = 2 / (n + 1), []
+    for x in xs:
+        out.append(x if not out else out[-1] + k * (x - out[-1]))
+    return out
+
+
+def tech_score(c: list[float]) -> tuple[int, list[str]] | None:
+    """kevin801221/stock-strategies-only 的四指標評分（各 25 分）。"""
+    if len(c) < 70:
+        return None
+    score, why = 0, []
+    m20, m60 = sum(c[-20:]) / 20, sum(c[-60:]) / 60
+    if c[-1] > m20 > m60:
+        score += 25; why.append("均線多頭")
+    elif c[-1] > m20:
+        score += 12; why.append("站上月線")
+    sd = (sum((x - m20) ** 2 for x in c[-20:]) / 20) ** 0.5
+    lower = m20 - 2 * sd
+    if lower > 0 and c[-1] <= lower * 1.03:
+        score += 25; why.append("接近布林下緣")
+    elif c[-1] < m20:
+        score += 10; why.append("布林中線下")
+    k = d = 50.0  # KD（9 日）
+    for i in range(len(c) - 60, len(c)):
+        lo, hi = min(c[i - 8:i + 1]), max(c[i - 8:i + 1])
+        rsv = (c[i] - lo) / (hi - lo) * 100 if hi > lo else 50
+        k = k * 2 / 3 + rsv / 3
+        d = d * 2 / 3 + k / 3
+    if k > d and k < 80:
+        score += 25; why.append(f"KD 黃金交叉（K {k:.0f}）")
+    elif k > d:
+        score += 10; why.append("K > D")
+    e12, e26 = _ema(c[-120:], 12), _ema(c[-120:], 26)
+    dif = [a - b for a, b in zip(e12, e26)]
+    dea = _ema(dif, 9)
+    hist = dif[-1] - dea[-1]
+    if hist > 0 and dif[-1] > dea[-1]:
+        score += 25; why.append("MACD 翻正")
+    return score, why
+
+
+def tech4(ctx):
+    out = []
+    for code in ctx["codes"]:
+        r = tech_score(_closes(ctx, code))
+        if r and r[0] >= 60:
+            out.append({"code": code, "score": r[0], "reason": f"技術分數 {r[0]}：{'、'.join(r[1])}"})
+    return _rank(out, None)
+
+
 METHOD_FNS = {"momentum": momentum, "reversal": reversal, "revenue": revenue, "trust": trust,
-              "foreign": foreign, "value": value, "chain": chain, "ai_theme": ai_theme, "combo": combo}
+              "foreign": foreign, "value": value, "chain": chain, "ai_theme": ai_theme, "combo": combo,
+              "graham": graham, "lynch": lynch, "oneil": oneil, "tech4": tech4}

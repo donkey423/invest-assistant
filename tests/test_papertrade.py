@@ -24,7 +24,7 @@ def fake_px(symbols, end: str, days=330, seed=3):
     start = date(2026, 11, 20) - timedelta(days=int(days * 1.45))
     for sym in symbols:
         rnd = random.Random(f"{seed}-{sym}")
-        p, d, ds, o, c = 100.0, start, [], [], []
+        p, d, ds, o, c, v = 100.0, start, [], [], [], []
         while True:
             d += timedelta(days=1)
             if d.weekday() >= 5:
@@ -33,8 +33,8 @@ def fake_px(symbols, end: str, days=330, seed=3):
                 break
             op = p * math.exp(rnd.gauss(0, 0.005))
             p = op * math.exp(rnd.gauss(0.0005, 0.015))
-            ds.append(d.isoformat()); o.append(round(op, 2)); c.append(round(p, 2))
-        out[sym] = {"dates": ds, "open": o, "close": c}
+            ds.append(d.isoformat()); o.append(round(op, 2)); c.append(round(p, 2)); v.append(rnd.uniform(5e5, 2e6))
+        out[sym] = {"dates": ds, "open": o, "close": c, "volume": v}
     return out
 
 
@@ -82,7 +82,7 @@ def test_first_day_only_places_orders(tmp_path):
     assert r["days_done"] == 0 and r["start"] is None
     by = {m["id"]: m for m in r["methods"]}
     assert len(by) == len(C.METHODS)
-    for mid in ("momentum", "reversal", "revenue", "trust", "foreign", "value", "chain", "combo"):
+    for mid in ("momentum", "reversal", "revenue", "trust", "foreign", "value", "chain", "combo", "graham", "tech4"):
         assert by[mid]["pending"]["buys"], mid
         assert all(m["equity_now"] == C.START_CASH for m in r["methods"])
     assert {b["code"] for b in by["ai_theme"]["pending"]["buys"]} == {"2408", "2344"}
@@ -154,3 +154,28 @@ def test_lagging_index_does_not_delay_decision(tmp_path):
         return px
     r = pm.main(["--out", str(tmp_path)], history_fn=lagging, get_json=fake_get, now=now)
     assert r["last_decision"] == "2026-11-09"
+
+
+def test_stop_loss_and_new_method_added_midway(tmp_path):
+    from papertrade import config as cfg
+    setup_dir(tmp_path)
+    run(tmp_path, "2026-11-09")
+    st = json.loads((tmp_path / "papertrade_state.json").read_text("utf-8"))
+    del st["accounts"]["tech4"]  # 模擬舊版狀態沒有這個方法
+    st["checkpoint"]["accounts"].pop("tech4", None)
+    (tmp_path / "papertrade_state.json").write_text(json.dumps(st), "utf-8")
+    r = run(tmp_path, "2026-11-09")  # 同一天重跑：補開新帳戶
+    assert any(m["id"] == "tech4" and m["pending"]["buys"] for m in r["methods"])
+    m = next(x for x in cfg.METHODS if x["id"] == "oneil")
+    acc = engine.new_account()
+    acc["positions"]["2330"] = {"shares": 10, "price": 1000.0, "cost": 10020, "date": "2026-11-09", "reason": ""}
+    px = {"2330.TW": {"dates": ["2026-11-10"], "open": [900.0], "close": [900.0]}}
+    state = engine.new_state()
+    plan = engine.plan_orders(state, "oneil", acc, [], "2026-11-10", px, {"2330": "2330.TW"})
+    assert plan["sells"] and "停損" in plan["sells"][0]["reason"] and m["stop_loss"] == -8
+
+
+def test_tech_score_basic():
+    up = [100 + i * 0.5 for i in range(120)]
+    sc, why = methods.tech_score(up)
+    assert sc >= 25 and "均線多頭" in why
