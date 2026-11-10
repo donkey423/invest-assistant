@@ -1,0 +1,41 @@
+# 準時鐘：GitHub 的 schedule 在這個 repo 常常晚好幾個小時（2026-11-09 實測 07:30 的早報 10:55 才跑、
+# 每 30 分鐘的警報一天只跑 2 次）。這個 workflow 由每天準時的「AI 摘要」推送啟動，
+# 之後每分鐘看一次時間，到點就觸發早報、警報、持股、模擬帳戶，快滿 6 小時前自己接力下一棒。
+# 時刻表在 tools/clock.py。各 workflow 原本的 schedule 留著當備援。
+name: 準時鐘
+
+on:
+  push:
+    branches: [main]
+    paths: ['site/data/ai_summary.json']   # 交易日 07:47 的雲端排程，準時
+  workflow_dispatch:
+  schedule:
+    - cron: '17 1,7,13,19 * * 1-5'           # 備援：鏈斷掉時重新啟動（可能會晚）
+
+permissions:
+  actions: write
+  contents: read
+
+concurrency:
+  group: clock
+  cancel-in-progress: true      # 新的一棒啟動就換手；程式不記狀態，不會重複觸發
+
+jobs:
+  tick:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+      - name: 按時刻表觸發
+        id: clock
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set +e
+          python3 tools/clock.py --minutes 330
+          echo "code=$?" >> "$GITHUB_OUTPUT"
+      - name: 接力下一棒
+        if: steps.clock.outputs.code == '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run clock.yml --ref main
