@@ -30,77 +30,129 @@
       </div>`).join("")}</div>`;
   }
 
-  function summaryCard(r) {
-    const t = r.totals, a = r.analysis;
-    const tiles = [
-      ["總市值", `${twd(t.value_twd)} 元`, ""],
-      ["今日損益", signed(t.day_pnl_twd), ""],
-      ["未實現損益", signed(t.unrealized_twd), `<span class="${cls(t.unrealized_pct)}">${pct(t.unrealized_pct)}</span>`],
-      ["已實現＋股息", signed(t.realized_twd + t.dividends_twd), `今年股息 ${twd(t.dividends_this_year_twd)}`],
+  // ---------- 版面：一眼看懂 → 要注意什麼 → 每一檔 → 配置與風險 ----------
+  const CAT = ["var(--cat1)", "var(--cat2)", "var(--cat3)", "var(--cat4)", "var(--cat5)", "var(--cat6)", "var(--cat7)"];
+  const pctOf = (a, b) => (b ? (a / b) * 100 : null);
+  const money = (v) => (v == null ? "—" : `<span class="${cls(v)}">${v > 0 ? "+" : v < 0 ? "−" : ""}${twd(Math.abs(v))}</span>`);
+  const pctTag = (v) => `<span class="a-pct ${cls(v)}">${v == null ? "—" : `${v > 0 ? "▲" : v < 0 ? "▼" : ""}${Math.abs(v).toFixed(2)}%`}</span>`;
+
+  // 依市值排序的配置色：同一檔在比例條、明細列用同一個顏色
+  function colorMap(r) {
+    const m = {};
+    [...r.allocation.by_symbol].sort((a, b) => (b.weight_pct || 0) - (a.weight_pct || 0))
+      .forEach((g, i) => { m[g.key] = i < CAT.length - 1 ? CAT[i] : CAT[CAT.length - 1]; });
+    return m;
+  }
+
+  function stackBar(r, colors) {
+    const groups = [...r.allocation.by_symbol].sort((a, b) => (b.weight_pct || 0) - (a.weight_pct || 0));
+    const seg = groups.map((g) => `<span style="flex:${g.weight_pct || 0};background:${colors[g.key]}" title="${esc(g.name || g.key)} ${num(g.weight_pct, 1)}%"></span>`).join("");
+    const legend = groups.map((g) => `<li><i style="background:${colors[g.key]}"></i>${esc(g.name || g.key)}<b>${num(g.weight_pct, 1)}%</b></li>`).join("");
+    return `<div class="a-stack" role="img" aria-label="各檔占比">${seg}</div><ul class="a-legend">${legend}</ul>`;
+  }
+
+  function heroCard(r, colors) {
+    const t = r.totals, k = r.risk;
+    const prev = (t.value_twd || 0) - (t.day_pnl_twd || 0);
+    const total = t.total_pnl_twd ?? (t.unrealized_twd + (t.realized_twd || 0) + (t.dividends_twd || 0));
+    const stats = [
+      ["今日", money(t.day_pnl_twd), pctTag(pctOf(t.day_pnl_twd, prev))],
+      ["總損益", money(total), pctTag(pctOf(total, t.cost_twd))],
+      ["帳上未實現", money(t.unrealized_twd), pctTag(t.unrealized_pct)],
     ];
-    return `<section class="card a-wide">
-      <div class="card-head"><h2>資產總覽</h2><span class="muted">台幣計價｜更新於 ${esc(r.generated_at.replace("T", " "))}</span></div>
-      <div class="a-tiles">${tiles.map(([k, v, s]) => `<div><span class="muted">${k}</span><b>${v}</b><span class="muted">${s}</span></div>`).join("")}</div>
-      ${t.pnl_from_fx_twd ? `<p class="muted">美股部位的損益中，匯率貢獻 ${signed(t.pnl_from_fx_twd)} 元</p>` : ""}
-      ${a ? `<div class="a-ai"><b>${esc(a.headline)}</b><p>${esc(a.overview)}</p></div>` : `<p class="muted">還沒有 AI 健檢（執行時加上 ANTHROPIC_API_KEY 才會產生）。</p>`}
+    const bench = k?.benchmarks?.[0];
+    const trend = k?.series ? `<div class="a-trend">
+        <div class="a-trend-head"><span class="muted">近一年</span>${pctTag(k.return_pct)}${bench ? `<span class="muted">${esc(bench.name)} ${pct(bench.return_pct)}</span>` : ""}</div>
+        <div class="chart">${line(k.series.value_twd, 600, 120)}</div></div>` : "";
+    const extra = [
+      `投入成本 ${twd(t.cost_twd)} 元`,
+      t.realized_twd ? `已實現 ${money(t.realized_twd)}` : "",
+      t.dividends_twd ? `股息 ${twd(t.dividends_twd)}（今年 ${twd(t.dividends_this_year_twd)}）` : "",
+      t.pnl_from_fx_twd ? `匯率影響 ${money(t.pnl_from_fx_twd)}` : "",
+    ].filter(Boolean).join("<span class=\"a-dot\">·</span>");
+    return `<section class="card a-wide a-hero">
+      <div class="a-hero-main">
+        <div>
+          <span class="muted">我的總資產（台幣）· ${t.positions} 檔 · ${esc(r.generated_at.slice(5, 16).replace("T", " ").replace("-", "/"))} 更新</span>
+          <div class="a-total">${twd(t.value_twd)}<small>元</small></div>
+          <div class="a-stats">${stats.map(([k2, v, p]) => `<div><span class="muted">${k2}</span><b>${v}</b>${p}</div>`).join("")}</div>
+        </div>${trend}
+      </div>
+      ${stackBar(r, colors)}
+      <p class="muted a-extra">${extra}</p>
+      ${r.analysis ? `<p class="a-ai"><b>${esc(r.analysis.headline)}</b> ${esc(r.analysis.overview)}</p>` : ""}
     </section>`;
   }
 
-  function alertsCard(a) {
-    if (!a || !(a.news_alerts || []).length) return "";
+  // 要注意：只列真正需要處理的（超過上限、轉弱、碰到新聞），其餘收起來
+  const HLIGHT = { "轉強": "up", "轉弱": "down", "持平": "flat", "資料不足": "flat" };
+  function attentionCard(r) {
+    const h = r.health, a = r.analysis;
+    const items = (h?.items || []);
+    const must = items.filter((i) => i.level === "warn" || i.level === "bad");
+    const rest = items.filter((i) => !(i.level === "warn" || i.level === "bad"));
     const dir = { "偏多": "up", "偏空": "down", "中性": "flat" };
-    return `<section class="card a-wide">
-      <div class="card-head"><h2>今天碰到你持股的新聞</h2><span class="muted">AI 依今日早報整理，只是提醒</span></div>
-      <ul class="a-alerts">${a.news_alerts.map((n) => `<li><b>${esc(n.symbol)}</b> <span class="${dir[n.direction] || "flat"}">${esc(n.direction)}</span>　${esc(n.reason)}</li>`).join("")}</ul>
+    const news = (a?.news_alerts || []).map((n) => `<li class="a-n"><b>${esc(n.symbol)}</b> <span class="${dir[n.direction] || "flat"}">${esc(n.direction)}</span> ${esc(n.reason)}</li>`).join("");
+    const watch = (a?.watch_items || []).map((w) => `<li class="a-n">${esc(w)}</li>`).join("");
+    const list = must.map((i) => `<li class="a-${esc(i.level)}">${esc(i.text)}</li>`).join("") + news + watch;
+    const rows = (h?.chain_exposure || []).map((e) => `<tr><td><b>${esc(e.name)}</b> <span class="muted">${e.holdings.map((x) => esc(x.name)).join("、")}</span></td>
+        <td><span class="light ${HLIGHT[e.light] || "flat"}">${esc(e.light || "—")}</span></td><td class="n">${num(e.weight_pct, 1)}%</td></tr>`).join("");
+    const more = rest.length || rows ? `<details class="a-more"><summary>產業鏈燈號與其他觀察</summary>
+        ${h ? `<p class="muted">在轉強產業鏈 ${num(h.strong_pct, 1)}%・轉弱 ${num(h.weak_pct, 1)}%・對不到產業鏈 ${num(h.unmapped_pct, 1)}%${h.signals_at ? `（燈號 ${esc(h.signals_at.slice(5, 16).replace("T", " "))}）` : ""}</p>` : ""}
+        ${rest.length ? `<ul class="a-list-plain">${rest.map((i) => `<li>${esc(i.text)}</li>`).join("")}</ul>` : ""}
+        ${rows ? `<table class="a-table compact"><thead><tr><th>產業鏈（我的持股）</th><th>燈號</th><th class="n">占資產</th></tr></thead><tbody>${rows}</tbody></table>
+        <p class="muted">一檔可能屬於多條鏈，占比加總可能超過 100%。燈號來自「產業鏈訊號」分頁。</p>` : ""}
+      </details>` : "";
+    if (!list && !more) return "";
+    return `<section class="card a-wide a-attn">
+      <div class="card-head"><h2>要注意</h2><span class="muted">${list ? `${must.length + (a?.news_alerts || []).length + (a?.watch_items || []).length} 件` : "目前沒有需要處理的事"}</span></div>
+      ${list ? `<ul class="a-attn-list">${list}</ul>` : ""}${more}
     </section>`;
   }
 
-  function tableCard(r, account) {
+  function holdingsCard(r, account, colors) {
     const notes = {};
     (r.analysis?.positions || []).forEach((p) => { notes[p.symbol] = p; });
-    const weight = {};
-    r.allocation.by_symbol.forEach((g) => { weight[g.key] = g; });
     const total = r.totals.value_twd || 1;
     const accounts = [...new Set(r.positions.map((p) => p.account))];
-    const rows = r.positions.filter((p) => account === "全部" || p.account === account);
+    const rows = r.positions.filter((p) => account === "全部" || p.account === account)
+      .sort((a, b) => (b.value_twd || 0) - (a.value_twd || 0));
+    const over = {};
+    r.allocation.by_symbol.forEach((g) => { over[g.key] = g.over_limit; });
     const body = rows.map((p) => {
-      if (p.error) return `<tr><td><b>${esc(p.name || p.symbol)}</b><div class="muted">${esc(p.symbol)}</div></td><td colspan="8" class="muted">${esc(p.error)}</td></tr>`;
-      const n = notes[p.symbol];
-      const over = weight[p.symbol]?.over_limit;
-      const fx = p.pnl_from_fx_twd != null ? `<div class="muted">股價 ${signed(p.pnl_from_price_twd)}／匯率 ${signed(p.pnl_from_fx_twd)}</div>` : "";
-      return `<tr>
-        <td><b>${esc(p.name || p.symbol)}</b><div class="muted">${esc(p.symbol)}｜${esc(p.account)}</div></td>
-        <td class="n">${num(p.shares, 4)}<div class="muted">成本 ${num(p.avg_cost)}</div></td>
-        <td class="n">${num(p.price)}<div class="${cls(p.day_change_pct)}">${pct(p.day_change_pct)}</div></td>
-        <td class="n">${twd(p.value_twd)}</td>
-        <td class="n">${signed(p.pnl_twd)}${fx}</td>
-        <td class="n"><span class="${cls(p.return_twd_pct)}">${pct(p.return_twd_pct)}</span><div class="muted">${p.annualized_pct != null ? `年化 ${pct(p.annualized_pct)}` : p.holding_days != null ? `持有 ${p.holding_days} 天` : ""}</div></td>
-        <td class="n${over ? " a-over" : ""}">${num((p.value_twd / total) * 100, 1)}%</td>
-        <td class="a-thesis">${p.thesis ? esc(p.thesis) : '<span class="muted">（未填）</span>'}
-          ${n ? `<div><span class="a-status ${STATUS[n.thesis_status] || "na"}">${esc(n.thesis_status)}</span> ${esc(n.comment)}</div>` : ""}</td>
-      </tr>`;
+      if (p.error) return `<li class="a-pos"><div class="a-pos-name"><b>${esc(p.name || p.symbol)}</b><span class="muted">${esc(p.symbol)}</span></div><div class="muted a-pos-err">${esc(p.error)}</div></li>`;
+      const w = (p.value_twd / total) * 100, n = notes[p.symbol];
+      const fx = p.pnl_from_fx_twd != null ? `股價 ${money(p.pnl_from_price_twd)}／匯率 ${money(p.pnl_from_fx_twd)}` : "";
+      const sub = [`${num(p.shares, 4)} 股`, `成本 ${num(p.avg_cost)}`, `現價 ${num(p.price)}`, p.account,
+        p.holding_days != null ? `持有 ${p.holding_days} 天` : ""].filter(Boolean).join("・");
+      const thesis = p.thesis || n ? `<div class="a-pos-why">${p.thesis ? esc(p.thesis) : '<span class="muted">未填投資理由</span>'}${n ? ` <span class="a-status ${STATUS[n.thesis_status] || "na"}">${esc(n.thesis_status)}</span> <span class="muted">${esc(n.comment)}</span>` : ""}</div>` : "";
+      return `<li class="a-pos">
+        <div class="a-pos-name"><i style="background:${colors[p.symbol] || CAT[6]}"></i><b>${esc(p.name || p.symbol)}</b><span class="muted">${esc(p.symbol)}</span></div>
+        <div class="a-pos-val"><b>${twd(p.value_twd)}</b><span class="muted a-wv${over[p.symbol] ? " a-over" : ""}">占 ${num(w, 1)}%${over[p.symbol] ? " 超過上限" : ""}</span></div>
+        <div class="a-pos-day"><span class="muted a-w${over[p.symbol] ? " a-over" : ""}">占 ${num(w, 1)}%・</span><span class="muted">今日</span>${pctTag(p.day_change_pct)}</div>
+        <div class="a-pos-pnl"><b>${money(p.pnl_twd)}</b>${pctTag(p.return_twd_pct)}</div>
+        <div class="a-pos-sub muted">${esc(sub)}${fx ? `・${fx}` : ""}</div>
+        ${thesis}
+      </li>`;
     }).join("");
-    const opts = ["全部", ...accounts].map((x) => `<option${x === account ? " selected" : ""}>${esc(x)}</option>`).join("");
+    const chips = accounts.length > 1 ? `<div class="chips a-acct">${["全部", ...accounts].map((x) => `<button class="chip${x === account ? " selected" : ""}" data-acct="${esc(x)}">${esc(x)}</button>`).join("")}</div>` : "";
     return `<section class="card a-wide">
-      <div class="card-head"><h2>持股明細</h2><label class="muted">帳戶 <select id="a-account">${opts}</select></label></div>
-      <div class="a-scroll"><table class="a-table">
-        <thead><tr><th>名稱</th><th class="n">股數</th><th class="n">現價</th><th class="n">市值</th><th class="n">損益</th><th class="n">報酬</th><th class="n">占比</th><th>投資理由與 AI 檢查</th></tr></thead>
-        <tbody>${body}</tbody></table></div>
-      <p class="muted">市值、損益都換算成台幣；占比是占全部資產。${MODE === "cloud" ? "新增或修改持股後，數字會在下次自動計算時更新。" : "修改持股請編輯 private/holdings.csv 後重新執行 python -m holdings。"}</p>
+      <div class="card-head"><h2>每一檔持股</h2><span class="muted">依市值排序，金額都換算成台幣</span></div>
+      ${chips}<div class="a-pos a-pos-head muted"><div>名稱</div><div>市值・占比</div><div>今日漲跌</div><div>損益・報酬率</div></div><ul class="a-pos-list">${body}</ul>
+      ${MODE === "cloud" ? "" : '<p class="muted">修改持股請編輯 private/holdings.csv 後重新執行 python -m holdings。</p>'}
     </section>`;
   }
 
   function allocCard(r) {
     const a = r.allocation, c = a.concentration;
     return `<section class="card">
-      <div class="card-head"><h2>資產配置與集中度</h2><span class="muted">單一持股上限 ${num(c.position_limit_pct, 0)}%、產業 ${num(c.sector_limit_pct, 0)}%</span></div>
+      <div class="card-head"><h2>配置與集中度</h2><span class="muted">上限：單檔 ${num(c.position_limit_pct, 0)}%、產業 ${num(c.sector_limit_pct, 0)}%</span></div>
       <div class="a-tiles small">
         <div><span class="muted">最大一檔</span><b>${num(c.top1_pct, 1)}%</b></div>
         <div><span class="muted">前三檔</span><b>${num(c.top3_pct, 1)}%</b></div>
-        <div><span class="muted">相當於平均分散在</span><b>${num(c.effective_n, 1)} 檔</b></div>
+        <div><span class="muted">等於分散在</span><b>${num(c.effective_n, 1)} 檔</b></div>
       </div>
       ${r.analysis?.concentration ? `<p>${esc(r.analysis.concentration)}</p>` : ""}
-      <h3>個股</h3>${bars(a.by_symbol, (g) => esc(g.name || g.key))}
       <h3>產業</h3>${bars(a.by_sector)}
       <div class="a-two"><div><h3>市場</h3>${bars(a.by_market, (g) => esc(LABEL[g.key] || g.key))}</div><div><h3>幣別</h3>${bars(a.by_currency)}</div></div>
     </section>`;
@@ -111,11 +163,10 @@
     if (!k || !k.series) return "";
     const rows = [["我的持股", k.return_pct, k.max_drawdown_pct], ...k.benchmarks.map((b) => [b.name, b.return_pct, b.max_drawdown_pct])];
     return `<section class="card">
-      <div class="card-head"><h2>與大盤比較</h2><span class="muted">${esc(k.from)} 到 ${esc(k.to)}</span></div>
-      <div class="chart">${line(k.series.value_twd)}</div>
+      <div class="card-head"><h2>和大盤比</h2><span class="muted">${esc(k.from)} 到 ${esc(k.to)}</span></div>
       <table class="a-table compact"><thead><tr><th></th><th class="n">一年報酬</th><th class="n">最大回撤</th></tr></thead>
         <tbody>${rows.map(([n, ret, dd]) => `<tr><td>${esc(n)}</td><td class="n ${cls(ret)}">${pct(ret)}</td><td class="n">${pct(dd)}</td></tr>`).join("")}</tbody></table>
-      <p class="muted">對台股大盤的 beta ${num(k.beta)}（1 代表和大盤同步，越大波動越大）；年化波動 ${pct(k.volatility_pct).replace("+", "")}。${esc(k.note)}。</p>
+      <p class="muted">beta ${num(k.beta)}（1＝和台股大盤同步，越大波動越大）・年化波動 ${pct(k.volatility_pct).replace("+", "")}。${esc(k.note)}。</p>
     </section>`;
   }
 
@@ -123,52 +174,48 @@
     const s = r.risk?.scenarios;
     if (!s || !s.length) return "";
     return `<section class="card">
-      <div class="card-head"><h2>情境試算</h2><span class="muted">程式估算，不是預測</span></div>
+      <div class="card-head"><h2>如果大跌，我會少多少</h2><span class="muted">程式估算，不是預測</span></div>
       <ul class="a-scen">${s.map((x) => x.error ? `<li>${esc(x.name)}<span class="muted">${esc(x.error)}</span></li>` : `
-        <li><div>${esc(x.name)}<div class="muted">${(x.worst || []).length ? "影響最大：" + x.worst.map((w) => `${esc(w.symbol)}（beta ${num(w.beta)}）`).join("、") : esc(x.method)}</div></div>
-          <b>${signed(x.est_change_twd)}<div class="${cls(x.est_change_pct)}">${pct(x.est_change_pct)}</div></b></li>`).join("")}</ul>
-      ${(r.analysis?.watch_items || []).length ? `<h3>接下來留意</h3><ul class="a-watch">${r.analysis.watch_items.map((w) => `<li>${esc(w)}</li>`).join("")}</ul>` : ""}
-    </section>`;
-  }
-
-  // 持股健檢：程式規則算的（不用 AI），對照早報「產業鏈訊號」燈號
-  const HLIGHT = { "轉強": "up", "轉弱": "down", "持平": "flat", "資料不足": "flat" };
-  function healthCard(r) {
-    const h = r.health;
-    if (!h) return "";
-    const items = h.items.map((i) => `<li class="a-h-${esc(i.level)}">${esc(i.text)}</li>`).join("");
-    const rows = h.chain_exposure.map((e) => `<tr>
-        <td><b>${esc(e.name)}</b><div class="muted small">${e.holdings.map((x) => esc(x.name)).join("、")}</div></td>
-        <td><span class="light ${HLIGHT[e.light] || "flat"}">${esc(e.light || "—")}</span></td>
-        <td class="n">${num(e.weight_pct, 1)}%</td></tr>`).join("");
-    const tiles = `<div class="a-tiles small">
-        <div><span class="muted">在轉弱產業鏈</span><b class="${h.weak_pct > 0 ? "down" : ""}">${num(h.weak_pct, 1)}%</b></div>
-        <div><span class="muted">在轉強產業鏈</span><b class="${h.strong_pct > 0 ? "up" : ""}">${num(h.strong_pct, 1)}%</b></div>
-        <div><span class="muted">對不到產業鏈</span><b>${num(h.unmapped_pct, 1)}%</b></div></div>`;
-    return `<section class="card a-wide">
-      <div class="card-head"><h2>持股健檢</h2><span class="muted">${h.signals_at ? `產業鏈燈號 ${esc(h.signals_at.slice(0, 16).replace("T", " "))}` : "還沒有產業鏈燈號"}</span></div>
-      ${tiles}<ul class="a-health">${items}</ul>
-      ${rows ? `<h3>產業鏈曝險</h3><table class="a-table compact"><thead><tr><th>產業鏈（我的持股）</th><th>燈號</th><th class="n">占資產</th></tr></thead><tbody>${rows}</tbody></table>
-      <p class="muted small">一檔可能同時屬於多條鏈，所以占比加總可能超過 100%。燈號來自「產業鏈訊號」分頁，看月營收、上游報價和股價。</p>` : ""}
+        <li><div>${esc(x.name)}<div class="muted">${(x.worst || []).length ? "影響最大：" + x.worst.map((w) => esc(w.symbol)).join("、") : esc(x.method)}</div></div>
+          <b>${money(x.est_change_twd)}<div class="${cls(x.est_change_pct)}">${pct(x.est_change_pct)}</div></b></li>`).join("")}</ul>
     </section>`;
   }
 
   function reportHtml(r, account) {
     if (!r) return "";
+    const colors = colorMap(r);
     const warn = (r.warnings || []).map((w) => `<div class="a-warn">${esc(w)}</div>`).join("");
     const where = MODE === "cloud" ? "持股存在你的 Supabase 資料庫，只有用私密連結打開過的裝置看得到。" : "持股資料只存在你自己的電腦。";
-    return `${warn}<div class="grid">${summaryCard(r)}${healthCard(r)}${alertsCard(r.analysis)}${tableCard(r, account)}${allocCard(r)}${riskCard(r)}${scenarioCard(r)}</div>
+    return `${warn}<div class="grid a-grid">${heroCard(r, colors)}${attentionCard(r)}${holdingsCard(r, account, colors)}${allocCard(r)}${riskCard(r)}${scenarioCard(r)}</div>
       <p class="muted a-foot">${where}AI 健檢只拿到占比、報酬率、產業與投資理由，不含帳戶與金額。僅供參考，不構成投資建議。${r.analysis?.model ? `｜模型 ${esc(r.analysis.model)}` : ""}</p>`;
   }
 
   function bindAccount(r, rerender) {
-    const sel = document.getElementById("a-account");
-    if (sel) sel.addEventListener("change", () => rerender(sel.value));
+    root.querySelectorAll("[data-acct]").forEach((b) => b.addEventListener("click", () => rerender(b.dataset.acct)));
+  }
+
+  // 早報頁最上面放一條「我的資產」摘要，點了直接跳到資產頁（只在這台已記住私密連結的裝置上出現）
+  function briefStrip(r) {
+    const host = document.getElementById("tab-brief");
+    if (!host || !r) return;
+    let el = document.getElementById("my-strip");
+    if (!el) {
+      el = document.createElement("button");
+      el.id = "my-strip"; el.className = "my-strip"; el.type = "button";
+      el.addEventListener("click", () => { document.querySelector('.tab[data-tab="assets"]')?.click(); window.scrollTo(0, 0); });
+      host.prepend(el);
+    }
+    const t = r.totals, prev = (t.value_twd || 0) - (t.day_pnl_twd || 0);
+    const total = t.total_pnl_twd ?? t.unrealized_twd;
+    el.innerHTML = `<span class="muted">我的資產</span><b>${twd(t.value_twd)}</b>
+      <span><span class="muted">今日</span> ${money(t.day_pnl_twd)} ${pctTag(pctOf(t.day_pnl_twd, prev))}</span>
+      <span><span class="muted">總損益</span> ${money(total)} ${pctTag(pctOf(total, t.cost_twd))}</span><span class="my-go">看明細 ›</span>`;
   }
 
   function render(r, account = "全部") {
     // 讓「產業鏈訊號」分頁標出持股所在的產業鏈（只在這台瀏覽器裡，不會送出去）
     if (window.HOLDINGS_REPORT !== r) { window.HOLDINGS_REPORT = r; window.dispatchEvent(new Event("holdings:report")); }
+    briefStrip(r);
     root.innerHTML = reportHtml(r, account);
     bindAccount(r, (a) => render(r, a));
   }
@@ -262,7 +309,7 @@
             <span class="n">${num(h.shares, 4)} 股 @ ${num(h.avg_cost)}${valued.has(key) ? "" : '<em class="a-badge">待計算</em>'}</span></button></li>`;
     }).join("");
     return `<section class="card a-wide a-manage">
-      <div class="card-head"><h2>管理持股</h2><span class="muted">這台裝置已記住你的私密連結　<button class="a-link" data-logout>忘記這台裝置</button></span></div>
+      <div class="card-head"><h2>新增或修改持股</h2><span class="muted">這台裝置已記住你的私密連結　<button class="a-link" data-logout>忘記這台裝置</button></span></div>
       ${open === "new" ? holdingForm({}, listsOf(holdings)) : `<button class="a-btn primary a-add" data-new>＋ 新增持股</button>`}
       ${holdings.length ? `<ul class="a-list">${items}</ul>` : '<p class="muted">還沒有持股，按上面的按鈕新增第一筆。</p>'}
       <p class="muted">點一筆可以修改或刪除。損益與分析在每天自動計算時更新（台股收盤後與美股收盤後）。</p>
@@ -280,8 +327,11 @@
     try { data = await rpc("vault_data", {}); }
     catch (err) { if (vkey) root.innerHTML = `<section class="card a-warn">讀取失敗：${esc(err.message)}</section>`; return; }
     const holdings = data.holdings || [], report = data.report || null;
-    root.innerHTML = `<div class="grid">${manageCard(holdings, report, open)}</div>${report ? reportHtml(report, account)
-      : '<section class="card placeholder">新增持股後，下一次自動計算完成就會在這裡看到損益與分析。</section>'}`;
+    if (report) { window.HOLDINGS_REPORT = report; window.dispatchEvent(new Event("holdings:report")); briefStrip(report); }
+    // 有報告時先看數字，管理持股放在最下面；還沒有報告（或正在編輯）才放上面
+    const manage = `<div class="grid">${manageCard(holdings, report, open)}</div>`;
+    root.innerHTML = report && open == null ? `${reportHtml(report, account)}${manage}`
+      : `${manage}${report ? reportHtml(report, account) : '<section class="card placeholder">新增持股後，下一次自動計算完成就會在這裡看到損益與分析。</section>'}`;
     bindAccount(report, (a) => cloudHome(open, a));
     const card = root.querySelector(".a-manage");
     card.querySelector("[data-logout]").addEventListener("click", () => {

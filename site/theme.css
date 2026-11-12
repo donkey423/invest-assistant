@@ -24,6 +24,8 @@
   --accent: #4b47d6; --accent-tint: #eeedfd;
   --warn-bg: #fff4d6; --warn-ink: #7a5600;
   --land: #e7e4dc; --risk: #d97000;
+  /* 類別色（資產配置用；避開紅綠，不和漲跌混淆） */
+  --cat1: #4b47d6; --cat2: #1a8fb0; --cat3: #d99a1e; --cat4: #9b5de5; --cat5: #5b8a72; --cat6: #c2669e; --cat7: #9a9aa3;
   /* 字級 */
   --fs-xs: 11px; --fs-sm: 12px; --fs-md: 14px; --fs-lg: 16px; --fs-xl: 20px; --fs-hero: 40px;
   /* 間距與圓角 */
@@ -44,6 +46,7 @@
     --accent: #908dff; --accent-tint: #26254a;
     --warn-bg: #3a3014; --warn-ink: #f2d27a;
     --land: #2c2c33; --risk: #ffa53a;
+    --cat1: #908dff; --cat2: #4cc3e6; --cat3: #f2b84b; --cat4: #c39bff; --cat5: #7fbf9f; --cat6: #ef8fc6; --cat7: #6c6b72;
   }
 }
 
@@ -253,18 +256,18 @@ h3, .bt-sub, .chain h3, #tab-assets h3 { color: var(--ink-2); }
 .gauge.big-move { box-shadow: inset 3px 0 0 var(--ink-2); }
 
 /* 可收合的卡片：點標題收起或展開 */
-.brief-grid .card[data-fold] > .card-head { cursor: pointer; user-select: none; }
-.brief-grid .card[data-fold] > .card-head h2::after { content: "▾"; margin-left: 6px; color: var(--muted); font-size: .8em; }
-.brief-grid .card.folded > .card-head h2::after { content: "▸"; }
-.brief-grid .card.folded > .card-head { margin-bottom: 0; }
-.brief-grid .card.folded > :not(.card-head):not(.card-sum) { display: none !important; }
+.card[data-fold] > .card-head { cursor: pointer; user-select: none; }
+.card[data-fold] > .card-head h2::after { content: "▾"; margin-left: 6px; color: var(--muted); font-size: .8em; }
+.card.folded > .card-head h2::after { content: "▸"; }
+.card.folded > .card-head { margin-bottom: 0; }
+.card.folded > :not(.card-head):not(.card-sum) { display: none !important; }
 .card-sum { display: none; font-size: var(--fs-sm, 13px); color: var(--ink-2); margin-top: 4px; }
-.brief-grid .card.folded > .card-sum { display: block; }
+.card.folded > .card-sum { display: block; }
 
-/* 手機：最有價值的 AI 重點與主題推理排在指數後面，行情細節往後放 */
+/* 手機：指數 → 接下來的行事曆 → 主題推理 → 新聞，行情細節往後放（看未來，不看已反映的舊聞） */
 @media (max-width: 759px) {
-  .brief-grid .taiex { order: 1; } .brief-grid .news-card { order: 2; } .brief-grid .theme-card { order: 3; }
-  .brief-grid .gauge-card { order: 4; } .brief-grid .cal-card { order: 5; }
+  .brief-grid .taiex { order: 1; } .brief-grid .cal-card { order: 2; } .brief-grid .theme-card { order: 3; }
+  .brief-grid .news-card { order: 4; } .brief-grid .gauge-card { order: 5; }
   .brief-grid .global-card { order: 6; } .brief-grid .ai-card { order: 7; }
 }
 
@@ -272,3 +275,16 @@ h3, .bt-sub, .chain h3, #tab-assets h3 { color: var(--ink-2); }
   color: var(--muted); background: var(--sunken); white-space: nowrap; }
 .basis.thin { color: #8a4b00; background: #ffe7c2; }
 @media (prefers-color-scheme: dark) { .basis.thin { color: #ffd591; background: #4a3413; } }
+
+/* ===== 2026-11-12 簡化：少一點框線與陰影、只在早報顯示 AI 一句話 ===== */
+body:not([data-tab="brief"]) .headline, body:not([data-tab="brief"]) #warnings { display: none; }
+.card { box-shadow: none; }
+.headline { box-shadow: none; border-left-width: 3px; }
+.card-head h2 { font-size: 16px; }
+.card[data-fold] > .card-head h2::after { content: "▾"; margin-left: 6px; color: var(--muted); font-size: .8em; }
+.card.folded > .card-head h2::after { content: "▸"; }
+.card.folded > .card-head { margin-bottom: 0; }
+.card.folded > :not(.card-head):not(.card-sum) { display: none !important; }
+.card.folded > .card-sum { display: block; }
+.card[data-fold] > .card-head { cursor: pointer; user-select: none; }
+.tabpane > .card + .card, .tabpane > .card + .pt-top, .tabpane > .pt-top + .card { margin-top: var(--s4); }
