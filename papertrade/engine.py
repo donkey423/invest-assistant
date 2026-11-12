@@ -138,8 +138,12 @@ def plan_orders(state: dict, mid: str, acc: dict, ranking: list[dict], day: str,
                 sells.append({"code": code, "reason": f"漲 {chg:+.1f}%，觸發 +{method['take_profit']}% 停利"})
             elif method.get("max_hold") and _held_days(state, pos["date"]) >= method["max_hold"]:
                 sells.append({"code": code, "reason": f"已持有 {method['max_hold']} 個交易日，依方法出場"})
+    every = method.get("rebalance_every")
+    rebalance_day = not every or not held or len(state["days"]) % every == 0
     if exit_rules and not method.get("rank_exit"):
         pass
+    elif not rebalance_day:
+        pass  # 不是換股日：只處理停損
     elif mid == "trust":
         hold = method.get("hold_days", 11)
         for code, pos in held.items():
@@ -149,7 +153,7 @@ def plan_orders(state: dict, mid: str, acc: dict, ranking: list[dict], day: str,
         keep = set(ranked if mid == "ai_theme" else ranked[:C.KEEP_RANK])
         already = {s["code"] for s in sells}
         for code in held:
-            if code not in keep and code not in already:
+            if code not in keep and code not in already and _held_days(state, held[code]["date"]) >= method.get("min_hold", 0):
                 if mid == "ai_theme":
                     why = "近 5 天 AI 推理沒再提到"
                 elif mid == "claude":
@@ -164,7 +168,7 @@ def plan_orders(state: dict, mid: str, acc: dict, ranking: list[dict], day: str,
     invested = sum(held[c]["shares"] * (price_on(px.get(sym.get(c)), day) or held[c]["price"]) for c in remain)
     # 綜合帳戶：持股比例降低時，先賣排名最後的
     target_total = equity * expo
-    if expo > 0 and invested > target_total * 1.1:
+    if expo > 0 and rebalance_day and invested > target_total * 1.1:
         for code in sorted(remain, key=lambda c: ranked.index(c) if c in ranked else 999, reverse=True):
             if invested <= target_total * 1.05:
                 break
@@ -173,7 +177,7 @@ def plan_orders(state: dict, mid: str, acc: dict, ranking: list[dict], day: str,
             remain.remove(code)
             sells.append({"code": code, "reason": "降低持股比例"})
     cash = acc["cash"] + sum(held[s["code"]]["shares"] * (price_on(px.get(sym.get(s["code"])), day) or 0) * 0.995 for s in sells)
-    slots = C.TOP_N - len(remain)
+    slots = C.TOP_N - len(remain) if rebalance_day else 0
     per = equity * expo / C.TOP_N
     buys = []
     room = max(0.0, target_total - invested)
@@ -196,10 +200,10 @@ def decide(state: dict, ctx: dict, day: str, px: dict, sym: dict, names: dict) -
     """依各方法選股、產生委託，並寫進選股日誌。回傳 {方法: 排名}。"""
     rankings = {}
     expo, expo_note = exposure(ctx.get("regime") or {})
-    for m in sorted(C.METHODS, key=lambda m: m["id"] == "claude"):  # Claude 判斷最後做，要用到其他方法的結果
+    for m in sorted(C.METHODS, key=lambda m: m["id"] in ("claude", "claude2")):  # Claude 判斷最後做，要用到其他方法的結果
         mid = m["id"]
         try:
-            if mid == "claude":
+            if mid in ("claude", "claude2"):
                 ctx["rankings"] = rankings
                 ctx["perf"] = ctx["perf_fn"](state) if ctx.get("perf_fn") else {}
             ranking = METHOD_FNS[mid](ctx)
@@ -208,8 +212,8 @@ def decide(state: dict, ctx: dict, day: str, px: dict, sym: dict, names: dict) -
             ctx.setdefault("warnings", []).append(f"{m['name']} 選股失敗：{e}")
         rankings[mid] = ranking
         acc = state["accounts"][mid]
-        e = expo if mid in ("combo", "claude") else 1.0
-        note = expo_note if mid == "claude" else ""
+        e = expo if mid in ("combo", "claude", "claude2") else 1.0
+        note = expo_note if mid in ("claude", "claude2") else ""
         mf = m.get("market_filter")
         if mf and (ctx.get("regime") or {}).get(f"above_ma{mf}") is False:
             e, note = 0.0, "大盤在年線之下，依方法不買新股（持股照規則續抱）"
@@ -219,7 +223,7 @@ def decide(state: dict, ctx: dict, day: str, px: dict, sym: dict, names: dict) -
             "picks": [{"code": r["code"], "name": names.get(r["code"], ""), "reason": r["reason"]} for r in ranking[:C.TOP_N]],
             "buys": [b["code"] for b in acc["pending"]["buys"]],
             "sells": [{"code": s["code"], "name": names.get(s["code"], ""), "reason": s["reason"]} for s in acc["pending"]["sells"]],
-            "note": expo_note if mid == "combo" else (ctx.get("claude_note") or note) if mid == "claude" else note or ("" if ranking else "今天沒有符合條件的股票或資料抓不到，維持原持股"),
+            "note": expo_note if mid == "combo" else (ctx.get(f"{mid}_note") or note) if mid in ("claude", "claude2") else note or ("" if ranking else "今天沒有符合條件的股票或資料抓不到，維持原持股"),
         })
     return rankings
 

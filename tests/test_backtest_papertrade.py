@@ -31,10 +31,12 @@ def test_revenue_availability_no_lookahead():
 
 def test_backtest_runs_two_windows(tmp_path, monkeypatch):
     monkeypatch.setattr(bt.time, "sleep", lambda s: None)
-    monkeypatch.setattr(bt, "WINDOWS", [(8, "近 8 天"), (15, "近 15 天")])
+    monkeypatch.setattr(bt, "WINDOWS", [(8, "近 8 天", 0), (15, "近 15 天", 0), (10, "更早 10 天", 15)])
     now = datetime(2026, 11, 10, 19, tzinfo=TW)
     out = bt.main(["--out", str(tmp_path)], get=fake_get_bt, history_fn=lambda s: fake_px(s, "2026-11-10"), now=now)
-    assert [w["label"] for w in out["windows"]] == ["近 8 天", "近 15 天"]
+    assert [w["label"] for w in out["windows"]] == ["近 8 天", "近 15 天", "更早 10 天"]
+    assert out["windows"][2]["unseen"] and out["windows"][2]["end"] < out["windows"][1]["start"]
+    assert "claude2" in out["windows"][1]["win"]
     w = out["windows"][1]
     assert w["days"] == 15 and w["end"] == "2026-11-10"
     ids = {m["id"] for m in w["methods"]}
