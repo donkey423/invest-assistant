@@ -11,7 +11,7 @@
 <meta name="theme-color" content="#f4f3ef" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0f0f11" media="(prefers-color-scheme: dark)">
 </head>
-<body>
+<body data-tab="brief">
 <header class="top">
   <div class="brand">
     <h1>投資情報小助手</h1>
@@ -151,12 +151,12 @@
     <h3 class="bt-sub">回測期間 Claude 判斷的交易（最近 15 筆）</h3><div id="pt-bt-trades" class="pt-scroll"></div>
   </section>
   <section class="card" id="pt-detail"></section>
-  <section class="card"><div class="card-head"><h2>全部交易紀錄</h2><span class="muted">每一筆買進、賣出與原因</span></div>
+  <section class="card" data-fold="pt-trades-card"><div class="card-head"><h2>全部交易紀錄</h2><span class="muted">每一筆買進、賣出與原因</span></div>
     <div id="pt-filter" class="chips" role="tablist" aria-label="依帳戶篩選"></div><div id="pt-trades" class="pt-scroll"></div></section>
-  <section class="card"><div class="card-head"><h2>每日換股紀錄</h2><span class="muted">收盤後決定，隔天開盤成交</span></div><ul id="pt-history" class="pt-history"></ul></section>
+  <section class="card" data-fold="pt-history-card"><div class="card-head"><h2>每日換股紀錄</h2><span class="muted">收盤後決定，隔天開盤成交</span></div><ul id="pt-history" class="pt-history"></ul></section>
 </main>
 <main id="tab-assets" class="tabpane" hidden>
-  <section class="card placeholder">持股明細與分析在第三階段加入。</section>
+  <section class="card placeholder">載入中…</section>
 </main>
 
 <footer class="muted">資料來源：Yahoo Finance、臺灣證券交易所、臺灣期貨交易所、Forex Factory 行事曆、各新聞 RSS。AI 整理僅供參考，不構成投資建議。<span id="model"></span></footer>

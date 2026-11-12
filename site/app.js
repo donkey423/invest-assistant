@@ -441,15 +441,17 @@
   }
 
   // 卡片可以收合（點標題），記住每張卡片的狀態；手機預設先收起全球股市與美國 AI 股
-  const FOLD_DEFAULT = { "global-card": true, "ai-card": true };
+  // 手機預設收起；ALWAYS_FOLD 不論桌機手機都先收起（很長、平常不必看）
+  const FOLD_DEFAULT = { "global-card": true, "ai-card": true, "gauge-card": true };
+  const ALWAYS_FOLD = { "pt-trades-card": true, "pt-history-card": true };
   const narrow = () => window.matchMedia("(max-width: 759px)").matches;
   let folds = {};
   try { folds = JSON.parse(localStorage.getItem("folds") || "{}"); } catch (e) { /* 無痕模式 */ }
-  document.querySelectorAll(".brief-grid .card[data-fold]").forEach((card) => {
+  document.querySelectorAll(".card[data-fold]").forEach((card) => {
     const key = card.dataset.fold;
     const head = card.querySelector(".card-head");
     const apply = (on) => { card.classList.toggle("folded", on); head.setAttribute("aria-expanded", String(!on)); };
-    apply(key in folds ? folds[key] : narrow() && !!FOLD_DEFAULT[key]);
+    apply(key in folds ? folds[key] : !!ALWAYS_FOLD[key] || (narrow() && !!FOLD_DEFAULT[key]));
     head.setAttribute("role", "button");
     head.tabIndex = 0;
     const toggle = () => {
@@ -466,6 +468,7 @@
   function showTab(name) {
     document.querySelectorAll(".tab").forEach((b) => b.classList.toggle("active", b.dataset.tab === name));
     document.querySelectorAll(".tabpane").forEach((p) => { p.hidden = p.id !== `tab-${name}`; });
+    document.body.dataset.tab = name;
     try { localStorage.setItem("tab", name); } catch (e) { /* 無痕模式 */ }
   }
   document.querySelectorAll(".tab").forEach((b) => b.addEventListener("click", () => showTab(b.dataset.tab)));
