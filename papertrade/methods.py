@@ -310,7 +310,7 @@ def method_weights(ctx) -> dict:
     perf = ctx.get("perf") or {}
     w = {}
     for m in METHODS:
-        if m["id"] == "claude":
+        if m["id"] in ("claude", "claude2"):
             continue
         p = perf.get(m["id"]) or {}
         x = 1.0
@@ -328,7 +328,7 @@ def claude(ctx):
     w = method_weights(ctx)
     score, fans = {}, {}
     for mid, ranking in (ctx.get("rankings") or {}).items():
-        if mid == "claude" or mid not in w:
+        if mid in ("claude", "claude2") or mid not in w:
             continue
         for i, r in enumerate(ranking[:TOP_N]):
             score[r["code"]] = score.get(r["code"], 0) + w[mid] * (TOP_N - i) / TOP_N
@@ -351,6 +351,60 @@ def claude(ctx):
     return _rank(out, None)
 
 
+def method_weights_long(ctx) -> dict:
+    """v2 權重：只看「推薦後 5 天贏大盤多少」的長期平均，樣本少時往 1 收斂（避免被短期運氣帶著走）。"""
+    from .config import METHODS
+    perf = ctx.get("perf") or {}
+    w = {}
+    for m in METHODS:
+        if m["id"] in ("claude", "claude2", "ai_theme"):
+            continue
+        p = perf.get(m["id"]) or {}
+        n, ex = p.get("n") or 0, p.get("avg_excess")
+        shrink = n / (n + 150)
+        x = 1 + (ex or 0) * shrink / 1.5
+        w[m["id"]] = round(min(2.5, max(0.25, x)), 2)
+    return w
+
+
+def claude2(ctx):
+    """v2：加權投票＋不追高（離季線 25% 以內、站上季線）＋本益比 ≤ 25＋同產業最多 1 檔。"""
+    from .config import METHODS, TOP_N
+    names = {m["id"]: m["name"] for m in METHODS}
+    w = method_weights_long(ctx)
+    score, fans = {}, {}
+    for mid, ranking in (ctx.get("rankings") or {}).items():
+        if mid not in w:
+            continue
+        for i, r in enumerate(ranking[:TOP_N]):
+            score[r["code"]] = score.get(r["code"], 0) + w[mid] * (TOP_N - i) / TOP_N
+            fans.setdefault(r["code"], []).append((w[mid], mid, r["reason"]))
+    best = sorted(w.items(), key=lambda kv: kv[1], reverse=True)[:3]
+    ctx["claude2_note"] = ("長期最準、權重最高：" + "、".join(f"{names[k]}×{v}" for k, v in best)
+                           if any(v != 1.0 for v in w.values()) else "成績還不夠長，各方法先用相同權重")
+    out = []
+    for code, sc in score.items():
+        c, m60 = _closes(ctx, code), ma(ctx, code, 60)
+        if not c or m60 is None or c[-1] < m60 or c[-1] > m60 * 1.25:
+            continue
+        pe = (ctx["value"].get(code) or {}).get("pe")
+        if pe is not None and (pe <= 0 or pe > 25):
+            continue
+        f = sorted(fans[code], reverse=True)
+        lead = f[0]
+        pe_txt = f"本益比 {pe:.1f}、" if pe else ""
+        out.append({"code": code, "score": round(sc, 3), "votes": len(f),
+                    "reason": f"{len(f)} 種方法看好（{'、'.join(names[x[1]] for x in f)}），共識分數 {sc:.2f}；"
+                              f"{pe_txt}股價在季線上方 {(c[-1] / m60 - 1) * 100:.0f}%（沒有過熱）。主要理由：{lead[2]}"})
+    out = _rank(out, None)
+    seen, picked, rest = set(), [], []
+    for r in out:  # 同一條產業鏈最多 1 檔，分散風險
+        ch = (ctx["chain_of"].get(r["code"]) or [r["code"]])[0]
+        (rest if ch in seen else picked).append(r)
+        seen.add(ch)
+    return picked + rest
+
+
 METHOD_FNS = {"momentum": momentum, "reversal": reversal, "revenue": revenue, "trust": trust,
               "foreign": foreign, "value": value, "chain": chain, "ai_theme": ai_theme, "combo": combo,
-              "graham": graham, "lynch": lynch, "oneil": oneil, "tech4": tech4, "claude": claude}
+              "graham": graham, "lynch": lynch, "oneil": oneil, "tech4": tech4, "claude": claude, "claude2": claude2}

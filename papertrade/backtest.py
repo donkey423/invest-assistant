@@ -31,14 +31,15 @@ from .__main__ import TW, cut, method_perf, universe
 
 log = logging.getLogger("papertrade.backtest")
 FINMIND = "https://api.finmindtrade.com/api/v4/data?dataset={ds}&data_id={code}&start_date={start}"
-WINDOWS = [(63, "近 3 個月"), (126, "近 6 個月")]
+# （交易日數, 名稱, 往前推幾個交易日結束）。最後一個是 v2 設計時沒看過的驗證期。
+WINDOWS = [(63, "近 3 個月", 0), (126, "近 6 個月", 0), (126, "更早 6 個月（驗證期）", 126)]
 OUT_FILE = "backtest.json"
 
 
 def history_long(symbols):
     import yfinance as yf  # 延後匯入
 
-    df = yf.download(list(symbols), period="2y", interval="1d", auto_adjust=False,
+    df = yf.download(list(symbols), period="3y", interval="1d", auto_adjust=False,
                      group_by="ticker", progress=False, threads=True)
     out = {}
     for sym in symbols:
@@ -128,6 +129,7 @@ def load(sym: dict, cal_start: str, get=data.get_json, history_fn=history_long, 
     px = history_fn([*sym.values(), *(b["symbol"] for b in C.BENCHMARKS), "^VIX"])
     start_rev = (date.fromisoformat(cal_start) - timedelta(days=800)).isoformat()
     start_val = (date.fromisoformat(cal_start) - timedelta(days=14)).isoformat()
+    # 動能需要決策日前一年多的股價，period=3y 已涵蓋
     rev, val = {}, {}
     for code in sym:
         rev[code] = revenue_series(finmind("TaiwanStockMonthRevenue", code, start_rev, get))
@@ -152,8 +154,9 @@ def calendar(px: dict) -> list[str]:
     return sorted(cal)
 
 
-def run_window(d: dict, sym, names, chain_of, cal: list[str], n_days: int) -> dict:
-    window = cal[-n_days - 1:]  # 第一天收盤選股，之後 n_days 天成交
+def run_window(d: dict, sym, names, chain_of, cal: list[str], n_days: int, back: int = 0) -> dict:
+    end = len(cal) - back
+    window = cal[end - n_days - 1:end]  # 第一天收盤選股，之後 n_days 天成交
     keep_methods, keep_days = C.METHODS, C.TRADING_DAYS
     C.METHODS = [m for m in keep_methods if m["id"] != "ai_theme"]
     C.TRADING_DAYS = 10_000
@@ -187,7 +190,18 @@ def run_window(d: dict, sym, names, chain_of, cal: list[str], n_days: int) -> di
                                         "win_rate", "closed", "trades", "fees", "picks_hit", "equity", "rank")}
     return {"start": res["start"], "end": window[-1], "days": res["days_done"],
             "benchmarks": res["benchmarks"], "methods": [slim(m) for m in res["methods"]],
-            "claude_trades": list(reversed(state["accounts"]["claude"]["trades"]))[:60]}
+            "claude_trades": list(reversed(state["accounts"]["claude"]["trades"]))[:60],
+            "claude2_trades": list(reversed(state["accounts"].get("claude2", {}).get("trades", [])))[:60],
+            "win": {mid: _win(a) for mid, a in state["accounts"].items()}}
+
+
+def _win(acc: dict) -> dict:
+    """賣出勝率與平均每筆損益（%）。"""
+    sells = [t for t in acc["trades"] if t["side"] == "賣"]
+    if not sells:
+        return {"n": 0}
+    return {"n": len(sells), "rate": round(sum(t["pnl"] > 0 for t in sells) / len(sells) * 100, 1),
+            "avg": round(sum(t["pnl_pct"] for t in sells) / len(sells), 2)}
 
 
 def main(argv=None, get=data.get_json, history_fn=history_long, now=None) -> dict:
@@ -200,7 +214,7 @@ def main(argv=None, get=data.get_json, history_fn=history_long, now=None) -> dic
     cal = calendar(px_probe)
     if cal and cal[-1] == now.date().isoformat() and now.hour < 14:
         cal = cal[:-1]
-    longest = max(n for n, _ in WINDOWS)
+    longest = max(n + b for n, _, b in WINDOWS)
     need = cal[-longest - 6:]
     d = load(sym, need[0], get=get, history_fn=lambda s: px_probe, chip_dates=need)
     cal = [x for x in cal if x <= cal[-1]]
@@ -209,10 +223,10 @@ def main(argv=None, get=data.get_json, history_fn=history_long, now=None) -> dic
                         "chip_days": len(d["chips"]), "stocks": len(sym)},
            "notes": [line.strip("- ").strip() for line in __doc__.split("避免偷看未來：")[1].strip().splitlines() if line.strip()],
            "windows": []}
-    for n, label in WINDOWS:
+    for n, label, back in WINDOWS:
         log.info("回測 %s（%d 個交易日）", label, n)
-        w = run_window(d, sym, names, chain_of, cal, n)
-        out["windows"].append({"label": label, **w})
+        w = run_window(d, sym, names, chain_of, cal, n, back)
+        out["windows"].append({"label": label, "unseen": back > 0, **w})
     p = Path(args.out)
     p.mkdir(parents=True, exist_ok=True)
     (p / OUT_FILE).write_text(json.dumps(out, ensure_ascii=False, indent=1), "utf-8")

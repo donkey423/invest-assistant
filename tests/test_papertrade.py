@@ -196,3 +196,16 @@ def test_claude_account_votes_and_explains(tmp_path):
 def test_method_weights_follow_accuracy():
     w = methods.method_weights({"perf": {"momentum": {"n": 20, "avg_excess": 2.0}, "value": {"n": 20, "avg_excess": -1.8}}})
     assert w["momentum"] > 1 > w["value"] and w["revenue"] == 1.0
+
+
+def test_claude2_trades_less_and_holds_min_days(tmp_path):
+    setup_dir(tmp_path)
+    for d in ["2026-11-09", *trading_days("2026-11-10", 16)]:
+        r = run(tmp_path, d)
+    st = json.loads((tmp_path / "papertrade_state.json").read_text("utf-8"))
+    v1, v2 = st["accounts"]["claude"]["trades"], st["accounts"]["claude2"]["trades"]
+    assert v2 and len(v2) <= len(v1)
+    for t in v2:
+        if t["side"] == "賣" and "停損" not in t["reason"] and "降低持股比例" not in t["reason"]:
+            held = [d for d in st["days"] if t["held_from"] <= d < t["date"]]
+            assert len(held) >= 10
