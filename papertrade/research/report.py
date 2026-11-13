@@ -158,6 +158,13 @@ def result_markdown(res: dict) -> str:
               f"| 全期 | {g['all']['below_ma60']} | {g['all']['below_ma200']} | {g['all']['vix25']} |"]
     lines += [f"| 第 {i + 1} 折（{f['start']}～{f['end']}） | {x['below_ma60']} | {x['below_ma200']} | {x['vix25']} |"
               for i, (f, x) in enumerate(zip(res["folds"], g["folds"]))]
+    if "flips" in g:   # 假設 E2 的診斷：只看大盤算得出來，和變體無關，每次執行都列
+        k = g["flips"]
+        lines += ["", "## 趨勢訊號（假設 E2 的診斷）", "",
+                  "| 期間 | 每日季線：低於的天數 | 每日季線：翻轉次數 | 上月底年線：低於的天數 | 上月底年線：翻轉次數 |", "|---|---|---|---|---|",
+                  f"| 全期 | {g['all']['below_ma60']} | {k['all']['below_ma60']} | {g['all']['below_ma200_month']} | {k['all']['below_ma200_month']} |"]
+        lines += [f"| 第 {i + 1} 折 | {x['below_ma60']} | {y['below_ma60']} | {x['below_ma200_month']} | {y['below_ma200_month']} |"
+                  for i, (x, y) in enumerate(zip(g["folds"], k["folds"]))]
     blank = {"avg_positions": None, "avg_exposure": None, "stop_exits": "—"}
     for key, m in [*res["benchmarks"].items(), *res["methods"].items()]:
         lines += ["", f"## {m['name']}（{key}）", "", HEAD, _row("全期", {**blank, **m["all"]})]

@@ -4,6 +4,8 @@ ctx 的資料都只到「決策日」收盤為止，不會偷看到之後的價�
 """
 from __future__ import annotations
 
+from bisect import bisect_left
+
 
 def _closes(ctx, code):
     s = ctx["px"].get(ctx["sym"][code])
@@ -188,12 +190,33 @@ def combo(ctx):
     return _rank(out, None)
 
 
-def exposure(regime: dict) -> tuple[float, str]:
-    """綜合帳戶的持股比例：景氣燈號＋大盤是否在季線之上＋VIX。"""
+def month_end_trend(tw: dict | None, day: str, n: int = 200) -> bool | None:
+    """假設 E2 的趨勢訊號：day 所在月份的「上個月最後一個交易日」，大盤收盤是否不低於那一天的 n 日均線。
+
+    只用到上個月底為止的資料，所以整個月都是同一個值、月中的漲跌不影響它。
+    上個月底以前不足 n 根 K 棒時回傳 None（和季線算不出來時一樣，不減碼）。
+    """
+    if not tw:
+        return None
+    i = bisect_left(tw["dates"], day[:7] + "-01") - 1   # 本月 1 日之前的最後一根
+    if i < n - 1:
+        return None
+    return tw["close"][i] >= sum(tw["close"][i - n + 1:i + 1]) / n
+
+
+def exposure(regime: dict, variant: dict | None = None) -> tuple[float, str]:
+    """綜合帳戶的持股比例：景氣燈號＋大盤是否在季線之上＋VIX。
+
+    variant 只有研究框架會傳（engine.decide 只在 combo 帶旗標時傳）；沒傳就是原本的規則。
+    """
     light, above, vix = regime.get("light"), regime.get("above_ma60"), regime.get("vix")
     level = {"紅燈": 1.0, "黃紅燈": 1.0, "綠燈": 0.9, "黃藍燈": 0.8, "藍燈": 1.0}.get(light, 0.9)
     why = [f"景氣{light or '未知'}"]
-    if above is False:
+    if (variant or {}).get("monthly_ma200"):   # 假設 E2：每日看季線改成上月底看年線，減碼幅度 0.3 不變
+        if regime.get("above_ma200_month_end") is False:
+            level -= 0.3
+            why.append("上月底大盤低於年線")
+    elif above is False:
         level -= 0.3
         why.append("大盤跌破季線")
     if vix is not None and vix >= 25:

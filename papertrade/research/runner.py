@@ -24,6 +24,7 @@ from pathlib import Path
 from .. import backtest as bt
 from .. import config as C
 from .. import engine, metrics
+from ..methods import month_end_trend
 from ..__main__ import TW, universe
 from .dataset import manifest_hash
 
@@ -42,7 +43,12 @@ TR_BENCH = "0050.TW"   # 另外算含息報酬的對照
 # 其他鍵都是自訂旗標，整個 dict 會放在 ctx["variant"]（選股方法讀）與 state["variant"]（engine.plan_orders 讀）。
 VARIANTS: dict[str, dict] = {
     "baseline": {},
+    # 假設 E2：combo 的趨勢訊號由「每日看 60 日線」改成「上月底看 200 日線」（methods.exposure；減碼幅度 0.3 不變）
+    "E2": {"monthly_ma200": True},
 }
+
+GATE_KEYS = ("below_ma60", "below_ma200", "below_ma200_month", "vix25")
+FLIP_KEYS = ("below_ma60", "below_ma200_month")   # 現行每日季線訊號、E2 月底年線訊號：各自翻了幾次
 
 
 def variant_hash(flags: dict) -> str:
@@ -154,6 +160,8 @@ def simulate(ds: dict, flags: dict, start_decision: str, uni=None) -> dict:
             rev = {c: r for c in sym if (r := revenue_at(tables, c, day))}
             val = {c: v for c in sym if (v := value_at(ds["val"].get(c), day))}
             ctx = bt.day_ctx(ds, sym, chain_of, dates, px, rev=rev, val=val)
+            # E2 的月底年線訊號：只看大盤，和旗標無關，所以每次執行都算（診斷用）；有旗標時 exposure 才會讀它
+            ctx["regime"]["above_ma200_month_end"] = month_end_trend(px.get("^TWII"), day)
             ctx["variant"], ctx["memo"] = flags, memo
             state = engine.run_day(state, ctx, dates, px, sym, names)
             state["checkpoint"], state["journal"] = None, []
@@ -172,6 +180,7 @@ def simulate(ds: dict, flags: dict, start_decision: str, uni=None) -> dict:
             if i > i0:
                 g = ctx["regime"]
                 regime.append({"below_ma60": g["above_ma60"] is False, "below_ma200": g["above_ma200"] is False,
+                               "below_ma200_month": g["above_ma200_month_end"] is False,
                                "vix25": g["vix"] is not None and g["vix"] >= 25})
         last = cal[-1]
         for mid in ids:   # 期末持股：收盤價扣掉賣出成本
@@ -236,13 +245,18 @@ def evaluate(sim: dict, ds: dict, start_decision: str, k: int = FOLDS, holdout_s
     spans = folds(n_in, k)
     n = len(dates)
     span_info = lambda a, b: {"start": dates[a], "end": dates[b - 1], "days": b - a}  # noqa: E731
-    gates = lambda a, b: {key: sum(g[key] for g in sim["regime"][a:b]) for key in ("below_ma60", "below_ma200", "vix25")}  # noqa: E731
+    gates = lambda a, b: {key: sum(g[key] for g in sim["regime"][a:b]) for key in GATE_KEYS}  # noqa: E731
+    # 訊號翻轉次數：和前一個評估日不同就算一次，記在後面那一天所屬的期間（所以各折相加＝全期）
+    flips = lambda a, b: {key: sum(sim["regime"][i][key] != sim["regime"][i - 1][key] for i in range(max(a, 1), b))  # noqa: E731
+                          for key in FLIP_KEYS}
     out = {"period": span_info(0, n_in), "folds": [span_info(a, b) for a, b in spans],
-           "regime": {"all": gates(0, n_in), "folds": [gates(a, b) for a, b in spans]},
+           "regime": {"all": gates(0, n_in), "folds": [gates(a, b) for a, b in spans],
+                      "flips": {"all": flips(0, n_in), "folds": [flips(a, b) for a, b in spans]}},
            "methods": {}, "benchmarks": {}, "dates": dates}
     if n_in < n:
         out["holdout_period"] = span_info(n_in, n)
         out["regime"]["holdout"] = gates(n_in, n)
+        out["regime"]["flips"]["holdout"] = flips(n_in, n)
     for mid, r in sim["methods"].items():
         m = {"name": r["name"], "all": _period(r, dates, 0, n_in, n_in == n),
              "folds": [_period(r, dates, a, b, b == n) for a, b in spans],
