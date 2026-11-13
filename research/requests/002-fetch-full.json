@@ -1,0 +1,4 @@
+{"steps": [
+  {"cmd": "fetch", "args": ["--chips-from", "2019-01-10"], "note": "完整資料集：加上證交所 T86 法人買賣超（評估期開始前幾天起）"},
+  {"cmd": "run", "variants": ["baseline"], "note": "原版基準（完整資料）"}
+]}
