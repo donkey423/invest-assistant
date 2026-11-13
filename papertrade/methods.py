@@ -204,14 +204,20 @@ def exposure(regime: dict) -> tuple[float, str]:
 
 
 def graham(ctx):
+    rev_filter = (ctx.get("variant") or {}).get("graham_revenue_filter")  # 假設 G1：只有研究框架會帶這個旗標
     out = []
     for code in ctx["codes"]:
         v = ctx["value"].get(code) or {}
         pe, pb = v.get("pe"), v.get("pb")
         if not pe or not pb or pe <= 0 or pb <= 0 or pe > 15 or pb > 1.5 or pe * pb > 22.5:
             continue
-        out.append({"code": code, "score": -pe * pb,
-                    "reason": f"本益比 {pe:.1f}、股價淨值比 {pb:.2f}，葛拉漢數 {pe * pb:.1f}（≤ 22.5）"})
+        why = f"本益比 {pe:.1f}、股價淨值比 {pb:.2f}，葛拉漢數 {pe * pb:.1f}（≤ 22.5）"
+        if rev_filter:
+            ytd = (ctx["revenue"].get(code) or {}).get("ytd_yoy")
+            if ytd is None or ytd < 0:   # 營收衰退或沒有資料：當成價值陷阱，不買
+                continue
+            why += f"，今年累計營收 {ytd:+.1f}%（沒有衰退）"
+        out.append({"code": code, "score": -pe * pb, "reason": why})
     return _rank(out, None)
 
 
