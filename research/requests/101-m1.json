@@ -1,0 +1,4 @@
+{"steps": [
+  {"cmd": "run", "variants": ["baseline", "M1"], "note": "假設 M1：動能在大盤低於年線時不買新股；同一份程式重跑 baseline 當對照"},
+  {"cmd": "compare", "base": "baseline", "variants": ["M1"]}
+]}

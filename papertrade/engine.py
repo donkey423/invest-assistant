@@ -238,6 +238,8 @@ def decide(state: dict, ctx: dict, day: str, px: dict, sym: dict, names: dict) -
         if mf and (ctx.get("regime") or {}).get(f"above_ma{mf}") is False:
             e, note = 0.0, "大盤在年線之下，依方法不買新股（持股照規則續抱）"
         acc["pending"] = plan_orders(state, mid, acc, ranking, day, px, sym, e)
+        if "diag" in ctx:  # 只有研究框架會放這個鍵：留下當天前幾名、排名檔數與目標持股比例給診斷用，不影響下單
+            ctx["diag"][mid] = {"picks": [r["code"] for r in ranking[:C.TOP_N]], "candidates": len(ranking), "target": e}
         state["journal"].append({
             "date": day, "method": mid,
             "picks": [{"code": r["code"], "name": names.get(r["code"], ""), "reason": r["reason"]} for r in ranking[:C.TOP_N]],
