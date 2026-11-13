@@ -11,7 +11,7 @@ import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from . import channels, render
+from . import channels, hours, render, sink
 from .check import evaluate, prime_news
 
 TW = timezone(timedelta(hours=8))
@@ -73,8 +73,19 @@ def load_revenue_events(data_dir: Path) -> list[dict]:
 
 def run_check(rules: dict, state_path: Path, now: datetime, quotes_fn=fetch_quotes,
               news_fn=fetch_news, deliver_fn=deliver, dry_run=False,
-              data_dir: Path = Path("site/data")) -> list[dict]:
+              data_dir: Path = Path("site/data"), market_hours=False,
+              record_fn=sink.record, news_every_min=30) -> list[dict]:
     state = json.loads(state_path.read_text("utf-8")) if state_path.exists() else {}
+    if market_hours:
+        # 盤中模式（Oracle 主機每 5 分鐘跑）：只檢查開盤中的市場；新聞與月營收每 news_every_min 分鐘看一次
+        markets = hours.open_markets(now)
+        rules = {**rules, "price": [r for r in rules.get("price", []) if hours.market_of(r["symbol"]) in markets]}
+        last_news = state.get("news_checked_at")
+        if last_news and (now - datetime.fromisoformat(last_news)).total_seconds() < news_every_min * 60 - 30:
+            rules["events"], rules["revenue"] = [], {}
+        if not rules["price"] and not rules.get("events") and not (rules.get("revenue") or {}).get("enabled"):
+            log.info("目前沒有開盤中的市場，也還沒到看新聞的時間，略過")
+            return []
     symbols = [r["symbol"] for r in rules.get("price", [])]
     quotes = quotes_fn(symbols) if symbols else {}
     news = []
@@ -90,6 +101,8 @@ def run_check(rules: dict, state_path: Path, now: datetime, quotes_fn=fetch_quot
     alerts, new_state = evaluate(rules, quotes, news, state, now.strftime("%Y-%m-%d"), rev_events)
     new_state["primed"] = state.get("primed", False) or bool(news)
     new_state["checked_at"] = now.isoformat(timespec="minutes")
+    new_state["news_checked_at"] = (now.isoformat(timespec="minutes") if rules.get("events")
+                                    else state.get("news_checked_at"))
 
     if alerts:
         text = render.alerts_text(alerts)
@@ -97,6 +110,7 @@ def run_check(rules: dict, state_path: Path, now: datetime, quotes_fn=fetch_quot
             print(text)
         else:
             sent = deliver_fn(text, f"投資警報｜{alerts[0]['text'][:60]}")
+            record_fn(alerts, now.isoformat(timespec="seconds"), state_path.parent / "alerts_history.json")
             if not sent:
                 log.warning("有 %d 則警報但沒有任何通道送出（檢查 LINE/Email 設定）", len(alerts))
     else:
@@ -109,7 +123,8 @@ def run_check(rules: dict, state_path: Path, now: datetime, quotes_fn=fetch_quot
 
 def cmd_check(args) -> int:
     rules = json.loads(args.rules.read_text("utf-8"))
-    run_check(rules, args.state, datetime.now(TW), dry_run=args.dry_run, data_dir=args.data)
+    run_check(rules, args.state, datetime.now(TW), dry_run=args.dry_run, data_dir=args.data,
+              market_hours=args.market_hours)
     return 0
 
 
@@ -125,7 +140,14 @@ def main(argv=None) -> int:
     c.add_argument("--state", default=Path("site/data/alerts_state.json"), type=Path)
     c.add_argument("--dry-run", action="store_true", help="只印出，不推送也不存狀態")
     c.add_argument("--data", default=Path("site/data"), type=Path, help="早報資料夾（讀月營收變化）")
+    c.add_argument("--market-hours", action="store_true",
+                   help="盤中模式：只檢查開盤中的市場（給每幾分鐘跑一次的排程用）")
+    sub.add_parser("test", help="寄一封測試信／推一則測試訊息，確認通道設定正確")
     args = ap.parse_args(argv)
+    if args.cmd == "test":
+        sent = deliver(f"✅ 投資警報測試訊息（{datetime.now(TW):%Y-%m-%d %H:%M}）", "投資警報｜測試")
+        print("已送出：" + (", ".join(sent) if sent else "沒有任何通道（檢查設定）"))
+        return 0 if sent else 1
     return cmd_brief(args) if args.cmd == "brief" else cmd_check(args)
 
 
