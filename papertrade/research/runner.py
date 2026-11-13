@@ -20,6 +20,7 @@ from bisect import bisect_left, bisect_right
 from contextlib import contextmanager
 from datetime import datetime
 from pathlib import Path
+from statistics import median
 
 from .. import backtest as bt
 from .. import config as C
@@ -42,6 +43,8 @@ TR_BENCH = "0050.TW"   # 另外算含息報酬的對照
 # 其他鍵都是自訂旗標，整個 dict 會放在 ctx["variant"]（選股方法讀）與 state["variant"]（engine.plan_orders 讀）。
 VARIANTS: dict[str, dict] = {
     "baseline": {},
+    # M3：動能排名改用含息報酬（還原價 adj_close 的比值）；成交與計值仍用原始價。見 methods.momentum。
+    "M3": {"momentum_total_return": True},
 }
 
 
@@ -132,7 +135,10 @@ def folds(n: int, k: int = FOLDS) -> list[tuple[int, int]]:
 def simulate(ds: dict, flags: dict, start_decision: str, uni=None) -> dict:
     """從 start_decision 收盤第一次選股，逐日跑到資料最後一天。
 
-    回傳 {"dates": 評估日, "methods": {id: {equity, trades, positions, exposure, dividends, exit_cost}}, "regime": [...]}。
+    回傳 {"dates": 評估日, "methods": {id: {equity, trades, positions, exposure, dividends, exit_cost,
+    picks, candidates, target}}, "regime": [...]}。
+    picks／candidates／target 是診斷用：第 j 筆是「評估日 dates[j] 開盤成交的那次決策」（前一個交易日收盤做的）當下
+    該方法的前 TOP_N 名、排名內的檔數（通過該方法門檻的檔數）、目標持股比例。只記錄，不影響淨值與交易。
     每天跑完就把淨值與交易紀錄搬出 state：引擎不會回頭讀它們，搬走後每天的 checkpoint 深層複製才不會越跑越慢。
     """
     sym, names, chain_of = uni or universe()
@@ -143,7 +149,8 @@ def simulate(ds: dict, flags: dict, start_decision: str, uni=None) -> dict:
     memo: dict = {}   # 同一次執行跨日共用的暫存，給需要累積統計（例如擴張視窗中位數）的假設用
     with patched_config(flags) as methods:
         ids = [m["id"] for m in methods]
-        rec = {mid: {"equity": [], "trades": [], "positions": [], "exposure": [], "dividends": []} for mid in ids}
+        rec = {mid: {"equity": [], "trades": [], "positions": [], "exposure": [], "dividends": [],
+                     "picks": [], "candidates": [], "target": []} for mid in ids}
         regime, px = [], {}
         state = engine.new_state()
         state["variant"] = flags
@@ -154,11 +161,15 @@ def simulate(ds: dict, flags: dict, start_decision: str, uni=None) -> dict:
             rev = {c: r for c in sym if (r := revenue_at(tables, c, day))}
             val = {c: v for c in sym if (v := value_at(ds["val"].get(c), day))}
             ctx = bt.day_ctx(ds, sym, chain_of, dates, px, rev=rev, val=val)
-            ctx["variant"], ctx["memo"] = flags, memo
+            ctx["variant"], ctx["memo"], ctx["diag"] = flags, memo, {}
             state = engine.run_day(state, ctx, dates, px, sym, names)
             state["checkpoint"], state["journal"] = None, []
             for mid in ids:
                 acc, r = state["accounts"][mid], rec[mid]
+                g = ctx["diag"].get(mid) or {"picks": [], "candidates": 0, "target": 1.0}
+                r["picks"].append(g["picks"])
+                r["candidates"].append(g["candidates"])
+                r["target"].append(g["target"])
                 r["trades"].extend(acc["trades"])
                 acc["trades"] = []
                 if not acc["equity"]:
@@ -183,12 +194,22 @@ def simulate(ds: dict, flags: dict, start_decision: str, uni=None) -> dict:
             rec[mid]["name"] = next(m["name"] for m in methods if m["id"] == mid)
     days = cal[i0 + 1:]
     for mid, r in rec.items():
+        for key in ("picks", "candidates", "target"):   # 最後一天收盤的決策沒有下一個交易日可成交，不計
+            r[key] = r[key][:len(days)]
         if len(r["equity"]) != len(days):
             raise RuntimeError(f"{mid} 的淨值筆數 {len(r['equity'])} 和評估日數 {len(days)} 對不上")
     return {"dates": days, "methods": rec, "regime": regime}
 
 
 # ---------- 績效 ----------
+
+def target_stats(xs: list[float]) -> dict:
+    """目標持股比例（引擎下單時用的比例，不是實際市值占比）在一段期間的分布。"""
+    if not xs:
+        return {"avg": None, "min": None, "median": None, "days_below_1": 0, "days_zero": 0}
+    return {"avg": sum(xs) / len(xs), "min": min(xs), "median": median(xs),
+            "days_below_1": sum(1 for x in xs if x < 1 - 1e-9), "days_zero": sum(1 for x in xs if x <= 1e-9)}
+
 
 def _period(r: dict, dates: list[str], a: int, b: int, last: bool) -> dict:
     """某方法在評估日 [a, b) 的績效。last=True 時最後一天的淨值扣掉期末持股的賣出成本。"""
@@ -200,6 +221,7 @@ def _period(r: dict, dates: list[str], a: int, b: int, last: bool) -> dict:
     div0 = r["dividends"][a - 1] if a else 0.0
     return {**metrics.summarize(eq, trades),
             "avg_positions": sum(r["positions"][a:b]) / (b - a), "avg_exposure": sum(r["exposure"][a:b]) / (b - a),
+            "avg_candidates": sum(r["candidates"][a:b]) / (b - a), "target": target_stats(r["target"][a:b]),
             "stop_exits": sum(1 for t in trades if t["side"] == "賣" and "停損" in t.get("reason", "")),
             "dividends": round(r["dividends"][b - 1] - div0), "exit_cost": r["exit_cost"] if last else 0,
             "sr_period": metrics.sharpe(metrics.daily_returns(eq), periods=1)}
@@ -246,7 +268,8 @@ def evaluate(sim: dict, ds: dict, start_decision: str, k: int = FOLDS, holdout_s
     for mid, r in sim["methods"].items():
         m = {"name": r["name"], "all": _period(r, dates, 0, n_in, n_in == n),
              "folds": [_period(r, dates, a, b, b == n) for a, b in spans],
-             "equity": r["equity"], "trades": r["trades"]}
+             "equity": r["equity"], "trades": r["trades"],
+             "picks": r["picks"], "target_exposure": [round(x, 4) for x in r["target"]]}
         if n_in < n:
             m["holdout"] = _period(r, dates, n_in, n, True)
         out["methods"][mid] = m

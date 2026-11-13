@@ -29,12 +29,30 @@ def _rank(items, key, reverse=True):
     return sorted(items, key=key or (lambda i: i["score"]), reverse=reverse)
 
 
+def ret_adj(ctx, code, n, skip=0):
+    """ret() 的含息版：用還原價 adj_close 的比值（還原價的水準沒有意義，只能用比值）。
+
+    沒有還原價（缺欄位、和收盤價筆數對不上、端點缺值或不是正數）一律回傳 None，不退回用原始收盤價：
+    混用兩種報酬會讓配息多的股票在排名裡吃虧，寧可不排。
+    """
+    s = ctx["px"].get(ctx["sym"][code]) or {}
+    c = s.get("adj_close")
+    if not c or len(c) != len(s.get("close") or []) or len(c) <= n:
+        return None
+    a, b = c[-1 - n], c[-1 - skip]
+    if not a or not b or a <= 0 or b <= 0:
+        return None
+    return (b / a - 1) * 100
+
+
 def momentum(ctx):
+    total = (ctx.get("variant") or {}).get("momentum_total_return")  # 假設 M3：只有研究框架會帶這個旗標
     out = []
     for code in ctx["codes"]:
-        r = ret(ctx, code, 252, skip=21)
+        r = ret_adj(ctx, code, 252, skip=21) if total else ret(ctx, code, 252, skip=21)
         if r is not None:
-            out.append({"code": code, "score": r, "reason": f"過去 12 個月漲 {r:+.1f}%（不含最近 1 個月）"})
+            out.append({"code": code, "score": r,
+                        "reason": f"過去 12 個月{'含息報酬' if total else '漲'} {r:+.1f}%（不含最近 1 個月）"})
     return _rank(out, None)
 
 

@@ -1,0 +1,4 @@
+{"steps": [
+  {"cmd": "run", "variants": ["baseline", "M3"], "note": "假設 M3：動能排名改用含息報酬（還原價比值）；同一份程式重跑 baseline 當對照"},
+  {"cmd": "compare", "base": "baseline", "variants": ["M3"]}
+]}
