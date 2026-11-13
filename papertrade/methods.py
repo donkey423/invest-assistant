@@ -212,7 +212,25 @@ def graham(ctx):
             continue
         out.append({"code": code, "score": -pe * pb,
                     "reason": f"本益比 {pe:.1f}、股價淨值比 {pb:.2f}，葛拉漢數 {pe * pb:.1f}（≤ 22.5）"})
+    if (ctx.get("variant") or {}).get("graham_value_momentum"):  # 假設 G2：只有研究框架會帶這個旗標
+        out = _value_momentum(ctx, out)
     return _rank(out, None)
+
+
+def _value_momentum(ctx, passed: list[dict]) -> list[dict]:
+    """假設 G2：通過葛拉漢門檻的股票，分數改為 0.5×百分位(-pe×pb) + 0.5×百分位(12-1 報酬)。
+
+    算不出 12-1 報酬（歷史不足 253 根）的排除；兩個百分位都只在「通過門檻而且算得出動能」的股票之間排。
+    候選少的時候很容易同分（價值第一、動能最後的和反過來的都是 0.5）：分數四捨五入到小數 9 位讓數學上相等的確實相等，
+    同分時葛拉漢數低的排前面（回到這個方法原本的排序）。
+    """
+    mom = {r["code"]: ret(ctx, r["code"], 252, skip=21) for r in passed}
+    cand = sorted((r for r in passed if mom[r["code"]] is not None), key=lambda r: r["score"], reverse=True)
+    pv = _pct_rank({r["code"]: r["score"] for r in cand})
+    pm = _pct_rank({r["code"]: mom[r["code"]] for r in cand})
+    return [{"code": r["code"], "score": round(0.5 * pv[r["code"]] + 0.5 * pm[r["code"]], 9),
+             "reason": f"{r['reason']}；過去 12 個月 {mom[r['code']]:+.1f}%（不含最近 1 個月）。"
+                       f"價值百分位 {pv[r['code']] * 100:.0f}、動能百分位 {pm[r['code']] * 100:.0f}，各半"} for r in cand]
 
 
 def lynch(ctx):

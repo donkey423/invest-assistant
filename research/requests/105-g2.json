@@ -1,0 +1,4 @@
+{"steps": [
+  {"cmd": "run", "variants": ["baseline", "G2"], "note": "假設 G2：葛拉漢門檻不變，排名改為價值與 12-1 動能各半；同一份程式重跑 baseline 當對照"},
+  {"cmd": "compare", "base": "baseline", "variants": ["G2"]}
+]}
