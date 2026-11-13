@@ -158,6 +158,12 @@ def result_markdown(res: dict) -> str:
               f"| 全期 | {g['all']['below_ma60']} | {g['all']['below_ma200']} | {g['all']['vix25']} |"]
     lines += [f"| 第 {i + 1} 折（{f['start']}～{f['end']}） | {x['below_ma60']} | {x['below_ma200']} | {x['vix25']} |"
               for i, (f, x) in enumerate(zip(res["folds"], g["folds"]))]
+    if "vol_scale" in g:   # 假設 E3 的診斷
+        k = g["vol_scale"]
+        lines += ["", "## 大盤波動係數 min(1, σ_ref/σ_21)（假設 E3 的診斷）", "",
+                  "| 期間 | 暖機中的天數（係數視為 1） | 係數小於 1 的天數 | 平均係數 | 最小係數 |", "|---|---|---|---|---|"]
+        lines += [f"| {label} | {x['warmup_days']} | {x['scaled_days']} | {_num(x['mean'])} | {_num(x['min'])} |"
+                  for label, x in [("全期", k["all"]), *((f"第 {i + 1} 折", x) for i, x in enumerate(k["folds"]))]]
     blank = {"avg_positions": None, "avg_exposure": None, "stop_exits": "—"}
     for key, m in [*res["benchmarks"].items(), *res["methods"].items()]:
         lines += ["", f"## {m['name']}（{key}）", "", HEAD, _row("全期", {**blank, **m["all"]})]

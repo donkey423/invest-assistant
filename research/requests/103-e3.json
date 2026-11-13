@@ -1,0 +1,1 @@
+{"steps": [{"cmd": "run", "variants": ["baseline", "E3", "E3ctl"]}, {"cmd": "compare", "base": "baseline", "variants": ["E3", "E3ctl"]}], "note": "假設 E3：combo 以大盤自身已實現波動取代 VIX 項；E3ctl 是預先登記的對照組（只刪除 VIX 項）"}

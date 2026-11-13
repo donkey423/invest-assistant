@@ -13,7 +13,7 @@ import math
 from bisect import bisect_right
 
 from . import config as C
-from .methods import METHOD_FNS, exposure
+from .methods import METHOD_FNS, exposure, realized_vol_scale
 
 MIN_ORDER = 10_000
 
@@ -220,6 +220,13 @@ def decide(state: dict, ctx: dict, day: str, px: dict, sym: dict, names: dict) -
     """依各方法選股、產生委託，並寫進選股日誌。回傳 {方法: 排名}。"""
     rankings = {}
     expo, expo_note = exposure(ctx.get("regime") or {})
+    combo_expo, combo_note = expo, expo_note
+    variant = ctx.get("variant") or {}
+    if variant.get("drop_vix") or variant.get("realized_vol"):   # 假設 E3／E3ctl：只有研究變體帶旗標，而且只改 combo 的持股比例
+        regime = ctx.get("regime") or {}
+        if variant.get("realized_vol"):
+            regime["vol_scale"] = realized_vol_scale(px.get("^TWII"), ctx.setdefault("memo", {}))
+        combo_expo, combo_note = exposure(regime, variant)
     for m in sorted(C.METHODS, key=lambda m: m["id"] in ("claude", "claude2")):  # Claude 判斷最後做，要用到其他方法的結果
         mid = m["id"]
         try:
@@ -232,7 +239,7 @@ def decide(state: dict, ctx: dict, day: str, px: dict, sym: dict, names: dict) -
             ctx.setdefault("warnings", []).append(f"{m['name']} 選股失敗：{e}")
         rankings[mid] = ranking
         acc = state["accounts"][mid]
-        e = expo if mid in ("combo", "claude", "claude2") else 1.0
+        e = combo_expo if mid == "combo" else expo if mid in ("claude", "claude2") else 1.0
         note = expo_note if mid in ("claude", "claude2") else ""
         mf = m.get("market_filter")
         if mf and (ctx.get("regime") or {}).get(f"above_ma{mf}") is False:
@@ -243,7 +250,7 @@ def decide(state: dict, ctx: dict, day: str, px: dict, sym: dict, names: dict) -
             "picks": [{"code": r["code"], "name": names.get(r["code"], ""), "reason": r["reason"]} for r in ranking[:C.TOP_N]],
             "buys": [b["code"] for b in acc["pending"]["buys"]],
             "sells": [{"code": s["code"], "name": names.get(s["code"], ""), "reason": s["reason"]} for s in acc["pending"]["sells"]],
-            "note": expo_note if mid == "combo" else (ctx.get(f"{mid}_note") or note) if mid in ("claude", "claude2") else note or ("" if ranking else "今天沒有符合條件的股票或資料抓不到，維持原持股"),
+            "note": combo_note if mid == "combo" else (ctx.get(f"{mid}_note") or note) if mid in ("claude", "claude2") else note or ("" if ranking else "今天沒有符合條件的股票或資料抓不到，維持原持股"),
         })
     return rankings
 

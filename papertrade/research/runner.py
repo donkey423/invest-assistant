@@ -42,6 +42,10 @@ TR_BENCH = "0050.TW"   # 另外算含息報酬的對照
 # 其他鍵都是自訂旗標，整個 dict 會放在 ctx["variant"]（選股方法讀）與 state["variant"]（engine.plan_orders 讀）。
 VARIANTS: dict[str, dict] = {
     "baseline": {},
+    # 假設 E3：combo 的持股比例刪除「VIX ≥ 25 減 0.2」，改乘 min(1, σ_ref/σ_21)（methods.realized_vol_scale，用 ctx["memo"] 累積）
+    "E3": {"drop_vix": True, "realized_vol": True},
+    # E3 預先登記的對照組：只刪除 VIX 項，什麼都不加
+    "E3ctl": {"drop_vix": True},
 }
 
 
@@ -172,7 +176,8 @@ def simulate(ds: dict, flags: dict, start_decision: str, uni=None) -> dict:
             if i > i0:
                 g = ctx["regime"]
                 regime.append({"below_ma60": g["above_ma60"] is False, "below_ma200": g["above_ma200"] is False,
-                               "vix25": g["vix"] is not None and g["vix"] >= 25})
+                               "vix25": g["vix"] is not None and g["vix"] >= 25,
+                               **({"vol_scale": g["vol_scale"]} if "vol_scale" in g else {})})
         last = cal[-1]
         for mid in ids:   # 期末持股：收盤價扣掉賣出成本
             acc, cost = state["accounts"][mid], 0.0
@@ -229,6 +234,14 @@ def bench_curves(ds: dict, start_decision: str, dates: list[str]) -> dict:
     return out
 
 
+def vol_stats(regime: list[dict]) -> dict:
+    """E3 波動係數在一段期間的摘要：暖機中（係數視為 1）的天數、係數小於 1 的天數、平均與最小值（暖機日以 1 計）。"""
+    xs = [g.get("vol_scale") for g in regime]
+    vals = [1.0 if x is None else x for x in xs]
+    return {"warmup_days": sum(x is None for x in xs), "scaled_days": sum(v < 1 for v in vals),
+            "mean": sum(vals) / len(vals) if vals else None, "min": min(vals) if vals else None}
+
+
 def evaluate(sim: dict, ds: dict, start_decision: str, k: int = FOLDS, holdout_start: str | None = None) -> dict:
     """把模擬結果整理成各期間的績效：全樣本內（all）、各折（folds），解鎖時另有保留段（holdout）。"""
     dates = sim["dates"]
@@ -240,6 +253,9 @@ def evaluate(sim: dict, ds: dict, start_decision: str, k: int = FOLDS, holdout_s
     out = {"period": span_info(0, n_in), "folds": [span_info(a, b) for a, b in spans],
            "regime": {"all": gates(0, n_in), "folds": [gates(a, b) for a, b in spans]},
            "methods": {}, "benchmarks": {}, "dates": dates}
+    if any("vol_scale" in g for g in sim["regime"]):   # 假設 E3 的診斷：波動係數每天的值（只有帶 realized_vol 旗標的執行才有）
+        out["regime"]["vol_scale"] = {"all": vol_stats(sim["regime"][:n_in]), "folds": [vol_stats(sim["regime"][a:b]) for a, b in spans],
+                                      **({"holdout": vol_stats(sim["regime"][n_in:])} if n_in < n else {})}
     if n_in < n:
         out["holdout_period"] = span_info(n_in, n)
         out["regime"]["holdout"] = gates(n_in, n)

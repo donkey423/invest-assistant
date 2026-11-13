@@ -4,6 +4,12 @@ ctx 的資料都只到「決策日」收盤為止，不會偷看到之後的價�
 """
 from __future__ import annotations
 
+from bisect import bisect_right, insort
+from statistics import median, stdev
+
+VOL_WINDOW = 21     # 假設 E3：大盤已實現波動的視窗（日報酬筆數）
+VOL_WARMUP = 252    # 假設 E3：基準（擴張視窗中位數）至少要累積這麼多個 σ_21 才啟用
+
 
 def _closes(ctx, code):
     s = ctx["px"].get(ctx["sym"][code])
@@ -188,17 +194,48 @@ def combo(ctx):
     return _rank(out, None)
 
 
-def exposure(regime: dict) -> tuple[float, str]:
-    """綜合帳戶的持股比例：景氣燈號＋大盤是否在季線之上＋VIX。"""
+def realized_vol_scale(tw: dict | None, memo: dict) -> float | None:
+    """假設 E3 的係數 min(1, σ_ref / σ_21)；暖機還沒完成（或算不出來）回傳 None，呼叫端當成 1.0。
+
+    σ_21＝大盤最近 21 筆日報酬（收盤對收盤）的樣本標準差；σ_ref＝到今天為止（含今天）所有 σ_21 的中位數，
+    至少累積 252 個 σ_21 才啟用。tw 只到決策日為止；memo 是同一次執行跨日共用的暫存（研究框架的 ctx["memo"]），
+    每次只接著處理上次之後的新 K 棒，所以每天給的視窗有截短也沒關係（第一次呼叫時視窗要涵蓋到資料起點，
+    而且之後每個交易日都要呼叫；研究框架符合這兩點）。同一天重複呼叫結果相同。
+    """
+    st = memo.setdefault("realized_vol", {"last": "", "close": None, "rets": [], "sigma": None, "sigmas": []})
+    if tw:
+        i = bisect_right(tw["dates"], st["last"])
+        for d, c in zip(tw["dates"][i:], tw["close"][i:]):
+            if st["close"]:
+                st["rets"] = [*st["rets"][-(VOL_WINDOW - 1):], c / st["close"] - 1]
+                if len(st["rets"]) == VOL_WINDOW:
+                    st["sigma"] = stdev(st["rets"])
+                    insort(st["sigmas"], st["sigma"])   # 保持排序，中位數直接取中間
+            st["last"], st["close"] = d, c
+    if len(st["sigmas"]) < VOL_WARMUP or not st["sigma"]:
+        return None
+    return min(1.0, median(st["sigmas"]) / st["sigma"])
+
+
+def exposure(regime: dict, variant: dict | None = None) -> tuple[float, str]:
+    """綜合帳戶的持股比例：景氣燈號＋大盤是否在季線之上＋VIX。
+
+    variant 只有研究框架會傳（engine.decide 只在 combo 帶旗標時傳）；沒傳就是原本的規則。
+    """
+    variant = variant or {}
     light, above, vix = regime.get("light"), regime.get("above_ma60"), regime.get("vix")
     level = {"紅燈": 1.0, "黃紅燈": 1.0, "綠燈": 0.9, "黃藍燈": 0.8, "藍燈": 1.0}.get(light, 0.9)
     why = [f"景氣{light or '未知'}"]
     if above is False:
         level -= 0.3
         why.append("大盤跌破季線")
-    if vix is not None and vix >= 25:
+    if not variant.get("drop_vix") and vix is not None and vix >= 25:   # 假設 E3 與它的對照組：刪除 VIX 項
         level -= 0.2
         why.append(f"VIX {vix:.0f} 偏高")
+    scale = regime.get("vol_scale")
+    if variant.get("realized_vol") and scale is not None and scale < 1:   # 假設 E3：改乘上大盤自身波動的係數（上限 1）
+        level *= scale
+        why.append(f"大盤近 {VOL_WINDOW} 日波動高於歷史中位數（×{scale:.2f}）")
     level = max(0.3, min(1.0, level))
     return level, "、".join(why) + f" → 持股 {level * 100:.0f}%"
 
