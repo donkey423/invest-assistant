@@ -6,3 +6,7 @@ __pycache__/
 # 個人持股資料不上傳
 private/
 site/data/private/
+# 研究框架：保留段（最後 20%）與它的法人快取絕不進版控
+research/data/holdout.json.gz
+research/data/holdout_chips/
+research/data-synthetic/

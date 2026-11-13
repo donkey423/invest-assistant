@@ -9,6 +9,7 @@ python -m papertrade.backtest [--out site/data]
 - 本益比／殖利率／淨值比：FinMind 每日資料，只用當天以前最近一筆。
 - 產業鏈燈號：上游訊號沒有歷史紀錄，回測只用「月營收是否加速」判斷。
 - AI 讀新聞推理沒有歷史紀錄，回測不含這個方法。
+- VIX：只用日期早於當天的最近一筆（美股當天收盤是台灣隔天清晨，台股收盤時還不知道）。
 - 景氣燈號：國發會 2025/12–2026/09 連續紅燈，回測期間一律視為紅燈。
 已知偏差：選股範圍是現在的產業鏈代表股（事後挑的），會讓所有方法的結果偏好看，要和大盤比、方法之間互相比較才有意義。
 """
@@ -19,6 +20,7 @@ import copy
 import json
 import logging
 import time
+from bisect import bisect_left
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
@@ -154,6 +156,42 @@ def calendar(px: dict) -> list[str]:
     return sorted(cal)
 
 
+def vix_before(series: dict | None, day: str):
+    """台股 day 收盤時能知道的 VIX：日期「早於」day 的最近一筆。
+
+    美股 D 日收盤是台灣 D+1 日清晨，所以同一個日曆日的 VIX 在台股收盤時還不存在。
+    """
+    if not series:
+        return None
+    i = bisect_left(series["dates"], day)
+    return series["close"][i - 1] if i > 0 else None
+
+
+def day_ctx(d: dict, sym: dict, chain_of: dict, dates: list[str], px: dict, rev: dict | None = None,
+            val: dict | None = None) -> dict:
+    """決策日（dates[-1]）的選股 ctx，回測與研究框架（papertrade.research）共用。
+
+    px 必須已經截到決策日為止；rev／val 可由呼叫端先算好傳入（要和 revenue_on／value_on 的結果相同）。
+    景氣燈號一律紅燈：沒有歷史燈號資料，這個係數在回測中等於沒被測到。
+    """
+    day = dates[-1]
+    tw = px.get("^TWII", {}).get("close") or []
+    if rev is None:
+        rev = {c: r for c in sym if (r := revenue_on(d["rev"].get(c) or {}, day))}
+    if val is None:
+        val = {c: v for c in sym if (v := value_on(d["val"].get(c) or [], day))}
+    chip_dates = [x for x in dates[-5:] if x in d["chips"]]
+    ma = lambda n: sum(tw[-n:]) / n if len(tw) >= n else None  # noqa: E731
+    return {
+        "date": day, "codes": list(sym), "sym": sym, "px": px, "chain_of": chain_of,
+        "chains": chain_lights(rev), "revenue": rev, "chips": d["chips"] if chip_dates and chip_dates[-1] == day else {},
+        "chip_dates": chip_dates, "value": val,
+        "ai_watch": [], "warnings": [],
+        "regime": {"light": "紅燈", "above_ma60": tw[-1] >= ma(60) if ma(60) else None,
+                   "above_ma200": tw[-1] >= ma(200) if ma(200) else None, "vix": vix_before(px.get("^VIX"), day)},
+    }
+
+
 def run_window(d: dict, sym, names, chain_of, cal: list[str], n_days: int, back: int = 0) -> dict:
     end = len(cal) - back
     window = cal[end - n_days - 1:end]  # 第一天收盤選股，之後 n_days 天成交
@@ -166,19 +204,7 @@ def run_window(d: dict, sym, names, chain_of, cal: list[str], n_days: int, back:
             i = cal.index(day)
             dates = cal[:i + 1]
             px = cut(d["px"], day)
-            tw = px.get("^TWII", {}).get("close") or []
-            rev = {c: r for c in sym if (r := revenue_on(d["rev"].get(c) or {}, day))}
-            chip_dates = [x for x in dates[-5:] if x in d["chips"]]
-            ma = lambda n: sum(tw[-n:]) / n if len(tw) >= n else None  # noqa: E731
-            vix = (px.get("^VIX") or {}).get("close") or [None]
-            ctx = {
-                "date": day, "codes": list(sym), "sym": sym, "px": px, "chain_of": chain_of,
-                "chains": chain_lights(rev), "revenue": rev, "chips": d["chips"] if chip_dates and chip_dates[-1] == day else {},
-                "chip_dates": chip_dates, "value": {c: v for c in sym if (v := value_on(d["val"].get(c) or [], day))},
-                "ai_watch": [], "warnings": [],
-                "regime": {"light": "紅燈", "above_ma60": tw[-1] >= ma(60) if ma(60) else None,
-                           "above_ma200": tw[-1] >= ma(200) if ma(200) else None, "vix": vix[-1]},
-            }
+            ctx = day_ctx(d, sym, chain_of, dates, px)
             ctx["perf_fn"] = lambda st, px=px, dates=dates: method_perf(st, px, sym, dates)
             state = engine.run_day(state, ctx, dates, px, sym, names)
             state["checkpoint"] = None  # 回測不需要重跑還原，省記憶體

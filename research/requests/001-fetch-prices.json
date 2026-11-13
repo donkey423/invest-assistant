@@ -1,0 +1,4 @@
+{"steps": [
+  {"cmd": "fetch", "args": ["--skip-chips"], "note": "第一次真實抓取：先不抓法人資料，確認 Yahoo 與 FinMind 可用"},
+  {"cmd": "run", "variants": ["baseline"], "note": "原版基準（尚無法人資料）"}
+]}
