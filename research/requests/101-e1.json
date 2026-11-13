@@ -1,0 +1,1 @@
+{"steps": [{"cmd": "run", "variants": ["baseline", "E1"]}, {"cmd": "compare", "base": "baseline", "variants": ["E1"]}], "note": "假設 E1：combo 等比例部分減碼、回升時補回"}

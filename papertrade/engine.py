@@ -53,20 +53,31 @@ def _fill(acc: dict, day: str, px: dict, sym: dict, names: dict):
         o = price_on(px.get(sym.get(s["code"])), day, "open", exact=True)
         if not pos or not o:
             continue
-        gross = pos["shares"] * o
+        n = min(s.get("shares") or pos["shares"], pos["shares"])   # 委託帶 shares＝部分賣出（假設 E1 的等比例減碼才會帶）
+        part = n < pos["shares"]
+        gross = n * o
         f, tax = fee(gross), gross * C.TAX_RATE
         net = gross - f - tax
         acc["cash"] += net
         acc["fees"] += f + tax
-        pnl = net - pos["cost"]
+        cost = pos["cost"] * n / pos["shares"] if part else pos["cost"]   # 賣掉的那部分所占的成本
+        pnl = net - cost
         acc["trades"].append({"date": day, "side": "賣", "code": s["code"], "name": names.get(s["code"], ""),
-                              "shares": pos["shares"], "price": round(o, 2), "fee": round(f + tax),
-                              "pnl": round(pnl), "pnl_pct": round(pnl / pos["cost"] * 100, 2), "reason": s["reason"],
-                              "held_from": pos["date"]})
-        del acc["positions"][s["code"]]
+                              "shares": n, "price": round(o, 2), "fee": round(f + tax),
+                              "pnl": round(pnl), "pnl_pct": round(pnl / cost * 100, 2), "reason": s["reason"],
+                              "held_from": pos["date"], **({"partial": True} if part else {})})
+        if part:   # 剩下的股數：成本與已領股利等比例縮小，每股成本、每股已領股利都不變
+            keep = (pos["shares"] - n) / pos["shares"]
+            pos["cost"] = round(pos["cost"] - cost, 2)
+            if "div" in pos:
+                pos["div"] *= keep
+            pos["shares"] -= n
+        else:
+            del acc["positions"][s["code"]]
     for b in p["buys"]:
         o = price_on(px.get(sym.get(b["code"])), day, "open", exact=True)
-        if not o or b["code"] in acc["positions"]:
+        pos = acc["positions"].get(b["code"])
+        if not o or (pos is None) == bool(b.get("add")):   # 一般買進不買已持有的；加碼（add，假設 E1）只加在還抱著的
             continue
         budget = min(b["amount"], acc["cash"])
         shares = math.floor(budget / (o * (1 + C.FEE_RATE)))
@@ -78,10 +89,16 @@ def _fill(acc: dict, day: str, px: dict, sym: dict, names: dict):
         cost = shares * o + f
         acc["cash"] -= cost
         acc["fees"] += f
-        acc["positions"][b["code"]] = {"shares": shares, "price": round(o, 2), "cost": round(cost, 2), "date": day,
-                                       "reason": b["reason"]}
+        if pos:   # 加碼：進場日與已領股利不動，進場價改成股數加權的平均成交價
+            pos["price"] = round((pos["price"] * pos["shares"] + o * shares) / (pos["shares"] + shares), 2)
+            pos["shares"] += shares
+            pos["cost"] = round(pos["cost"] + cost, 2)
+        else:
+            acc["positions"][b["code"]] = {"shares": shares, "price": round(o, 2), "cost": round(cost, 2), "date": day,
+                                           "reason": b["reason"]}
         acc["trades"].append({"date": day, "side": "買", "code": b["code"], "name": names.get(b["code"], ""),
-                              "shares": shares, "price": round(o, 2), "fee": round(f), "reason": b["reason"]})
+                              "shares": shares, "price": round(o, 2), "fee": round(f), "reason": b["reason"],
+                              **({"partial": True} if pos else {})})
     acc["pending"] = None
 
 
@@ -188,7 +205,17 @@ def plan_orders(state: dict, mid: str, acc: dict, ranking: list[dict], day: str,
     invested = sum(held[c]["shares"] * (price_on(px.get(sym.get(c)), day) or held[c]["price"]) for c in remain)
     # 綜合帳戶：持股比例降低時，先賣排名最後的
     target_total = equity * expo
-    if expo > 0 and rebalance_day and invested > target_total * 1.1:
+    # 假設 E1（只有研究變體帶旗標、而且只作用在 combo）：改成每檔賣同樣的比例，比例回升時再等比例補回
+    prop = bool((state.get("variant") or {}).get("proportional_trim")) and mid == "combo"
+    value = lambda c: held[c]["shares"] * (price_on(px.get(sym.get(c)), day) or held[c]["price"])  # noqa: E731
+    if prop and expo > 0 and rebalance_day and invested > target_total * 1.1:
+        frac = 1 - target_total / invested   # 沿用既有的 +10% 觸發帶；一次減到目標值
+        for code in remain:
+            n = math.floor(held[code]["shares"] * frac)
+            if n > 0:
+                sells.append({"code": code, "shares": n, "reason": f"降低持股比例：每檔等比例減碼 {frac * 100:.1f}%"})
+                invested -= n * value(code) / held[code]["shares"]
+    elif expo > 0 and rebalance_day and invested > target_total * 1.1:
         for code in sorted(remain, key=lambda c: ranked.index(c) if c in ranked else 999, reverse=True):
             if invested <= target_total * 1.05:
                 break
@@ -196,7 +223,8 @@ def plan_orders(state: dict, mid: str, acc: dict, ranking: list[dict], day: str,
             invested -= v
             remain.remove(code)
             sells.append({"code": code, "reason": "降低持股比例"})
-    cash = acc["cash"] + sum(held[s["code"]]["shares"] * (price_on(px.get(sym.get(s["code"])), day) or 0) * 0.995 for s in sells)
+    cash = acc["cash"] + sum(s.get("shares", held[s["code"]]["shares"]) * (price_on(px.get(sym.get(s["code"])), day) or 0) * 0.995
+                             for s in sells)
     slots = C.TOP_N - len(remain) if rebalance_day else 0
     per = equity * expo / C.TOP_N
     buys = []
@@ -213,6 +241,13 @@ def plan_orders(state: dict, mid: str, acc: dict, ranking: list[dict], day: str,
         cash -= amt
         room -= amt
         slots -= 1
+    if prop and expo > 0 and rebalance_day and remain and 0 < invested < target_total * 0.9:
+        # 沿用既有的 -10% 觸發帶。空著的檔位照舊留給新股（每檔 per），其餘缺口才補回既有持股；不超過剩下的現金
+        gap = min(target_total - invested - (C.TOP_N - len(remain)) * per, cash)
+        if gap >= MIN_ORDER:
+            for code in remain:
+                buys.append({"code": code, "add": True, "amount": round(gap * value(code) / invested),
+                             "reason": f"持股比例回升：每檔等比例補回 {gap / invested * 100:.1f}%"})
     return {"decided": day, "sells": sells, "buys": buys}
 
 

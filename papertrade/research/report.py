@@ -10,7 +10,7 @@ from .. import metrics
 
 REGISTERED_TRIALS = 12   # HYPOTHESES.md 第 5 節事先登記的試驗次數；Deflated Sharpe 至少以這個數計
 DIFF_KEYS = ("sharpe", "cagr", "max_drawdown", "calmar", "turnover")
-SLIM_TRADE = ("date", "side", "code", "shares", "price", "fee", "pnl", "pnl_pct", "reason", "held_from")
+SLIM_TRADE = ("date", "side", "code", "shares", "price", "fee", "pnl", "pnl_pct", "reason", "held_from", "partial")
 
 
 # ---------- 試驗紀錄 ----------
@@ -78,6 +78,8 @@ def _held(m: dict, dates: list[str]) -> list[frozenset]:
     cur, out = set(), []
     for d in dates:
         for t in by_day.get(d, []):
+            if t.get("partial"):   # 部分減碼／加碼（假設 E1）不改變持有哪些股票
+                continue
             (cur.add if t["side"] == "買" else cur.discard)(t["code"])
         out.append(frozenset(cur))
     return out

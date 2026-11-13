@@ -42,6 +42,8 @@ TR_BENCH = "0050.TW"   # 另外算含息報酬的對照
 # 其他鍵都是自訂旗標，整個 dict 會放在 ctx["variant"]（選股方法讀）與 state["variant"]（engine.plan_orders 讀）。
 VARIANTS: dict[str, dict] = {
     "baseline": {},
+    # 假設 E1：combo 降低持股比例時每檔等比例部分減碼、比例回升時等比例補回（engine.plan_orders；觸發帶沿用 ±10%）
+    "E1": {"proportional_trim": True},
 }
 
 
