@@ -500,7 +500,7 @@ def test_config_restored_even_when_run_fails(parts, monkeypatch):
         runner.simulate(ins, {"methods": {"claude": {"stop_loss": -5}}}, b["warmup_end"], uni=UNI)
     with pytest.raises(KeyError):
         runner.run_variant("nope", ins, b)
-    assert list(runner.VARIANTS) == ["baseline"] and runner.VARIANTS["baseline"] == {}
+    assert list(runner.VARIANTS)[0] == "baseline" and runner.VARIANTS["baseline"] == {}   # 假設分支會在後面加自己的變體
 
 
 # ---------- 試驗紀錄與比較 ----------

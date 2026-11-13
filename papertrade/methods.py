@@ -4,6 +4,10 @@ ctx 的資料都只到「決策日」收盤為止，不會偷看到之後的價�
 """
 from __future__ import annotations
 
+from statistics import median, stdev
+
+VOL_WINDOW = 126   # 假設 M2：估計波動用的日報酬筆數（約六個月，取自 Barroso & Santa-Clara 2015；不調整）
+
 
 def _closes(ctx, code):
     s = ctx["px"].get(ctx["sym"][code])
@@ -201,6 +205,47 @@ def exposure(regime: dict) -> tuple[float, str]:
         why.append(f"VIX {vix:.0f} 偏高")
     level = max(0.3, min(1.0, level))
     return level, "、".join(why) + f" → 持股 {level * 100:.0f}%"
+
+
+def basket_vol(ctx, codes: list[str], n: int = VOL_WINDOW) -> float | None:
+    """codes 等權組合最近 n 個交易日日報酬的年化標準差；湊不滿 n 筆（或完全沒波動）回傳 None。
+
+    用原始收盤價（和動能排名同一個序列）；某檔某天沒有報價時，那天只平均有報價的幾檔。
+    ctx["px"] 只到決策日為止，所以不會用到之後的價格。
+    """
+    by_day: dict[str, list[float]] = {}
+    for code in codes:
+        s = ctx["px"].get(ctx["sym"][code])
+        if not s:
+            continue
+        d, c = s["dates"][-n - 1:], s["close"][-n - 1:]
+        for i in range(1, len(c)):
+            if c[i - 1] and c[i]:
+                by_day.setdefault(d[i], []).append(c[i] / c[i - 1] - 1)
+    days = sorted(by_day)[-n:]
+    if len(days) < n:
+        return None
+    sd = stdev(sum(by_day[x]) / len(by_day[x]) for x in days)
+    return sd * 252 ** 0.5 if sd > 0 else None
+
+
+def vol_managed_exposure(ctx, ranking: list[dict], day: str) -> tuple[float, str]:
+    """假設 M2（只有研究框架的旗標 momentum_vol_managed 才會呼叫）：動能的持股比例 e = min(1, σ基準 ÷ σ̂)。
+
+    σ̂＝當日前 TOP_N 名等權組合近 126 日日報酬的年化標準差；σ基準＝到當日為止（含當日）所有 σ̂ 的中位數。
+    歷來的 σ̂ 逐日存在 ctx["memo"]（同一次執行跨日共用），以日期為鍵，取中位數時只用日期不晚於決策日的。
+    暖機：σ̂ 算不出來（沒有排名、或組合湊不滿 126 筆日報酬）時持股 100%，那天也不進中位數；
+    第一個 σ̂ 的中位數就是它自己，所以也是 100%。不開槓桿（上限 1）。
+    """
+    from .config import TOP_N
+    sigma = basket_vol(ctx, [r["code"] for r in ranking[:TOP_N]])
+    if sigma is None:
+        return 1.0, "前幾名組合的波動還算不出來，持股 100%"
+    hist = ctx.setdefault("memo", {}).setdefault("m2_sigma", {})
+    hist[day] = sigma
+    ref = median(v for d, v in hist.items() if d <= day)
+    e = min(1.0, ref / sigma)
+    return e, f"前 {TOP_N} 名組合近 {VOL_WINDOW} 日年化波動 {sigma * 100:.1f}%，歷來中位數 {ref * 100:.1f}% → 持股 {e * 100:.0f}%"
 
 
 def graham(ctx):

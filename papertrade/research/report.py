@@ -89,6 +89,17 @@ def overlap(v: dict, b: dict, dates: list[str]) -> float | None:
     return sum(xs) / len(xs) if xs else None
 
 
+def picks_overlap(v: dict, b: dict, n: int) -> float | None:
+    """前 TOP_N 名重疊率：前 n 個評估日每天「兩邊名單都有的檔數 ÷ 較長的名單檔數」的平均（兩邊都沒有名單的日子不計）。
+
+    看的是選股名單（訊號），不是實際持股；舊版結果沒有 picks 欄位時回傳 None。
+    """
+    if "picks" not in v or "picks" not in b:
+        return None
+    xs = [len(set(x) & set(y)) / max(len(x), len(y)) for x, y in zip(v["picks"][:n], b["picks"][:n]) if x or y]
+    return sum(xs) / len(xs) if xs else None
+
+
 def compare(base: dict, var: dict, trials: list[dict], block: int = 21, n_boot: int = 2000) -> dict:
     """變體對 baseline：逐方法、逐折與全期的差異，夏普差的成對區塊拔靴信賴區間，變體的 Deflated Sharpe。"""
     if base["dataset"] != var["dataset"]:
@@ -108,7 +119,8 @@ def compare(base: dict, var: dict, trials: list[dict], block: int = 21, n_boot: 
         rv, rb = _returns(v), _returns(b)
         vt = var_trials(trials, mid, var["dataset"])
         dsr = metrics.deflated_sharpe(rv, n, vt if vt is not None else 0.0)
-        extra = lambda x: {k: x["all"][k] for k in ("avg_positions", "avg_exposure", "stop_exits", "fees", "n_trades", "dividends")}  # noqa: E731
+        extra = lambda x: {k: x["all"].get(k) for k in ("avg_positions", "avg_exposure", "stop_exits", "fees", "n_trades", "dividends",  # noqa: E731
+                                                        "avg_candidates", "target")}
         out["methods"][mid] = {
             "name": v["name"], "affected": v["equity"] != b["equity"] or len(v["trades"]) != len(b["trades"]),
             "all": {"base": {k: b["all"][k] for k in DIFF_KEYS}, "variant": {k: v["all"][k] for k in DIFF_KEYS},
@@ -119,7 +131,8 @@ def compare(base: dict, var: dict, trials: list[dict], block: int = 21, n_boot: 
             "sharpe_diff_ci": metrics.block_bootstrap_diff(rv, rb, block=block, n_boot=n_boot),
             "dsr": dsr, "var_trials": vt,
             "dsr_note": "" if vt is not None else "試驗紀錄不足 2 筆，算不出各試驗夏普的變異數；此處的 DSR 等同「對 0 的 PSR」，沒有扣掉多重試驗",
-            "extra": {"base": extra(b), "variant": extra(v)}, "overlap": overlap(v, b, var["dates"]), **hold,
+            "extra": {"base": extra(b), "variant": extra(v)}, "overlap": overlap(v, b, var["dates"]),
+            "picks_overlap": picks_overlap(v, b, var["period"]["days"]), **hold,
         }
     return out
 
@@ -146,6 +159,14 @@ CAVEAT = ("> 選股池是事後挑的產業鏈代表股，所有絕對數字都�
           "沒有漲跌停、成交量、滑價模型；零股以開盤價成交。景氣燈號寫死紅燈（未驗證參數）。")
 
 
+def _target_txt(t: dict | None, days: int) -> str:
+    if not t or t.get("avg") is None:
+        return "—"
+    return (f"平均 {_pct(t['avg'], 0)}、中位數 {_pct(t['median'], 0)}、最低 {_pct(t['min'], 0)}，"
+            f"低於 100% 的有 {t['days_below_1']} 天（{_pct(t['days_below_1'] / days, 1)}）、"
+            f"為 0（完全不買新股）的有 {t['days_zero']} 天（{_pct(t['days_zero'] / days, 1)}）")
+
+
 def result_markdown(res: dict) -> str:
     p = res["period"]
     lines = [f"# 研究結果：{res['variant']}", "",
@@ -166,6 +187,9 @@ def result_markdown(res: dict) -> str:
             lines.append(_row("**保留段**", {**blank, **m["holdout"]}))
         if "equity" in m:
             lines.append(f"\n期末持股賣出成本 {m['all']['exit_cost']:,} 元已從最後一天淨值扣除；期間現金股利入帳 {m['all']['dividends']:,} 元。")
+            if "avg_candidates" in m["all"]:
+                lines.append(f"\n診斷（全期）：每天排名內的檔數（通過這個方法門檻的檔數）平均 {_num(m['all']['avg_candidates'], 1)}；"
+                             f"目標持股比例{_target_txt(m['all'].get('target'), p['days'])}。")
     return "\n".join(lines) + "\n"
 
 
@@ -197,9 +221,15 @@ def compare_markdown(cmp: dict) -> str:
                   f"- 變體的 Deflated Sharpe：{_num(d.get('dsr'), 3)}（年化夏普 {_num(d.get('sr_annual'))}，門檻每期 {_num(d.get('sr0'), 4)}）"
                   + (f"。注意：{m['dsr_note']}" if m["dsr_note"] else ""),
                   f"- 平均持股檔數 {_num(eb['avg_positions'], 1)} → {_num(ev['avg_positions'], 1)}；平均持股比例 {_pct(eb['avg_exposure'], 0)} → {_pct(ev['avg_exposure'], 0)}；"
-                  f"停損次數 {eb['stop_exits']} → {ev['stop_exits']}；費用 {eb['fees']:,.0f} → {ev['fees']:,.0f} 元；持股重疊率 {_pct(m['overlap'], 0)}", ""]
+                  f"停損次數 {eb['stop_exits']} → {ev['stop_exits']}；費用 {eb['fees']:,.0f} → {ev['fees']:,.0f} 元；持股重疊率 {_pct(m['overlap'], 0)}",
+                  f"- 診斷：每天排名內的檔數（通過門檻的檔數）平均 {_num(eb.get('avg_candidates'), 1)} → {_num(ev.get('avg_candidates'), 1)}；"
+                  f"前 {C.TOP_N} 名名單重疊率 {_pct(m.get('picks_overlap'), 1)}",
+                  f"- 診斷：目標持股比例，baseline {_target_txt(eb.get('target'), cmp['period']['days'])}；"
+                  f"變體 {_target_txt(ev.get('target'), cmp['period']['days'])}", ""]
     g = cmp["regime"]["all"]
-    lines += [f"市場狀態（全期天數）：大盤低於季線 {g['below_ma60']}、低於年線 {g['below_ma200']}、VIX ≥ 25 {g['vix25']}。"]
+    n = cmp["period"]["days"]
+    lines += [f"市場狀態（全期天數）：大盤低於季線 {g['below_ma60']}（{_pct(g['below_ma60'] / n, 1)}）、"
+              f"低於年線 {g['below_ma200']}（{_pct(g['below_ma200'] / n, 1)}）、VIX ≥ 25 {g['vix25']}（{_pct(g['vix25'] / n, 1)}）。"]
     return "\n".join(lines) + "\n"
 
 
