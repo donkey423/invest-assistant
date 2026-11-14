@@ -85,6 +85,25 @@ def _fill(acc: dict, day: str, px: dict, sym: dict, names: dict):
     acc["pending"] = None
 
 
+def credit_dividends(acc: dict, day: str, px: dict, sym: dict):
+    """除息日把現金股利記進現金：前一天收盤還抱著的股數 × 每股現金股利。
+
+    只有股價序列帶 "div" 欄位（研究框架的長歷史資料）時才有作用；模擬帳戶與一般回測的資料沒有這一欄，等於沒這一步。
+    要在當天成交之前呼叫：除息日當天才買的不配息，除息日開盤賣掉的仍然配息。
+    """
+    for code, pos in acc["positions"].items():
+        s = px.get(sym.get(code))
+        if not s or "div" not in s:
+            continue
+        i = bisect_right(s["dates"], day) - 1
+        if i < 0 or s["dates"][i] != day or not s["div"][i]:
+            continue
+        cash = pos["shares"] * s["div"][i]
+        acc["cash"] += cash
+        acc["dividends"] = acc.get("dividends", 0.0) + cash
+        pos["div"] = pos.get("div", 0.0) + cash  # 這筆持股進場以來累計領到的現金股利
+
+
 def market_value(acc: dict, day: str, px: dict, sym: dict) -> float:
     total = 0.0
     for code, pos in acc["positions"].items():
@@ -107,6 +126,7 @@ def advance(state: dict, trade_dates: list[str], px: dict, sym: dict, names: dic
         if state["start"] is None:
             state["start"] = day
         for acc in state["accounts"].values():
+            credit_dividends(acc, day, px, sym)
             _fill(acc, day, px, sym, names)
             eq = acc["cash"] + market_value(acc, day, px, sym)
             acc["equity"] = [e for e in acc["equity"] if e["date"] != day] + [{"date": day, "equity": round(eq)}]

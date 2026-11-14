@@ -1,0 +1,109 @@
+# 研究框架（walk-forward）：依請求檔抓資料、跑變體、做比較，結果存回同一個分支。
+# 觸發方式：在 claude/** 或 hyp/** 分支新增或修改 research/requests/*.json 後 push；或手動執行。
+# 不部署網頁、不碰 site/。保留段（最後 20%）在這裡完全無法解鎖：請求檔只要出現 holdout 字樣就會被拒絕。
+name: 研究框架
+
+on:
+  push:
+    branches: ['claude/**', 'hyp/**']
+    paths: ['research/requests/**']
+  workflow_dispatch:
+    inputs:
+      request:
+        description: '請求檔路徑（research/requests/xxx.json）；留空＝檔名排序最後一個'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+concurrency:
+  group: research-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    env:
+      BRANCH: ${{ github.ref_name }}
+      REQUEST_INPUT: ${{ github.event.inputs.request }}
+      FINMIND_TOKEN: ${{ secrets.FINMIND_TOKEN }}   # 選用：沒設也能跑，只是 FinMind 流量上限較低
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: 測試（沒過就不執行）
+        run: |
+          set -euo pipefail
+          # 各假設分支自己的測試（tests/test_hyp_*.py、tests/test_research_*.py）也要一起過
+          shopt -s nullglob
+          extra=(tests/test_hyp_*.py tests/test_research_*.py)
+          python -m pytest tests/test_research.py tests/test_metrics.py tests/test_backtest_papertrade.py tests/test_papertrade.py "${extra[@]}" -q
+
+      - name: 找出請求檔
+        id: pick
+        run: |
+          set -euo pipefail
+          ok='^research/requests/[A-Za-z0-9._-]+\.json$'
+          files=""
+          if [ -n "${REQUEST_INPUT}" ]; then
+            files="${REQUEST_INPUT}"
+          else
+            # 這次 push 最後一個 commit 新增或修改的請求檔
+            files="$(git diff-tree --no-commit-id --name-only -r --diff-filter=AM HEAD -- research/requests | grep -E "$ok" || true)"
+            if [ -z "$files" ]; then
+              files="$(ls research/requests/*.json 2>/dev/null | sort | tail -n 1 || true)"
+            fi
+          fi
+          if [ -z "$files" ]; then
+            echo "找不到請求檔" >&2
+            exit 1
+          fi
+          : > "$RUNNER_TEMP/requests.txt"
+          while IFS= read -r f; do
+            [ -z "$f" ] && continue
+            if ! printf '%s\n' "$f" | grep -Eq "$ok" || [ ! -f "$f" ]; then
+              echo "請求檔路徑不合格或不存在：$f" >&2
+              exit 1
+            fi
+            printf '%s\n' "$f" >> "$RUNNER_TEMP/requests.txt"
+          done <<< "$files"
+          echo "要執行的請求檔："
+          cat "$RUNNER_TEMP/requests.txt"
+
+      - name: 執行請求
+        run: |
+          set -euo pipefail
+          mapfile -t files < "$RUNNER_TEMP/requests.txt"
+          # 內容由 papertrade/research/request.py 逐項檢查（白名單），不經過 shell
+          python -m papertrade.research request "${files[@]}"
+
+      - name: 存回同一個分支
+        if: always()
+        run: |
+          set -euo pipefail
+          git config user.name "briefing-bot"
+          git config user.email "briefing-bot@users.noreply.github.com"
+          for p in research/data/insample.json.gz research/data/manifest.json research/data/chips research/results research/trials.json; do
+            if [ -e "$p" ]; then git add -- "$p"; fi
+          done
+          if git diff --cached --quiet; then
+            echo "沒有新的輸出"
+            exit 0
+          fi
+          if git diff --cached --name-only | grep -Ei 'holdout|^site/'; then
+            echo "輸出裡不該有保留段或 site/ 的檔案，中止" >&2
+            exit 1
+          fi
+          git commit -m "研究框架 $(TZ=Asia/Taipei date '+%Y-%m-%d %H:%M')"
+          git pull --rebase origin "$BRANCH"
+          git push origin "HEAD:$BRANCH"
