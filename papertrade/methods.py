@@ -233,6 +233,11 @@ def _value_momentum(ctx, passed: list[dict]) -> list[dict]:
                        f"價值百分位 {pv[r['code']] * 100:.0f}、動能百分位 {pm[r['code']] * 100:.0f}，各半"} for r in cand]
 
 
+def graham_mom(ctx):
+    """葛拉漢＋動能（研究假設 G2，2026-11-14 保留段確認後採用為並行帳戶）：門檻同葛拉漢，排名改為價值與 12-1 動能各半。"""
+    return graham({**ctx, "variant": {**(ctx.get("variant") or {}), "graham_value_momentum": True}})
+
+
 def lynch(ctx):
     out = []
     for code in ctx["codes"]:
@@ -322,13 +327,17 @@ def tech4(ctx):
     return _rank(out, None)
 
 
+# 不參加 Claude 判斷投票的帳戶：葛拉漢＋動能是葛拉漢的並行對照，加進投票會讓葛拉漢的股票被算兩次，也會改變已凍結的 v1／v2。
+NO_VOTE = ("graham_mom",)
+
+
 def method_weights(ctx) -> dict:
     """每種方法的權重：一開始都是 1，之後依「推薦後 5 天贏大盤多少」和「帳戶近 5 天贏大盤多少」調整。"""
     from .config import METHODS
     perf = ctx.get("perf") or {}
     w = {}
     for m in METHODS:
-        if m["id"] in ("claude", "claude2"):
+        if m["id"] in ("claude", "claude2", *NO_VOTE):
             continue
         p = perf.get(m["id"]) or {}
         x = 1.0
@@ -375,7 +384,7 @@ def method_weights_long(ctx) -> dict:
     perf = ctx.get("perf") or {}
     w = {}
     for m in METHODS:
-        if m["id"] in ("claude", "claude2", "ai_theme"):
+        if m["id"] in ("claude", "claude2", "ai_theme", *NO_VOTE):
             continue
         p = perf.get(m["id"]) or {}
         n, ex = p.get("n") or 0, p.get("avg_excess")
@@ -425,4 +434,4 @@ def claude2(ctx):
 
 METHOD_FNS = {"momentum": momentum, "reversal": reversal, "revenue": revenue, "trust": trust,
               "foreign": foreign, "value": value, "chain": chain, "ai_theme": ai_theme, "combo": combo,
-              "graham": graham, "lynch": lynch, "oneil": oneil, "tech4": tech4, "claude": claude, "claude2": claude2}
+              "graham": graham, "graham_mom": graham_mom, "lynch": lynch, "oneil": oneil, "tech4": tech4, "claude": claude, "claude2": claude2}

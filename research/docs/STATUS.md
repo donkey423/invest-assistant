@@ -1,0 +1,11 @@
+# STATUS
+- 更新時間：2026-11-14
+- 目前分支 / PR：`claude/project-thread-vzlba9`（草稿 PR #44，疊在 #36 的 `hyp/g2-value-momentum` 上，#36 疊在 #21 的 `claude/project-thread-6hf7bd` 上）
+- 已完成（已驗證）：
+  - 階段一 AUDIT、階段二 HYPOTHESES、階段三 12 次登記試驗（Actions 實跑、測試通過）
+  - 階段四：保留段只對 G2 用了一次（run 43577088071，`research/holdout/USED.json` 已上鎖），結果在 `research/results/holdout/`，Fable 5.2 子代理獨立重算一致
+  - 本機測試 `tests/test_research.py tests/test_metrics.py tests/test_backtest_papertrade.py tests/test_papertrade.py tests/test_hyp_*.py`：79 passed
+- 已完成（未驗證）：無
+- 進行中：無
+- 已知問題 / 風險：選股池事後挑選（晚於保留段）；G2 優勢統計上不顯著、集中在 2026Q3；保留段只有一次多頭行情
+- 下一步（依優先順序）：見 HANDOFF.md

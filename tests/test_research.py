@@ -651,3 +651,10 @@ def test_cli_synthetic_fetch_run_compare(tmp_path, monkeypatch):
     assert "holdout" in full["methods"]["momentum"] and (tmp_path / "results" / "baseline.holdout.json").exists()
     assert len(report.read_trials(trials)) == 2
     assert json.loads((tmp_path / "results" / "baseline.json").read_text("utf-8"))["generated_at"] == saved["generated_at"]
+    # 保留段的比較：另算只用保留段日報酬的夏普差信賴區間，寫到另一個資料夾，不蓋掉樣本內的比較
+    cli.main(["run", "--variant", "_probe", "--data", data_dir, "--out", out, "--trials", trials, "--unlock-holdout"])
+    hcmp = cli.main(["compare", "--variant", "_probe", "--out", out, "--trials", trials, "--holdout"])[0]["methods"]["momentum"]
+    h = hcmp["holdout"]
+    assert h["sharpe_diff_ci"]["diff"] == pytest.approx(h["diff"]["sharpe"], abs=0.25)   # 期末賣出成本只算在 holdout 指標裡
+    assert set(h["extra"]["base"]) == {"fees", "n_trades", "avg_exposure", "avg_positions"}
+    assert "保留段 變體" in (tmp_path / "results" / "compare_baseline_vs__probe.md").read_text("utf-8")

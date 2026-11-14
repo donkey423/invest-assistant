@@ -1,0 +1,107 @@
+# 保留段（最後 20%）一次性確認：只給事前定案的候選 G2 用，而且整個專案只能跑一次。
+# Brad 同意的範圍：「只對 G2 動用樣本外保留段做一次確認」（階段三 PHASE3.md 建議 1；2026-11-14 他要求把剩下的工作做完）。
+# 觸發：push research/holdout/request.json（只在 claude/** 分支）。跑完會寫 research/holdout/USED.json，之後再觸發一律拒絕。
+# 保留段資料檔（holdout.json.gz）只存在這次執行的暫存資料夾，不進版控；只有結果（*.holdout.*、比較報告）存回分支。
+name: 保留段一次性確認
+
+on:
+  push:
+    branches: ['claude/**']
+    paths: ['research/holdout/request.json']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: holdout-once
+  cancel-in-progress: false
+
+jobs:
+  holdout:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      BRANCH: ${{ github.ref_name }}
+      OUT: research/results/holdout
+    steps:
+      - uses: actions/checkout@v4
+
+      - run: echo "WORK=$RUNNER_TEMP/holdout-data" >> "$GITHUB_ENV"
+
+      - name: 檢查只能用一次、只能是 G2
+        run: |
+          set -euo pipefail
+          if [ -e research/holdout/USED.json ]; then
+            echo "保留段已經用過了（research/holdout/USED.json），不能再跑" >&2
+            cat research/holdout/USED.json >&2
+            exit 1
+          fi
+          python - <<'EOF'
+          import json, sys
+          r = json.load(open("research/holdout/request.json", encoding="utf-8"))
+          ok = set(r) <= {"variant", "base", "approved_by", "note"} and r.get("variant") == "G2" and r.get("base") == "baseline" \
+               and r.get("approved_by") == "Brad"
+          if not ok:
+              sys.exit("請求檔只能是 {variant: G2, base: baseline, approved_by: Brad}")
+          EOF
+          test "$(python -c "import json;print(json.load(open('research/data/manifest.json'))['holdout_start'])")" = "2025-04-28"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: 測試（沒過就不執行）
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          extra=(tests/test_hyp_*.py tests/test_research_*.py)
+          python -m pytest tests/test_research.py tests/test_metrics.py tests/test_backtest_papertrade.py tests/test_papertrade.py "${extra[@]}" -q
+
+      - name: 抓到最新的完整資料（沿用原界線 2025-04-28，另寫保留段到暫存資料夾）
+        run: |
+          set -euo pipefail
+          mkdir -p "$WORK"
+          cp research/data/manifest.json "$WORK/manifest.json"   # 沿用界線，不讓它往後移
+          # 葛拉漢不用法人資料，G2 也只影響葛拉漢，所以不抓法人（綜合評分的數字在這次沒有意義，報告只看葛拉漢）
+          python -m papertrade.research fetch --out "$WORK" --skip-chips --write-holdout
+          python - <<'EOF'
+          import json, os
+          m = json.load(open(os.path.join(os.environ["WORK"], "manifest.json"), encoding="utf-8"))
+          assert m["holdout_start"] == "2025-04-28", m["holdout_start"]
+          print("保留段", m["holdout_start"], "～", m["holdout_end"], m["n_holdout"], "天")
+          EOF
+
+      - name: 跑 baseline 與 G2（解鎖保留段）並比較
+        env:
+          RESEARCH_HOLDOUT_OK: brad-approved
+        run: |
+          set -euo pipefail
+          python -m papertrade.research run --variant baseline --variant G2 --data "$WORK" --out "$OUT" \
+            --trials "$RUNNER_TEMP/trials-unused.json" --unlock-holdout
+          python -m papertrade.research compare --base baseline --variant G2 --out "$OUT" --trials research/trials.json --holdout
+          cp "$WORK/manifest.json" "$OUT/manifest.holdout-run.json"
+
+      - name: 記錄已使用並存回分支
+        run: |
+          set -euo pipefail
+          python - <<'EOF'
+          import json, os
+          m = json.load(open(os.path.join(os.environ["OUT"], "manifest.holdout-run.json"), encoding="utf-8"))
+          json.dump({"used_at_run": os.environ["GITHUB_RUN_ID"], "commit": os.environ["GITHUB_SHA"], "variant": "G2",
+                     "holdout_start": m["holdout_start"], "holdout_end": m["holdout_end"], "n_holdout": m["n_holdout"],
+                     "fetched_at": m["fetched_at"]},
+                    open("research/holdout/USED.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+          EOF
+          git config user.name "briefing-bot"
+          git config user.email "briefing-bot@users.noreply.github.com"
+          git add -- "$OUT" research/holdout/USED.json
+          if git diff --cached --name-only | grep -E '\.json\.gz$|^site/'; then
+            echo "不該有資料檔或 site/ 的檔案，中止" >&2
+            exit 1
+          fi
+          git commit -m "保留段一次性確認：G2 $(TZ=Asia/Taipei date '+%Y-%m-%d %H:%M')"
+          git pull --rebase origin "$BRANCH"
+          git push origin "HEAD:$BRANCH"
