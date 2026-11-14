@@ -1,0 +1,649 @@
+{
+ "base": "baseline",
+ "variant": "E3",
+ "flags": {
+  "drop_vix": true,
+  "realized_vol": true
+ },
+ "hash": "8173efdf39e4",
+ "dataset": "2bab6b64a2cf64b9",
+ "n_trials": 12,
+ "period": {
+  "start": "2019-01-23",
+  "end": "2025-04-25",
+  "days": 1513
+ },
+ "folds": [
+  {
+   "start": "2019-01-23",
+   "end": "2020-05-04",
+   "days": 303
+  },
+  {
+   "start": "2020-05-05",
+   "end": "2021-07-28",
+   "days": 303
+  },
+  {
+   "start": "2021-07-29",
+   "end": "2022-10-20",
+   "days": 303
+  },
+  {
+   "start": "2022-10-21",
+   "end": "2024-01-17",
+   "days": 302
+  },
+  {
+   "start": "2024-01-18",
+   "end": "2025-04-25",
+   "days": 302
+  }
+ ],
+ "regime": {
+  "all": {
+   "below_ma60": 505,
+   "below_ma200": 342,
+   "vix25": 323
+  },
+  "folds": [
+   {
+    "below_ma60": 108,
+    "below_ma200": 71,
+    "vix25": 46
+   },
+   {
+    "below_ma60": 19,
+    "below_ma200": 19,
+    "vix25": 117
+   },
+   {
+    "below_ma60": 203,
+    "below_ma200": 153,
+    "vix25": 122
+   },
+   {
+    "below_ma60": 82,
+    "below_ma200": 65,
+    "vix25": 17
+   },
+   {
+    "below_ma60": 93,
+    "below_ma200": 34,
+    "vix25": 21
+   }
+  ],
+  "vol_scale": {
+   "all": {
+    "warmup_days": 12,
+    "scaled_days": 934,
+    "mean": 0.8292210762616911,
+    "min": 0.2273434189596056
+   },
+   "folds": [
+    {
+     "warmup_days": 12,
+     "scaled_days": 89,
+     "mean": 0.880506871271869,
+     "min": 0.23934709250859953
+    },
+    {
+     "warmup_days": 0,
+     "scaled_days": 231,
+     "mean": 0.809167379161012,
+     "min": 0.38161528080790075
+    },
+    {
+     "warmup_days": 0,
+     "scaled_days": 244,
+     "mean": 0.7836897985011119,
+     "min": 0.4426530155540423
+    },
+    {
+     "warmup_days": 0,
+     "scaled_days": 110,
+     "mean": 0.9259980557325865,
+     "min": 0.5132091115836813
+    },
+    {
+     "warmup_days": 0,
+     "scaled_days": 260,
+     "mean": 0.7467906249195284,
+     "min": 0.2273434189596056
+    }
+   ]
+  }
+ },
+ "methods": {
+  "momentum": {
+   "name": "價格動能 12-1",
+   "affected": false,
+   "all": {
+    "base": {
+     "sharpe": 0.9406029543444193,
+     "cagr": 0.3613916544281086,
+     "max_drawdown": -0.4954684574455285,
+     "calmar": 0.7293938675558167,
+     "turnover": 1.592532135848488
+    },
+    "variant": {
+     "sharpe": 0.9406029543444193,
+     "cagr": 0.3613916544281086,
+     "max_drawdown": -0.4954684574455285,
+     "calmar": 0.7293938675558167,
+     "turnover": 1.592532135848488
+    },
+    "diff": {
+     "sharpe": 0.0,
+     "cagr": 0.0,
+     "max_drawdown": 0.0,
+     "calmar": 0.0,
+     "turnover": 0.0
+    }
+   },
+   "folds": [
+    {
+     "sharpe": 0.0,
+     "cagr": 0.0,
+     "max_drawdown": 0.0,
+     "calmar": 0.0,
+     "turnover": 0.0
+    },
+    {
+     "sharpe": 0.0,
+     "cagr": 0.0,
+     "max_drawdown": 0.0,
+     "calmar": 0.0,
+     "turnover": 0.0
+    },
+    {
+     "sharpe": 0.0,
+     "cagr": 0.0,
+     "max_drawdown": 0.0,
+     "calmar": 0.0,
+     "turnover": 0.0
+    },
+    {
+     "sharpe": 0.0,
+     "cagr": 0.0,
+     "max_drawdown": 0.0,
+     "calmar": 0.0,
+     "turnover": 0.0
+    },
+    {
+     "sharpe": 0.0,
+     "cagr": 0.0,
+     "max_drawdown": 0.0,
+     "calmar": 0.0,
+     "turnover": 0.0
+    }
+   ],
+   "wins": {
+    "sharpe": 0,
+    "calmar": 0,
+    "of": 5
+   },
+   "sharpe_diff_ci": {
+    "diff": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.0,
+    "p_gt0": 0.0
+   },
+   "dsr": {
+    "sr": 0.05935690019246881,
+    "sr_annual": 0.9422615790297264,
+    "sr0": 0.0,
+    "dsr": 0.9887653619612524,
+    "n": 1513,
+    "skew": -0.3355127563183948,
+    "kurt": 4.122526406746188,
+    "n_trials": 12
+   },
+   "var_trials": 0.0,
+   "dsr_note": "",
+   "extra": {
+    "base": {
+     "avg_positions": 5.0,
+     "avg_exposure": 0.9854441137129699,
+     "stop_exits": 0,
+     "fees": 210351.0,
+     "n_trades": 145,
+     "dividends": 212881
+    },
+    "variant": {
+     "avg_positions": 5.0,
+     "avg_exposure": 0.9854441137129699,
+     "stop_exits": 0,
+     "fees": 210351.0,
+     "n_trades": 145,
+     "dividends": 212881
+    }
+   },
+   "overlap": 1.0
+  },
+  "combo": {
+   "name": "綜合評分＋景氣",
+   "affected": true,
+   "all": {
+    "base": {
+     "sharpe": 0.8773861242731484,
+     "cagr": 0.19693240090022024,
+     "max_drawdown": -0.2722847041213967,
+     "calmar": 0.7232591398612643,
+     "turnover": 21.417512133574956
+    },
+    "variant": {
+     "sharpe": 0.9005481257971278,
+     "cagr": 0.1778739197029664,
+     "max_drawdown": -0.27244989015318954,
+     "calmar": 0.6528683847255501,
+     "turnover": 18.314416509265193
+    },
+    "diff": {
+     "sharpe": 0.023162001523979403,
+     "cagr": -0.01905848119725384,
+     "max_drawdown": -0.00016518603179282998,
+     "calmar": -0.07039075513571424,
+     "turnover": -3.1030956243097627
+    }
+   },
+   "folds": [
+    {
+     "sharpe": -0.11439528412977207,
+     "cagr": -0.03112002949684456,
+     "max_drawdown": 0.008757117392404368,
+     "calmar": -0.14275864579101916,
+     "turnover": -0.9463543899384277
+    },
+    {
+     "sharpe": 0.07604933836340688,
+     "cagr": -0.23442359174907668,
+     "max_drawdown": 0.024070535476738875,
+     "calmar": -0.6298961819852922,
+     "turnover": -4.9360025548771915
+    },
+    {
+     "sharpe": -0.1394337383588965,
+     "cagr": -0.009835398954932573,
+     "max_drawdown": -0.010969172593160548,
+     "calmar": -0.007501867639880144,
+     "turnover": -1.5608780489588732
+    },
+    {
+     "sharpe": 0.07111082073417418,
+     "cagr": 0.017704228298465186,
+     "max_drawdown": 0.0013937018728308326,
+     "calmar": 0.14853485254763,
+     "turnover": -0.9449009346741661
+    },
+    {
+     "sharpe": 0.2646221004936477,
+     "cagr": 0.06798662645894815,
+     "max_drawdown": 0.05439250841358567,
+     "calmar": 0.259732962515897,
+     "turnover": -5.7921326401014355
+    }
+   ],
+   "wins": {
+    "sharpe": 3,
+    "calmar": 2,
+    "of": 5
+   },
+   "sharpe_diff_ci": {
+    "diff": 0.022889992563165817,
+    "ci_low": -0.22229798287295569,
+    "ci_high": 0.2907921586360179,
+    "p_gt0": 0.577
+   },
+   "dsr": {
+    "sr": 0.056797150976974776,
+    "sr_annual": 0.9016268199723871,
+    "sr0": 0.0012797237832702427,
+    "dsr": 0.9838729075291035,
+    "n": 1513,
+    "skew": -0.20451853401322995,
+    "kurt": 6.968338637536567,
+    "n_trials": 12
+   },
+   "var_trials": 5.908842398666709e-07,
+   "dsr_note": "",
+   "extra": {
+    "base": {
+     "avg_positions": 4.935888962326503,
+     "avg_exposure": 0.8094071241328074,
+     "stop_exits": 0,
+     "fees": 1736613.0,
+     "n_trades": 1529,
+     "dividends": 395839
+    },
+    "variant": {
+     "avg_positions": 4.917382683410443,
+     "avg_exposure": 0.7098213535986043,
+     "stop_exits": 0,
+     "fees": 1288178.0,
+     "n_trades": 1529,
+     "dividends": 289993
+    }
+   },
+   "overlap": 0.9487332011456269
+  },
+  "graham": {
+   "name": "葛拉漢價值",
+   "affected": false,
+   "all": {
+    "base": {
+     "sharpe": 0.6072535024794916,
+     "cagr": 0.11918369073949076,
+     "max_drawdown": -0.344160130031651,
+     "calmar": 0.34630301519391543,
+     "turnover": 1.8189635146239873
+    },
+    "variant": {
+     "sharpe": 0.6072535024794916,
+     "cagr": 0.11918369073949076,
+     "max_drawdown": -0.344160130031651,
+     "calmar": 0.34630301519391543,
+     "turnover": 1.8189635146239873
+    },
+    "diff": {
+     "sharpe": 0.0,
+     "cagr": 0.0,
+     "max_drawdown": 0.0,
+     "calmar": 0.0,
+     "turnover": 0.0
+    }
+   },
+   "folds": [
+    {
+     "sharpe": 0.0,
+     "cagr": 0.0,
+     "max_drawdown": 0.0,
+     "calmar": 0.0,
+     "turnover": 0.0
+    },
+    {
+     "sharpe": 0.0,
+     "cagr": 0.0,
+     "max_drawdown": 0.0,
+     "calmar": 0.0,
+     "turnover": 0.0
+    },
+    {
+     "sharpe": 0.0,
+     "cagr": 0.0,
+     "max_drawdown": 0.0,
+     "calmar": 0.0,
+     "turnover": 0.0
+    },
+    {
+     "sharpe": 0.0,
+     "cagr": 0.0,
+     "max_drawdown": 0.0,
+     "calmar": 0.0,
+     "turnover": 0.0
+    },
+    {
+     "sharpe": 0.0,
+     "cagr": 0.0,
+     "max_drawdown": 0.0,
+     "calmar": 0.0,
+     "turnover": 0.0
+    }
+   ],
+   "wins": {
+    "sharpe": 0,
+    "calmar": 0,
+    "of": 5
+   },
+   "sharpe_diff_ci": {
+    "diff": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.0,
+    "p_gt0": 0.0
+   },
+   "dsr": {
+    "sr": 0.03844807691805986,
+    "sr_annual": 0.6103442994832147,
+    "sr0": 0.0,
+    "dsr": 0.9303870944201051,
+    "n": 1513,
+    "skew": -0.5008893101830271,
+    "kurt": 9.06618436762368,
+    "n_trials": 12
+   },
+   "var_trials": 0.0,
+   "dsr_note": "",
+   "extra": {
+    "base": {
+     "avg_positions": 4.994712491738269,
+     "avg_exposure": 0.9163025920831662,
+     "stop_exits": 0,
+     "fees": 93286.0,
+     "n_trades": 111,
+     "dividends": 660680
+    },
+    "variant": {
+     "avg_positions": 4.994712491738269,
+     "avg_exposure": 0.9163025920831662,
+     "stop_exits": 0,
+     "fees": 93286.0,
+     "n_trades": 111,
+     "dividends": 660680
+    }
+   },
+   "overlap": 1.0
+  },
+  "oneil": {
+   "name": "歐尼爾突破",
+   "affected": false,
+   "all": {
+    "base": {
+     "sharpe": 1.1779362590584976,
+     "cagr": 0.3634990792806507,
+     "max_drawdown": -0.41941939474211065,
+     "calmar": 0.8666720801124522,
+     "turnover": 13.813358192715967
+    },
+    "variant": {
+     "sharpe": 1.1779362590584976,
+     "cagr": 0.3634990792806507,
+     "max_drawdown": -0.41941939474211065,
+     "calmar": 0.8666720801124522,
+     "turnover": 13.813358192715967
+    },
+    "diff": {
+     "sharpe": 0.0,
+     "cagr": 0.0,
+     "max_drawdown": 0.0,
+     "calmar": 0.0,
+     "turnover": 0.0
+    }
+   },
+   "folds": [
+    {
+     "sharpe": 0.0,
+     "cagr": 0.0,
+     "max_drawdown": 0.0,
+     "calmar": 0.0,
+     "turnover": 0.0
+    },
+    {
+     "sharpe": 0.0,
+     "cagr": 0.0,
+     "max_drawdown": 0.0,
+     "calmar": 0.0,
+     "turnover": 0.0
+    },
+    {
+     "sharpe": 0.0,
+     "cagr": 0.0,
+     "max_drawdown": 0.0,
+     "calmar": 0.0,
+     "turnover": 0.0
+    },
+    {
+     "sharpe": 0.0,
+     "cagr": 0.0,
+     "max_drawdown": 0.0,
+     "calmar": 0.0,
+     "turnover": 0.0
+    },
+    {
+     "sharpe": 0.0,
+     "cagr": 0.0,
+     "max_drawdown": 0.0,
+     "calmar": 0.0,
+     "turnover": 0.0
+    }
+   ],
+   "wins": {
+    "sharpe": 0,
+    "calmar": 0,
+    "of": 5
+   },
+   "sharpe_diff_ci": {
+    "diff": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.0,
+    "p_gt0": 0.0
+   },
+   "dsr": {
+    "sr": 0.07423448325553539,
+    "sr_annual": 1.178435888397211,
+    "sr0": 0.0,
+    "dsr": 0.997815456910621,
+    "n": 1513,
+    "skew": -0.2687239622614639,
+    "kurt": 5.157851728470734,
+    "n_trials": 12
+   },
+   "var_trials": 0.0,
+   "dsr_note": "",
+   "extra": {
+    "base": {
+     "avg_positions": 4.182419035029742,
+     "avg_exposure": 0.8283671762950365,
+     "stop_exits": 161,
+     "fees": 1720284.0,
+     "n_trades": 841,
+     "dividends": 498294
+    },
+    "variant": {
+     "avg_positions": 4.182419035029742,
+     "avg_exposure": 0.8283671762950365,
+     "stop_exits": 161,
+     "fees": 1720284.0,
+     "n_trades": 841,
+     "dividends": 498294
+    }
+   },
+   "overlap": 1.0
+  },
+  "tech4": {
+   "name": "技術面四指標",
+   "affected": false,
+   "all": {
+    "base": {
+     "sharpe": -0.07690653608090052,
+     "cagr": -0.02933140745701812,
+     "max_drawdown": -0.5278988060032095,
+     "calmar": -0.05556255692088039,
+     "turnover": 15.89423431351221
+    },
+    "variant": {
+     "sharpe": -0.07690653608090052,
+     "cagr": -0.02933140745701812,
+     "max_drawdown": -0.5278988060032095,
+     "calmar": -0.05556255692088039,
+     "turnover": 15.89423431351221
+    },
+    "diff": {
+     "sharpe": 0.0,
+     "cagr": 0.0,
+     "max_drawdown": 0.0,
+     "calmar": 0.0,
+     "turnover": 0.0
+    }
+   },
+   "folds": [
+    {
+     "sharpe": 0.0,
+     "cagr": 0.0,
+     "max_drawdown": 0.0,
+     "calmar": 0.0,
+     "turnover": 0.0
+    },
+    {
+     "sharpe": 0.0,
+     "cagr": 0.0,
+     "max_drawdown": 0.0,
+     "calmar": 0.0,
+     "turnover": 0.0
+    },
+    {
+     "sharpe": 0.0,
+     "cagr": 0.0,
+     "max_drawdown": 0.0,
+     "calmar": 0.0,
+     "turnover": 0.0
+    },
+    {
+     "sharpe": 0.0,
+     "cagr": 0.0,
+     "max_drawdown": 0.0,
+     "calmar": 0.0,
+     "turnover": 0.0
+    },
+    {
+     "sharpe": 0.0,
+     "cagr": 0.0,
+     "max_drawdown": 0.0,
+     "calmar": 0.0,
+     "turnover": 0.0
+    }
+   ],
+   "wins": {
+    "sharpe": 0,
+    "calmar": 0,
+    "of": 5
+   },
+   "sharpe_diff_ci": {
+    "diff": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.0,
+    "p_gt0": 0.0
+   },
+   "dsr": {
+    "sr": -0.004579571343170655,
+    "sr_annual": -0.07269844131184554,
+    "sr0": 0.0,
+    "dsr": 0.42926716307025437,
+    "n": 1513,
+    "skew": -0.4137404295829293,
+    "kurt": 7.006381667012689,
+    "n_trials": 12
+   },
+   "var_trials": 0.0,
+   "dsr_note": "",
+   "extra": {
+    "base": {
+     "avg_positions": 4.964970257766028,
+     "avg_exposure": 0.9809006180284483,
+     "stop_exits": 119,
+     "fees": 650443.0,
+     "n_trades": 961,
+     "dividends": 302431
+    },
+    "variant": {
+     "avg_positions": 4.964970257766028,
+     "avg_exposure": 0.9809006180284483,
+     "stop_exits": 119,
+     "fees": 650443.0,
+     "n_trades": 961,
+     "dividends": 302431
+    }
+   },
+   "overlap": 1.0
+  }
+ }
+}
