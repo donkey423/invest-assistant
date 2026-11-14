@@ -1,0 +1,1 @@
+{"steps": [{"cmd": "run", "variants": ["baseline", "S1"]}, {"cmd": "compare", "base": "baseline", "variants": ["S1"]}], "note": "假設 S1：oneil、tech4 的停損漲跌幅改用含息價格"}

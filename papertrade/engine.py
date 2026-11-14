@@ -16,6 +16,7 @@ from . import config as C
 from .methods import METHOD_FNS, exposure
 
 MIN_ORDER = 10_000
+STOP_VARIANT_METHODS = ("oneil", "tech4")   # 停損類研究假設（S1）只作用在這兩個方法；Claude 判斷共用同一段停損程式，不能被動到
 
 
 def price_on(series: dict | None, day: str, field: str = "close", exact: bool = False):
@@ -148,12 +149,21 @@ def plan_orders(state: dict, mid: str, acc: dict, ranking: list[dict], day: str,
     votes = {r["code"]: r.get("votes") for r in ranking}
     sells = []
     exit_rules = any(k in method for k in ("stop_loss", "take_profit", "max_hold"))
+    # 假設 S1（只有研究變體帶旗標、而且只作用在 oneil、tech4）：停損的漲跌幅把進場後領到的每股現金股利加回去
+    div_stop = bool((state.get("variant") or {}).get("dividend_aware_stop")) and mid in STOP_VARIANT_METHODS
     if exit_rules:
         for code, pos in held.items():
             c = price_on(px.get(sym.get(code)), day) or pos["price"]
             chg = (c / pos["price"] - 1) * 100
-            if method.get("stop_loss") is not None and chg <= method["stop_loss"]:
-                sells.append({"code": code, "reason": f"跌 {chg:.1f}%，觸發 {method['stop_loss']}% 停損"})
+            stop_chg, what = chg, "跌"
+            if div_stop and pos.get("div"):
+                # pos["div"] 是這筆持股累計領到的金額（元）；這兩個方法進場後股數不變，除以股數就是每股累計股利
+                stop_chg, what = ((c + pos["div"] / pos["shares"]) / pos["price"] - 1) * 100, f"不含息跌 {-chg:.1f}%、含息"
+                if method.get("stop_loss") is not None and chg <= method["stop_loss"] < stop_chg:   # 診斷：原規則會停損、含息後不停損
+                    state.setdefault("stop_diag", []).append({"method": mid, "date": day, "code": code, "entry": pos["date"],
+                                                              "raw_chg": chg, "adj_chg": stop_chg})
+            if method.get("stop_loss") is not None and stop_chg <= method["stop_loss"]:
+                sells.append({"code": code, "reason": f"{what} {stop_chg:.1f}%，觸發 {method['stop_loss']}% 停損"})
             elif method.get("take_profit") is not None and chg >= method["take_profit"]:
                 sells.append({"code": code, "reason": f"漲 {chg:+.1f}%，觸發 +{method['take_profit']}% 停利"})
             elif method.get("max_hold") and _held_days(state, pos["date"]) >= method["max_hold"]:

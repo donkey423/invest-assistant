@@ -166,6 +166,10 @@ def result_markdown(res: dict) -> str:
             lines.append(_row("**保留段**", {**blank, **m["holdout"]}))
         if "equity" in m:
             lines.append(f"\n期末持股賣出成本 {m['all']['exit_cost']:,} 元已從最後一天淨值扣除；期間現金股利入帳 {m['all']['dividends']:,} 元。")
+        if "spared_stops" in m:   # 假設 S1 的診斷
+            d = m["spared_stops"]
+            lines.append(f"\n含息停損（假設 S1）：原規則（不含息）會停損、含息後不停損的事件 {d['count']} 筆；"
+                         f"這些部位從原規則的出場價到實際出場的平均報酬 {_pct(d['mean_after_return'], 2, sign=True)}（含息、不扣成本；明細在 JSON 的 spared_stops）。")
     return "\n".join(lines) + "\n"
 
 

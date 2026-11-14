@@ -42,6 +42,8 @@ TR_BENCH = "0050.TW"   # 另外算含息報酬的對照
 # 其他鍵都是自訂旗標，整個 dict 會放在 ctx["variant"]（選股方法讀）與 state["variant"]（engine.plan_orders 讀）。
 VARIANTS: dict[str, dict] = {
     "baseline": {},
+    # 假設 S1：oneil、tech4 的停損漲跌幅改用含息價格（engine.plan_orders；-8% 門檻不變，停利與持有天數不變）
+    "S1": {"dividend_aware_stop": True},
 }
 
 
@@ -144,6 +146,10 @@ def simulate(ds: dict, flags: dict, start_decision: str, uni=None) -> dict:
     with patched_config(flags) as methods:
         ids = [m["id"] for m in methods]
         rec = {mid: {"equity": [], "trades": [], "positions": [], "exposure": [], "dividends": []} for mid in ids}
+        if flags.get("dividend_aware_stop"):   # 假設 S1 的診斷：原規則會停損、含息後不停損的事件
+            for mid in engine.STOP_VARIANT_METHODS:
+                if mid in rec:
+                    rec[mid]["stop_events"] = []
         regime, px = [], {}
         state = engine.new_state()
         state["variant"] = flags
@@ -157,6 +163,8 @@ def simulate(ds: dict, flags: dict, start_decision: str, uni=None) -> dict:
             ctx["variant"], ctx["memo"] = flags, memo
             state = engine.run_day(state, ctx, dates, px, sym, names)
             state["checkpoint"], state["journal"] = None, []
+            for ev in state.pop("stop_diag", []):
+                rec[ev["method"]]["stop_events"].append({**ev, "symbol": sym.get(ev["code"])})
             for mid in ids:
                 acc, r = state["accounts"][mid], rec[mid]
                 r["trades"].extend(acc["trades"])
@@ -229,6 +237,36 @@ def bench_curves(ds: dict, start_decision: str, dates: list[str]) -> dict:
     return out
 
 
+def spared_stops(events: list[dict], trades: list[dict], px: dict, start: str, end: str) -> dict:
+    """假設 S1 的診斷：日期在 [start, end] 內、「原規則（不含息）會停損、含息後不停損」的事件，以及該部位之後的報酬。
+
+    同一筆持股連續好幾天都符合時只記第一天。「之後的報酬」的起點是原規則的出場價（事件隔天開盤），
+    終點是這筆持股實際出場的成交價（到 end 還沒出場就用 end 的收盤價），中間除息的每股現金股利加回去；不扣交易成本。
+    只用到 end 為止的資料，所以樣本內的診斷不會碰到保留段。
+    """
+    out, seen = [], set()
+    for ev in events:
+        key = (ev["code"], ev["entry"])
+        if key in seen or not start <= ev["date"] <= end:
+            continue
+        seen.add(key)
+        s = px.get(ev["symbol"]) or {"dates": [], "open": [], "close": []}
+        i = bisect_right(s["dates"], ev["date"])   # 事件之後的第一根 K 棒＝原規則的出場日
+        row = {k: ev[k] for k in ("date", "code", "entry", "raw_chg", "adj_chg")}
+        row.update({"exit_date": None, "exit_reason": None, "after_return": None})
+        if i < len(s["dates"]) and s["dates"][i] <= end and s["open"][i]:
+            sell = next((t for t in trades if t["side"] == "賣" and t["code"] == ev["code"] and t.get("held_from") == ev["entry"]
+                         and ev["date"] < t["date"] <= end), None)
+            j = bisect_right(s["dates"], sell["date"] if sell else end) - 1
+            price = sell["price"] if sell else s["close"][j]
+            divs = sum((s.get("div") or [0.0] * len(s["dates"]))[i + 1:j + 1])   # 原規則出場日當天除息的，兩邊都領得到，不算
+            row.update({"exit_date": sell["date"] if sell else None, "exit_reason": sell["reason"] if sell else "期末仍持有",
+                        "after_return": (price + divs) / s["open"][i] - 1})
+        out.append(row)
+    rets = [r["after_return"] for r in out if r["after_return"] is not None]
+    return {"count": len(out), "mean_after_return": sum(rets) / len(rets) if rets else None, "events": out}
+
+
 def evaluate(sim: dict, ds: dict, start_decision: str, k: int = FOLDS, holdout_start: str | None = None) -> dict:
     """把模擬結果整理成各期間的績效：全樣本內（all）、各折（folds），解鎖時另有保留段（holdout）。"""
     dates = sim["dates"]
@@ -247,8 +285,12 @@ def evaluate(sim: dict, ds: dict, start_decision: str, k: int = FOLDS, holdout_s
         m = {"name": r["name"], "all": _period(r, dates, 0, n_in, n_in == n),
              "folds": [_period(r, dates, a, b, b == n) for a, b in spans],
              "equity": r["equity"], "trades": r["trades"]}
+        if "stop_events" in r:
+            m["spared_stops"] = spared_stops(r["stop_events"], r["trades"], ds["px"], dates[0], dates[n_in - 1])
         if n_in < n:
             m["holdout"] = _period(r, dates, n_in, n, True)
+            if "stop_events" in r:
+                m["holdout"]["spared_stops"] = spared_stops(r["stop_events"], r["trades"], ds["px"], dates[n_in], dates[-1])
         out["methods"][mid] = m
     for key, bc in bench_curves(ds, start_decision, dates).items():
         cut = lambda a, b, e=bc["equity"]: metrics.summarize(e[a:b + 1], [])  # noqa: E731 曲線第 0 點是起點，所以位移一格
