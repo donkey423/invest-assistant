@@ -1,5 +1,5 @@
 {
- "fetched_at": "2026-11-14T05:04+08:00",
+ "fetched_at": "2026-11-14T07:18+08:00",
  "first_date": "2018-01-02",
  "last_date": "2026-11-12",
  "n_days": 2152,
@@ -13,14 +13,14 @@
  "n_insample": 1513,
  "n_holdout": 379,
  "holdout_frac": 0.2003,
- "insample_sha256": "a709a171c56c94af070e9a1ecefb3689aecf8383bb4a6564d769f7ef9ea73142",
+ "insample_sha256": "2bab6b64a2cf64b9aa295e62f8fb4d731c873d5727b74b4881926e5c03226a5c",
  "holdout_written": false,
  "counts": {
   "symbols": 116,
   "stocks": 113,
   "revenue": 113,
   "value": 113,
-  "chip_days": 0,
+  "chip_days": 1522,
   "dividend_events": 791
  },
  "first_bar": {
@@ -148,8 +148,8 @@
  "coverage": {
   "revenue_missing": [],
   "value_missing": [],
-  "chips_skipped": true,
-  "chips_from": null,
+  "chips_skipped": false,
+  "chips_from": "2019-01-10",
   "chips_missing_days": 0,
   "chips_missing_sample": []
  }
