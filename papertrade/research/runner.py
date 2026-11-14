@@ -43,8 +43,12 @@ TR_BENCH = "0050.TW"   # 另外算含息報酬的對照
 # 其他鍵都是自訂旗標，整個 dict 會放在 ctx["variant"]（選股方法讀）與 state["variant"]（engine.plan_orders 讀）。
 VARIANTS: dict[str, dict] = {
     "baseline": {},
+    # G1：葛拉漢門檻再加一項「今年累計營收年增率 ≥ 0」，缺資料視為不通過（排除價值陷阱）。見 methods.graham。
+    "G1": {"graham_revenue_filter": True},
     # G2：葛拉漢門檻不變，排名分數改為 0.5×百分位(-pe×pb) + 0.5×百分位(12-1 報酬)；算不出動能的排除。見 methods.graham。
     "G2": {"graham_value_momentum": True},
+    # G1G2：兩個旗標同時開啟。先套 G1 的營收濾網，再在通過者之間用 G2 的價值＋動能排序。見 methods.graham。
+    "G1G2": {"graham_revenue_filter": True, "graham_value_momentum": True},
 }
 
 

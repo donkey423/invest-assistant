@@ -1,0 +1,4 @@
+{"steps": [
+  {"cmd": "run", "variants": ["baseline", "G1"], "note": "假設 G1：葛拉漢加上「今年累計營收不衰退」濾網；同一份程式重跑 baseline 當對照"},
+  {"cmd": "compare", "base": "baseline", "variants": ["G1"]}
+]}

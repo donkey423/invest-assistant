@@ -182,7 +182,7 @@ def test_g2_compare_reports_candidates_and_positions(base, g2):
 
 
 def test_g2_variant_and_request_file(monkeypatch):
-    assert runner.VARIANTS["G2"] == FLAG and "G1G2" not in runner.VARIANTS
+    assert runner.VARIANTS["G2"] == FLAG
     monkeypatch.chdir(ROOT)
     assert request.load_request("research/requests/105-g2.json") == [
         ["run", "--variant", "baseline", "--variant", "G2"], ["compare", "--base", "baseline", "--variant", "G2"]]
