@@ -114,9 +114,15 @@ def compare(base: dict, var: dict, trials: list[dict], block: int = 21, n_boot: 
         b = base["methods"].get(mid)
         if not b:
             continue
-        hold = ({"holdout": {"base": {k: b["holdout"][k] for k in DIFF_KEYS}, "variant": {k: v["holdout"][k] for k in DIFF_KEYS},
-                             "diff": _diff(v["holdout"], b["holdout"])}} if "holdout" in v and "holdout" in b else {})
         rv, rb = _returns(v), _returns(b)
+        hold = {}
+        if "holdout" in v and "holdout" in b:   # 保留段：只用保留段的日報酬另算夏普差的信賴區間（全期的那個含樣本內）
+            n_in = var["period"]["days"]
+            hold = {"holdout": {"base": {k: b["holdout"][k] for k in DIFF_KEYS}, "variant": {k: v["holdout"][k] for k in DIFF_KEYS},
+                                "diff": _diff(v["holdout"], b["holdout"]),
+                                "sharpe_diff_ci": metrics.block_bootstrap_diff(rv[n_in:], rb[n_in:], block=block, n_boot=n_boot),
+                                "extra": {"base": {k: b["holdout"].get(k) for k in ("fees", "n_trades", "avg_exposure", "avg_positions")},
+                                          "variant": {k: v["holdout"].get(k) for k in ("fees", "n_trades", "avg_exposure", "avg_positions")}}}}
         vt = var_trials(trials, mid, var["dataset"])
         dsr = metrics.deflated_sharpe(rv, n, vt if vt is not None else 0.0)
         extra = lambda x: {k: x["all"].get(k) for k in ("avg_positions", "avg_exposure", "stop_exits", "fees", "n_trades", "dividends",  # noqa: E731
@@ -215,6 +221,11 @@ def compare_markdown(cmp: dict) -> str:
         if "holdout" in m:
             h = m["holdout"]["diff"]
             lines.append(f"| **差（保留段）** | {_num(h['sharpe'], sign=True)} | {_pct(h['cagr'], sign=True)} | {_pct(h['max_drawdown'], sign=True)} | {_num(h['calmar'], sign=True)} | {_num(h['turnover'], 1, sign=True)} |")
+            hb, hv, hci = m["holdout"]["base"], m["holdout"]["variant"], m["holdout"].get("sharpe_diff_ci") or {}
+            lines += [f"| 保留段 baseline | {_num(hb['sharpe'])} | {_pct(hb['cagr'])} | {_pct(hb['max_drawdown'])} | {_num(hb['calmar'])} | {_num(hb['turnover'], 1)} |",
+                      f"| 保留段 變體 | {_num(hv['sharpe'])} | {_pct(hv['cagr'])} | {_pct(hv['max_drawdown'])} | {_num(hv['calmar'])} | {_num(hv['turnover'], 1)} |",
+                      "", f"- **保留段**夏普差的 95% 信賴區間（只用保留段日報酬）：{_num(hci.get('ci_low'), sign=True)}～{_num(hci.get('ci_high'), sign=True)}，"
+                          f"差大於 0 的比例 {_pct(hci.get('p_gt0'), 0)}"]
         w, eb, ev = m["wins"], m["extra"]["base"], m["extra"]["variant"]
         lines += ["", f"- 變體勝出的折數：夏普 {w['sharpe']}/{w['of']}、Calmar {w['calmar']}/{w['of']}",
                   f"- 夏普差的 95% 信賴區間（成對區塊拔靴）：{_num(ci['ci_low'], sign=True)}～{_num(ci['ci_high'], sign=True)}，差大於 0 的比例 {_pct(ci['p_gt0'], 0)}",
