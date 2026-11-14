@@ -42,7 +42,12 @@ jobs:
       - run: pip install -r requirements.txt
 
       - name: 測試（沒過就不執行）
-        run: python -m pytest tests/test_research.py tests/test_metrics.py tests/test_backtest_papertrade.py tests/test_papertrade.py -q
+        run: |
+          set -euo pipefail
+          # 各假設分支自己的測試（tests/test_hyp_*.py、tests/test_research_*.py）也要一起過
+          shopt -s nullglob
+          extra=(tests/test_hyp_*.py tests/test_research_*.py)
+          python -m pytest tests/test_research.py tests/test_metrics.py tests/test_backtest_papertrade.py tests/test_papertrade.py "${extra[@]}" -q
 
       - name: 找出請求檔
         id: pick
