@@ -1,0 +1,1 @@
+{"steps": [{"cmd": "run", "variants": ["baseline", "S2"]}, {"cmd": "compare", "base": "baseline", "variants": ["S2"]}], "note": "假設 S2：oneil、tech4 的停損門檻改為 5 倍日標準差（進場時固定）"}

@@ -11,11 +11,14 @@ from __future__ import annotations
 import copy
 import math
 from bisect import bisect_right
+from statistics import stdev
 
 from . import config as C
 from .methods import METHOD_FNS, exposure
 
 MIN_ORDER = 10_000
+STOP_VARIANT_METHODS = ("oneil", "tech4")   # 停損類研究假設（S2）只作用在這兩個方法；Claude 判斷共用同一段停損程式，不能被動到
+STOP_VOL_WINDOW, STOP_VOL_MULT = 60, 5      # 假設 S2：停損門檻＝−5 × 進場決策日前 60 筆日報酬的標準差（數值事先固定，不調）
 
 
 def price_on(series: dict | None, day: str, field: str = "close", exact: bool = False):
@@ -28,6 +31,20 @@ def price_on(series: dict | None, day: str, field: str = "close", exact: bool = 
     if series["dates"][i] == day:
         return series[field][i]
     return None if exact else series["close"][i]
+
+
+def vol_stop(series: dict | None, day: str) -> float | None:
+    """假設 S2 的停損門檻（%，負值）：−5 × 該股到 day 為止最近 60 筆收盤對收盤日報酬的樣本標準差。
+
+    只用 day 當天以前的收盤價。不足 60 筆報酬（或標準差為 0）回傳 None，呼叫端退回方法原本的固定門檻。
+    """
+    if not series:
+        return None
+    c = series["close"][:bisect_right(series["dates"], day)][-(STOP_VOL_WINDOW + 1):]
+    if len(c) <= STOP_VOL_WINDOW or not all(c):
+        return None
+    sd = stdev(b / a - 1 for a, b in zip(c, c[1:]))
+    return -STOP_VOL_MULT * sd * 100 if sd > 0 else None
 
 
 def new_state() -> dict:
@@ -78,10 +95,11 @@ def _fill(acc: dict, day: str, px: dict, sym: dict, names: dict):
         cost = shares * o + f
         acc["cash"] -= cost
         acc["fees"] += f
+        stop = {k: b[k] for k in ("stop", "stop_fallback") if k in b}   # 假設 S2 才會帶：進場時固定的停損門檻，跟著持股走
         acc["positions"][b["code"]] = {"shares": shares, "price": round(o, 2), "cost": round(cost, 2), "date": day,
-                                       "reason": b["reason"]}
+                                       "reason": b["reason"], **stop}
         acc["trades"].append({"date": day, "side": "買", "code": b["code"], "name": names.get(b["code"], ""),
-                              "shares": shares, "price": round(o, 2), "fee": round(f), "reason": b["reason"]})
+                              "shares": shares, "price": round(o, 2), "fee": round(f), "reason": b["reason"], **stop})
     acc["pending"] = None
 
 
@@ -148,13 +166,24 @@ def plan_orders(state: dict, mid: str, acc: dict, ranking: list[dict], day: str,
     votes = {r["code"]: r.get("votes") for r in ranking}
     sells = []
     exit_rules = any(k in method for k in ("stop_loss", "take_profit", "max_hold"))
+    # 假設 S2（只有研究變體帶旗標、而且只作用在 oneil、tech4）：停損門檻改用進場時依個股波動算好、存在持股上的值
+    vol_stops = (bool((state.get("variant") or {}).get("vol_scaled_stop")) and mid in STOP_VARIANT_METHODS
+                 and method.get("stop_loss") is not None)
     if exit_rules:
         for code, pos in held.items():
             c = price_on(px.get(sym.get(code)), day) or pos["price"]
             chg = (c / pos["price"] - 1) * 100
-            if method.get("stop_loss") is not None and chg <= method["stop_loss"]:
+            if vol_stops and "stop" in pos:
+                if chg <= pos["stop"]:
+                    sells.append({"code": code, "reason": f"跌 {chg:.1f}%，觸發 {pos['stop']:.1f}% 停損（{STOP_VOL_MULT} 倍日標準差）"})
+                    continue
+                if chg <= method["stop_loss"]:   # 診斷：固定門檻會停損、新門檻不停損
+                    state.setdefault("stop_diag", []).append({"method": mid, "date": day, "code": code, "entry": pos["date"],
+                                                              "chg": chg, "stop": pos["stop"]})
+            elif method.get("stop_loss") is not None and chg <= method["stop_loss"]:
                 sells.append({"code": code, "reason": f"跌 {chg:.1f}%，觸發 {method['stop_loss']}% 停損"})
-            elif method.get("take_profit") is not None and chg >= method["take_profit"]:
+                continue
+            if method.get("take_profit") is not None and chg >= method["take_profit"]:
                 sells.append({"code": code, "reason": f"漲 {chg:+.1f}%，觸發 +{method['take_profit']}% 停利"})
             elif method.get("max_hold") and _held_days(state, pos["date"]) >= method["max_hold"]:
                 sells.append({"code": code, "reason": f"已持有 {method['max_hold']} 個交易日，依方法出場"})
@@ -210,6 +239,9 @@ def plan_orders(state: dict, mid: str, acc: dict, ranking: list[dict], day: str,
         if amt < MIN_ORDER:
             break
         buys.append({"code": code, "amount": round(amt), "reason": reason[code]})
+        if vol_stops:   # 門檻在進場決策日（今天）算好，只用今天以前的收盤價；算不出來就退回固定門檻
+            limit = vol_stop(px.get(sym.get(code)), day)
+            buys[-1].update({"stop": method["stop_loss"], "stop_fallback": True} if limit is None else {"stop": round(limit, 4)})
         cash -= amt
         room -= amt
         slots -= 1

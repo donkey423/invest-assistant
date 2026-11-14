@@ -10,7 +10,7 @@ from .. import metrics
 
 REGISTERED_TRIALS = 12   # HYPOTHESES.md 第 5 節事先登記的試驗次數；Deflated Sharpe 至少以這個數計
 DIFF_KEYS = ("sharpe", "cagr", "max_drawdown", "calmar", "turnover")
-SLIM_TRADE = ("date", "side", "code", "shares", "price", "fee", "pnl", "pnl_pct", "reason", "held_from")
+SLIM_TRADE = ("date", "side", "code", "shares", "price", "fee", "pnl", "pnl_pct", "reason", "held_from", "stop", "stop_fallback")
 
 
 # ---------- 試驗紀錄 ----------
@@ -166,6 +166,12 @@ def result_markdown(res: dict) -> str:
             lines.append(_row("**保留段**", {**blank, **m["holdout"]}))
         if "equity" in m:
             lines.append(f"\n期末持股賣出成本 {m['all']['exit_cost']:,} 元已從最後一天淨值扣除；期間現金股利入帳 {m['all']['dividends']:,} 元。")
+        if "vol_stop" in m:   # 假設 S2 的診斷
+            d = m["vol_stop"]
+            t, sp = d["thresholds"], d["spared"]
+            lines.append(f"\n波動停損（假設 S2）：停損出場 {d['stop_exits']} 筆；進場時的門檻 {t['n']} 筆，最緊 {_num(t['max'], 1)}%、中位數 {_num(t['median'], 1)}%、"
+                         f"最寬 {_num(t['min'], 1)}%（其中 {t['fallback']} 筆歷史不足 60 筆報酬，退回 -8%）；固定 -8% 會停損、新門檻不停損的事件 {sp['count']} 筆，"
+                         f"這些部位從固定門檻的出場價到實際出場的平均報酬 {_pct(sp['mean_after_return'], 2, sign=True)}（含息、不扣成本；明細在 JSON 的 vol_stop）。")
     return "\n".join(lines) + "\n"
 
 
