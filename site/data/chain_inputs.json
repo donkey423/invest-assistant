@@ -38,18 +38,18 @@
   {
    "name": "日本半導體設備 B/B 比",
    "trend": "up",
-   "value": "8 月日本製設備銷售額 5,979 億日圓，年增 47.4%，創新高",
-   "as_of": "2026-08",
-   "url": "https://technews.tw/2026/09/29/japanese-chip-equipment-sales-approach-600-billion-yen/"
+   "value": "9 月日本製設備銷售 6,290 億日圓，年增 48.2%，創新高",
+   "as_of": "2026-09",
+   "url": "https://technews.tw/2026/10/29/japan-chip-equipment-sales-top-600-billion-yen-for-the-first-time/"
   }
  ],
  "wafer": [
   {
    "name": "矽晶圓報價",
-   "trend": null,
-   "value": "待更新",
-   "as_of": "",
-   "url": "https://www.trendforce.com/price"
+   "trend": "up",
+   "value": "2027 年 12 吋長約傳漲：磊晶片 15–25%、拋光片逾 40%",
+   "as_of": "2026-09-25",
+   "url": "https://www.trendforce.com/news/?p=64576"
   }
  ],
  "network": [
@@ -91,10 +91,10 @@
  "passive": [
   {
    "name": "MLCC 報價與通路庫存",
-   "trend": null,
-   "value": "待更新",
-   "as_of": "",
-   "url": "https://www.trendforce.com/price"
+   "trend": "flat",
+   "value": "10 月初消費級現貨跌約 5% 後止穩，AI 高階仍缺貨",
+   "as_of": "2026-10-30",
+   "url": "https://iconnect007.com/article/152205/ai-inference-boosts-cpu-and-ddr5-demand-amid-mlcc-shortages-through-1h27/152202/smt"
   }
  ],
  "panel": [
@@ -145,10 +145,10 @@
  "solar": [
   {
    "name": "太陽能模組報價",
-   "trend": null,
-   "value": "待更新",
-   "as_of": "",
-   "url": "https://www.infolink-group.com/spot-price"
+   "trend": "down",
+   "value": "中國 TOPCon 地面型模組 0.65–0.71 元/W，持續走弱",
+   "as_of": "2026-11-04",
+   "url": "https://now.solar/2026/11/10/chinese-solar-module-prices-soften-as-year-end-shipments-accelerate-with-weaker-cell-demand-from-africa-green-building-africa/"
   }
  ],
  "container": [
@@ -190,10 +190,10 @@
  "textile": [
   {
    "name": "美國零售銷售（服飾）",
-   "trend": null,
-   "value": "待更新",
-   "as_of": "",
-   "url": "https://www.census.gov/retail/index.html"
+   "trend": "flat",
+   "value": "9 月服飾店銷售 419 億美元，月增 0.5%、年增 2.2%",
+   "as_of": "2026-09",
+   "url": "https://www.just-style.com/newsletters/nrf-us-retail-sales-september"
   }
  ],
  "automation": [
@@ -208,28 +208,28 @@
  "defense": [
   {
    "name": "國防預算",
-   "trend": null,
-   "value": "待更新",
-   "as_of": "",
-   "url": "https://www.mnd.gov.tw/"
+   "trend": "up",
+   "value": "116 年度國防經費 1.1225 兆元，較今年增 1,730 億元",
+   "as_of": "2026-08-20",
+   "url": "https://udn.com/news/story/6656/9703467"
   }
  ],
  "biotech": [
   {
    "name": "新藥審查與授權案",
-   "trend": null,
-   "value": "待更新",
-   "as_of": "",
-   "url": "https://www.fda.gov/drugs"
+   "trend": "up",
+   "value": "台微體 TLC599 日本授權，總金額最高 2.03 億美元",
+   "as_of": "2026-10-29",
+   "url": "https://wantrich.chinatimes.com/news/20261029900437-420101"
   }
  ],
  "airline": [
   {
    "name": "桃園機場旅客量",
-   "trend": null,
-   "value": "待更新",
-   "as_of": "",
-   "url": "https://www.taoyuan-airport.com/"
+   "trend": "up",
+   "value": "今年旅運量 10/13 破 4,000 萬人次，比去年早 23 天",
+   "as_of": "2026-10-22",
+   "url": "https://udn.com/news/story/7266/9831399"
   }
  ]
 }
