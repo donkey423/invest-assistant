@@ -120,3 +120,71 @@ def test_default_rules_file_is_valid():
     from alerts.__main__ import HERE
     rules = json.loads((HERE / "rules.json").read_text("utf-8"))
     assert all("symbol" in r for r in rules["price"]) and all(e["keywords"] for e in rules["events"])
+
+
+# ---- 盤中模式（Oracle 主機）----
+from alerts import hours, sink
+
+
+def test_market_sessions_with_dst():
+    tw = timezone(timedelta(hours=8))
+    assert hours.market_of("2330.TW") == "tw" and hours.market_of("^TWII") == "tw"
+    assert hours.market_of("NVDA") == "us"
+    fri = datetime(2026, 11, 6, 10, 0, tzinfo=tw)
+    assert hours.open_markets(fri) == {"tw"}
+    assert hours.is_open("tw", datetime(2026, 11, 6, 13, 45, tzinfo=tw))        # 收盤後緩衝
+    assert not hours.is_open("tw", datetime(2026, 11, 6, 14, 0, tzinfo=tw))
+    assert not hours.is_open("tw", datetime(2026, 11, 7, 10, 0, tzinfo=tw))     # 週六
+    # 冬令（11 月）美股 22:30 開盤；夏令（7 月）21:30
+    assert not hours.is_open("us", datetime(2026, 11, 9, 22, 0, tzinfo=tw))
+    assert hours.is_open("us", datetime(2026, 11, 9, 22, 30, tzinfo=tw))
+    assert hours.is_open("us", datetime(2026, 7, 6, 21, 40, tzinfo=tw))
+    assert hours.is_open("us", datetime(2026, 11, 10, 5, 10, tzinfo=tw))        # 紐約 16:10
+    assert hours.is_open("us", datetime(2026, 11, 7, 3, 0, tzinfo=tw))          # 台灣週六凌晨 = 紐約週五盤中
+    assert not hours.is_open("us", datetime(2026, 11, 8, 3, 0, tzinfo=tw))      # 紐約週六
+
+
+RULES_MIX = {"price": [{"symbol": "2330.TW", "move_pct": 1}, {"symbol": "NVDA", "move_pct": 1}],
+             "events": [{"name": "Fed", "keywords": ["FOMC"]}]}
+
+
+def test_market_hours_only_checks_open_market_and_throttles_news(tmp_path):
+    asked, news_calls, recorded = [], [], []
+    now = datetime(2026, 11, 6, 10, 0, tzinfo=TW)  # 台股盤中、美股收盤
+    kw = dict(quotes_fn=lambda s: asked.append(list(s)) or {x: {**Q, "change_pct": 2} for x in s},
+              news_fn=lambda: news_calls.append(1) or [{"title": "FOMC", "url": "u"}],
+              deliver_fn=lambda t, s: ["email"], market_hours=True,
+              record_fn=lambda a, n, p: recorded.append((a, p)))
+    st = tmp_path / "s.json"
+    alerts = run_check(RULES_MIX, st, now, **kw)
+    assert asked == [["2330.TW"]] and len(news_calls) == 1
+    assert [a["key"] for a in alerts] == ["2330.TW:move_up"]
+    assert recorded and recorded[0][1] == tmp_path / "alerts_history.json"
+    run_check(RULES_MIX, st, now + timedelta(minutes=5), **kw)
+    assert len(news_calls) == 1                          # 5 分鐘後不重抓新聞
+    run_check(RULES_MIX, st, now + timedelta(minutes=30), **kw)
+    assert len(news_calls) == 2
+
+
+def test_market_hours_skips_when_nothing_to_do(tmp_path):
+    st = tmp_path / "s.json"
+    st.write_text(json.dumps({"news_checked_at": "2026-11-07T10:00+08:00"}), "utf-8")
+    called = []
+    out = run_check(RULES_MIX, st, datetime(2026, 11, 7, 10, 10, tzinfo=TW), market_hours=True,
+                    quotes_fn=lambda s: called.append(s), news_fn=lambda: called.append("n"))
+    assert out == [] and called == []
+
+
+def test_sink_local_history(tmp_path):
+    p = tmp_path / "h.json"
+    alerts = [{"kind": "price", "key": "A:up", "text": "t1"}, {"kind": "event", "key": "u", "text": "t2", "url": "u"}]
+    sink.record(alerts, "2026-11-07T10:00:00+08:00", p)
+    sink.record([alerts[0]], "2026-11-07T10:05:00+08:00", p)
+    rows = json.loads(p.read_text("utf-8"))
+    assert rows[0]["created_at"].endswith("10:05:00+08:00") and len(rows) == 3
+
+
+def test_record_never_raises(tmp_path):
+    sink.record([{"kind": "price", "key": "k", "text": "t"}], "x", tmp_path / "dir_is_file")
+    (tmp_path / "f").write_text("not json", "utf-8")
+    sink.record([{"kind": "price", "key": "k", "text": "t"}], "x", tmp_path / "f")
